@@ -1,13 +1,64 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hisu.smart.dj.ui.main.fragment.HomeFragment">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
-    <!-- TODO: Update blank fragment layout -->
     <com.youth.banner.Banner
         android:id="@+id/home_banner"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="160dp" />
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/message_layout_shape"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_height="40dp">
+        <ImageView
+            android:id="@+id/messge_imageView"
+            android:layout_width="26dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/email_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            />
+        <TextView
+            android:id="@+id/show_no_read_message_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8dp"
+            android:text="22"
+            android:textColor="@color/white"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/message_tip_shape"
+            />
+        <TextView
+            android:id="@+id/show_message_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="支部通知催缴请全体成员尽快缴纳党费"
+            android:textColor="#333333"
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/show_no_read_message_textView"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:singleLine="true"
+            />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/home_recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+
+        />
+</LinearLayout>

@@ -1,12 +1,18 @@
 package com.hisu.smart.dj.ui.widget;
 
 import android.content.Context;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.jaydenxiao.common.commonutils.LogUtils;
+import com.jaydenxiao.common.commonwidget.OnNoDoubleClickListener;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.List;
@@ -14,9 +20,9 @@ import java.util.List;
 /**
  * Banner填充数据
  */
-public class BannerWidget {
+public class BannerWidget{
 
-    public static void setBanner(Banner banner, List<Integer> dataSize){
+    public static void setBanner(Banner banner, final List<Integer> dataSize){
         //设置样式,默认为:Banner.NOT_INDICATOR(不显示指示器和标题)
         //可选样式如下:
         //1. Banner.CIRCLE_INDICATOR    显示圆形指示器
@@ -46,6 +52,7 @@ public class BannerWidget {
         //banner设置方法全部调用完毕时最后调用
         banner.start();
     }
+
     //Banner  重写图片加载器 网络图片需要重写
     private static class GlideImageLoader extends ImageLoader {
         @Override
@@ -68,4 +75,7 @@ public class BannerWidget {
                     .into(imageView);
         }
     }
+
+
+
 }

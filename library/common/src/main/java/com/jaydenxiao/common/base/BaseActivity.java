@@ -14,6 +14,7 @@ import com.jaydenxiao.common.BuildConfig;
 import com.jaydenxiao.common.R;
 import com.jaydenxiao.common.baseapp.AppManager;
 import com.jaydenxiao.common.baserx.RxManager;
+import com.jaydenxiao.common.commonutils.StatusBarUtil;
 import com.jaydenxiao.common.commonutils.TUtil;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
@@ -96,8 +97,9 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         // 设置竖屏
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         // 默认着色状态栏
-        SetStatusBarColor();
-
+//        SetStatusBarColor();
+        //根据状态栏颜色来决定状态栏文字用黑色还是白色
+        StatusBarUtil.setStatusBarMode(this, true, R.color.white);
     }
     /*********************子类实现*****************************/
     //获取布局文件
@@ -118,7 +120,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
      * 着色状态栏（4.4以上系统有效）
      */
     protected void SetStatusBarColor(){
-        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this,R.color.main_color));
+        StatusBarCompat.setStatusBarColor(this, ContextCompat.getColor(this,R.color.gray));
     }
     /**
      * 着色状态栏（4.4以上系统有效）
