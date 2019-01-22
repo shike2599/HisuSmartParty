@@ -38,7 +38,7 @@ public class RxHelper {
                         if (result.success()) {
                             return createData(result.data);
                         } else {
-                            return Observable.error(new ServerException(result.msg));
+                            return Observable.error(new ServerException(result.getResultDesc()));
                         }
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());

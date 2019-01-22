@@ -27,7 +27,7 @@ final class GsonResponseBodyConverter<T> implements Converter<ResponseBody, T> {
         try {
             BaseResponse baseResponse = gson.fromJson(response, BaseResponse.class);
             if(!baseResponse.success()){
-                throw new ResultException(baseResponse.msg, baseResponse.code);
+                throw new ResultException(baseResponse.getResultDesc(), baseResponse.getResultCode());
             }else{
                 return gson.fromJson(response, type);
             }

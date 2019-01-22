@@ -8,9 +8,9 @@ import java.io.Serializable;
  * @author lichee
  */
 public class BaseResponse<T> implements Serializable {
-    public String resultCode;
-    public String resultDesc;
-    public String systemTime;
+    private String resultCode;
+    private String resultDesc;
+    private String systemTime;
 
     public String getResultCode() {
         return resultCode;
