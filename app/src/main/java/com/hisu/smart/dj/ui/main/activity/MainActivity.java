@@ -34,9 +34,11 @@ public class MainActivity extends BaseActivity {
     CommonTabLayout tabLayout;
     private String[] mTitles = {"首页", "学习","党建","践行","我的"};
     private int[] mIconUnselectIds = {
-            R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
+            R.mipmap.home_no_selerted,R.mipmap.study_no_seleter,
+            R.mipmap.dang_no_selected,R.mipmap.doit_no_selecter,R.mipmap.prosen_no_selecter};
     private int[] mIconSelectIds = {
-            R.mipmap.ic_launcher,R.mipmap.ic_launcher, R.mipmap.ic_launcher,R.mipmap.ic_launcher,R.mipmap.ic_launcher};
+            R.mipmap.home_selected_ico,R.mipmap.study_selected_icon,
+            R.mipmap.dang_selected_icon,R.mipmap.doit_selected_icon,R.mipmap.porsen_selected_icon};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private HomeFragment homeFragment;

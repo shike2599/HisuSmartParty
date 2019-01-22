@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tl="http://schemas.android.com/apk/res-auto">
+    
     <FrameLayout
         android:id="@+id/fl_body"
         android:layout_width="match_parent"
@@ -13,17 +14,17 @@
     <com.flyco.tablayout.CommonTabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         android:padding="5dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/red"
+        android:background="@color/all_red"
         app:dayNightBackgroundAttr="dayNightBackground"
         tl:tl_indicator_height="0dp"
-        tl:tl_iconHeight="20dp"
-        tl:tl_iconWidth="20dp"
+        tl:tl_iconHeight="24dp"
+        tl:tl_iconWidth="24dp"
         tl:tl_indicator_color="@color/gray"
-        tl:tl_textSelectColor="@color/orange"
+        tl:tl_textSelectColor="@color/all_yellow"
         tl:tl_textUnselectColor="@color/white"
-        tl:tl_textsize="11sp"
+        tl:tl_textsize="15sp"
         tl:tl_underline_height="0dp" />
 </RelativeLayout>

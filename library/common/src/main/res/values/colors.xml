@@ -83,5 +83,8 @@
     <color name="alpha_90_black">#E6000000</color>
     <color name="alpha_95_black">#F2000000</color>
 
+    <!--项目使用颜色-->
+    <color name="all_red">#d52e2b</color>
+    <color name="all_yellow">#ffc000</color>
 
 </resources>

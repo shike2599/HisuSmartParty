@@ -52,4 +52,5 @@ dependencies {
     implementation project(':library:oneKeyShareSDK')//分享
     implementation project(':library:photoPicker')//图片选择
     implementation project(':library:selectordialog')//常用提示框
+    implementation 'com.youth.banner:banner:1.4.10'  //最新版本 轮播图
 }
