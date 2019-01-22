@@ -1,4 +1,4 @@
-package com.hisu.smart.dj.bean;
+package com.hisu.smart.dj.entity;
 
 import com.flyco.tablayout.listener.CustomTabEntity;
 

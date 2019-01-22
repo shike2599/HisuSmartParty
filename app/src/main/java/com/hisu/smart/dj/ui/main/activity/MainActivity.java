@@ -11,7 +11,7 @@ import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConstant;
-import com.hisu.smart.dj.bean.TabEntity;
+import com.hisu.smart.dj.entity.TabEntity;
 import com.hisu.smart.dj.ui.main.fragment.FollowFragment;
 import com.hisu.smart.dj.ui.main.fragment.HomeFragment;
 import com.hisu.smart.dj.ui.main.fragment.MyFragment;
