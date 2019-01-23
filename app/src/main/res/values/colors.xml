@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--字体颜色-->
+    <color name="text_color">#666666</color>
+    <!--背景浅灰色-->
+    <color name="background_color_gory">#f2f1ef</color>
+
+
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.api.Api;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
@@ -45,6 +48,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener
     private Banner homeBanner;
     private List<Integer> homeBannerImages;
     private RecyclerView mRecyclerView;
+    private RecyclerView homeNewRecyclerView;
     private Context context;
     private HomeReaycleAdapter homeReaycleAdapter;
     private int[] recycleImages = {R.mipmap.news_icon,R.mipmap.vedio_icon,
@@ -52,7 +56,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener
                  R.mipmap.jicengdt_icon,R.mipmap.df_pay_icon,
                  R.mipmap.dangyq_icon,R.mipmap.xianfeng_icon,
                  R.mipmap.zhibhd_icon,R.mipmap.group_icon };
-    private String[] recycleStrings = {"党建资讯","视频讲堂","三会一课","在线考试",
+    private String[] recycleStrings = {"党建资讯","视频大讲堂","三会一课","在线考试",
             "基层动态","党费缴纳","党员圈","时代先锋","支部活动","组织关系"};
 
     private List<HomeItemBean> dataList;
@@ -99,14 +103,21 @@ public class HomeFragment extends BaseFragment implements OnBannerListener
        homeBanner = rootView.findViewById(R.id.home_banner);
        homeBanner.setOnBannerListener(this);
        BannerWidget.setBanner(homeBanner,homeBannerImages);
-
+       //首页栏目RecyclerView
        mRecyclerView = rootView.findViewById(R.id.home_recyclerView);
        GridLayoutManager gridLayoutManager = new GridLayoutManager(
                 context,5,GridLayoutManager.VERTICAL,false);
        mRecyclerView.setLayoutManager(gridLayoutManager);
        homeReaycleAdapter = new HomeReaycleAdapter(dataList);
-        homeReaycleAdapter.setOnItemClickListener(this);
+       homeReaycleAdapter.setOnItemClickListener(this);
        mRecyclerView.setAdapter(homeReaycleAdapter);
+       //首页党建要闻RecyclerView
+       homeNewRecyclerView = rootView.findViewById(R.id.home_news_RecycleView);
+       RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+       homeNewRecyclerView.setLayoutManager(layoutManager);
+//        Api.getDefault(context, AppConstant.HOST_URL).
+//                listInformation("1003",null,1,2).
+
     }
 
     @Override

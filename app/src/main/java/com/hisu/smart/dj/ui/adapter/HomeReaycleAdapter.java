@@ -15,8 +15,6 @@ import com.hisu.smart.dj.entity.HomeItemBean;
 import java.util.List;
 
 public class HomeReaycleAdapter extends RecyclerView.Adapter<HomeReaycleAdapter.HomeRecycleHolder> {
-    private Context context;
-    private List<Integer> imagesList;
     private List<HomeItemBean> dataList;
     private OnItemClickListener onItemClickListener;
 
@@ -62,6 +60,7 @@ public class HomeReaycleAdapter extends RecyclerView.Adapter<HomeReaycleAdapter.
             super(itemView);
             imageView = itemView.findViewById(R.id.home_recyclerView_item_imageview);
             textView = itemView.findViewById(R.id.home_recyclerView_item_textview);
+            textView.setSelected(true);
             itemLayout = itemView.findViewById(R.id.home_recyclerView_item_layout);
 
         }
