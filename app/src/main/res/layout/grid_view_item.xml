@@ -6,16 +6,16 @@
     android:orientation="vertical"
     android:gravity="center">
     <ImageView
-        android:paddingTop="5dp"
+        android:paddingTop="15dp"
         android:id="@+id/item_icon"
         android:src="@mipmap/ic_launcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="55dp"
+        android:layout_height="55dp" />
     <TextView
         android:id="@+id/item_title"
         android:text="本职工作"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
@@ -23,7 +23,10 @@
         android:text="规划学习,有的放矢"
         android:textColor="@color/gray_deep"
         android:textSize="12sp"
-        android:paddingBottom="5dp"
+        android:paddingBottom="15dp"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:ellipsize="marquee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

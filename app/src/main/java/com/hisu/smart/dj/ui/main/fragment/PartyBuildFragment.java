@@ -23,8 +23,8 @@ public class PartyBuildFragment extends BaseFragment {
     private Banner partyBanner;
     private List<Integer> partyBannerImages;
     private int[] Images = {
-            R.mipmap.home_selected_ico,R.mipmap.study_selected_icon,
-            R.mipmap.dang_selected_icon,R.mipmap.doit_selected_icon};
+            R.mipmap.home_banner_1,R.mipmap.home_banner_1,
+            R.mipmap.home_banner_1,R.mipmap.home_banner_1};
     private GridView gridView;
 
     private List<GridViewItemEntity> gridViewItemEntities;
