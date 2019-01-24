@@ -6,14 +6,26 @@
         android:id="@+id/party_build_banner"
         android:layout_width="match_parent"
         android:layout_height="160dp" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_color_gory">
+
     <GridView
         android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="2dp"
         android:numColumns="2"
         android:horizontalSpacing="2dp"
         android:verticalSpacing="2dp"
-        android:background="@color/gray"
+        android:background="@color/background_color_gory"
         android:id="@+id/party_gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 </LinearLayout>

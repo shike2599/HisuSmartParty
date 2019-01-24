@@ -1,6 +1,10 @@
 package com.hisu.smart.dj.ui.main.fragment;
 
+import android.content.Context;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
@@ -20,6 +24,7 @@ import java.util.List;
 public class StudyFragment extends BaseFragment {
 
     private static final String TAG = "StudyFragment";
+    private Context context;
     private Banner studyBanner;
     private List<Integer> studyBannerImages;
     private int[] Images = {
@@ -46,6 +51,7 @@ public class StudyFragment extends BaseFragment {
     }
 
     private void initData() {
+        context = getActivity();
         initBannerData();
         initGridViewData();
     }
@@ -77,6 +83,17 @@ public class StudyFragment extends BaseFragment {
         gridViewAdapter = new GridViewAdapter(getActivity());
         gridViewAdapter.setGridViewItemEntities(gridViewItemEntities);
         gridView.setAdapter(gridViewAdapter);
+        //党员学习点击事件
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(context,"item-"+position,Toast.LENGTH_SHORT).show();
+                if(position == 0){
+                    //学习计划
+
+                }
+            }
+        });
     }
 
 
