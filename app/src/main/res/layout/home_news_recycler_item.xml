@@ -11,8 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp"
-        >
+        android:layout_marginRight="5dp">
       <ImageView
           android:id="@+id/show_news_imageView"
           android:layout_width="100dp"
@@ -23,6 +22,10 @@
           android:id="@+id/watch_video"
           android:layout_width="100dp"
           android:layout_height="60dp"
+          android:focusableInTouchMode="false"
+          android:focusable="false"
+          android:clickable="false"
+          android:longClickable="false"
           android:visibility="gone"/>
     </RelativeLayout>
 

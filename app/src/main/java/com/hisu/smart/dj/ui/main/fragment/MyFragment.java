@@ -57,7 +57,7 @@ public class MyFragment extends BaseFragment {
     private void setIconKey() {
         msg.set(R.mipmap.pre_message,"消息通知");
         score.set(R.mipmap.pre_integral,"我的积分");
-        approval.set(R.mipmap.pre_likes,"我的审批");
+        approval.set(R.mipmap.pre_confirm,"我的审批");
         collect.set(R.mipmap.pre_likes,"我的收藏");
         setting.set(R.mipmap.pre_set,"设置");
     }

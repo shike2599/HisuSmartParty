@@ -3,15 +3,19 @@ package com.hisu.smart.dj.ui.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
+import com.jaydenxiao.common.commonutils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +69,14 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         if(mediaType == 0){
             holder.video.setVisibility(View.VISIBLE);
             holder.newImage.setVisibility(View.GONE);
-            holder.video.setUp(urlStr, JCVideoPlayer.SCREEN_LAYOUT_LIST);
+            holder.video.backButton.setVisibility(View.GONE);
+            holder.video.tinyBackImageView.setVisibility(View.GONE);
+            holder.video.startButton.setEnabled(false);
+            Glide.with(mContext).load(iconStr)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .centerCrop()
+                    .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
+                    .crossFade().into(holder.video.thumbImageView);
         }else{
             holder.video.setVisibility(View.GONE);
             holder.newImage.setVisibility(View.VISIBLE);

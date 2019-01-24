@@ -38,7 +38,6 @@ public class NewsListModel implements NewsListContract.Model {
                               for(int i = 0; i < size; i++){
                                   InformationEntity entity = informations.getDataList().get(i);
                                   entity.setIcon(informations.getOutServer()+entity.getIcon());
-                                  entity.setUrl(informations.getOutServer()+entity.getUrl());
                                   Date date = null;
                                   String dateStr;
                                   try {
