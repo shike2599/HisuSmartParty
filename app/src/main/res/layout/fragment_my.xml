@@ -1,12 +1,46 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_msg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="我的" />
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_score"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_approval"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_collect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_setting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
 
-</FrameLayout>
+</LinearLayout>

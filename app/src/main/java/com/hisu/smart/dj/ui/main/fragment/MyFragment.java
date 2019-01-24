@@ -2,19 +2,25 @@ package com.hisu.smart.dj.ui.main.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.hisu.smart.dj.R;
+
+import com.hisu.smart.dj.ui.widget.ProfileEdit;
+import com.jaydenxiao.common.base.BaseFragment;
 
 
 /**
  * 我的
  * @author lichee
  */
-public class MyFragment extends Fragment {
+public class MyFragment extends BaseFragment {
+
+
+    private ProfileEdit msg;
+    private ProfileEdit score;
+    private ProfileEdit approval;
+    private ProfileEdit collect;
+    private ProfileEdit setting;
 
     public MyFragment() {
     }
@@ -25,9 +31,35 @@ public class MyFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_my, container, false);
+    protected int getLayoutResource() {
+        return R.layout.fragment_my;
+    }
+
+    @Override
+    public void initPresenter() {
+    }
+
+    @Override
+    protected void initView() {
+        findAllView();
+        setIconKey();
+    }
+
+    private void findAllView(){
+        msg = rootView.findViewById(R.id.pe_msg);
+        score = rootView.findViewById(R.id.pe_score);
+        approval = rootView.findViewById(R.id.pe_approval);
+        collect = rootView.findViewById(R.id.pe_collect);
+        setting = rootView.findViewById(R.id.pe_setting);
+    }
+
+
+    private void setIconKey() {
+        msg.set(R.mipmap.ic_launcher,"消息通知");
+        score.set(R.mipmap.ic_launcher,"我的积分");
+        approval.set(R.mipmap.ic_launcher,"我的审批");
+        collect.set(R.mipmap.ic_launcher,"我的收藏");
+        setting.set(R.mipmap.ic_launcher,"设置");
     }
 
     @Override

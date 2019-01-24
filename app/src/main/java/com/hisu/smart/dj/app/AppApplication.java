@@ -5,7 +5,9 @@ import com.jaydenxiao.common.baseapp.BaseApplication;
 import com.jaydenxiao.common.commonutils.LogUtils;
 
 /**
- * Created by lichee on 2019/1/21.
+ *
+ * @author lichee
+ * @date 2019/1/21
  */
 
 public class AppApplication  extends BaseApplication {

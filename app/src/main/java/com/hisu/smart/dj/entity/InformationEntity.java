@@ -72,4 +72,16 @@ public class InformationEntity implements Serializable {
     public void setMediaType(int mediaType) {
         this.mediaType = mediaType;
     }
+
+    @Override
+    public String toString() {
+        return "InformationEntity{" +
+                "id=" + id +
+                ", icon='" + icon + '\'' +
+                ", publishTime='" + publishTime + '\'' +
+                ", name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", mediaType=" + mediaType +
+                '}';
+    }
 }

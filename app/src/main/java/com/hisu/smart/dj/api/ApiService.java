@@ -22,7 +22,8 @@ public interface ApiService {
      * @return
      */
     @POST("party-user-front/login/readonly/login")
-    Observable<BaseResponse<LoginUserEntity>> login(@Query("userName") String username, @Query("password") String password);
+    Observable<BaseResponse<LoginUserEntity>> login(@Query("userName") String username,
+                                                    @Query("password") String password);
 
     /**
      * 发送验证码
@@ -39,7 +40,8 @@ public interface ApiService {
      * @return
      */
     @POST("party-user-front/login/readonly/verifyPhoneCode")
-    Observable<BaseResponse> verifyPhoneCode(@Query("phone") String phone,@Query("code") String code);
+    Observable<BaseResponse> verifyPhoneCode(@Query("phone") String phone,
+                                             @Query("code") String code);
 
     /**
      * 资讯活动列表
@@ -50,7 +52,10 @@ public interface ApiService {
      * @return
      */
     @GET("party-app-education-front/res/readonly/listInformation")
-    Observable<InformationResponse<InformationEntity>> listInformation(String cateCode,String keywords,Integer pageNo,Integer pageSize);
+    Observable<InformationResponse<InformationEntity>> listInformation(@Query("cateCode")String cateCode,
+                                                                       @Query("keywords")String keywords,
+                                                                       @Query("pageNo")Integer pageNo,
+                                                                       @Query("pageSize")Integer pageSize);
 
 
 }

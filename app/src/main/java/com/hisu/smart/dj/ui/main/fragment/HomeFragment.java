@@ -9,6 +9,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,7 +22,12 @@ import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.api.Api;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.HomeItemBean;
+import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
+import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
+import com.hisu.smart.dj.ui.main.contract.NewsListContract;
+import com.hisu.smart.dj.ui.main.model.NewsListModel;
+import com.hisu.smart.dj.ui.main.presenter.NewsListPresenter;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.jaydenxiao.common.commonutils.LogUtils;
@@ -42,13 +48,15 @@ import java.util.Map;
  * 首页
  * @author lichee
  */
-public class HomeFragment extends BaseFragment implements OnBannerListener
+public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel> implements NewsListContract.View , OnBannerListener
             ,HomeReaycleAdapter.OnItemClickListener{
     private String TAG = "HomeFragment";
     private Banner homeBanner;
     private List<Integer> homeBannerImages;
     private RecyclerView mRecyclerView;
     private RecyclerView homeNewRecyclerView;
+    private NewsRecyclerAdapter newsRecyclerAdapter;
+    List<InformationEntity> newsList = new ArrayList<>();
     private Context context;
     private HomeReaycleAdapter homeReaycleAdapter;
     private int[] recycleImages = {R.mipmap.news_icon,R.mipmap.vedio_icon,
@@ -94,6 +102,7 @@ public class HomeFragment extends BaseFragment implements OnBannerListener
     //在initView之前调用
     @Override
     public void initPresenter() {
+        mPresenter.setVM(this, mModel);
         initData();
     }
 
@@ -115,9 +124,9 @@ public class HomeFragment extends BaseFragment implements OnBannerListener
        homeNewRecyclerView = rootView.findViewById(R.id.home_news_RecycleView);
        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
        homeNewRecyclerView.setLayoutManager(layoutManager);
-//        Api.getDefault(context, AppConstant.HOST_URL).
-//                listInformation("1003",null,1,2).
-
+       newsRecyclerAdapter = new NewsRecyclerAdapter(getActivity());
+       homeNewRecyclerView.setAdapter(newsRecyclerAdapter);
+       mPresenter.getNewsListDataRequest("1003","",1,2);
     }
 
     @Override
@@ -128,5 +137,30 @@ public class HomeFragment extends BaseFragment implements OnBannerListener
     @Override
     public void onClick(int position) {
         Toast.makeText(context,"item"+position,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showLoading(String title) {
+
+    }
+
+    @Override
+    public void stopLoading() {
+
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+
+    }
+
+    @Override
+    public void returnNewsListData(List<InformationEntity> informations) {
+        LogUtils.logd("returnNewsListData======================size=="+informations.size());
+        LogUtils.logd("returnNewsListData======================"+informations);
+        if(informations != null && informations.size() > 0){
+            newsList = informations;
+            newsRecyclerAdapter.setData(newsList);
+        }
     }
 }
