@@ -72,6 +72,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             holder.video.backButton.setVisibility(View.GONE);
             holder.video.tinyBackImageView.setVisibility(View.GONE);
             holder.video.startButton.setEnabled(false);
+            holder.video.thumbImageView.setEnabled(false);
             Glide.with(mContext).load(iconStr)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .centerCrop()
