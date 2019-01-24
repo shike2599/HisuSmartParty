@@ -9,8 +9,8 @@
 
     <ImageView
         android:id="@+id/profile_icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
+        android:layout_width="25dp"
+        android:layout_height="25dp" />
 
     <TextView
         android:id="@+id/profile_key"
@@ -20,6 +20,7 @@
         android:maxWidth="300dp"
         android:layout_marginLeft="5dp"
         android:gravity="left"
+        android:textSize="13sp"
         android:textColor="#333" />
 
     <ImageView

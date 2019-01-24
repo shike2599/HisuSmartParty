@@ -8,15 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -64,7 +60,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             holder.video.setVisibility(View.GONE);
             holder.newImage.setVisibility(View.VISIBLE);
             if(!"".equals(iconStr)){
-                ImageLoaderUtils.display(mContext,holder.newImage,R.mipmap.icon_news_cover);
+                ImageLoaderUtils.display(mContext,holder.newImage,R.mipmap.news_cover_icon);
             }else{
                 ImageLoaderUtils.display(mContext,holder.newImage,iconStr);
             }
