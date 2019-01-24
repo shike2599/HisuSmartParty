@@ -4,7 +4,7 @@ import android.widget.GridView;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
-import com.hisu.smart.dj.ui.main.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.youth.banner.Banner;

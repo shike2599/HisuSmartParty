@@ -1,4 +1,4 @@
-package com.hisu.smart.dj.ui.main.adapter;
+package com.hisu.smart.dj.ui.adapter;
 
 import android.content.Context;
 import android.view.View;
