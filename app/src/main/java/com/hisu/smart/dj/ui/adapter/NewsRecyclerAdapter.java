@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
@@ -24,6 +25,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapter.HomeNewsHolder>{
     private List<InformationEntity> mDatas;
     private Context mContext;
+    private OnNewsItemClickListener newsItemClickListener;
     public NewsRecyclerAdapter(Context context) {
         mContext = context;
         mDatas = new ArrayList<>();
@@ -42,8 +44,16 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(HomeNewsHolder holder, int position) {
+    public void onBindViewHolder(HomeNewsHolder holder,final int position) {
         convert(holder, mDatas.get(position));
+        if(newsItemClickListener!=null){
+            holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    newsItemClickListener.onNewsClick(position);
+                }
+            });
+        }
     }
 
     public  void convert(HomeNewsHolder holder, InformationEntity informationEntity){
@@ -64,8 +74,8 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             }else{
                 ImageLoaderUtils.display(mContext,holder.newImage,iconStr);
             }
-
         }
+
     }
 
     @Override
@@ -79,6 +89,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         TextView dateText;
         TextView watchText;
         JCVideoPlayerStandard video;
+        RelativeLayout relativeLayout;
         public HomeNewsHolder(View itemView) {
             super(itemView);
             newText = itemView.findViewById(R.id.show_news_message_textView);
@@ -86,8 +97,16 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             dateText = itemView.findViewById(R.id.news_date_textView);
             watchText = itemView.findViewById(R.id.wactched_number_textView);
             video = itemView.findViewById(R.id.watch_video);
+            relativeLayout = itemView.findViewById(R.id.news_item_relativeLayout);
         }
     }
 
+    public interface  OnNewsItemClickListener{
+        void onNewsClick(int position);
+//        void onLongClick(int position);
+    }
+    public void setOnItemClickListener(NewsRecyclerAdapter.OnNewsItemClickListener onItemClickListener){
+        this.newsItemClickListener = onItemClickListener;
+    }
 
 }

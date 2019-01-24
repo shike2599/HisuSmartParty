@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/news_item_relativeLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp">
 
-    <ImageView
-        android:id="@+id/show_news_imageView"
-        android:layout_width="100dp"
-        android:layout_height="60dp"
+    <RelativeLayout
+        android:id="@+id/news_image_relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:src="@mipmap/ic_launcher" />
-    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
-        android:id="@+id/watch_video"
-        android:layout_width="100dp"
-        android:layout_height="86dp"
-        android:layout_alignParentRight="true"
-        android:visibility="gone"/>
+        android:layout_marginRight="5dp"
+        >
+      <ImageView
+          android:id="@+id/show_news_imageView"
+          android:layout_width="100dp"
+          android:layout_height="60dp"
+          android:src="@mipmap/ic_launcher" />
+
+      <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+          android:id="@+id/watch_video"
+          android:layout_width="100dp"
+          android:layout_height="60dp"
+          android:visibility="gone"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/news_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_toLeftOf="@id/show_news_imageView">
+        android:layout_toLeftOf="@id/news_image_relativeLayout">
 
         <TextView
             android:id="@+id/show_news_message_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxLines="3"
+            android:maxLines="2"
             android:text="全国老干部局长会议1月16日在京召开。中共中央政治局委员、全国老干部局长会议1月16日在京召开。中共中央政治局委员、全国老干部局长会议1月16日在京召开。中共中央政治局委员、全国老干部局长会议1月16日在京召开。中共中央政治局委员、"
             android:textColor="@color/text_color"
             android:textSize="16sp" />
@@ -46,7 +55,7 @@
                 android:textColor="@color/text_color"
                 android:text="2019年1月31日"
                 android:layout_marginTop="5dp"
-
+                android:layout_centerVertical="true"
                 />
             <TextView
                 android:id="@+id/wactched_number_textView"
@@ -57,16 +66,18 @@
                 android:text="2300次"
                 android:layout_alignParentRight="true"
                 android:layout_alignTop="@+id/news_date_textView"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
                 />
-
 
             <ImageView
                 android:id="@+id/watch_imageview"
                 android:layout_width="wrap_content"
-                android:layout_height="16dp"
-                android:layout_alignTop="@+id/news_date_textView"
+                android:layout_height="12dp"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/wactched_number_textView"
                 android:src="@mipmap/wacth_icon" />
+
         </RelativeLayout>
 
     </LinearLayout>

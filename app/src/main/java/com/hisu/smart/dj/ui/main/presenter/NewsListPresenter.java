@@ -29,16 +29,17 @@ public class NewsListPresenter extends NewsListContract.Presenter {
      */
     @Override
     public void getNewsListDataRequest(String cateCode,String keywords,Integer pageNo,Integer pageSize) {
+         final String tag = cateCode;
          mRxManage.add(mModel.getNewsListData(cateCode,keywords,pageNo,pageSize).subscribe(new RxSubscriber<InformationResponse<InformationEntity>>(mContext,false) {
              @Override
              public void onStart() {
                  super.onStart();
                  mView.showLoading(mContext.getString(R.string.loading));
              }
-
+             //请求完成
              @Override
              protected void _onNext(InformationResponse<InformationEntity> informations) {
-                 mView.returnNewsListData(informations.getDataList());
+                 mView.returnNewsListData(informations.getDataList(),tag);
                  mView.stopLoading();
              }
 

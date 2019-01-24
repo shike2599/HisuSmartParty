@@ -48,15 +48,21 @@ import java.util.Map;
  * 首页
  * @author lichee
  */
-public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel> implements NewsListContract.View , OnBannerListener
-            ,HomeReaycleAdapter.OnItemClickListener{
+public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
+        implements NewsListContract.View , OnBannerListener
+            ,HomeReaycleAdapter.OnItemClickListener,NewsRecyclerAdapter.OnNewsItemClickListener{
     private String TAG = "HomeFragment";
     private Banner homeBanner;
     private List<Integer> homeBannerImages;
-    private RecyclerView mRecyclerView;
-    private RecyclerView homeNewRecyclerView;
-    private NewsRecyclerAdapter newsRecyclerAdapter;
-    List<InformationEntity> newsList = new ArrayList<>();
+    private RecyclerView mRecyclerView; //首页子栏目RecyclerView
+    private RecyclerView homeNewRecyclerView;  //首页党建要闻RecyclerView
+    private RecyclerView homeShizhRecyclerView;  //首页时政要闻RecyclerView
+
+    private NewsRecyclerAdapter newsRecyclerAdapter; //党建要闻Adapter
+    private NewsRecyclerAdapter shizhRecyclerAdapter;  //时政要闻Adapter
+
+    List<InformationEntity> newsList = new ArrayList<>();  //党建要闻数据
+    List<InformationEntity> shizhNewsList = new ArrayList<>(); //时政要闻数据
     private Context context;
     private HomeReaycleAdapter homeReaycleAdapter;
     private int[] recycleImages = {R.mipmap.news_icon,R.mipmap.vedio_icon,
@@ -67,7 +73,7 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     private String[] recycleStrings = {"党建资讯","视频大讲堂","三会一课","在线考试",
             "基层动态","党费缴纳","党员圈","时代先锋","支部活动","组织关系"};
 
-    private List<HomeItemBean> dataList;
+    private List<HomeItemBean> dataList; //首页子栏目列表
     private int[] Images = {
             R.mipmap.home_banner_1,R.mipmap.home_banner_1,
             R.mipmap.home_banner_1,R.mipmap.home_banner_1};
@@ -75,7 +81,6 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     public HomeFragment() {
 
     }
-
 
     private void initData() {
         context = getActivity();
@@ -114,31 +119,82 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
        BannerWidget.setBanner(homeBanner,homeBannerImages);
        //首页栏目RecyclerView
        mRecyclerView = rootView.findViewById(R.id.home_recyclerView);
+       //设置布局，禁止滑动
        GridLayoutManager gridLayoutManager = new GridLayoutManager(
-                context,5,GridLayoutManager.VERTICAL,false);
+                context,5,GridLayoutManager.VERTICAL,false){
+           @Override
+           public boolean canScrollHorizontally() {
+               return false;
+           }
+
+           @Override
+           public boolean canScrollVertically() {
+               return false;
+           }
+       };
        mRecyclerView.setLayoutManager(gridLayoutManager);
        homeReaycleAdapter = new HomeReaycleAdapter(dataList);
        homeReaycleAdapter.setOnItemClickListener(this);
        mRecyclerView.setAdapter(homeReaycleAdapter);
+       
        //首页党建要闻RecyclerView
        homeNewRecyclerView = rootView.findViewById(R.id.home_news_RecycleView);
-       RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+        //设置布局，禁止滑动
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context){
+           @Override
+           public boolean canScrollHorizontally() {
+               return false;
+           }
+
+           @Override
+           public boolean canScrollVertically() {
+               return false;
+           }
+       };
        homeNewRecyclerView.setLayoutManager(layoutManager);
        newsRecyclerAdapter = new NewsRecyclerAdapter(getActivity());
+       newsRecyclerAdapter.setOnItemClickListener(this);
        homeNewRecyclerView.setAdapter(newsRecyclerAdapter);
+       //请求党建要闻
        mPresenter.getNewsListDataRequest("1003","",1,2);
-    }
 
+       //时政要闻RecyclerView
+       homeShizhRecyclerView = rootView.findViewById(R.id.home_shizh__RecycleView);
+        //设置布局，禁止滑动
+       RecyclerView.LayoutManager shizhlayoutManager = new LinearLayoutManager(context){
+            @Override
+            public boolean canScrollHorizontally() {
+                return false;
+            }
+
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+       homeShizhRecyclerView.setLayoutManager(shizhlayoutManager);
+       shizhRecyclerAdapter = new NewsRecyclerAdapter(getActivity());
+       shizhRecyclerAdapter.setOnItemClickListener(this);
+       homeShizhRecyclerView.setAdapter(shizhRecyclerAdapter);
+       //请求时政要闻
+       mPresenter.getNewsListDataRequest("1001","",1,2);
+    }
+    //轮播图点击事件
     @Override
     public void OnBannerClick(int position) {
         Toast.makeText(context,"item"+position,Toast.LENGTH_LONG).show();
     }
-
+    //首页栏目列表点击事件
     @Override
     public void onClick(int position) {
         Toast.makeText(context,"item"+position,Toast.LENGTH_SHORT).show();
     }
 
+    //首页新闻item点击事件
+    @Override
+    public void onNewsClick(int position) {
+        Toast.makeText(context,"item"+position,Toast.LENGTH_SHORT).show();
+    }
     @Override
     public void showLoading(String title) {
 
@@ -153,14 +209,24 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     public void showErrorTip(String msg) {
 
     }
-
+    //首页新闻数据返回
     @Override
-    public void returnNewsListData(List<InformationEntity> informations) {
+    public void returnNewsListData(List<InformationEntity> informations,String tag) {
         LogUtils.logd("returnNewsListData======================size=="+informations.size());
         LogUtils.logd("returnNewsListData======================"+informations);
+        LogUtils.logd("returnNewsListData======================Tag==="+tag);
         if(informations != null && informations.size() > 0){
-            newsList = informations;
-            newsRecyclerAdapter.setData(newsList);
+
+            if(tag!=null&&tag=="1003"&&tag.equals("1003")){
+                newsList = informations;
+                newsRecyclerAdapter.setData(newsList);
+            }else if(tag!=null&&tag=="1001"&&tag.equals("1001")){
+                shizhNewsList = informations;
+                shizhRecyclerAdapter.setData(shizhNewsList);
+            }
         }
+
+
     }
+
 }

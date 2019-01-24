@@ -23,7 +23,7 @@ public interface NewsListContract {
 
     interface View extends BaseView {
         //返回获取的新闻
-        void returnNewsListData(List<InformationEntity> informations);
+        void returnNewsListData(List<InformationEntity> informations,String tag);
     }
     abstract static class Presenter extends BasePresenter<View, Model> {
         //发起获取新闻请求
