@@ -20,7 +20,7 @@
         android:maxWidth="300dp"
         android:layout_marginLeft="5dp"
         android:gravity="left"
-        android:textSize="13sp"
+        android:textSize="16sp"
         android:textColor="#333" />
 
     <ImageView

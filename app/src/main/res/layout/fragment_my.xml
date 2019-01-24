@@ -2,42 +2,161 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="我的"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@mipmap/saoma_login" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#f3f3f3"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_my_head"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:src="@mipmap/pre_image" />
+
+        <TextView
+            android:id="@+id/tv_my_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@+id/img_my_head"
+            android:text="牛正星"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_my_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_alignParentRight="true"
+            android:text="修改"
+            android:textSize="13sp"
+            android:textColor="@color/white"
+            android:background="@drawable/message_tip_shape"/>
+        <TextView
+            android:id="@+id/tv_my_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_my_name"
+            android:layout_toRightOf="@id/img_my_head"
+            android:layout_alignLeft="@id/tv_my_name"
+            android:text="陕西 西安"/>
+        <ImageView
+            android:id="@+id/img_my_dang_rank"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@mipmap/pre_dang_ranking"
+            android:layout_below="@id/tv_my_address"
+            android:layout_marginTop="15dp"
+            android:layout_alignLeft="@id/tv_my_address"/>
+        <TextView
+            android:id="@+id/tv_my_dang_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_my_address"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/img_my_dang_rank"
+            android:layout_alignTop="@+id/img_my_dang_rank"
+            android:text="党员排名188个"
+            android:textSize="12sp"/>
+        <ImageView
+            android:id="@+id/img_my_part_rank"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@mipmap/pre_part_ranking"
+            android:layout_toRightOf="@+id/tv_my_dang_rank"
+            android:layout_alignTop="@id/img_my_dang_rank"
+            android:layout_marginLeft="20dp"/>
+        <TextView
+            android:id="@+id/tv_my_part_rank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_my_address"
+            android:layout_marginLeft="2dp"
+            android:layout_toRightOf="@+id/img_my_part_rank"
+            android:layout_alignTop="@+id/img_my_part_rank"
+            android:text="支部排名99个"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
     <com.hisu.smart.dj.ui.widget.ProfileEdit
         android:id="@+id/pe_msg"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#333" />
+
     <com.hisu.smart.dj.ui.widget.ProfileEdit
         android:id="@+id/pe_score"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#333" />
+
     <com.hisu.smart.dj.ui.widget.ProfileEdit
         android:id="@+id/pe_approval"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="51dp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#333" />
+
     <com.hisu.smart.dj.ui.widget.ProfileEdit
         android:id="@+id/pe_collect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#333" />
+
     <com.hisu.smart.dj.ui.widget.ProfileEdit
         android:id="@+id/pe_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
