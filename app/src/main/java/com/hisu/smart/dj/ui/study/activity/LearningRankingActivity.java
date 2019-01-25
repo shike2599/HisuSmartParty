@@ -2,17 +2,28 @@ package com.hisu.smart.dj.ui.study.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.aspsine.irecyclerview.universaladapter.recyclerview.DividerItemDecoration;
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppApplication;
+import com.hisu.smart.dj.entity.RankEntity;
+import com.hisu.smart.dj.ui.adapter.StudyRankAdapter;
+import com.hisu.smart.dj.ui.study.contract.StudyRankContract;
+import com.hisu.smart.dj.ui.study.model.StudyRankModel;
+import com.hisu.smart.dj.ui.study.presenter.StudyRankPresenter;
 import com.jaydenxiao.common.base.BaseActivity;
+
+import java.util.List;
 
 import butterknife.Bind;
 
-public class LearningRankingActivity extends BaseActivity implements
-        View.OnClickListener{
+public class LearningRankingActivity extends BaseActivity
+        <StudyRankPresenter,StudyRankModel> implements StudyRankContract.View,View.OnClickListener{
 
     @Bind(R.id.branch_rank_textView)
     TextView show_branch_data;
@@ -32,6 +43,31 @@ public class LearningRankingActivity extends BaseActivity implements
     TextView show_routine_learing;
     @Bind(R.id.rank_back_imageView)
     TextView back_img;
+
+    private final static int TOTAL_TYPE = 0; //总学时
+    private final static int TOPIC_TYPE = 1; //专题
+    private final static int COMM_TYPE = 2; //常规
+
+    private final static int limit_Num = 6; //去数据的个数
+
+
+    private StudyRankAdapter totalHoursAdapter; //总学时排名
+    private StudyRankAdapter topicHoursAdapter; //专题学习排名
+    private StudyRankAdapter commHoursAdapter; //常规学习排名
+    private LinearLayoutManager layoutManager;
+
+    private Integer user_id;       //用户ID
+    private Integer partyMemberId; //党员ID
+    private Integer partyBranchId; //支部ID
+    //个人信息
+    private List<RankEntity> user_dataList_total; //总学时数据
+    private List<RankEntity> user_dataList_topic; //专题数据
+    private List<RankEntity> user_dataList_comm; //常规数据
+    //支部信息
+    private List<RankEntity> branch_dataList_total; //总学时数据
+    private List<RankEntity> branch_dataList_topic; //专题数据
+    private List<RankEntity> branch_dataList_comm; //常规数据
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_learning_ranking;
@@ -39,7 +75,11 @@ public class LearningRankingActivity extends BaseActivity implements
 
     @Override
     public void initPresenter() {
+        user_id = 5;
+        partyMemberId = 1;
+        partyBranchId = 1;
 
+        layoutManager = new LinearLayoutManager(this);
     }
 
     @Override
@@ -47,6 +87,28 @@ public class LearningRankingActivity extends BaseActivity implements
        show_branch_data.setOnClickListener(this);
        show_user_data.setOnClickListener(this);
        back_img.setOnClickListener(this);
+       //总学时布局
+       all_learing_recycler.setLayoutManager(layoutManager);
+       all_learing_recycler.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
+       totalHoursAdapter = new StudyRankAdapter(TOTAL_TYPE);
+       //专题学习布局
+       expert_learing_recycler.setLayoutManager(layoutManager);
+       all_learing_recycler.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
+       topicHoursAdapter = new StudyRankAdapter(TOPIC_TYPE);
+       //常规学习布局
+       routine_learing_recycler.setLayoutManager(layoutManager);
+       all_learing_recycler.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL_LIST));
+       topicHoursAdapter = new StudyRankAdapter(COMM_TYPE);
+       if(AppApplication.isNet){
+           //默认是选择支部
+           getBranchData();
+       }else{
+           Toast.makeText(this,"网络异常",Toast.LENGTH_LONG).show();
+       }
+
     }
 
     public static void startAction(Activity activity){
@@ -58,12 +120,76 @@ public class LearningRankingActivity extends BaseActivity implements
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.branch_rank_textView:
+                if(branch_dataList_total!=null&&
+                        branch_dataList_topic!=null&&
+                        branch_dataList_comm!=null){
+                    getBranchData();
+                }else{
+                    totalHoursAdapter.setData(branch_dataList_total);
+                    topicHoursAdapter.setData(branch_dataList_total);
+                    commHoursAdapter.setData(branch_dataList_total);
+
+                }
                 break;
             case R.id.user_rank_textView:
+                if(user_dataList_total!=null&&
+                        user_dataList_topic!=null&&
+                        user_dataList_comm!=null){
+                    getUserData();
+                }else{
+                    totalHoursAdapter.setData(user_dataList_total);
+                    topicHoursAdapter.setData(user_dataList_total);
+                    commHoursAdapter.setData(user_dataList_total);
+                }
                 break;
             case R.id.rank_back_imageView:
                 LearningRankingActivity.this.finish();
                 break;
         }
+    }
+    //个人排行
+    @Override
+    public void returnMemberRankListData(List<RankEntity> rankEntities) {
+
+    }
+    //支部排行
+    @Override
+    public void returnBranchRankListData(List<RankEntity> rankEntities) {
+
+    }
+
+    @Override
+    public void showLoading(String tag) {
+
+    }
+
+    @Override
+    public void stopLoading(String tag) {
+
+    }
+
+    @Override
+    public void showErrorTip(String msg, String tag) {
+
+    }
+
+    //获取支部数据
+    public void getBranchData() {
+        //按照学时排列
+        mPresenter.getBranchRankListDataRequest(user_id,partyBranchId,TOTAL_TYPE,limit_Num);
+        //按照专题排列
+        mPresenter.getBranchRankListDataRequest(user_id,partyBranchId,TOPIC_TYPE,limit_Num);
+        //按照常规排列
+        mPresenter.getBranchRankListDataRequest(user_id,partyBranchId,COMM_TYPE,limit_Num);
+    }
+
+    //获取党员个人数据
+    public void getUserData() {
+        //按照学时排列
+        mPresenter.getMemberRankListDataRequest(user_id,partyMemberId,TOTAL_TYPE,limit_Num);
+        //按照专题排列
+        mPresenter.getBranchRankListDataRequest(user_id,partyMemberId,TOPIC_TYPE,limit_Num);
+        //按照常规排列
+        mPresenter.getBranchRankListDataRequest(user_id,partyMemberId,COMM_TYPE,limit_Num);
     }
 }

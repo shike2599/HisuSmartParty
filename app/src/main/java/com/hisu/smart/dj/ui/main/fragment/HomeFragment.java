@@ -52,7 +52,8 @@ import java.util.List;
  */
 public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
         implements NewsListContract.View , OnBannerListener
-            ,HomeReaycleAdapter.OnItemClickListener,NewsRecyclerAdapter.OnNewsItemClickListener{
+            ,HomeReaycleAdapter.OnItemClickListener,
+        NewsRecyclerAdapter.OnNewsItemClickListener{
     private String TAG = "HomeFragment";
     private Banner homeBanner;
     private List<Integer> homeBannerImages;
