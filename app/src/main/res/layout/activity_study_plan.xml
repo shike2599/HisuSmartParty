@@ -2,10 +2,8 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.activity.StudyPlanActivity">
+    android:layout_height="match_parent">
     <include
         layout="@layout/title_bar_layout"
         >
@@ -49,13 +47,13 @@
                 android:text="月度"
                 android:layout_gravity="center_vertical"
                 />
-            <view
+            <View
                 android:layout_marginLeft="5dp"
                 android:layout_width="2dp"
                 android:background="@color/black"
                 android:layout_gravity="center_vertical"
                 android:layout_height="14dp">
-            </view>
+            </View>
             <TextView
                 android:id="@+id/quarter_plan_textView"
                 android:layout_width="wrap_content"
@@ -66,13 +64,13 @@
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
                 />
-            <view
+            <View
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
                 android:background="@color/black"
                 android:layout_width="2dp"
                 android:layout_height="14dp">
-            </view>
+            </View>
 
             <TextView
                 android:id="@+id/year_plan_textView"
@@ -119,13 +117,13 @@
              android:layout_centerVertical="true"
              />
          <ProgressBar
-             android:layout_toLeftOf="@+id/show_study_state_textView"
              android:id="@+id/expert_study_progressBar"
              style="@android:style/Widget.ProgressBar.Horizontal"
              android:layout_width="match_parent"
              android:layout_height="30dp"
              android:layout_marginLeft="25dp"
              android:background="@drawable/progressbar_bg"
+             android:layout_toLeftOf="@+id/show_study_state_textView"
              android:layout_marginRight="15dp"
              />
      </RelativeLayout>
@@ -173,7 +171,6 @@
             android:layout_centerVertical="true"
             />
         <ProgressBar
-            android:layout_toLeftOf="@+id/show_routine_study_state_textView"
             android:id="@+id/routine_study_progressBar"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
@@ -181,6 +178,7 @@
             android:layout_marginLeft="25dp"
             android:background="@drawable/progressbar_bg"
             android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/show_routine_study_state_textView"
             />
     </RelativeLayout>
 

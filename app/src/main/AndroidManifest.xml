@@ -27,7 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.main.activity.StudyPlanActivity"></activity>
+        <activity android:name=".ui.study.StudyPlanActivity">
+        </activity>
     </application>
 
 </manifest>

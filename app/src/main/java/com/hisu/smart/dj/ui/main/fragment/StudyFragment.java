@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.study.StudyPlanActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.youth.banner.Banner;
@@ -90,7 +91,7 @@ public class StudyFragment extends BaseFragment {
                 Toast.makeText(context,"item-"+position,Toast.LENGTH_SHORT).show();
                 if(position == 0){
                     //学习计划
-
+                    StudyPlanActivity.startAction(getActivity());
                 }
             }
         });
