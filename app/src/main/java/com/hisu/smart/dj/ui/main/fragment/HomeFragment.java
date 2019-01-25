@@ -1,5 +1,7 @@
 package com.hisu.smart.dj.ui.main.fragment;
 
+import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.net.Uri;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.api.Api;
+import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.entity.InformationEntity;
@@ -31,17 +34,16 @@ import com.hisu.smart.dj.ui.main.presenter.NewsListPresenter;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.jaydenxiao.common.commonutils.LogUtils;
-import com.jaydenxiao.common.commonutils.ToastUitl;
+
+import com.jaydenxiao.common.commonwidget.LoadingTip;
 import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
+
 import com.youth.banner.listener.OnBannerListener;
-import com.youth.banner.loader.ImageLoader;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 
 /**
@@ -65,6 +67,8 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     List<InformationEntity> shizhNewsList = new ArrayList<>(); //时政要闻数据
     private Context context;
     private HomeReaycleAdapter homeReaycleAdapter;
+    private LoadingTip newTip;
+    private LoadingTip shizhTip;
     private int[] recycleImages = {R.mipmap.news_icon,R.mipmap.vedio_icon,
                  R.mipmap.sanhyk_icon, R.mipmap.online_exam,
                  R.mipmap.jicengdt_icon,R.mipmap.df_pay_icon,
@@ -155,8 +159,6 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
        newsRecyclerAdapter = new NewsRecyclerAdapter(getActivity());
        newsRecyclerAdapter.setOnItemClickListener(this);
        homeNewRecyclerView.setAdapter(newsRecyclerAdapter);
-       //请求党建要闻
-       mPresenter.getNewsListDataRequest("1003","",1,2);
 
        //时政要闻RecyclerView
        homeShizhRecyclerView = rootView.findViewById(R.id.home_shizh__RecycleView);
@@ -176,8 +178,21 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
        shizhRecyclerAdapter = new NewsRecyclerAdapter(getActivity());
        shizhRecyclerAdapter.setOnItemClickListener(this);
        homeShizhRecyclerView.setAdapter(shizhRecyclerAdapter);
-       //请求时政要闻
-       mPresenter.getNewsListDataRequest("1001","",1,2);
+
+       newTip = rootView.findViewById(R.id.loadedTip_new);
+       shizhTip = rootView.findViewById(R.id.loadedTip_shizh);
+
+       //有网络则请求数据
+       if(AppApplication.isNet){
+           //请求党建要闻
+           mPresenter.getNewsListDataRequest("1003","",1,2);
+           //请求时政要闻
+           mPresenter.getNewsListDataRequest("1001","",1,2);
+       }else{
+           Toast.makeText(context,"网络异常，请检查网络",Toast.LENGTH_SHORT).show();
+       }
+
+
     }
     //轮播图点击事件
     @Override
@@ -196,18 +211,33 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
         Toast.makeText(context,"item"+position,Toast.LENGTH_SHORT).show();
     }
     @Override
-    public void showLoading(String title) {
-
+    public void showLoading(String tag) {
+        if(tag.equals("1003")){
+            newTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+        }
+        if(tag.equals("1001")){
+            shizhTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+        }
     }
 
     @Override
-    public void stopLoading() {
-
+    public void stopLoading(String tag) {
+        if(tag.equals("1003")){
+            newTip.setLoadingTip(LoadingTip.LoadStatus.finish);
+        }
+        if(tag.equals("1001")){
+            shizhTip.setLoadingTip(LoadingTip.LoadStatus.finish);
+        }
     }
 
     @Override
-    public void showErrorTip(String msg) {
-
+    public void showErrorTip(String msg,String tag) {
+        if(tag.equals("1003")){
+            newTip.setTips(msg);
+        }
+        if(tag.equals("1001")){
+            shizhTip.setTips(msg);
+        }
     }
     //首页新闻数据返回
     @Override

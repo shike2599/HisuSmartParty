@@ -7,7 +7,7 @@ package com.jaydenxiao.common.base;
  */
 public interface BaseView {
     /*******内嵌加载*******/
-    void showLoading(String title);
-    void stopLoading();
-    void showErrorTip(String msg);
+    void showLoading(String tag);
+    void stopLoading(String tag);
+    void showErrorTip(String msg,String tag);
 }

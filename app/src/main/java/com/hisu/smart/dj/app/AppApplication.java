@@ -3,6 +3,7 @@ package com.hisu.smart.dj.app;
 import com.hisu.smart.dj.BuildConfig;
 import com.jaydenxiao.common.baseapp.BaseApplication;
 import com.jaydenxiao.common.commonutils.LogUtils;
+import com.jaydenxiao.common.commonutils.NetWorkUtils;
 
 /**
  *
@@ -11,10 +12,13 @@ import com.jaydenxiao.common.commonutils.LogUtils;
  */
 
 public class AppApplication  extends BaseApplication {
+    public static boolean isNet;
     @Override
     public void onCreate() {
         super.onCreate();
         //初始化logger
         LogUtils.logInit(BuildConfig.LOG_DEBUG);
+        //判断网络
+        isNet = NetWorkUtils.isNetConnected(this);
     }
 }

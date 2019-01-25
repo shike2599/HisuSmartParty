@@ -2,6 +2,7 @@ package com.jaydenxiao.common.commonwidget;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -55,6 +56,7 @@ public class LoadingDialog {
      */
     public static void cancelDialogForLoading() {
         if(mLoadingDialog != null) {
+            Log.d("Common-Loading-","去掉对话框");
             mLoadingDialog.cancel();
         }
     }

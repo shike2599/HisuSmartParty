@@ -28,24 +28,24 @@ public class NewsListPresenter extends NewsListContract.Presenter {
      * @param pageSize
      */
     @Override
-    public void getNewsListDataRequest(String cateCode,String keywords,Integer pageNo,Integer pageSize) {
-         final String tag = cateCode;
+    public void getNewsListDataRequest(final String cateCode, String keywords, Integer pageNo, Integer pageSize) {
+
          mRxManage.add(mModel.getNewsListData(cateCode,keywords,pageNo,pageSize).subscribe(new RxSubscriber<InformationResponse<InformationEntity>>(mContext,false) {
              @Override
              public void onStart() {
                  super.onStart();
-                 mView.showLoading(mContext.getString(R.string.loading));
+                 mView.showLoading(cateCode);
              }
              //请求完成
              @Override
              protected void _onNext(InformationResponse<InformationEntity> informations) {
-                 mView.returnNewsListData(informations.getDataList(),tag);
-                 mView.stopLoading();
+                 mView.returnNewsListData(informations.getDataList(),cateCode);
+                 mView.stopLoading(cateCode);
              }
 
              @Override
              protected void _onError(String message) {
-                 mView.showErrorTip(message);
+                 mView.showErrorTip(message,cateCode);
              }
          }));
     }

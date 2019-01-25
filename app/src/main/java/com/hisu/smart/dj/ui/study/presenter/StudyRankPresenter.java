@@ -34,12 +34,12 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
             @Override
             protected void _onNext(BaseResponse<RankEntity> rankEntityBaseResponse) {
                 mView.returnMemberRankListData(rankEntityBaseResponse.getDataList());
-                mView.stopLoading();
+                mView.stopLoading(null);
             }
 
             @Override
             protected void _onError(String message) {
-                mView.showErrorTip(message);
+                mView.showErrorTip(message,null);
             }
         }));
     }
@@ -57,12 +57,12 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
             @Override
             protected void _onNext(BaseResponse<RankEntity> rankEntityBaseResponse) {
                 mView.returnMemberRankListData(rankEntityBaseResponse.getDataList());
-                mView.stopLoading();
+                mView.stopLoading(null);
             }
 
             @Override
             protected void _onError(String message) {
-                mView.showErrorTip(message);
+                mView.showErrorTip(message,null);
             }
         }));
 
