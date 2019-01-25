@@ -1,6 +1,7 @@
 package com.jaydenxiao.common.basebean;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * des:封装服务器返回数据
@@ -11,6 +12,7 @@ public class BaseResponse<T> implements Serializable {
     private String resultCode;
     private String resultDesc;
     private String systemTime;
+    private List<T> dataList;
 
     public String getResultCode() {
         return resultCode;
@@ -36,18 +38,17 @@ public class BaseResponse<T> implements Serializable {
         this.systemTime = systemTime;
     }
 
-    public T getData() {
-        return data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
-    }
-
-    public T data;
 
     public boolean success() {
         return "200".equals(resultCode);
+    }
+
+    public List<T> getDataList() {
+        return dataList;
+    }
+
+    public void setDataList(List<T> dataList) {
+        this.dataList = dataList;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class BaseResponse<T> implements Serializable {
                 "resultCode='" + resultCode + '\'' +
                 ", resultDesc='" + resultDesc + '\'' +
                 ", systemTime='" + systemTime + '\'' +
-                ", data=" + data +
+                ", dataList=" + dataList +
                 '}';
     }
 }

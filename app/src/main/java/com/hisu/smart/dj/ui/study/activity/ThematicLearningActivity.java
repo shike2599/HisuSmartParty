@@ -1,4 +1,4 @@
-package com.hisu.smart.dj.ui.study;
+package com.hisu.smart.dj.ui.study.activity;
 
 import android.app.Activity;
 import android.content.Intent;

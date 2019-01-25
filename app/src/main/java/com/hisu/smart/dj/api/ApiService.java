@@ -3,6 +3,7 @@ package com.hisu.smart.dj.api;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.LoginUserEntity;
+import com.hisu.smart.dj.entity.RankEntity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
 import retrofit2.http.GET;
@@ -57,5 +58,23 @@ public interface ApiService {
                                                                        @Query("pageNo")Integer pageNo,
                                                                        @Query("pageSize")Integer pageSize);
 
+    /**
+     * 党员排名
+     * @param userId   用户ID
+     * @param partyMemberId   党员ID
+     * @param sortType  0：按照总学时排名，1：按照常规学时排名，2：按照专题学时排名
+     * @param limitNum 取前几名
+     * @return
+     */
+    @GET("party-data-statistics-front/studyRank/readonly/listPartyMemberRank")
+    Observable<BaseResponse<RankEntity>> listPartyMemberRank(@Query("userId") Integer userId,
+                                                             @Query("partyMemberId") Integer  partyMemberId,
+                                                             @Query("sortType") Integer sortType,
+                                                             @Query("limitNum") Integer limitNum);
 
+    @GET("party-data-statistics-front/studyRank/readonly/listPartyBranchRank")
+    Observable<BaseResponse<RankEntity>> listPartyBranchRank(@Query("userId") Integer userId,
+                                                             @Query("partyBranchId") Integer  partyBranchId,
+                                                             @Query("sortType") Integer sortType,
+                                                             @Query("limitNum") Integer limitNum);
 }
