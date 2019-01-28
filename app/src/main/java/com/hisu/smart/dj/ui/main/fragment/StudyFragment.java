@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyPlanActivity;
 import com.hisu.smart.dj.ui.study.activity.LearningRankingActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
@@ -96,6 +97,8 @@ public class StudyFragment extends BaseFragment {
                 }else if(position == 6){
                     //排名
                     LearningRankingActivity.startAction(getActivity());
+                }else if(position == 7){
+                    StudyExperienceActivity.startAction(getActivity());
                 }
             }
         });

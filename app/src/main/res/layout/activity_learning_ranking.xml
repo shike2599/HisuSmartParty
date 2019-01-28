@@ -44,7 +44,7 @@
                 />
             <View
                 android:layout_width="2dp"
-                android:layout_height="17dp"
+                android:layout_height="15dp"
                 android:background="@color/black"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center_vertical"
@@ -112,7 +112,13 @@
             android:layout_marginLeft="18dp"
             />
     </RelativeLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/background_color_gory"
+        android:layout_marginTop="10dp"
+        >
+    </View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -133,7 +139,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
@@ -154,12 +160,24 @@
             android:textColor="#000000"
             android:textSize="15sp" />
     </LinearLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/all_learing_recyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_border_shape"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/all_learing_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+        <com.jaydenxiao.common.commonwidget.LoadingTip
+            android:id="@+id/loadedTip_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
 
     <View
         android:layout_width="match_parent"
@@ -205,7 +223,13 @@
             android:layout_marginLeft="18dp"
             />
     </RelativeLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/background_color_gory"
+            android:layout_marginTop="10dp"
+            >
+        </View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -226,7 +250,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
@@ -248,11 +272,25 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/expert_learing_recyclerView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:background="@drawable/layout_border_shape"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/expert_learing_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+        <com.jaydenxiao.common.commonwidget.LoadingTip
+            android:id="@+id/loadedTip_expert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+
 
     <View
         android:layout_width="match_parent"
@@ -297,7 +335,13 @@
             android:layout_marginLeft="18dp"
             />
     </RelativeLayout>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/background_color_gory"
+            android:layout_marginTop="10dp"
+            >
+        </View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -318,7 +362,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="4"
             android:gravity="center"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
@@ -340,11 +384,25 @@
             android:textSize="15sp" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/routine__learing_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.RecyclerView>
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:background="@drawable/layout_border_shape"
+       >
+       <com.jaydenxiao.common.commonwidget.LoadingTip
+           android:id="@+id/loadedTip_routine"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_centerInParent="true"
+           />
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/routine__learing_recyclerView"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+       </android.support.v7.widget.RecyclerView>
+
+   </RelativeLayout>
+
 
     <View
         android:layout_width="match_parent"

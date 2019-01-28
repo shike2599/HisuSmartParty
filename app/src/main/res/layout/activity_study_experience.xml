@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+   <include
+       layout="@layout/title_bar_layout">
+   </include>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical"
+       android:background="@color/background_color_gory"
+       >
+      <EditText
+          android:id="@+id/title_EditText"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:hint="标题"
+          android:textSize="17dp"
+          android:background="@drawable/upload_edit_shape"
+          android:textColor="@color/text_color"
+          android:layout_marginLeft="20dp"
+          android:layout_marginRight="20dp"
+          android:layout_marginTop="30dp"
+          android:singleLine="true"
+          />
+       <EditText
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:minLines="5"
+           android:textSize="17dp"
+           android:textColor="@color/text_color"
+           android:hint="发表你的想法"
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="20dp"
+           android:layout_marginTop="10dp"
+           android:background="@drawable/upload_edit_shape"
+           android:gravity="top"
+           />
+       <RelativeLayout
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="20dp"
+           >
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_marginRight="20dp"
+               android:layout_marginLeft="30dp"
+               android:background="@drawable/button_shape"
+               android:layout_height="40dp">
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="立即发布"
+                   android:textSize="20dp"
+                   android:textColor="@color/white"
+                   android:layout_alignParentRight="true"
+                   android:layout_marginRight="10dp"
+                   android:layout_centerVertical="true"
+                   />
+           </RelativeLayout>
+
+           <ImageView
+               android:layout_width="wrap_content"
+               android:layout_height="40dp"
+               android:layout_marginLeft="10dp"
+               android:src="@mipmap/add_img_icon" />
+       </RelativeLayout>
+   </LinearLayout>
+
+</LinearLayout>

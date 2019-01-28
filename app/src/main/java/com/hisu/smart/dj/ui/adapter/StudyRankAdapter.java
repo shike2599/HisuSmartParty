@@ -4,11 +4,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.RankEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudyRankAdapter extends RecyclerView.Adapter<StudyRankAdapter.RankHolder> {
@@ -16,8 +18,10 @@ public class StudyRankAdapter extends RecyclerView.Adapter<StudyRankAdapter.Rank
     private int rank_type;
     public StudyRankAdapter(int type){
         rank_type = type;
+        dataList = new ArrayList<>();
     }
     public void setData(List<RankEntity> list){
+        dataList.clear();
         dataList = list;
         notifyDataSetChanged();
     }
@@ -33,13 +37,14 @@ public class StudyRankAdapter extends RecyclerView.Adapter<StudyRankAdapter.Rank
     public void onBindViewHolder(RankHolder holder, int position) {
         RankEntity rankEntity = dataList.get(position);
          if(position == 0){
-             holder.show_rank.setBackground();
+             holder.show_rank_img.setBackgroundResource(R.mipmap.study_ranking_1_icon);
          }else if(position == 1){
-             holder.show_rank.setBackground();
+             holder.show_rank_img.setBackgroundResource(R.mipmap.study_ranking_2_iocn);
          }else if(position == 2){
-             holder.show_rank.setBackground();
+             holder.show_rank_img.setBackgroundResource(R.mipmap.study_ranking_3_icon);
          }else{
-             holder.show_rank.setText(String.valueOf(position));
+             holder.show_rank_img.setVisibility(View.GONE);
+             holder.show_rank.setText(String.valueOf(position+1));
          }
          holder.show_rank_name.setText(rankEntity.getName());
          if(rank_type == 0){
@@ -61,6 +66,7 @@ public class StudyRankAdapter extends RecyclerView.Adapter<StudyRankAdapter.Rank
     }
 
      class RankHolder extends RecyclerView.ViewHolder{
+        private ImageView show_rank_img;
         private TextView show_rank;
         private TextView show_rank_name;
         private TextView show_rank_state;
@@ -69,6 +75,7 @@ public class StudyRankAdapter extends RecyclerView.Adapter<StudyRankAdapter.Rank
           show_rank = itemView.findViewById(R.id.show_rank);
           show_rank_name = itemView.findViewById(R.id.show_rank_name);
           show_rank_state = itemView.findViewById(R.id.show_rank_state);
+            show_rank_img = itemView.findViewById(R.id.rank_img_ImageView);
         }
     }
 }

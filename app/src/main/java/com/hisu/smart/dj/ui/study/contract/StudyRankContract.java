@@ -26,9 +26,9 @@ public interface StudyRankContract {
 
     interface View extends BaseView {
         //返回党员排名
-        void returnMemberRankListData(List<RankEntity> rankEntities);
+        void returnMemberRankListData(List<RankEntity> rankEntities,Integer sortType);
         //返回支部排名
-        void returnBranchRankListData(List<RankEntity> rankEntities);
+        void returnBranchRankListData(List<RankEntity> rankEntities,Integer sortType);
     }
     abstract static class Presenter extends BasePresenter<View, Model> {
         //发起获取党员排名请求

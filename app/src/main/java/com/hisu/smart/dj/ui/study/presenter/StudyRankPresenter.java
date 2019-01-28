@@ -22,7 +22,7 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
     }
 
     @Override
-    public void getMemberRankListDataRequest(Integer userId, Integer partyMemberId, Integer sortType, Integer limitNum) {
+    public void getMemberRankListDataRequest(Integer userId, Integer partyMemberId, final Integer sortType, Integer limitNum) {
         mRxManage.add(mModel.getMemberRankListData(userId,partyMemberId,sortType,limitNum).subscribe(new RxSubscriber<BaseResponse<RankEntity>>(mContext,false)  {
 
             @Override
@@ -33,7 +33,7 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
 
             @Override
             protected void _onNext(BaseResponse<RankEntity> rankEntityBaseResponse) {
-                mView.returnMemberRankListData(rankEntityBaseResponse.getDataList());
+                mView.returnMemberRankListData(rankEntityBaseResponse.getDataList(),sortType);
                 mView.stopLoading(null);
             }
 
@@ -45,24 +45,24 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
     }
 
     @Override
-    public void getBranchRankListDataRequest(Integer userId, Integer partyBranchId, Integer sortType, Integer limitNum) {
+    public void getBranchRankListDataRequest(Integer userId, Integer partyBranchId, final Integer sortType, Integer limitNum) {
         mRxManage.add(mModel.getBranchRankListData(userId,partyBranchId,sortType,limitNum).subscribe(new RxSubscriber<BaseResponse<RankEntity>>(mContext,false)  {
 
             @Override
             public void onStart() {
                 super.onStart();
-                mView.showLoading(mContext.getString(R.string.loading));
+                mView.showLoading(String.valueOf(sortType));
             }
 
             @Override
             protected void _onNext(BaseResponse<RankEntity> rankEntityBaseResponse) {
-                mView.returnMemberRankListData(rankEntityBaseResponse.getDataList());
-                mView.stopLoading(null);
+                mView.returnMemberRankListData(rankEntityBaseResponse.getDataList(),sortType);
+                mView.stopLoading(String.valueOf(sortType));
             }
 
             @Override
             protected void _onError(String message) {
-                mView.showErrorTip(message,null);
+                mView.showErrorTip(message,String.valueOf(sortType));
             }
         }));
 

@@ -20,7 +20,7 @@ public class RankEntity implements Serializable {
         private int id;
         private double commHours;
         private String name;
-        private int topicHours;
+        private double topicHours;
         private double totalHours;
 
         public int getId() {
@@ -47,7 +47,7 @@ public class RankEntity implements Serializable {
             this.name = name;
         }
 
-        public int getTopicHours() {
+        public double getTopicHours() {
             return topicHours;
         }
 

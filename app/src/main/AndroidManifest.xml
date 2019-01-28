@@ -35,6 +35,8 @@
         <activity android:name=".ui.my.activity.MyInfoActivity"/>
         <activity android:name=".ui.my.activity.AboutActivity">
         </activity>
+
+        <activity android:name=".ui.study.activity.StudyExperienceActivity"></activity>
     </application>
 
 </manifest>
