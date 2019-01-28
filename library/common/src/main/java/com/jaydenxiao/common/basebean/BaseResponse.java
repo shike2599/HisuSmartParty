@@ -40,7 +40,7 @@ public class BaseResponse<T> implements Serializable {
 
 
     public boolean success() {
-        return "200".equals(resultCode);
+        return true;
     }
 
     public List<T> getDataList() {

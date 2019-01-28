@@ -52,7 +52,7 @@
         android:textSize="14sp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:maxLength="16"
+        android:maxLength="12"
         android:background="@drawable/login_edittext"/>
 
     <Button

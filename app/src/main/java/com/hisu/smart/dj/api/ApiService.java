@@ -6,6 +6,8 @@ import com.hisu.smart.dj.entity.LoginUserEntity;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -22,9 +24,10 @@ public interface ApiService {
      * @param password  用户密码
      * @return
      */
+    @FormUrlEncoded
     @POST("party-user-front/login/readonly/login")
-    Observable<BaseResponse<LoginUserEntity>> login(@Query("userName") String username,
-                                                    @Query("password") String password);
+    Observable<BaseResponse<LoginUserEntity>> login(@Field("userName") String username,
+                                                    @Field("password") String password);
 
     /**
      * 发送验证码
