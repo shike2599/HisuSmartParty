@@ -58,8 +58,9 @@ public abstract class RxSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-        if (showDialog)
+        if (showDialog){
             LoadingDialog.cancelDialogForLoading();
+        }
     }
     @Override
     public void onStart() {
@@ -80,8 +81,9 @@ public abstract class RxSubscriber<T> extends Subscriber<T> {
     }
     @Override
     public void onError(Throwable e) {
-        if (showDialog)
+        if (showDialog){
             LoadingDialog.cancelDialogForLoading();
+        }
         e.printStackTrace();
         //网络
         if (!NetWorkUtils.isNetConnected(BaseApplication.getAppContext())) {

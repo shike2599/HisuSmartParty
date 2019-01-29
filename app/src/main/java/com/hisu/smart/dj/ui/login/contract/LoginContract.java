@@ -1,15 +1,11 @@
 package com.hisu.smart.dj.ui.login.contract;
 
 import com.hisu.smart.dj.entity.LoginResponse;
-import com.hisu.smart.dj.entity.LoginUserEntity;
+
 import com.jaydenxiao.common.base.BaseModel;
 import com.jaydenxiao.common.base.BasePresenter;
 import com.jaydenxiao.common.base.BaseView;
-import com.jaydenxiao.common.basebean.BaseResponse;
 
-import java.util.List;
-
-import retrofit2.http.Query;
 import rx.Observable;
 
 /**

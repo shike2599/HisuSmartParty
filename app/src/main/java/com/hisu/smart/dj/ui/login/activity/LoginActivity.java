@@ -100,22 +100,19 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
 
     @Override
     public void showLoading(String tag) {
-        loadingTip.setLoadingTip(LoadingTip.LoadStatus.loading);
     }
 
     @Override
     public void stopLoading(String tag) {
-        loadingTip.setLoadingTip(LoadingTip.LoadStatus.finish);
     }
 
     @Override
     public void showErrorTip(String msg, String tag) {
-        loadingTip.setLoadingTip(LoadingTip.LoadStatus.sereverError);
+        ToastUitl.show(msg,Toast.LENGTH_SHORT);
     }
 
     @Override
     public void returnLoginResponse(LoginResponse loginResponse) {
-        LogUtils.logd("returnLoginResponse:"+loginResponse.toString());
         if(AppConstant.REQUEST_SUCCESS.equals(loginResponse.getResultCode())){
             LoginUserEntity entity = loginResponse.getData();
             //保存当前用户登陆状态
