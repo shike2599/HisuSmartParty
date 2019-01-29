@@ -1,5 +1,6 @@
 package com.hisu.smart.dj.ui.login.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -56,8 +57,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         tvForget.setOnClickListener(this);
         username = AppConfig.getInstance().getString(AppConstant.USER_NAME,"");
         password = AppConfig.getInstance().getString(AppConstant.USER_PASSWORD,"");
-        etName.setText(username);
-        etPassword.setText(password);
+        //etName.setText(username);
+        //etPassword.setText(password);
+        if(!TextUtils.isEmpty(username)){
+            MainActivity.startAction(LoginActivity.this);
+            finish();
+        }
     }
 
     @Override
