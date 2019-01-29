@@ -122,4 +122,22 @@ public class LoginUserEntity implements Serializable {
         public void setUserName(String userName) {
             this.userName = userName;
         }
+
+
+    @Override
+    public String toString() {
+        return "LoginUserEntity{" +
+                "inServer='" + inServer + '\'' +
+                ", isPartyBranch=" + isPartyBranch +
+                ", isPartyCommittee=" + isPartyCommittee +
+                ", isPartyMember=" + isPartyMember +
+                ", nickname='" + nickname + '\'' +
+                ", outServer='" + outServer + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", photo='" + photo + '\'' +
+                ", userId=" + userId +
+                ", userName='" + userName + '\'' +
+                '}';
+    }
 }

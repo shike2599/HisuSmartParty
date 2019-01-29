@@ -20,5 +20,7 @@ public class AppApplication  extends BaseApplication {
         LogUtils.logInit(BuildConfig.LOG_DEBUG);
         //判断网络
         isNet = NetWorkUtils.isNetConnected(this);
+        //初始化sp存储
+        AppConfig.init(this);
     }
 }

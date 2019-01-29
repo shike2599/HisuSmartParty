@@ -7,6 +7,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConfig;
+import com.hisu.smart.dj.app.AppConstant;
+import com.hisu.smart.dj.entity.LoginResponse;
 import com.hisu.smart.dj.entity.LoginUserEntity;
 import com.hisu.smart.dj.ui.login.contract.LoginContract;
 import com.hisu.smart.dj.ui.login.model.LoginModel;
@@ -14,7 +17,6 @@ import com.hisu.smart.dj.ui.login.presenter.LoginPresenter;
 import com.hisu.smart.dj.ui.main.activity.MainActivity;
 import com.hisu.smart.dj.ui.my.activity.ForgotPasswordActivity;
 import com.jaydenxiao.common.base.BaseActivity;
-import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonutils.LogUtils;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
@@ -54,6 +56,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     public void initView() {
         btnLogin.setOnClickListener(this);
         tvForget.setOnClickListener(this);
+        username = AppConfig.getInstance().getString(AppConstant.USER_NAME,"");
+        password = AppConfig.getInstance().getString(AppConstant.USER_PASSWORD,"");
+        etName.setText(username);
+        etPassword.setText(password);
     }
 
     @Override
@@ -61,11 +67,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         int id = v.getId();
         switch (id){
             case R.id.btn_login:
-//                 if(checkForm()){
-//                     mPresenter.loginResponseRequest(username,password);
-                     MainActivity.startAction(LoginActivity.this);
-//                     return;
-//                 }
+                 if(checkForm()){
+                     mPresenter.loginResponseRequest(username,password);
+                     return;
+                 }
                 break;
             case R.id.tv_forget_password:
                 ForgotPasswordActivity.startAction(LoginActivity.this);
@@ -109,9 +114,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     }
 
     @Override
-    public void returnLoginResponse(BaseResponse<LoginUserEntity> loginResponse) {
-        LogUtils.logd(loginResponse.toString());
-        if("200".equals(loginResponse.getResultCode())){
+    public void returnLoginResponse(LoginResponse loginResponse) {
+        LogUtils.logd("returnLoginResponse:"+loginResponse.toString());
+        if(AppConstant.REQUEST_SUCCESS.equals(loginResponse.getResultCode())){
+            LoginUserEntity entity = loginResponse.getData();
+            //保存当前用户登陆状态
+            AppConfig.getInstance().setInt(AppConstant.USER_ID,entity.getUserId());
+            AppConfig.getInstance().setString(AppConstant.USER_NAME,entity.getUserName());
+            AppConfig.getInstance().setString(AppConstant.NICK_NAME,entity.getNickname());
+            AppConfig.getInstance().setString(AppConstant.USER_PHOTO,entity.getPhoto());
+            AppConfig.getInstance().setString(AppConstant.USER_PHONE,entity.getPhone());
+            AppConfig.getInstance().setString(AppConstant.USER_PASSWORD,password);
+            AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_MEMBER,entity.isIsPartyMember());
+            AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_BRANCH,entity.isIsPartyBranch());
+            AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_COMMITTEE,entity.isIsPartyCommittee());
             MainActivity.startAction(LoginActivity.this);
             finish();
         }else{

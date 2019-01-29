@@ -2,6 +2,7 @@ package com.hisu.smart.dj.api;
 
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.LoginResponse;
 import com.hisu.smart.dj.entity.LoginUserEntity;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.jaydenxiao.common.basebean.BaseResponse;
@@ -26,8 +27,8 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("party-user-front/login/readonly/login")
-    Observable<BaseResponse<LoginUserEntity>> login(@Field("userName") String username,
-                                                    @Field("password") String password);
+    Observable<LoginResponse> login(@Field("userName") String username,
+                                    @Field("password") String password);
 
     /**
      * 发送验证码

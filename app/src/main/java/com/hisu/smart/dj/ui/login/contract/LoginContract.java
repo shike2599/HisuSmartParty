@@ -1,5 +1,6 @@
 package com.hisu.smart.dj.ui.login.contract;
 
+import com.hisu.smart.dj.entity.LoginResponse;
 import com.hisu.smart.dj.entity.LoginUserEntity;
 import com.jaydenxiao.common.base.BaseModel;
 import com.jaydenxiao.common.base.BasePresenter;
@@ -19,10 +20,10 @@ import rx.Observable;
 
 public interface LoginContract  {
     interface Model extends BaseModel {
-        Observable<BaseResponse<LoginUserEntity>> getLoginResponse(String username,String password);
+        Observable<LoginResponse> getLoginResponse(String username, String password);
     }
     interface View extends BaseView {
-        void returnLoginResponse(BaseResponse<LoginUserEntity> loginResponse);
+        void returnLoginResponse(LoginResponse loginResponse);
     }
     abstract class Presenter extends BasePresenter<View,Model> {
         public abstract void loginResponseRequest(String username,String password);

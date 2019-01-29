@@ -4,6 +4,7 @@ import com.hisu.smart.dj.api.Api;
 import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
 
+import com.hisu.smart.dj.entity.LoginResponse;
 import com.hisu.smart.dj.entity.LoginUserEntity;
 import com.hisu.smart.dj.ui.login.contract.LoginContract;
 import com.jaydenxiao.common.basebean.BaseResponse;
@@ -20,14 +21,16 @@ import rx.functions.Func1;
 
 public class LoginModel implements LoginContract.Model {
     @Override
-    public Observable<BaseResponse<LoginUserEntity>> getLoginResponse(String username, String password) {
+    public Observable<LoginResponse> getLoginResponse(String username, String password) {
         return Api.getDefault(AppApplication.getAppContext(), AppConstant.HOST_URL)
                 .login(username,password)
-                .map(new Func1<BaseResponse<LoginUserEntity>, BaseResponse<LoginUserEntity>>() {
+                .map(new Func1<LoginResponse, LoginResponse>() {
                     @Override
-                    public BaseResponse<LoginUserEntity> call(BaseResponse<LoginUserEntity> loginUserResponse) {
+                    public LoginResponse call(LoginResponse loginUserResponse) {
+                        LoginUserEntity userEntity = loginUserResponse.getData();
+                        userEntity.setPhoto(userEntity.getOutServer()+userEntity.getPhoto());
                         return loginUserResponse;
                     }
-                }).compose(RxSchedulers.<BaseResponse<LoginUserEntity>>io_main());
+                }).compose(RxSchedulers.<LoginResponse>io_main());
     }
 }
