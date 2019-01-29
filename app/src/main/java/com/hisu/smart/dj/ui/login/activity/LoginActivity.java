@@ -17,6 +17,7 @@ import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonutils.LogUtils;
 import com.jaydenxiao.common.commonutils.ToastUitl;
+import com.jaydenxiao.common.commonwidget.LoadingTip;
 
 import butterknife.Bind;
 
@@ -33,6 +34,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     Button btnLogin;
     @Bind(R.id.tv_forget_password)
     TextView tvForget;
+    @Bind(R.id.loaded_login)
+    LoadingTip loadingTip;
 
     private String username;
     private String password;
@@ -91,17 +94,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
 
     @Override
     public void showLoading(String tag) {
-
+        loadingTip.setLoadingTip(LoadingTip.LoadStatus.loading);
     }
 
     @Override
     public void stopLoading(String tag) {
-
+        loadingTip.setLoadingTip(LoadingTip.LoadStatus.finish);
     }
 
     @Override
     public void showErrorTip(String msg, String tag) {
-
+        loadingTip.setLoadingTip(LoadingTip.LoadStatus.sereverError);
     }
 
     @Override

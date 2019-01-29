@@ -34,8 +34,9 @@ public interface ApiService {
      * @param phone 手机号
      * @return
      */
+    @FormUrlEncoded
     @POST("party-user-front/login/readonly/sendVerifyCode")
-    Observable<BaseResponse> sendVerifyCode(@Query("phone") String phone);
+    Observable<BaseResponse> sendVerifyCode(@Field("phone") String phone);
 
     /**
      * 校验验证码
@@ -43,9 +44,10 @@ public interface ApiService {
      * @param code   手机验证码
      * @return
      */
+    @FormUrlEncoded
     @POST("party-user-front/login/readonly/verifyPhoneCode")
-    Observable<BaseResponse> verifyPhoneCode(@Query("phone") String phone,
-                                             @Query("code") String code);
+    Observable<BaseResponse> verifyPhoneCode(@Field("phone") String phone,
+                                             @Field("code") String code);
 
     /**
      * 资讯活动列表
