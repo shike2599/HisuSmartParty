@@ -36,8 +36,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     Button btnLogin;
     @Bind(R.id.tv_forget_password)
     TextView tvForget;
-    @Bind(R.id.loaded_login)
-    LoadingTip loadingTip;
 
     private String username;
     private String password;
