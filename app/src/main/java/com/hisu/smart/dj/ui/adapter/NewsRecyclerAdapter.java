@@ -78,15 +78,6 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             holder.video.tinyBackImageView.setVisibility(View.GONE);
             holder.video.startButton.setEnabled(false);
             holder.video.thumbImageView.setEnabled(false);
-//            Glide.with(mContext).load(iconStr)
-//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                    .centerCrop()
-//                    .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
-//                    .crossFade().into(holder.video.thumbImageView);
-
-//            Glide.with(mContext).load(iconStr)
-//                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
-//                    .into(holder.video.thumbImageView);
             Glide.with(mContext)
                     .load(iconStr)
                     .apply(new RequestOptions()

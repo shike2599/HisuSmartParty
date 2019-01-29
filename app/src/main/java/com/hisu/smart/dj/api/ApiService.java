@@ -3,7 +3,8 @@ package com.hisu.smart.dj.api;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.LoginResponse;
-import com.hisu.smart.dj.entity.LoginUserEntity;
+
+import com.hisu.smart.dj.entity.TopicPlanEntity;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
@@ -83,4 +84,16 @@ public interface ApiService {
                                                              @Query("partyBranchId") Integer  partyBranchId,
                                                              @Query("sortType") Integer sortType,
                                                              @Query("limitNum") Integer limitNum);
+
+
+    @GET("party-app-education-front/plan/readonly/listMemberTopicResPlan")
+    Observable<InformationResponse<TopicPlanEntity>> listMemberTopicResPlan(@Query("userId") Integer userId,
+                                                                            @Query("pageNo")Integer pageNo,
+                                                                            @Query("pageSize")Integer pageSize);
+
+    @GET("party-app-education-front/plan/readonly/listBranchTopicResPlan")
+    Observable<InformationResponse<TopicPlanEntity>> listBranchTopicResPlan(@Query("userId") Integer userId,
+                                                                            @Query("pageNo")Integer pageNo,
+                                                                            @Query("pageSize")Integer pageSize);
+
 }

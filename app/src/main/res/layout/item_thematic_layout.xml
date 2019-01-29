@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+    <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+        android:id="@+id/thematic_video"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"/>
+    <TextView
+        android:id="@+id/thematic_video_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="三会一课"
+        android:gravity="center"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
+        android:paddingTop="2dp"
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:textSize="14sp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="3dp"
+        android:paddingLeft="3dp"
+        android:paddingTop="3dp"
+        android:gravity="center">
+       <TextView
+           android:id="@+id/thematic_date"
+           android:layout_width="wrap_content"
+           android:layout_height="20dp"
+           android:text="2018-12-13"
+           android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tv_thematic_number"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:text="2300次"
+            android:gravity="center"
+            android:textColor="@color/text_color"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+           android:layout_marginBottom="3dp"
+            android:src="@mipmap/wacth_icon"
+            android:gravity="center"
+            android:layout_toLeftOf="@id/tv_thematic_number"
+            android:layout_alignBottom="@+id/tv_thematic_number"/>
+
+    </RelativeLayout>
+</LinearLayout>

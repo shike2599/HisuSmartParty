@@ -1,29 +1,19 @@
 package com.hisu.smart.dj.ui.main.fragment;
 
-import android.app.Application;
-import android.app.Dialog;
+
 import android.content.Context;
-import android.graphics.Canvas;
-import android.net.Uri;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
+
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+
 import com.hisu.smart.dj.R;
-import com.hisu.smart.dj.api.Api;
+
 import com.hisu.smart.dj.app.AppApplication;
-import com.hisu.smart.dj.app.AppConstant;
+
 import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;

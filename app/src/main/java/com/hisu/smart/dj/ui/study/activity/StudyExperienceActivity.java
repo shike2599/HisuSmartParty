@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.donkingliang.imageselector.adapter.ImageAdapter;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.ui.adapter.PicSelectorAdapter;
