@@ -152,9 +152,11 @@ public class LearningRankingActivity extends BaseActivity
                         branch_dataList_topic.size()>0&&
                         branch_dataList_comm.size()>0){
                     totalHoursAdapter.setData(branch_dataList_total);
-                    topicHoursAdapter.setData(branch_dataList_total);
-                    commHoursAdapter.setData(branch_dataList_total);
+                    topicHoursAdapter.setData(branch_dataList_topic);
+                    commHoursAdapter.setData(branch_dataList_comm);
+//                    Log.d("LearingRanking","支部排行有数据--填充");
                 }else{
+//                    Log.d("LearingRanking","支部排行没有数据--请求");
                     getBranchData();
                 }
                 break;
@@ -165,10 +167,12 @@ public class LearningRankingActivity extends BaseActivity
                         user_dataList_topic.size()>0&&
                         user_dataList_comm.size()>0){
                     totalHoursAdapter.setData(user_dataList_total);
-                    topicHoursAdapter.setData(user_dataList_total);
-                    commHoursAdapter.setData(user_dataList_total);
+                    topicHoursAdapter.setData(user_dataList_topic);
+                    commHoursAdapter.setData(user_dataList_comm);
+//                    Log.d("LearingRanking","党员排行有数据--填充");
                 }else{
                     getUserData();
+//                    Log.d("LearingRanking","党员排行没有数据--请求");
                 }
                 break;
             case R.id.rank_back_imageView:
@@ -179,32 +183,64 @@ public class LearningRankingActivity extends BaseActivity
     //个人排行
     @Override
     public void returnMemberRankListData(List<RankEntity> rankEntities,Integer sortType) {
+//        Log.d("LearingRanking","--党员排行请求数据--");
+//        Log.d("LearingRanking","--党员排行请求数据--rankEntities --size()--"+rankEntities.size());
        if(rankEntities != null && rankEntities.size() > 0){
            if(sortType==TOTAL_TYPE){
-               user_dataList_total=rankEntities;
+               user_dataList_total.clear();
+               user_dataList_total.addAll(rankEntities);
+               totalHoursAdapter.setData(user_dataList_total);
+//               Log.d("LearingRanking","--User--sortType==TOTAL_TYPE--");
+           }else if(sortType==TOPIC_TYPE){
+               user_dataList_topic.clear();
+               user_dataList_topic.addAll(rankEntities);
+               topicHoursAdapter.setData(user_dataList_topic);
+//               Log.d("LearingRanking","--User--sortType==TOPIC_TYPE--");
+           }else if(sortType==COMM_TYPE){
+               user_dataList_comm.clear();
+               user_dataList_comm.addAll(rankEntities);
+               commHoursAdapter.setData(user_dataList_comm);
+//               Log.d("LearingRanking","--User--sortType==COMM_TYPE--");
+           }
+       }else{
+           if(sortType==TOTAL_TYPE){
                totalHoursAdapter.setData(user_dataList_total);
            }else if(sortType==TOPIC_TYPE){
-               user_dataList_topic=rankEntities;
                topicHoursAdapter.setData(user_dataList_topic);
            }else if(sortType==COMM_TYPE){
-               user_dataList_comm=rankEntities;
                commHoursAdapter.setData(user_dataList_comm);
            }
+
        }
     }
     //支部排行
     @Override
     public void returnBranchRankListData(List<RankEntity> rankEntities,Integer sortType) {
+//        Log.d("LearingRanking","--支部排行请求数据--");
 //        Log.d("LearningRank","rankEntities---size==="+rankEntities.size());
         if(rankEntities != null && rankEntities.size() > 0){
             if(sortType==TOTAL_TYPE){
-                branch_dataList_total=rankEntities;
+                branch_dataList_total.clear();
+                branch_dataList_total.addAll(rankEntities);
+                totalHoursAdapter.setData(branch_dataList_total);
+//                Log.d("LearingRanking","--Branch--sortType==TOTAL_TYPE--");
+            }else if(sortType==TOPIC_TYPE){
+                branch_dataList_topic.clear();
+                branch_dataList_topic.addAll(rankEntities);
+                topicHoursAdapter.setData(branch_dataList_topic);
+//                Log.d("LearingRanking","--Branch--sortType==TOPIC_TYPE--");
+            }else if(sortType==COMM_TYPE){
+                branch_dataList_comm.clear();
+                branch_dataList_comm.addAll(rankEntities);
+                commHoursAdapter.setData(branch_dataList_comm);
+//                Log.d("LearingRanking","--Branch--sortType==COMM_TYPE--");
+            }
+        }else{
+            if(sortType==TOTAL_TYPE){
                 totalHoursAdapter.setData(branch_dataList_total);
             }else if(sortType==TOPIC_TYPE){
-                branch_dataList_topic=rankEntities;
                 topicHoursAdapter.setData(branch_dataList_topic);
             }else if(sortType==COMM_TYPE){
-                branch_dataList_comm=rankEntities;
                 commHoursAdapter.setData(branch_dataList_comm);
             }
         }
@@ -214,7 +250,7 @@ public class LearningRankingActivity extends BaseActivity
     public void showLoading(String tag) {
        if(tag.equals(String.valueOf(TOTAL_TYPE))
                &&tag==String.valueOf(TOTAL_TYPE)){
-           Log.d("LearningRank","--showLoading--"+tag);
+//           Log.d("LearningRank","--showLoading--"+tag);
            total_loadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
        }
        if(tag.equals(String.valueOf(TOPIC_TYPE))

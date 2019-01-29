@@ -1,6 +1,7 @@
 package com.hisu.smart.dj.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,12 +12,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
 import com.jaydenxiao.common.commonutils.LogUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,11 +78,22 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             holder.video.tinyBackImageView.setVisibility(View.GONE);
             holder.video.startButton.setEnabled(false);
             holder.video.thumbImageView.setEnabled(false);
-            Glide.with(mContext).load(iconStr)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .centerCrop()
-                    .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
-                    .crossFade().into(holder.video.thumbImageView);
+//            Glide.with(mContext).load(iconStr)
+//                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+//                    .centerCrop()
+//                    .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
+//                    .crossFade().into(holder.video.thumbImageView);
+
+//            Glide.with(mContext).load(iconStr)
+//                    .apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+//                    .into(holder.video.thumbImageView);
+            Glide.with(mContext)
+                    .load(iconStr)
+                    .apply(new RequestOptions()
+                            .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .placeholder(R.drawable.ic_launcher))
+                    .into(holder.video.thumbImageView);
         }else{
             holder.video.setVisibility(View.GONE);
             holder.newImage.setVisibility(View.VISIBLE);

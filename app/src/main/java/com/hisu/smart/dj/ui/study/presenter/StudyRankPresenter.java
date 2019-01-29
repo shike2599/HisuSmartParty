@@ -34,7 +34,7 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
             @Override
             protected void _onNext(BaseResponse<RankEntity> rankEntityBaseResponse) {
                 mView.returnMemberRankListData(rankEntityBaseResponse.getDataList(),sortType);
-                mView.stopLoading(null);
+                mView.stopLoading(String.valueOf(sortType));
             }
 
             @Override
@@ -56,7 +56,7 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
 
             @Override
             protected void _onNext(BaseResponse<RankEntity> rankEntityBaseResponse) {
-                mView.returnMemberRankListData(rankEntityBaseResponse.getDataList(),sortType);
+                mView.returnBranchRankListData(rankEntityBaseResponse.getDataList(),sortType);
                 mView.stopLoading(String.valueOf(sortType));
             }
 

@@ -61,10 +61,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         int id = v.getId();
         switch (id){
             case R.id.btn_login:
-                 if(checkForm()){
-                     mPresenter.loginResponseRequest(username,password);
-                     return;
-                 }
+//                 if(checkForm()){
+//                     mPresenter.loginResponseRequest(username,password);
+                     MainActivity.startAction(LoginActivity.this);
+//                     return;
+//                 }
                 break;
             case R.id.tv_forget_password:
                 ForgotPasswordActivity.startAction(LoginActivity.this);

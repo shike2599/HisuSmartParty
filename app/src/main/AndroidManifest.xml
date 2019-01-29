@@ -36,7 +36,13 @@
         <activity android:name=".ui.my.activity.AboutActivity">
         </activity>
 
-        <activity android:name=".ui.study.activity.StudyExperienceActivity"></activity>
+        <activity android:name=".ui.study.activity.StudyExperienceActivity"/>
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name="com.donkingliang.imageselector.ImageSelectorActivity"/>
+        <activity
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name="com.donkingliang.imageselector.PreviewActivity"/>
     </application>
 
 </manifest>
