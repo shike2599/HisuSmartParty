@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="48dp"
+    android:orientation="horizontal"
+    android:gravity="center"
     android:background="@color/gray">
     <include
         android:id="@+id/theEndView"
@@ -15,4 +17,4 @@
         android:id="@+id/loadingView"
         layout="@layout/layout_irecyclerview_load_more_footer_loading_view" />
 
-</LinearLayout>
+</RelativeLayout>

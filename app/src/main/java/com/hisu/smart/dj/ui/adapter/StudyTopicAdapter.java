@@ -13,6 +13,7 @@ import com.aspsine.irecyclerview.bean.PageBean;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.InformationEntity;
 
@@ -73,7 +74,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
                     .apply(new RequestOptions()
                             .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.mipmap.ic_launcher))
+                            .placeholder(com.jaydenxiao.common.R.drawable.ic_image_loading))
                     .into(holder.thematic_video.thumbImageView);
         }else{
             holder.thematic_video.setVisibility(View.GONE);
@@ -83,7 +84,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
                     .apply(new RequestOptions()
                             .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.mipmap.ic_launcher))
+                            .placeholder(com.jaydenxiao.common.R.drawable.ic_image_loading))
                     .into(holder.thematic_cover);
         }
 
