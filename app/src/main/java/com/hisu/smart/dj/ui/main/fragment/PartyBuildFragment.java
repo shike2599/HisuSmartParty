@@ -1,10 +1,19 @@
 package com.hisu.smart.dj.ui.main.fragment;
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.study.activity.LearningRankingActivity;
+import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
+import com.hisu.smart.dj.ui.study.activity.StudyPlanActivity;
+import com.hisu.smart.dj.ui.study.activity.StudyTopicActivity;
+import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.youth.banner.Banner;
@@ -20,6 +29,14 @@ import java.util.List;
 public class PartyBuildFragment extends BaseFragment {
 
     private static final String TAG = "PartyBuildFragment";
+    private static final String PARTY_BUILD = "partyBuild/";
+    //组织关系
+    private static String partyBuild_relation = AppConstant.BASE_URL_LOAD+PARTY_BUILD+"relation.html";
+    //党费缴纳
+    private static String partyBuild_payCost = AppConstant.BASE_URL_LOAD+PARTY_BUILD+"payCost.html";
+    //党组架构
+    private static String partyBuild_partyStructure = AppConstant.BASE_URL_LOAD+PARTY_BUILD+"partyStructure.html";
+
     private Banner partyBanner;
     private List<Integer> partyBannerImages;
     private int[] Images = {
@@ -75,6 +92,30 @@ public class PartyBuildFragment extends BaseFragment {
         gridViewAdapter = new GridViewAdapter(getActivity());
         gridViewAdapter.setGridViewItemEntities(gridViewItemEntities);
         gridView.setAdapter(gridViewAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView title_TextView =  view.findViewById(R.id.item_title);
+                String title = title_TextView.getText().toString();
+                if(title=="党委简介"){
+
+                }else if(title=="组织关系"){
+                    WebActivity.startAction(getActivity(),"组织关系",partyBuild_relation);
+                }else if(title=="支部简介"){
+
+                }else if(title=="党费缴纳"){
+                    WebActivity.startAction(getActivity(),"党费缴纳",partyBuild_payCost);
+                }else if(title=="党务公开"){
+
+                }else if(title=="党组架构"){
+                    WebActivity.startAction(getActivity(),"党组架构",partyBuild_partyStructure);
+                }else if(title=="支部活动"){
+
+                }else if(title=="党建大数据"){
+
+                }
+            }
+        });
     }
 
 }

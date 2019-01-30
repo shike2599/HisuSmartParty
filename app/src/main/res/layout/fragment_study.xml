@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="160dp" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +29,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </GridView>
+        <RelativeLayout
+            android:id="@+id/change_study_state_Layout"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/study_change_icon"
+            android:layout_width="30dp"
+            android:layout_height="85dp">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/study_member_or_branch_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="支部学习"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:ems="1"
+                android:textColor="@color/white"
+                />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 
 </LinearLayout>

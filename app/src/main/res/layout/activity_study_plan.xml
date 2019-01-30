@@ -98,7 +98,7 @@
         android:id="@+id/show_expert_study_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="学时计划：已学习0课时计划学习0课时"
+        android:text="学时计划：已学习0课时/计划学习0课时"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="16dp"
         android:textSize="14dp"

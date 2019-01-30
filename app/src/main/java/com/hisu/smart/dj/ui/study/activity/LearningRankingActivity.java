@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.DividerItemDecoration;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppApplication;
+import com.hisu.smart.dj.app.AppConfig;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.hisu.smart.dj.ui.adapter.StudyRankAdapter;
 import com.hisu.smart.dj.ui.study.contract.StudyRankContract;
@@ -88,9 +90,21 @@ public class LearningRankingActivity extends BaseActivity
 
     @Override
     public void initPresenter() {
-        user_id = 5;
-        partyMemberId = 1;
-        partyBranchId = 1;
+        user_id = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
+        partyMemberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
+        partyBranchId = AppConfig.getInstance().getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1);
+
+        if(partyMemberId == -1){
+            partyMemberId = null;
+        }
+        if(partyBranchId == -1){
+            partyBranchId = null;
+        }
+
+
+//        user_id = 5;
+//        partyMemberId = 1;
+//        partyBranchId = 1;
 
         user_dataList_total = new ArrayList<>();
         user_dataList_topic = new ArrayList<>();

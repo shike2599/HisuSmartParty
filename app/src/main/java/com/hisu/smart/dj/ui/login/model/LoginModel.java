@@ -6,6 +6,7 @@ import com.hisu.smart.dj.app.AppConstant;
 
 import com.hisu.smart.dj.entity.LoginResponse;
 import com.hisu.smart.dj.entity.LoginUserEntity;
+import com.hisu.smart.dj.entity.MemberInfoResponse;
 import com.hisu.smart.dj.ui.login.contract.LoginContract;
 
 import com.jaydenxiao.common.baserx.RxSchedulers;
@@ -35,5 +36,17 @@ public class LoginModel implements LoginContract.Model {
                         return loginUserResponse;
                     }
                 }).compose(RxSchedulers.<LoginResponse>io_main());
+    }
+
+    @Override
+    public Observable<MemberInfoResponse> getMemberInfoResponse(Integer userId) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .getPartyMember(userId)
+                .map(new Func1<MemberInfoResponse, MemberInfoResponse>() {
+                    @Override
+                    public MemberInfoResponse call(MemberInfoResponse memberInfoResponse) {
+                        return memberInfoResponse;
+                    }
+                }).compose(RxSchedulers.<MemberInfoResponse>io_main());
     }
 }

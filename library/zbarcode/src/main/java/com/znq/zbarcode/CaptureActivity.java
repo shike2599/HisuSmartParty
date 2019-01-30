@@ -81,7 +81,8 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback 
         scanCropView = (RelativeLayout) findViewById(R.id.capture_crop_view);
         scanLine = (ImageView) findViewById(R.id.capture_scan_line);
         TextView _textTitle = (TextView) findViewById(R.id.scan_title);
-        _textTitle.setText(getString(R.string.qr_name));
+//        _textTitle.setText(getString(R.string.qr_name));
+        _textTitle.setText("扫一扫登录");
         findViewById(R.id.img_back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

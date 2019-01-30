@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- if you want to load images from a file OR from the internet -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".app.AppApplication"
@@ -49,6 +49,7 @@
             android:name="com.donkingliang.imageselector.PreviewActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".ui.study.activity.StudyCommonActivity"></activity>
+        <activity android:name=".ui.web.activity.WebActivity"></activity>
     </application>
 
 </manifest>

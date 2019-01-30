@@ -1,6 +1,7 @@
 package com.hisu.smart.dj.ui.login.activity;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.LoginResponse;
 import com.hisu.smart.dj.entity.LoginUserEntity;
+import com.hisu.smart.dj.entity.MemberInfoResponse;
 import com.hisu.smart.dj.ui.login.contract.LoginContract;
 import com.hisu.smart.dj.ui.login.model.LoginModel;
 import com.hisu.smart.dj.ui.login.presenter.LoginPresenter;
@@ -20,6 +22,7 @@ import com.hisu.smart.dj.ui.my.activity.ForgotPasswordActivity;
 import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.commonutils.LogUtils;
 import com.jaydenxiao.common.commonutils.ToastUitl;
+import com.jaydenxiao.common.commonwidget.LoadingDialog;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
 
 import butterknife.Bind;
@@ -71,6 +74,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         switch (id){
             case R.id.btn_login:
                  if(checkForm()){
+                     LoadingDialog.showDialogForLoading(
+                             LoginActivity.this,"正在登录中。。。",true);
                      mPresenter.loginResponseRequest(username,password);
                      return;
                  }
@@ -111,6 +116,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
 
     @Override
     public void showErrorTip(String msg, String tag) {
+       LoadingDialog.cancelDialogForLoading();
         ToastUitl.show(msg,Toast.LENGTH_SHORT);
     }
 
@@ -128,10 +134,36 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
             AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_MEMBER,entity.isIsPartyMember());
             AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_BRANCH,entity.isIsPartyBranch());
             AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_COMMITTEE,entity.isIsPartyCommittee());
-            MainActivity.startAction(LoginActivity.this);
-            finish();
+//            MainActivity.startAction(LoginActivity.this);
+//            finish();
+//            mPresenter.loginResponseRequest(username,password);
+            //登录成功后，开始拿党员信息
+            mPresenter.MemberInfoResponseRequest(entity.getUserId());
         }else{
             ToastUitl.show(loginResponse.getResultDesc(),Toast.LENGTH_SHORT);
+        }
+    }
+    //党员信息查询返回
+    @Override
+    public void returnMemberInfoResponse(MemberInfoResponse memberInfoResponse) {
+//        Log.d("LoginMemberInfo","memberInfoResponse--code == "+memberInfoResponse.getResultCode());
+        String code = String.valueOf(memberInfoResponse.getResultCode());
+        //返回200
+        if(AppConstant.REQUEST_SUCCESS.equals(code)){
+//            Log.d("LoginMemberInfo","memberInfoResponse--");
+            LoadingDialog.cancelDialogForLoading();
+            MemberInfoResponse.DataBean memberInfo = memberInfoResponse.getData();
+            AppConfig.getInstance().setInt(AppConstant.MEMBER_ID,memberInfo.getId()); //党员序号
+            AppConfig.getInstance().setString(AppConstant.MEMBER_NAME,memberInfo.getName()); //党员名称
+            AppConfig.getInstance().setString(AppConstant.MEMBER_CODE,memberInfo.getCode()); //党员编号
+            AppConfig.getInstance().setString(AppConstant.MEMBER_PHONE,memberInfo.getPhone()); //联系电话
+            AppConfig.getInstance().setString(AppConstant.MEMBER_IDCARD,memberInfo.getIdCard()); //身份证
+            AppConfig.getInstance().setInt(AppConstant.MEMBER_SEX,memberInfo.getSex()); //性别 0-女 1-男
+            AppConfig.getInstance().setInt(AppConstant.MEMBER_PARTYBRANCH_ID,memberInfo.getPartyBranchId()); //支部序号
+            AppConfig.getInstance().setInt(AppConstant.MEMBER_STATUS,memberInfo.getStatus()); //党员性质 0-在职 1-退休 2-农民
+            AppConfig.getInstance().setInt(AppConstant.MEMBER_INTEGRAL,memberInfo.getIntegral()); //积分
+            MainActivity.startAction(LoginActivity.this);
+            finish();
         }
     }
 }

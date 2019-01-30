@@ -11,6 +11,11 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi' , 'armeabi-v7a'//, 'x86', 'armeabi-v7a', 'x86_64'
+        }
     }
     buildTypes {
         release {
@@ -48,12 +53,21 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:0.5'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     implementation project(':library:common')
-    implementation project(':library:irecyclerview')//万能适配器和recyclerview
-    implementation project(':library:jcvideoplayer')//视频播放
-    implementation project(':library:oneKeyShareSDK')//分享
-    implementation project(':library:photoPicker')//图片选择
-    implementation project(':library:selectordialog')//常用提示框
-    implementation project(':library:imageselector')//图片选择器
-    implementation project(':library:zbarcode')//扫码
-    implementation 'com.youth.banner:banner:1.4.10'  //最新版本 轮播图
+    implementation project(':library:irecyclerview')
+    //万能适配器和recyclerview
+    implementation project(':library:jcvideoplayer')
+    //视频播放
+    implementation project(':library:oneKeyShareSDK')
+    //分享
+    implementation project(':library:photoPicker')
+    //图片选择
+    implementation project(':library:selectordialog')
+    //常用提示框
+    implementation project(':library:imageselector')
+    //图片选择器
+    compile project(':library:zbarcode')
+    //扫码
+    implementation 'com.youth.banner:banner:1.4.10'
+    //最新版本 轮播图
+    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1371_43624_sharewithdownload_withoutGame_obfs_20181106_121046.jar')
 }

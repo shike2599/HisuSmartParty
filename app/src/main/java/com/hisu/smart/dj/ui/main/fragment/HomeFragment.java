@@ -14,6 +14,7 @@ import com.hisu.smart.dj.R;
 
 import com.hisu.smart.dj.app.AppApplication;
 
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
@@ -21,6 +22,7 @@ import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
 import com.hisu.smart.dj.ui.main.model.NewsListModel;
 import com.hisu.smart.dj.ui.main.presenter.NewsListPresenter;
+import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.jaydenxiao.common.commonutils.LogUtils;
@@ -45,6 +47,14 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
             ,HomeReaycleAdapter.OnItemClickListener,
         NewsRecyclerAdapter.OnNewsItemClickListener{
     private String TAG = "HomeFragment";
+
+    private static String party_news = AppConstant.BASE_URL_LOAD+"news/newsList.html"; //党建资讯
+    private static String partyMembersCircle = AppConstant.BASE_URL_LOAD+"partyMembersCircle.html"; //党员圈
+    private static String payCost = AppConstant.BASE_URL_LOAD+"partyBuild/payCost.html"; //党费缴纳
+    private static String newsMore = AppConstant.BASE_URL_LOAD+"news/newsMore.html"; //更多党建新闻
+    private static String studyExamination = AppConstant.BASE_URL_LOAD+"study/studyExamination.html"; //在线考试
+    private static String partyBuild_relation = AppConstant.BASE_URL_LOAD+"partyBuild/relation.html";
+
     private Banner homeBanner;
     private List<Integer> homeBannerImages;
     private RecyclerView mRecyclerView; //首页子栏目RecyclerView
@@ -193,7 +203,28 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     //首页栏目列表点击事件
     @Override
     public void onClick(int position) {
-        Toast.makeText(context,"item"+position,Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context,"item"+position,Toast.LENGTH_SHORT).show();
+        if(position == 0){
+            WebActivity.startAction(getActivity(),"党建资讯",party_news);
+        }else if(position == 1){
+
+        }else if(position == 2){
+
+        }else if(position == 3){
+            WebActivity.startAction(getActivity(),"在线考试",studyExamination);
+        }else if(position == 4){
+
+        }else if(position == 5){
+            WebActivity.startAction(getActivity(),"党费缴纳",payCost);
+        }else if(position == 6){
+            WebActivity.startAction(getActivity(),"党员圈",partyMembersCircle);
+        }else if(position == 7){
+
+        }else if(position == 8){
+
+        }else if(position == 9){
+            WebActivity.startAction(getActivity(),"党员圈",partyBuild_relation);
+        }
     }
 
     //首页新闻item点击事件

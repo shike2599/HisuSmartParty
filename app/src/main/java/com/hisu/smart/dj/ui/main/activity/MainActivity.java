@@ -229,4 +229,12 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AppConstant.QR_CODE&&resultCode==RESULT_OK) {
+
+        }
+    }
+
 }

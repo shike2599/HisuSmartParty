@@ -5,7 +5,9 @@ import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.LoginResponse;
 
+import com.hisu.smart.dj.entity.MemberInfoResponse;
 import com.hisu.smart.dj.entity.RankEntity;
+import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
 import retrofit2.http.Field;
@@ -108,4 +110,37 @@ public interface ApiService {
                                                                          @Query("codeKeywords") String codeKeywords,
                                                                          @Query("pageNo")Integer pageNo,
                                                                          @Query("pageSize")Integer pageSize);
+
+    /**
+     * 党员信息
+     * @param userId  党员ID
+     * @return
+     */
+    @GET("party-app-building-front/member/readonly/getPartyMember")
+    Observable<MemberInfoResponse> getPartyMember(@Query("userId") Integer userId);
+
+    /**
+     * 学习计划（个人）
+     * @param userId   用户ID
+     * @param partyMemberId   党员ID
+     * @param timeType  0：年度，1：季度，2：月度
+     * @return
+     */
+    @GET("party-app-education-front/plan/readonly/partyMemberPlan")
+    Observable<StudyPlanRespone> partyMemberPlan(@Query("userId") Integer userId,
+                                                             @Query("partyMemberId") Integer  partyMemberId,
+                                                             @Query("timeType") Integer timeType);
+    /**
+     * 学习计划（支部）
+     * @param userId   用户ID
+     * @param partyBranchId   支部ID
+     * @param timeType  0：年度，1：季度，2：月度
+     * @return
+     */
+    @GET("party-app-education-front/plan/readonly/partyBranchPlan")
+    Observable<StudyPlanRespone> partyBranchPlan(@Query("userId") Integer userId,
+                                                             @Query("partyBranchId") Integer  partyBranchId,
+                                                             @Query("timeType") Integer timeType);
+
+
 }

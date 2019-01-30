@@ -10,7 +10,9 @@
     <ImageView
         android:id="@+id/profile_icon"
         android:layout_width="25dp"
-        android:layout_height="25dp" />
+        android:layout_height="25dp"
+        android:layout_marginLeft="10dp"
+        />
 
     <TextView
         android:id="@+id/profile_key"
@@ -27,5 +29,7 @@
         android:id="@+id/right_arrow"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@mipmap/ic_right_arrow" />
+        android:src="@mipmap/ic_right_arrow"
+        android:layout_marginRight="10dp"
+        />
 </LinearLayout>

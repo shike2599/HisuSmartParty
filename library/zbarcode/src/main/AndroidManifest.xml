@@ -12,6 +12,7 @@
 
     <application>
         <activity
+            android:theme="@style/AppTheme"
             android:name=".CaptureActivity"
             android:screenOrientation="portrait" />
     </application>

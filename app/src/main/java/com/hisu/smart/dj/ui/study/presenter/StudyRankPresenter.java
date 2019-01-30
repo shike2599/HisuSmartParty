@@ -23,7 +23,8 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
 
     @Override
     public void getMemberRankListDataRequest(Integer userId, Integer partyMemberId, final Integer sortType, Integer limitNum) {
-        mRxManage.add(mModel.getMemberRankListData(userId,partyMemberId,sortType,limitNum).subscribe(new RxSubscriber<BaseResponse<RankEntity>>(mContext,false)  {
+        mRxManage.add(mModel.getMemberRankListData(userId,partyMemberId,sortType,limitNum)
+                .subscribe(new RxSubscriber<BaseResponse<RankEntity>>(mContext,false)  {
 
             @Override
             public void onStart() {
@@ -46,7 +47,8 @@ public class StudyRankPresenter extends StudyRankContract.Presenter {
 
     @Override
     public void getBranchRankListDataRequest(Integer userId, Integer partyBranchId, final Integer sortType, Integer limitNum) {
-        mRxManage.add(mModel.getBranchRankListData(userId,partyBranchId,sortType,limitNum).subscribe(new RxSubscriber<BaseResponse<RankEntity>>(mContext,false)  {
+        mRxManage.add(mModel.getBranchRankListData(userId,partyBranchId,sortType,limitNum)
+                .subscribe(new RxSubscriber<BaseResponse<RankEntity>>(mContext,false)  {
 
             @Override
             public void onStart() {

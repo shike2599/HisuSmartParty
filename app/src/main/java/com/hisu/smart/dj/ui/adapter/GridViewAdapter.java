@@ -31,6 +31,7 @@ public class GridViewAdapter extends BaseAdapter {
 
     public void setGridViewItemEntities(List<GridViewItemEntity> gridViewItemEntities) {
         this.gridViewItemEntities = gridViewItemEntities;
+        notifyDataSetChanged();
     }
 
     @Override
