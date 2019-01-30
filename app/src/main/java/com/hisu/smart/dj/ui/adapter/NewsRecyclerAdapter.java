@@ -83,7 +83,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
                     .apply(new RequestOptions()
                             .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.drawable.ic_launcher))
+                            .placeholder(R.mipmap.ic_launcher))
                     .into(holder.video.thumbImageView);
         }else{
             holder.video.setVisibility(View.GONE);

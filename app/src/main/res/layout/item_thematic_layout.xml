@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal">
+
     <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
         android:id="@+id/thematic_video"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:paddingRight="3dp"
+        android:layout_height="122dp"
+        android:paddingBottom="12dp"
         android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:paddingTop="12dp" />
+    <ImageView
+        android:id="@+id/thematic_cover"
+        android:layout_width="match_parent"
+        android:src="@mipmap/ic_launcher"
+        android:layout_height="122dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
         android:paddingTop="12dp"
-        android:paddingBottom="12dp"/>
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/thematic_video_title"
         android:layout_width="match_parent"
@@ -37,13 +48,15 @@
            android:layout_width="wrap_content"
            android:layout_height="20dp"
            android:text="2018-12-13"
-           android:textSize="12sp"/>
+           android:gravity="center"
+           android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tv_thematic_number"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/thematic_date"
             android:text="2300次"
             android:gravity="center"
             android:textColor="@color/text_color"
@@ -52,7 +65,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="10dp"
-           android:layout_marginBottom="3dp"
+           android:layout_marginBottom="4dp"
             android:src="@mipmap/wacth_icon"
             android:gravity="center"
             android:layout_toLeftOf="@id/tv_thematic_number"

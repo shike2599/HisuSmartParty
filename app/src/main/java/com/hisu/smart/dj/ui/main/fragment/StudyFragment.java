@@ -7,8 +7,11 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConfig;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.study.activity.StudyCommonActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyPlanActivity;
 import com.hisu.smart.dj.ui.study.activity.LearningRankingActivity;
@@ -96,8 +99,10 @@ public class StudyFragment extends BaseFragment {
                     //学习计划
                     StudyPlanActivity.startAction(getActivity());
                 }else if(position == 1){
-                    StudyTopicActivity.startAction(getActivity());
-                }else if(position == 6){
+                    StudyTopicActivity.startAction(getActivity(), AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_BRANCH,false));
+                }else if(position == 3){
+                    StudyCommonActivity.startAction(getActivity());
+                } else if(position == 6){
                     //排名
                     LearningRankingActivity.startAction(getActivity());
                 }else if(position == 7){

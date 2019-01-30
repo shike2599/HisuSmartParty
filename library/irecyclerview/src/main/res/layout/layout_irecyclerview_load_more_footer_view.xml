@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="48dp">
+    android:layout_height="48dp"
+    android:background="@color/gray">
     <include
         android:id="@+id/theEndView"
         layout="@layout/layout_irecyclerview_load_more_footer_the_end_view" />
@@ -14,4 +15,4 @@
         android:id="@+id/loadingView"
         layout="@layout/layout_irecyclerview_load_more_footer_loading_view" />
 
-</merge>
+</LinearLayout>

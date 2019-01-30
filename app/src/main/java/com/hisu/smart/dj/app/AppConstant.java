@@ -17,5 +17,6 @@ public class AppConstant {
     public static final String IS_PARTY_MEMBER = "is_party_member";      //false：非党员，true：党员
     public static final String IS_PARTY_BRANCH = "is_party_branch";      //false：非支部，true：支部
     public static final String IS_PARTY_COMMITTEE = "is_party_committee"; //false：非党委，true：党委
+    public static final String COMMON_CATE_CODE = "common_cate_code";
 
 }
