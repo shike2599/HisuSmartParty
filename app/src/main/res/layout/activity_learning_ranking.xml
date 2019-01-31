@@ -137,6 +137,7 @@
 
 
         <TextView
+            android:id="@+id/total_rank_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -248,6 +249,7 @@
 
 
         <TextView
+            android:id="@+id/topic_rank_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -360,6 +362,7 @@
 
 
         <TextView
+            android:id="@+id/common_rank_textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"

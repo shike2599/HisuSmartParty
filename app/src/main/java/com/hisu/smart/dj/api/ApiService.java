@@ -6,6 +6,7 @@ import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.LoginResponse;
 
 import com.hisu.smart.dj.entity.MemberInfoResponse;
+import com.hisu.smart.dj.entity.NewsInfoResponse;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.jaydenxiao.common.basebean.BaseResponse;
@@ -142,5 +143,22 @@ public interface ApiService {
                                                              @Query("partyBranchId") Integer  partyBranchId,
                                                              @Query("timeType") Integer timeType);
 
+    /**
+     * 新闻详情
+     * @param id   新闻ID
+     */
+    @GET("party-app-education-front/res/readonly/getInformation")
+    Observable<NewsInfoResponse> getInformation(@Query("id") Integer id);
 
+    /**
+     * 三会一课
+     * @param cateCode   分类编号，不传查所有
+     * @param pageNo   第几页
+     * @param pageSize  每页条数
+     * @return
+     */
+    @GET("party-app-education-front/res/readonly/listTopicContent")
+    Observable<InformationResponse<InformationEntity>> partyBranchPlan(@Query("cateCode") String cateCode,
+                                                 @Query("pageNo") Integer  pageNo,
+                                                 @Query("pageSize") Integer pageSize);
 }

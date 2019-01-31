@@ -3,6 +3,7 @@ package com.hisu.smart.dj.ui.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.aspsine.irecyclerview.bean.PageBean;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -35,15 +37,25 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     private List<InformationEntity> mDatas;
     private Context mContext;
     private OnNewsItemClickListener newsItemClickListener;
+    private PageBean pageBean;
     public NewsRecyclerAdapter(Context context) {
         mContext = context;
         mDatas = new ArrayList<>();
+        pageBean = new PageBean();
     }
 
     public void setData(List<InformationEntity> list){
-        mDatas = list;
+        mDatas.clear();
+        mDatas.addAll(list) ;
+        Log.d("NewsRecyclerAdapter","mDatas.size()===="+mDatas.size());
         notifyDataSetChanged();
     }
+
+    public void addAll(List<InformationEntity> list){
+        mDatas.addAll(list) ;
+        notifyDataSetChanged();
+    }
+
     @Override
     public HomeNewsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).
@@ -59,7 +71,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    newsItemClickListener.onNewsClick(position);
+                    newsItemClickListener.onNewsClick(position,mDatas.get(position).getId());
                 }
             });
         }
@@ -121,11 +133,23 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     }
 
     public interface  OnNewsItemClickListener{
-        void onNewsClick(int position);
+        void onNewsClick(int position,int news_id);
 //        void onLongClick(int position);
     }
     public void setOnItemClickListener(NewsRecyclerAdapter.OnNewsItemClickListener onItemClickListener){
         this.newsItemClickListener = onItemClickListener;
+    }
+
+    /**
+     * 分页
+     * @return
+     */
+    public PageBean getPageBean() {
+        return pageBean;
+    }
+
+    public int getSize(){
+        return mDatas.size();
     }
 
 }

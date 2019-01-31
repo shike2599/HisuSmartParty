@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.aspsine.irecyclerview.bean.PageBean;
@@ -30,6 +31,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
     private List<InformationEntity> dataList;
     private Context mContext;
     private PageBean pageBean;
+    private OnTopicItemClickListener topicItemClickListener;
 
     public StudyTopicAdapter(Context context){
         mContext = context;
@@ -57,8 +59,8 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
     }
 
     @Override
-    public void onBindViewHolder(RankHolder holder, int position) {
-        InformationEntity topicEntity = dataList.get(position);
+    public void onBindViewHolder(RankHolder holder, final int position) {
+        final InformationEntity topicEntity = dataList.get(position);
         holder.tv_title.setText(topicEntity.getName());
         holder.tv_date.setText(topicEntity.getPublishTime());
         int mediaType = topicEntity.getMediaType();
@@ -87,6 +89,15 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
                             .placeholder(com.jaydenxiao.common.R.drawable.ic_image_loading))
                     .into(holder.thematic_cover);
         }
+        //设置点击事件
+        if(topicItemClickListener!=null){
+            holder.topic_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    topicItemClickListener.onTopicClick(position,topicEntity.getId());
+                }
+            });
+        }
 
     }
 
@@ -101,6 +112,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
         private TextView tv_title;
         private TextView tv_date;
         private TextView tv_watch_num;
+        private LinearLayout topic_layout;
         public RankHolder(View itemView) {
             super(itemView);
             thematic_cover = itemView.findViewById(R.id.thematic_cover);
@@ -108,6 +120,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
             tv_title = itemView.findViewById(R.id.thematic_video_title);
             tv_date = itemView.findViewById(R.id.thematic_date);
             tv_watch_num = itemView.findViewById(R.id.tv_thematic_number);
+            topic_layout = itemView.findViewById(R.id.topic_item_LinearLayout);
         }
     }
 
@@ -121,5 +134,11 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
 
     public int getSize(){
         return dataList.size();
+    }
+    public interface  OnTopicItemClickListener{
+        void onTopicClick(int position,int Information_id);
+    }
+    public void setOnItemClickListener(StudyTopicAdapter.OnTopicItemClickListener onItemClickListener){
+        this.topicItemClickListener = onItemClickListener;
     }
 }

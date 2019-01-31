@@ -7,6 +7,8 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -17,11 +19,13 @@ import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.entity.InformationEntity;
+import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
 import com.hisu.smart.dj.ui.main.model.NewsListModel;
 import com.hisu.smart.dj.ui.main.presenter.NewsListPresenter;
+import com.hisu.smart.dj.ui.news.NewsActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
@@ -43,8 +47,8 @@ import java.util.List;
  * @author lichee
  */
 public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
-        implements NewsListContract.View , OnBannerListener
-            ,HomeReaycleAdapter.OnItemClickListener,
+        implements NewsListContract.View , OnBannerListener,
+        View.OnClickListener,HomeReaycleAdapter.OnItemClickListener,
         NewsRecyclerAdapter.OnNewsItemClickListener{
     private String TAG = "HomeFragment";
 
@@ -70,6 +74,7 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     private HomeReaycleAdapter homeReaycleAdapter;
     private LoadingTip newTip;
     private LoadingTip shizhTip;
+    private TextView more_news_textView,more_shiznew_textView;
     private int[] recycleImages = {R.mipmap.news_icon,R.mipmap.vedio_icon,
                  R.mipmap.sanhyk_icon, R.mipmap.online_exam,
                  R.mipmap.jicengdt_icon,R.mipmap.df_pay_icon,
@@ -118,7 +123,11 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
 
     @Override
     protected void initView() {
+       more_news_textView = rootView.findViewById(R.id.more_news_textView);
+       more_shiznew_textView = rootView.findViewById(R.id.shizh_more_news_textView);
 
+       more_news_textView.setOnClickListener(this);
+       more_shiznew_textView.setOnClickListener(this);
        homeBanner = rootView.findViewById(R.id.home_banner);
        homeBanner.setOnBannerListener(this);
        BannerWidget.setBanner(homeBanner,homeBannerImages);
@@ -227,10 +236,11 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
         }
     }
 
-    //首页新闻item点击事件
+
     @Override
-    public void onNewsClick(int position) {
-        Toast.makeText(context,"item"+position,Toast.LENGTH_SHORT).show();
+    public void onNewsClick(int position, int news_id) {
+//        Toast.makeText(context,"item---id==="+news_id,Toast.LENGTH_SHORT).show();
+        WebActivity.startAction(getActivity(),news_id);
     }
     @Override
     public void showLoading(String tag) {
@@ -263,7 +273,8 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     }
     //首页新闻数据返回
     @Override
-    public void returnNewsListData(List<InformationEntity> informations,String tag) {
+    public void returnNewsListData(InformationResponse informationResponse, String tag) {
+        List<InformationEntity> informations = informationResponse.getDataList();
         LogUtils.logd("returnNewsListData======================size=="+informations.size());
         LogUtils.logd("returnNewsListData======================"+informations);
         LogUtils.logd("returnNewsListData======================Tag==="+tag);
@@ -281,4 +292,15 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.more_news_textView:
+                NewsActivity.startAction(getActivity(),"党建要闻");
+                break;
+            case R.id.shizh_more_news_textView:
+                NewsActivity.startAction(getActivity(),"时政要闻");
+                break;
+        }
+    }
 }

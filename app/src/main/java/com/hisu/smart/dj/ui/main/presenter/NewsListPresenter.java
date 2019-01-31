@@ -39,7 +39,7 @@ public class NewsListPresenter extends NewsListContract.Presenter {
              //请求完成
              @Override
              protected void _onNext(InformationResponse<InformationEntity> informations) {
-                 mView.returnNewsListData(informations.getDataList(),cateCode);
+                 mView.returnNewsListData(informations,cateCode);
                  mView.stopLoading(cateCode);
              }
 

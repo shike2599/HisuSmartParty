@@ -6,6 +6,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
@@ -35,7 +36,9 @@ import butterknife.Bind;
 /**
  * @author lichee
  */
-public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTopicModel> implements StudyTopicContract.View, OnRefreshListener, OnLoadMoreListener {
+public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTopicModel> implements
+        StudyTopicContract.View, OnRefreshListener, OnLoadMoreListener,
+        StudyTopicAdapter.OnTopicItemClickListener {
 
     @Bind(R.id.thematic_banner)
     Banner thematic_banner;
@@ -93,6 +96,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
         });
         BannerWidget.setBanner(thematic_banner,thematicBannerImages);
         topicAdapter = new StudyTopicAdapter(this);
+        topicAdapter.setOnItemClickListener(this);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setAdapter(topicAdapter);
         recyclerView.setOnLoadMoreListener(this);
@@ -192,8 +196,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
     public void onLoadMore(View loadMoreView) {
         topicAdapter.getPageBean().setRefresh(false);
         //发起请求
-
-        if(totalPages > mStartPage){
+        if(totalPages >= mStartPage){
             if(getIntent().getBooleanExtra(AppConstant.IS_PARTY_BRANCH,false)){
                 mPresenter.getBranchTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
             }else{
@@ -203,5 +206,12 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
         }else{
             recyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
         }
+    }
+
+
+    @Override
+    public void onTopicClick(int position, int Information_id) {
+        Toast.makeText(this,"--Information_id--"+Information_id,
+                Toast.LENGTH_SHORT).show();
     }
 }

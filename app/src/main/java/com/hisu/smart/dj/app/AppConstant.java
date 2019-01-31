@@ -35,5 +35,7 @@ public class AppConstant {
     public static Boolean IS_STUDY_BRANCH = false;
 
     public static final int QR_CODE =1;
+    public static final String  IS_PARTY_NEWS = "IsPartyNews";
+    public static final String  SHOW_TITLE = "title";
 
 }

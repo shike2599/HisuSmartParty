@@ -58,7 +58,12 @@ public class LearningRankingActivity extends BaseActivity
     LoadingTip topic_loadedTip;//专题加载框
     @Bind(R.id.loadedTip_routine)
     LoadingTip comm_loadedTip;//总学时加载框
-
+    @Bind(R.id.total_rank_textView)
+    TextView total_table_text;
+    @Bind(R.id.topic_rank_textView)
+    TextView topic_table_text;
+    @Bind(R.id.common_rank_textView)
+    TextView common_table_text;
 
     private final static int TOTAL_TYPE = 0; //总学时
     private final static int TOPIC_TYPE = 1; //专题
@@ -160,6 +165,9 @@ public class LearningRankingActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.branch_rank_textView:
+                total_table_text.setText("支部名称");
+                topic_table_text.setText("支部名称");
+                common_table_text.setText("支部名称");
                 show_branch_data.setTextColor(Color.BLACK);
                 show_user_data.setTextColor(R.color.background_color_gory);
                 if(branch_dataList_total.size()>0&&
@@ -175,6 +183,9 @@ public class LearningRankingActivity extends BaseActivity
                 }
                 break;
             case R.id.user_rank_textView:
+                total_table_text.setText("党员名称");
+                topic_table_text.setText("党员名称");
+                common_table_text.setText("党员名称");
                 show_user_data.setTextColor(Color.BLACK);
                 show_branch_data.setTextColor(R.color.background_color_gory);
                 if(user_dataList_total.size()>0&&

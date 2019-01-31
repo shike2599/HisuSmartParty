@@ -33,7 +33,8 @@ import butterknife.Bind;
 /**
  * @author lichee
  */
-public class StudyCommonActivity extends BaseActivity<StudyCommonMainPresenter,StudyCommonMainModel> implements StudyCommonMainContract.View {
+public class StudyCommonActivity extends BaseActivity<StudyCommonMainPresenter,StudyCommonMainModel>
+        implements StudyCommonMainContract.View {
     @Bind(R.id.title_TextView)
     TextView mTitle;
     @Bind(R.id.back_imageView)

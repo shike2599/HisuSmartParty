@@ -1,28 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
-    <include  layout="@layout/title_bar_layout" />
+    >
+    <include
+        android:id="@+id/topic_ac_title_layout"
+        layout="@layout/title_bar_layout" />
     <com.youth.banner.Banner
         android:id="@+id/thematic_banner"
         android:layout_width="match_parent"
-        android:layout_height="160dp" />
+        android:layout_height="160dp"
+        android:layout_below="@+id/topic_ac_title_layout"
+        android:layout_centerHorizontal="true"
+        />
     <com.aspsine.irecyclerview.IRecyclerView
         android:id="@+id/thematic_recycle_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:loadMoreEnabled="true"
         app:refreshEnabled="true"
         android:background="@color/transparent"
         android:layout_marginTop="5dp"
-        app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"/>
+        app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"
+        android:layout_below="@+id/thematic_banner"
+        android:layout_centerHorizontal="true"
+        />
     <com.jaydenxiao.common.commonwidget.LoadingTip
         android:id="@+id/topic_loadedTip"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center" />
-</LinearLayout>
+        android:layout_below="@+id/thematic_banner"
+        android:layout_centerHorizontal="true"
+        />
+</RelativeLayout>

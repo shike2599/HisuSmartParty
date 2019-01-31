@@ -4,21 +4,31 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
-import com.hisu.smart.dj.ui.study.activity.LearningRankingActivity;
+import com.hisu.smart.dj.app.AppConfig;
+import com.hisu.smart.dj.app.AppConstant;
+import com.hisu.smart.dj.entity.CookieEntity;
+import com.hisu.smart.dj.entity.NewsInfoResponse;
+import com.hisu.smart.dj.ui.news.contract.NewsInfoContract;
+import com.hisu.smart.dj.ui.news.model.NewsInfoModel;
+import com.hisu.smart.dj.ui.news.presenter.NewInfoPresenter;
 import com.hisu.smart.dj.utils.X5WebView;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.commonwidget.LoadingDialog;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.JsResult;
+import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
 import com.tencent.smtt.sdk.DownloadListener;
 import com.tencent.smtt.sdk.WebChromeClient;
@@ -27,10 +37,13 @@ import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.tencent.smtt.utils.TbsLog;
 
+import java.util.List;
+
 import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
-public class WebActivity extends BaseActivity implements View.OnClickListener{
+public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
+        implements View.OnClickListener,NewsInfoContract.View{
     private String TAG = "WebActivity";
     @Bind(R.id.title_TextView)
     TextView title_textView;
@@ -39,9 +52,22 @@ public class WebActivity extends BaseActivity implements View.OnClickListener{
 
     @Bind(R.id.webView_FrameLayout)
     ViewGroup mViewParent;
+    @Bind(R.id.show_news_title_layout)
+    LinearLayout show_news_layout;
+    @Bind(R.id.news_title_TextView)
+    TextView show_news_title;
+    @Bind(R.id.news_time_textView)
+    TextView show_news_time;
+    @Bind(R.id.news_collection_imageView)
+    ImageView collection_img;
+    @Bind(R.id.collection_TextView)
+    TextView news_collection_textView;
     private X5WebView x5WebView;
     private String title_str;
     private String webUrl;
+    private Integer newsID;
+    private boolean isNeedSign = false;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_web;
@@ -49,20 +75,35 @@ public class WebActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void initPresenter() {
-        title_str = getIntent().getStringExtra("TITLE");
-        webUrl = getIntent().getStringExtra("URL");
-        title_textView.setText(title_str);
+        mPresenter.setVM(this, mModel);
         x5WebView = new X5WebView(this,null);
+        newsID = getIntent().getIntExtra("NEWSID",-1);
+        Log.d("WebActivity","newsID==="+newsID);
+        if(newsID == -1){
+            title_str = getIntent().getStringExtra("TITLE");
+            webUrl = getIntent().getStringExtra("URL");
+        }
+
     }
 
     @Override
     public void initView() {
-       back_img.setOnClickListener(this);
        initWebView();
+       back_img.setOnClickListener(this);
+       news_collection_textView.setOnClickListener(this);
+
+       if(newsID!=-1){
+           title_textView.setVisibility(View.INVISIBLE);
+           mPresenter.getNewsInfoDataRequest(newsID);
+       }else{
+           show_news_layout.setVisibility(View.GONE);
+           title_textView.setText(title_str);
+           startLoad(false,webUrl);
+       }
     }
 
     private void initWebView() {
-
+        setCookie(null);
         mViewParent.addView(x5WebView, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
@@ -203,14 +244,14 @@ public class WebActivity extends BaseActivity implements View.OnClickListener{
         webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
         // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
         // webSetting.setPreFectch(true);
-        long time = System.currentTimeMillis();
-        if (webUrl == null) {
-            x5WebView.loadUrl(webUrl);
-        } else {
-            x5WebView.loadUrl(webUrl.toString());
-        }
-        CookieSyncManager.createInstance(this);
-        CookieSyncManager.getInstance().sync();
+//        long time = System.currentTimeMillis();
+//        if (webUrl == null) {
+//            x5WebView.loadUrl(webUrl);
+//        } else {
+//            x5WebView.loadUrl(webUrl.toString());
+//        }
+//        CookieSyncManager.createInstance(this);
+//        CookieSyncManager.getInstance().sync();
 
     }
 
@@ -222,6 +263,18 @@ public class WebActivity extends BaseActivity implements View.OnClickListener{
                     x5WebView.goBack();
                 }else{
                     WebActivity.this.finish();
+                }
+                break;
+                //收藏
+            case R.id.collection_TextView:
+                if(isNeedSign){
+                    collection_img.setBackgroundResource(R.mipmap.links_icon);
+                    news_collection_textView.setText("收藏");
+                    isNeedSign = false;
+                }else{
+                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
+                    news_collection_textView.setText("取消收藏");
+                    isNeedSign = true;
                 }
                 break;
         }
@@ -240,6 +293,11 @@ public class WebActivity extends BaseActivity implements View.OnClickListener{
         Intent intent = new Intent(activity, WebActivity.class);
         intent.putExtra("TITLE",title);
         intent.putExtra("URL",url);
+        activity.startActivity(intent);
+    }
+    public static void startAction(Activity activity,int id){
+        Intent intent = new Intent(activity, WebActivity.class);
+        intent.putExtra("NEWSID",id);
         activity.startActivity(intent);
     }
     /**
@@ -271,4 +329,110 @@ public class WebActivity extends BaseActivity implements View.OnClickListener{
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
+    public void returnNewsInfoData(NewsInfoResponse newsInfoResponse) {
+        Log.d("WebActivity","newsInfoResponse---=="+newsInfoResponse);
+        if(newsInfoResponse.getData()!=null){
+            NewsInfoResponse.DataBean dataBean = newsInfoResponse.getData();
+            String news_time = dataBean.getPublishTime();
+            show_news_time.setText(news_time);
+            String title = dataBean.getName();
+            show_news_title.setText(title);
+            isNeedSign = dataBean.isIsNeedSign();
+            if(isNeedSign){
+                collection_img.setBackgroundResource(R.mipmap.pre_likes);
+                news_collection_textView.setText("取消收藏");
+            }else{
+                collection_img.setBackgroundResource(R.mipmap.links_icon);
+                news_collection_textView.setText("收藏");
+            }
+            String webData = dataBean.getContent();
+            startLoad(true,webData);
+        }
+    }
+
+    @Override
+    public void showLoading(String tag) {
+        LoadingDialog.showDialogForLoading(this,"请稍候！",false);
+    }
+
+    @Override
+    public void stopLoading(String tag) {
+        Log.d("WebActivity","---stopLoading---==");
+      LoadingDialog.cancelDialogForLoading();
+    }
+
+    @Override
+    public void showErrorTip(String msg, String tag) {
+        Log.d("WebActivity","---showErrorTip---=="+msg);
+       LoadingDialog.cancelDialogForLoading();
+       Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+    }
+
+    private void startLoad(boolean isNews,String webUrl){
+        if(isNews){
+            String webhtml = getHtmlData(webUrl);
+            x5WebView.loadData(webhtml,"text/html;charset=utf-8","utf-8");
+        }else{
+            x5WebView.loadUrl(webUrl);
+        }
+//        CookieSyncManager.createInstance(this);
+//        CookieSyncManager.getInstance().sync();
+    }
+
+    private String getHtmlData(String bodyHTML) {
+        String head = "<head>" +
+                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
+                "<style>html{padding:15px;} body{background-color: #f2f1ef;"+
+                " padding: 0.7rem;" +
+                "font-size: 14px;" +
+                " margin-top: 0;" +
+                " margin-bottom: 10px;" +
+                " font-family:'微软雅黑';" +
+                " color: #666666}"+
+                "p{padding:0px;margin:0px;margin-bottom:10px;font-size:18px;color:#222222;line-height:1.5rem;text-indent:1.2rem} img{padding:0px;max-width:100%; width:auto; height:auto;}</style>" +
+                "</head>";
+        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
+    }
+    //cookie保存用户信息
+    void setCookie(List<CookieEntity> list) {
+        StringBuilder sb = new StringBuilder();
+        AppConfig appConfig = AppConfig.getInstance();
+        sb.append("phone="+ appConfig.getString(AppConstant.MEMBER_PHONE,"")+";");
+        sb.append("isPartyMember="+ appConfig.getBoolean(AppConstant.IS_PARTY_MEMBER,false)+";");
+        sb.append("isPartyBranch="+ appConfig.getBoolean(AppConstant.IS_PARTY_BRANCH,false)+";");
+        sb.append("nickname="+ appConfig.getString(AppConstant.NICK_NAME,"")+";");
+        sb.append("userId="+ appConfig.getInt(AppConstant.USER_ID,-1)+";");
+        sb.append("isPartyCommittee="+ appConfig.getBoolean(AppConstant.IS_PARTY_COMMITTEE,false)+";");
+        sb.append("userName="+ appConfig.getString(AppConstant.USER_NAME,"")+";");
+
+        sb.append("id="+ appConfig.getInt(AppConstant.MEMBER_ID,-1)+";");
+        sb.append("name="+ appConfig.getString(AppConstant.MEMBER_NAME,"")+";");
+        sb.append("code="+ appConfig.getString(AppConstant.MEMBER_CODE,"")+";");
+        sb.append("idCard="+ appConfig.getString(AppConstant.MEMBER_IDCARD,"")+";");
+        sb.append("sex="+ appConfig.getInt(AppConstant.MEMBER_SEX,-1)+";");
+        sb.append("partyBranchId="+ appConfig.getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1)+";");
+        sb.append("status="+ appConfig.getInt(AppConstant.MEMBER_STATUS,-1)+";");
+        sb.append("integral="+ appConfig.getInt(AppConstant.MEMBER_INTEGRAL,-1)+";");
+        if(list!=null&&list.size()>0){
+            for(int i = 0;i < list.size(); i++){
+                CookieEntity cookieEntity = list.get(i);
+                sb.append(cookieEntity.getCookieKey()+"="+cookieEntity.getCookieValue()+";");
+            }
+        }
+        String stringCookie = (sb.deleteCharAt(sb.length()-1)).toString();
+        Log.d("WebActivity","stringCookie----"+stringCookie);
+        CookieManager cookieManager = CookieManager.getInstance();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.removeSessionCookies(null);
+            cookieManager.flush();
+        } else {
+            cookieManager.removeSessionCookie();
+            CookieSyncManager.getInstance().sync();
+        }
+        cookieManager.setAcceptCookie(true);
+        cookieManager.setCookie(webUrl, stringCookie);
+    }
+
 }
