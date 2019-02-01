@@ -26,6 +26,7 @@ import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
 import com.hisu.smart.dj.ui.main.model.NewsListModel;
 import com.hisu.smart.dj.ui.main.presenter.NewsListPresenter;
+import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyTopicActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
@@ -53,6 +54,10 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     IRecyclerView newsIRecyclerView;
     @Bind(R.id.news_loadedTip)
     LoadingTip news_LoadTip;
+    @Bind(R.id.follow_upLoad_imageView)
+    ImageView follow_upload_img;
+    private boolean isShowDiaTip = true;
+
     private static final String TAG = "NewsActivity";
     private List<Integer> newsBannerImages;
     private int[] images = {
@@ -61,12 +66,18 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
 
     private static final String PARTY_NEWS = "1003"; //党建要闻
     private static final String SHIZ_NEWS = "1001"; //时政要闻
+    private static final String SANH_Y_K = "3004"; //三会一课
+    private static final String PARTY_AFFAIRS  = "4002"; //党务公开
+    private static final String BRANCH_ACTIVITY = "4004"; //支部活动
+    private static final String Time_Pioneer = "1005"; //时代先锋
+    private static final String  Grassroots_Dynamics= "1007"; //基层动态
     private static int SIZE = 6;
     private int mStartPage = 1;
+    private String jump_tag;
 
     private String show_title;
+    private int follow_id;
     private NewsRecyclerAdapter newsRecyclerAdapter;
-    private boolean is_party_news;
     private int totalPages ;
 
 
@@ -85,11 +96,8 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
 
     private void initData() {
         show_title = this.getIntent().getStringExtra(AppConstant.SHOW_TITLE);
-        if(show_title!=null&&show_title.equals("党建要闻")){
-            is_party_news = true;
-        }else{
-            is_party_news = false;
-        }
+        follow_id = this.getIntent().getIntExtra(AppConstant.FOLLOW_ID,-1);
+        Log.d(TAG,"---show_title----"+show_title);
         newsBannerImages = new ArrayList<>();
         for(int i = 0; i < images.length; i++){
             newsBannerImages.add(images[i]);
@@ -100,6 +108,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     public void initView() {
         title.setText(show_title);
         back_img.setOnClickListener(this);
+        follow_upload_img.setOnClickListener(this);
         newsBanner.setOnBannerListener(this);
         BannerWidget.setBanner(newsBanner,newsBannerImages);
 
@@ -108,11 +117,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         newsIRecyclerView.setOnLoadMoreListener(this);
         newsIRecyclerView.setOnRefreshListener(this);
         if(AppApplication.isNet){
-            if(is_party_news){
-                mPresenter.getNewsListDataRequest(PARTY_NEWS,"",mStartPage,SIZE);
-            }else{
-                mPresenter.getNewsListDataRequest(SHIZ_NEWS,"",mStartPage,SIZE);
-            }
+            showNewsType();//
         }else{
             Toast.makeText(this,"网络异常!",Toast.LENGTH_LONG).show();
         }
@@ -121,6 +126,13 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     public static void startAction(Activity activity, String title){
         Intent intent = new Intent(activity, NewsActivity.class);
         intent.putExtra(AppConstant.SHOW_TITLE,title);
+        activity.startActivity(intent);
+    }
+
+    public static void startAction(Activity activity, String title,int follow_id){
+        Intent intent = new Intent(activity, NewsActivity.class);
+        intent.putExtra(AppConstant.SHOW_TITLE,title);
+        intent.putExtra(AppConstant.FOLLOW_ID,follow_id);
         activity.startActivity(intent);
     }
 
@@ -143,10 +155,12 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
             }
         }
     }
-
     @Override
     public void showLoading(String tag) {
-       news_LoadTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+        if(isShowDiaTip){
+            news_LoadTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+        }
+
     }
 
     @Override
@@ -173,6 +187,9 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
            case R.id.back_imageView:
                NewsActivity.this.finish();
                break;
+           case R.id.follow_upLoad_imageView:
+               StudyExperienceActivity.startAction(this,show_title);
+               break;
        }
     }
     //Banner图点击事件
@@ -186,19 +203,25 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         Log.d(TAG,"----item----position----"+position);
        Toast.makeText(this,"item-id=="+news_id,
                Toast.LENGTH_LONG).show();
-        WebActivity.startAction(this,news_id);
+        if(follow_id!=-1){
+            jump_tag = "践行";
+            WebActivity.startAction(this,news_id,jump_tag);
+        }else if(show_title.equals("三会一课")){
+            jump_tag = "三会一课";
+            WebActivity.startAction(this,news_id,jump_tag);
+        }else{
+            WebActivity.startAction(this,news_id);
+        }
+
     }
     //加载
     @Override
     public void onLoadMore(View loadMoreView) {
+        isShowDiaTip = false;
         newsRecyclerAdapter.getPageBean().setRefresh(false);
         //发起请求
         if(totalPages >= mStartPage){
-            if(is_party_news){
-                mPresenter.getNewsListDataRequest(PARTY_NEWS,"",mStartPage,SIZE);
-            }else{
-                mPresenter.getNewsListDataRequest(SHIZ_NEWS,"",mStartPage,SIZE);
-            }
+            showNewsType();
             newsIRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
         }else{
             newsIRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
@@ -208,15 +231,36 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     //刷新
     @Override
     public void onRefresh() {
+        isShowDiaTip = false;
         newsRecyclerAdapter.getPageBean().setRefresh(true);
         mStartPage = 1;
         //发起请求
         newsIRecyclerView.setRefreshing(true);
-        if(is_party_news){
-            mPresenter.getNewsListDataRequest(PARTY_NEWS,"",mStartPage,SIZE);
-        }else{
-            mPresenter.getNewsListDataRequest(SHIZ_NEWS,"",mStartPage,SIZE);
-        }
+
+        showNewsType();//
         newsIRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+    }
+    //判断显示哪类新闻
+    private void showNewsType(){
+        if(show_title.equals("三会一课")){
+            mPresenter.getTopicListContentRequest(SANH_Y_K,null,mStartPage,SIZE);
+        }else if(show_title.equals("支部活动")){
+            mPresenter.getNewsListDataRequest(BRANCH_ACTIVITY,null,mStartPage,SIZE);
+        }else if(show_title.equals("党务公开")){
+            mPresenter.getNewsListDataRequest(PARTY_AFFAIRS,null,mStartPage,SIZE);
+        }else if(show_title.equals("党建要闻")){
+            mPresenter.getNewsListDataRequest(PARTY_NEWS,null,mStartPage,SIZE);
+        }else if(show_title.equals("时政要闻")){
+            mPresenter.getNewsListDataRequest(SHIZ_NEWS,null,mStartPage,SIZE);
+        }else if(follow_id!=-1){
+            follow_upload_img.setVisibility(View.VISIBLE);
+            Log.d("NewsActivity","践行-----follow_id==="+follow_id);
+            mPresenter.getListActionContentRequest(String.valueOf(follow_id),null,mStartPage,SIZE);
+        }else if(show_title.equals("时代先锋")){
+            mPresenter.getNewsListDataRequest(Time_Pioneer,null,mStartPage,SIZE);
+        }else if(show_title.equals("基层动态")){
+            mPresenter.getNewsListDataRequest(Grassroots_Dynamics,null,mStartPage,SIZE);
+        }
+
     }
 }

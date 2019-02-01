@@ -67,7 +67,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
     private String webUrl;
     private Integer newsID;
     private boolean isNeedSign = false;
-
+    private String jump_tag;
     @Override
     public int getLayoutId() {
         return R.layout.activity_web;
@@ -82,6 +82,8 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
         if(newsID == -1){
             title_str = getIntent().getStringExtra("TITLE");
             webUrl = getIntent().getStringExtra("URL");
+        }else{
+            jump_tag = getIntent().getStringExtra("TAG");
         }
 
     }
@@ -94,7 +96,17 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
 
        if(newsID!=-1){
            title_textView.setVisibility(View.INVISIBLE);
-           mPresenter.getNewsInfoDataRequest(newsID);
+           if(jump_tag!=null){
+               if(jump_tag.equals("践行")){
+                   mPresenter.getFollowInfoDataRequest(newsID);
+               }else if(jump_tag.equals("三会一课")){
+                   mPresenter.getTopicInfoDataRequest(newsID);
+               }
+           }else{
+               mPresenter.getNewsInfoDataRequest(newsID);
+           }
+
+
        }else{
            show_news_layout.setVisibility(View.GONE);
            title_textView.setText(title_str);
@@ -298,6 +310,13 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
     public static void startAction(Activity activity,int id){
         Intent intent = new Intent(activity, WebActivity.class);
         intent.putExtra("NEWSID",id);
+        activity.startActivity(intent);
+    }
+
+    public static void startAction(Activity activity,int id,String tag){
+        Intent intent = new Intent(activity, WebActivity.class);
+        intent.putExtra("NEWSID",id);
+        intent.putExtra("TAG",tag);
         activity.startActivity(intent);
     }
     /**

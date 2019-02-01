@@ -12,6 +12,10 @@ public interface NewsInfoContract {
     interface Model extends BaseModel {
         //请求获取新闻详情
         Observable <NewsInfoResponse> getNewsInfoData(Integer id);
+        //三会一课详情
+        Observable <NewsInfoResponse> getFollowInfoData(Integer id);
+        //践行详情
+        Observable <NewsInfoResponse> getTopicInfoData(Integer id);
     }
 
     interface View extends BaseView {
@@ -22,6 +26,11 @@ public interface NewsInfoContract {
     abstract static class Presenter extends BasePresenter<View, Model> {
         //发起获取请求获取新闻详情
         public abstract void getNewsInfoDataRequest(Integer id);
+        //践行详情
+        public abstract void getFollowInfoDataRequest(Integer id);
+        //三会一课详情
+        public abstract void getTopicInfoDataRequest(Integer id);
+
 
     }
 }

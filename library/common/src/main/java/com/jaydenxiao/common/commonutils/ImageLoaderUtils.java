@@ -51,7 +51,7 @@ public class ImageLoaderUtils {
         Glide.with(context)
                 .load(url)
                 .apply(new RequestOptions()
-                        .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
+                        .error(R.drawable.no_content_tip)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_image_loading))
                 .into(imageView);
@@ -70,7 +70,7 @@ public class ImageLoaderUtils {
         Glide.with(context)
                 .load(url)
                 .apply(new RequestOptions()
-                        .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
+                        .error(R.drawable.no_content_tip)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_image_loading))
                 .into(imageView);
@@ -88,7 +88,7 @@ public class ImageLoaderUtils {
 
         Glide.with(context).asBitmap()
                 .apply(new RequestOptions()
-                        .error(R.drawable.ic_empty_picture)
+                        .error(R.drawable.no_content_tip)
                         .placeholder(R.drawable.ic_image_loading)
                         .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .thumbnail(0.5f)
@@ -109,7 +109,7 @@ public class ImageLoaderUtils {
         Glide.with(context).asBitmap()
                 .apply(new RequestOptions()
                         .format(DecodeFormat.PREFER_ARGB_8888)
-                        .error(R.drawable.ic_empty_picture)
+                        .error(R.drawable.no_content_tip)
                         .placeholder(R.drawable.ic_image_loading)
                         .diskCacheStrategy(DiskCacheStrategy.ALL))
                 .load(url).into(imageView);
@@ -127,7 +127,7 @@ public class ImageLoaderUtils {
         Glide.with(context)
                 .load(url)
                 .apply(new RequestOptions()
-                        .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
+                        .error(R.drawable.no_content_tip)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)
                         .placeholder(R.drawable.ic_image_loading))
                 .into(imageView);

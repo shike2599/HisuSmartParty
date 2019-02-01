@@ -49,4 +49,52 @@ public class NewsListPresenter extends NewsListContract.Presenter {
              }
          }));
     }
+     //三会一课
+    @Override
+    public void getTopicListContentRequest(final String cateCode, String keywords, Integer pageNo, Integer pageSize) {
+        mRxManage.add(mModel.getTopicContentData(cateCode,keywords,pageNo,pageSize)
+                .subscribe(new RxSubscriber<InformationResponse<InformationEntity>>(mContext,false) {
+            @Override
+            public void onStart() {
+                super.onStart();
+                mView.showLoading(cateCode);
+            }
+            //请求完成
+            @Override
+            protected void _onNext(InformationResponse<InformationEntity> informations) {
+                mView.returnNewsListData(informations,cateCode);
+                mView.stopLoading(cateCode);
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip(message,cateCode);
+            }
+        }));
+    }
+    //践行活动列表
+    @Override
+    public void getListActionContentRequest(final String cateCode, String keywords, Integer pageNo, Integer pageSize) {
+        mRxManage.add(mModel.getListActionContentData(cateCode,keywords,pageNo,pageSize)
+        .subscribe(new RxSubscriber<InformationResponse<InformationEntity>>(mContext,false) {
+            @Override
+            public void onStart() {
+                super.onStart();
+                mView.showLoading(cateCode);
+            }
+
+            @Override
+            protected void _onNext(InformationResponse<InformationEntity> informations) {
+                mView.returnNewsListData(informations,cateCode);
+                mView.stopLoading(cateCode);
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip(message,cateCode);
+            }
+        }));
+    }
+
+
 }

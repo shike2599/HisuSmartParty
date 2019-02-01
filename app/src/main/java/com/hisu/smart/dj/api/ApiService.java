@@ -1,6 +1,7 @@
 package com.hisu.smart.dj.api;
 
 import com.hisu.smart.dj.entity.CateEntity;
+import com.hisu.smart.dj.entity.FollowActionListBean;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.LoginResponse;
@@ -153,12 +154,56 @@ public interface ApiService {
     /**
      * 三会一课
      * @param cateCode   分类编号，不传查所有
+     * @param keywords   关键字，根据关键字模糊筛选内容名称
      * @param pageNo   第几页
      * @param pageSize  每页条数
      * @return
      */
     @GET("party-app-education-front/res/readonly/listTopicContent")
-    Observable<InformationResponse<InformationEntity>> partyBranchPlan(@Query("cateCode") String cateCode,
+    Observable<InformationResponse<InformationEntity>> listTopicContent(@Query("cateCode") String cateCode,
+                                                 @Query("keywords") String  keywords,
                                                  @Query("pageNo") Integer  pageNo,
                                                  @Query("pageSize") Integer pageSize);
+    /**
+     * 4.7.专题活动内容详情
+     * @param id   活动序号
+     * @return
+     */
+    @GET("party-app-education-front/res/readonly/getTopicContent")
+    Observable<NewsInfoResponse> getTopicContent(@Query("id") Integer id);
+
+    /**
+     * 6.1.践行活动分类
+     * @param parentId   父级分类序号，不传则查所有，传0则查询一级分类 Integer
+     * @param parentCode   父级分类编号
+     * @param codeKeywords   关键字，根据分类编号模糊搜索
+     * @return
+     */
+    @GET("party-app-practice-front/res/readonly/listActionCate")
+    Observable<FollowActionListBean> listActionCate(@Query("parentId") Integer parentId,
+                                                    @Query("parentCode") String  parentCode,
+                                                    @Query("codeKeywords") Integer  codeKeywords);
+
+    /**
+     * 6.2.践行活动列表
+     * @param cateCode   分类编号，不传则查所有
+     * @param keywords   关键字，根据关键字模糊筛选内容
+     * @param pageNo   第几页
+     * @param pageSize   每页条数
+     * @return
+     */
+    @GET("party-app-practice-front/res/readonly/listActionContent")
+    Observable<InformationResponse<InformationEntity>> listActionContent(@Query("cateCode") String cateCode,
+                                                    @Query("keywords") String  keywords,
+                                                    @Query("pageNo") Integer  pageNo,
+                                                    @Query("pageSize") Integer  pageSize);
+
+    /**
+     * 6.3.践行活动内容详情
+     * @param id   活动序号
+     * @return
+     */
+    @GET("party-app-practice-front/res/readonly/getActionContent")
+    Observable<NewsInfoResponse> getActionContent(@Query("id") Integer id);
+
 }

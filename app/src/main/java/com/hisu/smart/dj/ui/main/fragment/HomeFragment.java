@@ -216,21 +216,21 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
         if(position == 0){
             WebActivity.startAction(getActivity(),"党建资讯",party_news);
         }else if(position == 1){
-
+            Toast.makeText(getActivity(),"正在建设中。。。",Toast.LENGTH_LONG).show();
         }else if(position == 2){
-
+            NewsActivity.startAction(getActivity(),"三会一课");
         }else if(position == 3){
             WebActivity.startAction(getActivity(),"在线考试",studyExamination);
         }else if(position == 4){
-
+            NewsActivity.startAction(getActivity(),"基层动态");
         }else if(position == 5){
             WebActivity.startAction(getActivity(),"党费缴纳",payCost);
         }else if(position == 6){
             WebActivity.startAction(getActivity(),"党员圈",partyMembersCircle);
         }else if(position == 7){
-
+            NewsActivity.startAction(getActivity(),"时代先锋");
         }else if(position == 8){
-
+           NewsActivity.startAction(getActivity(),"支部活动");
         }else if(position == 9){
             WebActivity.startAction(getActivity(),"党员圈",partyBuild_relation);
         }

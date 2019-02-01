@@ -16,6 +16,7 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.news.NewsActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyCommonActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyPlanActivity;
@@ -132,10 +133,11 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
                     LearningRankingActivity.startAction(getActivity());
                 }else if(title=="学习心得"){
                     //心得
-                    StudyExperienceActivity.startAction(getActivity());
+                    StudyExperienceActivity.startAction(getActivity(),"学习心得");
                 }else if(title=="三会一课"){
                     //三会一课
-                    WebActivity.startAction(getActivity(),"三会一课",mHomeUrl);
+//                    WebActivity.startAction(getActivity(),"三会一课",mHomeUrl);
+                    NewsActivity.startAction(getActivity(),"三会一课");
                 }else if(title=="常规学习"){
                     //常规学习
                     StudyCommonActivity.startAction(getActivity());

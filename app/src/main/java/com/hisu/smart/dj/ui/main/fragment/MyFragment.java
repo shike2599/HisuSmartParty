@@ -14,6 +14,7 @@ import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.main.activity.MainActivity;
+import com.hisu.smart.dj.ui.my.activity.SettingActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.ProfileEdit;
 import com.jaydenxiao.common.base.BaseFragment;
@@ -153,6 +154,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             //设置
             case R.id.pe_setting:
+                SettingActivity.startAction(getActivity());
                 break;
             default:
                 break;

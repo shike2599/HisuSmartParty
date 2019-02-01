@@ -50,7 +50,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".ui.study.activity.StudyCommonActivity" />
         <activity android:name=".ui.web.activity.WebActivity" />
-        <activity android:name=".ui.news.NewsActivity"></activity>
+        <activity android:name=".ui.news.NewsActivity" />
+        <activity android:name=".ui.my.activity.SettingActivity"></activity>
     </application>
 
 </manifest>

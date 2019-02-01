@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/title_bar_layout"
+        >
+    </include>
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
+
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_update_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
+
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_reset_password"
+        android:layout_width="match_parent"
+        android:layout_height="51dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
+
+    <com.hisu.smart.dj.ui.widget.ProfileEdit
+        android:id="@+id/pe_about_us"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="#333" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <Button
+            android:id="@+id/edit_load_Btn"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="退 出 登 录"
+            android:textSize="18dp"
+            android:textColor="@color/text_color"
+            android:background="@drawable/exit_button_shape"
+            android:layout_marginTop="19dp"
+            android:layout_centerHorizontal="true"
+            />
+</RelativeLayout>
+
+</LinearLayout>

@@ -1,10 +1,14 @@
 package com.hisu.smart.dj.ui.main.fragment;
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.news.NewsActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.youth.banner.Banner;
@@ -21,6 +25,7 @@ public class FollowFragment extends BaseFragment {
 
 
     private static final String TAG = "FollowFragment";
+
     private Banner followBanner;
     private List<Integer> followBannerImages;
     private int[] Images = {
@@ -31,6 +36,8 @@ public class FollowFragment extends BaseFragment {
 
     private List<GridViewItemEntity> gridViewItemEntities;
     private GridViewAdapter gridViewAdapter ;
+    private int followId;//分类ID 本职工作=1，党组工作=2，志愿者活动=5，脱贫攻坚=4 困难帮扶=6 典型事迹=3
+    private String title_str;
 
     public FollowFragment() {
     }
@@ -73,6 +80,33 @@ public class FollowFragment extends BaseFragment {
         gridViewAdapter = new GridViewAdapter(getActivity());
         gridViewAdapter.setGridViewItemEntities(gridViewItemEntities);
         gridView.setAdapter(gridViewAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView textView = view.findViewById(R.id.item_title);
+                String follow_str = textView.getText().toString();
+                if(follow_str.equals("本职工作")){
+                    followId = 1;
+                    title_str = "本职工作";
+                }else if(follow_str.equals("党组工作")){
+                    followId = 2;
+                    title_str = "党组工作";
+                }else if(follow_str.equals("志愿者活动")){
+                    followId = 5;
+                    title_str = "志愿者活动";
+                }else if(follow_str.equals("脱贫攻坚")){
+                    followId = 4;
+                    title_str = "脱贫攻坚";
+                }else if(follow_str.equals("困难帮扶")){
+                    followId = 6;
+                    title_str = "困难帮扶";
+                }else if(follow_str.equals("典型事迹")){
+                    followId = 3;
+                    title_str = "典型事迹";
+                }
+                NewsActivity.startAction(getActivity(),title_str,followId);
+            }
+        });
     }
 
 }

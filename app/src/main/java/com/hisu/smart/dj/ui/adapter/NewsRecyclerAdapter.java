@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestOptions;
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
 import com.jaydenxiao.common.commonutils.LogUtils;
@@ -81,6 +82,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         holder.newText.setText(informationEntity.getName());
         holder.dateText.setText(informationEntity.getPublishTime());
         String iconStr =  informationEntity.getIcon();
+        Log.d("NewsRecyclerAdapter","icon--URL===" + informationEntity.getIcon());
         String urlStr = informationEntity.getUrl();
         int mediaType = informationEntity.getMediaType();
         if(mediaType == 0){
@@ -93,14 +95,14 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             Glide.with(mContext)
                     .load(iconStr)
                     .apply(new RequestOptions()
-                            .error(com.jaydenxiao.common.R.drawable.ic_empty_picture)
+                            .error(com.jaydenxiao.common.R.drawable.no_content_tip)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
-                            .placeholder(R.mipmap.ic_launcher))
+                            .placeholder(com.jaydenxiao.common.R.drawable.no_content_tip))
                     .into(holder.video.thumbImageView);
         }else{
             holder.video.setVisibility(View.GONE);
             holder.newImage.setVisibility(View.VISIBLE);
-            if(!"".equals(iconStr)){
+            if(iconStr==""||iconStr==null||iconStr == AppConstant.HOST_URL){
                 ImageLoaderUtils.display(mContext,holder.newImage,R.mipmap.news_cover_icon);
             }else{
                 ImageLoaderUtils.display(mContext,holder.newImage,iconStr);

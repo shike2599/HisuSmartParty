@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.adapter.PicSelectorAdapter;
 import com.jaydenxiao.common.base.BaseActivity;
 
@@ -42,7 +43,7 @@ public class StudyExperienceActivity extends BaseActivity implements View.OnClic
     private static final int REQUEST_CODE = 0x00000011;
     private ArrayList<String> images;
     private PicSelectorAdapter picSelectorAdapter;
-
+    private String title;
     @Override
     public int getLayoutId() {
         return R.layout.activity_study_experience;
@@ -50,7 +51,7 @@ public class StudyExperienceActivity extends BaseActivity implements View.OnClic
 
     @Override
     public void initPresenter() {
-
+      title = getIntent().getStringExtra(AppConstant.UPLOAD_TITLE);
     }
 
     @Override
@@ -59,14 +60,15 @@ public class StudyExperienceActivity extends BaseActivity implements View.OnClic
         add_img.setOnClickListener(this);
         start_upload.setOnClickListener(this);
 
-        show_title.setText("学习心得");
+        show_title.setText(title);
         show_selector_img.setLayoutManager(new GridLayoutManager(this, 3));
         picSelectorAdapter = new PicSelectorAdapter(this);
         show_selector_img.setAdapter(picSelectorAdapter);
     }
 
-    public static void startAction(Activity activity){
+    public static void startAction(Activity activity,String title){
         Intent intent = new Intent(activity, StudyExperienceActivity.class);
+        intent.putExtra(AppConstant.UPLOAD_TITLE,title);
         activity.startActivity(intent);
     }
 

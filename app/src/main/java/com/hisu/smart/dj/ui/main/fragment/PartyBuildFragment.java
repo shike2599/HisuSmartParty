@@ -9,6 +9,7 @@ import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.news.NewsActivity;
 import com.hisu.smart.dj.ui.study.activity.LearningRankingActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyPlanActivity;
@@ -106,11 +107,11 @@ public class PartyBuildFragment extends BaseFragment {
                 }else if(title=="党费缴纳"){
                     WebActivity.startAction(getActivity(),"党费缴纳",partyBuild_payCost);
                 }else if(title=="党务公开"){
-
+                    NewsActivity.startAction(getActivity(),"党务公开");
                 }else if(title=="党组架构"){
                     WebActivity.startAction(getActivity(),"党组架构",partyBuild_partyStructure);
                 }else if(title=="支部活动"){
-
+                    NewsActivity.startAction(getActivity(),"支部活动");
                 }else if(title=="党建大数据"){
 
                 }

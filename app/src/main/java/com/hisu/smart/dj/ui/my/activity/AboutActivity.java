@@ -1,5 +1,7 @@
 package com.hisu.smart.dj.ui.my.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -44,5 +46,9 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
             default:
                 return;
         }
+    }
+    public static void startAction(Activity activity){
+        Intent intent = new Intent(activity, AboutActivity.class);
+        activity.startActivity(intent);
     }
 }
