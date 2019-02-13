@@ -23,6 +23,7 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
+import com.hisu.smart.dj.ui.main.activity.WelcomeActivity;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
 import com.hisu.smart.dj.ui.main.model.NewsListModel;
 import com.hisu.smart.dj.ui.main.presenter.NewsListPresenter;
@@ -31,6 +32,7 @@ import com.hisu.smart.dj.ui.study.activity.StudyTopicActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.commonutils.NetWorkUtils;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -116,7 +118,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         newsIRecyclerView.setAdapter(newsRecyclerAdapter);
         newsIRecyclerView.setOnLoadMoreListener(this);
         newsIRecyclerView.setOnRefreshListener(this);
-        if(AppApplication.isNet){
+        if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
             showNewsType();//
         }else{
             Toast.makeText(this,"网络异常!",Toast.LENGTH_LONG).show();

@@ -19,10 +19,12 @@ import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
+import com.hisu.smart.dj.ui.main.activity.WelcomeActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyPlanContract;
 import com.hisu.smart.dj.ui.study.model.StudyPlanModel;
 import com.hisu.smart.dj.ui.study.presenter.StudyPlanPresenter;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.commonutils.NetWorkUtils;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 
 import butterknife.Bind;
@@ -96,7 +98,7 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
         year_plan.setOnClickListener(this);
         back_img.setOnClickListener(this);
 
-        if(AppApplication.isNet){
+        if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
             mouth_plan.setTextColor(Color.BLACK);
             if(AppConstant.IS_STUDY_BRANCH){
                 Log.d("StudyPlanActivity","---查询支部学习计划---");

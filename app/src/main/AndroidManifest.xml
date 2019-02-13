@@ -29,11 +29,6 @@
         <activity android:name=".ui.study.activity.StudyPlanActivity" />
         <activity android:name=".ui.study.activity.StudyTopicActivity" />
         <activity android:name=".ui.login.activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.study.activity.LearningRankingActivity" />
         <activity android:name=".ui.my.activity.ForgotPasswordActivity" />
@@ -51,7 +46,16 @@
         <activity android:name=".ui.study.activity.StudyCommonActivity" />
         <activity android:name=".ui.web.activity.WebActivity" />
         <activity android:name=".ui.news.NewsActivity" />
-        <activity android:name=".ui.my.activity.SettingActivity"></activity>
+        <activity android:name=".ui.my.activity.SettingActivity" />
+        <activity android:name=".ui.main.activity.WelcomeActivity"
+            android:theme="@style/NoTitleFullscreen"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

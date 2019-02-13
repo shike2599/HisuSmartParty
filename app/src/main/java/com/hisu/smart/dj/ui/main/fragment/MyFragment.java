@@ -41,8 +41,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     //我的审批
     private static String myApproval = AppConstant.BASE_URL_LOAD+MYCENTE+"myApproval.html";
     //我的收藏
-//    private static String mymessage = AppConstant.BASE_URL_LOAD+MYCENTE+"mymessage.html";
-
+    private static String myCollection = AppConstant.BASE_URL_LOAD+MYCENTE+"myCollection.html";
 //    private ImageView img_sao;
 
     private ImageView img_head;
@@ -151,6 +150,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             //我的收藏
             case R.id.pe_collect:
+                WebActivity.startAction(getActivity(),"我的审批",myCollection);
                 break;
             //设置
             case R.id.pe_setting:

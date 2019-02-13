@@ -8,14 +8,22 @@ import com.hisu.smart.dj.entity.LoginResponse;
 
 import com.hisu.smart.dj.entity.MemberInfoResponse;
 import com.hisu.smart.dj.entity.NewsInfoResponse;
+import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
+import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -206,4 +214,57 @@ public interface ApiService {
     @GET("party-app-practice-front/res/readonly/getActionContent")
     Observable<NewsInfoResponse> getActionContent(@Query("id") Integer id);
 
+    /**
+     * 党员提交践行活动
+     * @param userId   用户序号，党员用户才有权限。 是
+     * @param partyMemberId   党员序号（如能取到传入，性能会更好一点） 否
+     * @param cateId   分类序号，分类序号与分类编号不能同时为空。 否
+     * @param cateCode   分类编号，分类序号与分类编号不能同时为空 否
+     * @param name   名称 是
+     * @param icon   列表页小图标 否
+     * @param imgPaths   是	图片数组（多个图片用英文逗号隔开）
+     * @param mediaType	Integer	是	内容类型（0：视频，1：图文，2：纯文字）
+     * @param content	String	是	资讯内容
+     * @param url	String	否	视频链接地址
+     * @param publishTime	String	是	活动发布时间（yyyy-MM-dd HH:mm:ss）
+     * @param isNeedSign	Boolean	是	true：需要签到，false：不需要
+     * @return
+     */
+    @Multipart
+    @POST("party-app-practice-front/res/write/submitActionContent")
+    Observable<BaseResponse> submitActionContent(@Query("userId") Integer userId,
+                                                      @Query("partyMemberId") Integer partyMemberId,
+                                                      @Query("cateId") Integer cateId,
+                                                      @Query("cateCode") String cateCode,
+                                                      @Query("name") String name,
+                                                      @Query("icon") String icon,
+                                                      @PartMap Map<String,RequestBody> imgPaths,
+                                                      @Query("mediaType") Integer mediaType,
+                                                      @Query("content") String content,
+                                                      @Query("url") String url,
+                                                      @Query("publishTime") String publishTime,
+                                                      @Query("isNeedSign") Boolean isNeedSign);
+    /**
+     * 9.4.获取通知公告数据（手机端）
+     * @param userId   用户ID
+     * @param partyBranchId   支部ID（党员所在支部|支部领导管理的支部
+     * @param publishTime   发布时间
+     * @param limitNum   返回最大条数
+     * @return
+     */
+    @GET("party-app-education-front/info/readonly/listNoticeByTime")
+    Observable<NoticeInfoEntity> listNoticeByTime(@Query("userId") Integer userId,
+                                                  @Query("partyBranchId") Integer  partyBranchId,
+                                                  @Query("publishTime") String  publishTime,
+                                                  @Query("limitNum") Integer  limitNum);
+
+    /**
+     * 9.3.获取用户未读通知公告个数
+     * @param userId   用户ID
+     * @param partyBranchId   支部ID（党员所在支部|支部领导管理的支部
+     * @return
+     */
+    @GET("party-app-education-front/info/readonly/getUnReadNoticeNum")
+    Observable<UnReadSizeEntity> getUnReadNoticeNum(@Query("userId") Integer userId,
+                                                    @Query("partyBranchId") Integer  partyBranchId);
 }

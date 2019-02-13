@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,10 +21,16 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.NoticeInfoEntity;
+import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
+import com.hisu.smart.dj.ui.main.activity.WelcomeActivity;
+import com.hisu.smart.dj.ui.main.contract.HomeInfoContract;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
+import com.hisu.smart.dj.ui.main.model.HomeInfoModel;
 import com.hisu.smart.dj.ui.main.model.NewsListModel;
+import com.hisu.smart.dj.ui.main.presenter.HomeInfoPresenter;
 import com.hisu.smart.dj.ui.main.presenter.NewsListPresenter;
 import com.hisu.smart.dj.ui.news.NewsActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
@@ -31,6 +38,7 @@ import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.jaydenxiao.common.commonutils.LogUtils;
 
+import com.jaydenxiao.common.commonutils.NetWorkUtils;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
 import com.youth.banner.Banner;
 
@@ -46,8 +54,8 @@ import java.util.List;
  * 首页
  * @author lichee
  */
-public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
-        implements NewsListContract.View , OnBannerListener,
+public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
+        implements HomeInfoContract.View , OnBannerListener,
         View.OnClickListener,HomeReaycleAdapter.OnItemClickListener,
         NewsRecyclerAdapter.OnNewsItemClickListener{
     private String TAG = "HomeFragment";
@@ -58,6 +66,8 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     private static String newsMore = AppConstant.BASE_URL_LOAD+"news/newsMore.html"; //更多党建新闻
     private static String studyExamination = AppConstant.BASE_URL_LOAD+"study/studyExamination.html"; //在线考试
     private static String partyBuild_relation = AppConstant.BASE_URL_LOAD+"partyBuild/relation.html";
+
+    private static String mymessage = AppConstant.BASE_URL_LOAD+"mycenter/"+"mymessage.html";
 
     private Banner homeBanner;
     private List<Integer> homeBannerImages;
@@ -75,6 +85,7 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     private LoadingTip newTip;
     private LoadingTip shizhTip;
     private TextView more_news_textView,more_shiznew_textView;
+    private RelativeLayout notive_rela;
     private int[] recycleImages = {R.mipmap.news_icon,R.mipmap.vedio_icon,
                  R.mipmap.sanhyk_icon, R.mipmap.online_exam,
                  R.mipmap.jicengdt_icon,R.mipmap.df_pay_icon,
@@ -125,7 +136,9 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
     protected void initView() {
        more_news_textView = rootView.findViewById(R.id.more_news_textView);
        more_shiznew_textView = rootView.findViewById(R.id.shizh_more_news_textView);
+       notive_rela = rootView.findViewById(R.id.home_notice_RelativeLayout);
 
+       notive_rela.setOnClickListener(this);
        more_news_textView.setOnClickListener(this);
        more_shiznew_textView.setOnClickListener(this);
        homeBanner = rootView.findViewById(R.id.home_banner);
@@ -193,7 +206,7 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
        shizhTip = rootView.findViewById(R.id.loadedTip_shizh);
 
        //有网络则请求数据
-       if(AppApplication.isNet){
+       if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
            //请求党建要闻
            mPresenter.getNewsListDataRequest("1003","",1,2);
            //请求时政要闻
@@ -301,6 +314,19 @@ public class HomeFragment extends BaseFragment<NewsListPresenter, NewsListModel>
             case R.id.shizh_more_news_textView:
                 NewsActivity.startAction(getActivity(),"时政要闻");
                 break;
+            case R.id.home_notice_RelativeLayout:
+                WebActivity.startAction(getActivity(),"消息通知",mymessage);
+                break;
         }
+    }
+    //消息通知内容
+    @Override
+    public void returnListNoticeByTime(NoticeInfoEntity noticeInfoEntity, String tag) {
+
+    }
+    //消息通知未读数量
+    @Override
+    public void returnUnReadNoticeNum(UnReadSizeEntity unReadSizeEntity, String tag) {
+
     }
 }

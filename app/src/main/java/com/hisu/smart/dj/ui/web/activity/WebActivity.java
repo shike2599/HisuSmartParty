@@ -2,9 +2,12 @@ package com.hisu.smart.dj.ui.web.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.CookieEntity;
@@ -23,10 +27,12 @@ import com.hisu.smart.dj.entity.NewsInfoResponse;
 import com.hisu.smart.dj.ui.news.contract.NewsInfoContract;
 import com.hisu.smart.dj.ui.news.model.NewsInfoModel;
 import com.hisu.smart.dj.ui.news.presenter.NewInfoPresenter;
+import com.hisu.smart.dj.ui.web.SystemScript;
 import com.hisu.smart.dj.utils.X5WebView;
 import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
+import com.tencent.smtt.export.external.interfaces.IX5WebSettings;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.sdk.CookieManager;
 import com.tencent.smtt.sdk.CookieSyncManager;
@@ -37,7 +43,9 @@ import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.tencent.smtt.utils.TbsLog;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -90,7 +98,9 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
 
     @Override
     public void initView() {
+
        initWebView();
+//        setCookie(null);
        back_img.setOnClickListener(this);
        news_collection_textView.setOnClickListener(this);
 
@@ -115,7 +125,6 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
     }
 
     private void initWebView() {
-        setCookie(null);
         mViewParent.addView(x5WebView, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT));
@@ -135,6 +144,14 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
 //                if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 16)
 //                    changGoForwardButton(view);
                 /* mWebView.showLog("test Log"); */
+
+                Log.i("cookie", "onPageFinished--url-"+url);
+                CookieManager cookieManager = CookieManager.getInstance();
+                String CookieStr = cookieManager.getCookie(url);
+                Log.i("cookie", "onPageFinished---"+CookieStr);
+                if (CookieStr != null) {
+                    Log.i("cookie", "onPageFinished--"+CookieStr);
+                }
             }
         });
 
@@ -233,7 +250,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
                                 }).show();
             }
         });
-
+        x5WebView.addJavascriptInterface(new SystemScript(WebActivity.this),"System");
         WebSettings webSetting = x5WebView.getSettings();
         webSetting.setAllowFileAccess(true);
         webSetting.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
@@ -241,21 +258,22 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
         webSetting.setBuiltInZoomControls(true);
         webSetting.setUseWideViewPort(true);
         webSetting.setSupportMultipleWindows(false);
-        // webSetting.setLoadWithOverviewMode(true);
+         webSetting.setLoadWithOverviewMode(true);
         webSetting.setAppCacheEnabled(true);
-        // webSetting.setDatabaseEnabled(true);
+         webSetting.setDatabaseEnabled(true);
         webSetting.setDomStorageEnabled(true);
         webSetting.setJavaScriptEnabled(true);
         webSetting.setGeolocationEnabled(true);
         webSetting.setAppCacheMaxSize(Long.MAX_VALUE);
+        webSetting.setCacheMode(WebSettings.LOAD_NO_CACHE);
         webSetting.setAppCachePath(this.getDir("appcache", 0).getPath());
-        webSetting.setDatabasePath(this.getDir("databases", 0).getPath());
+//        webSetting.setDatabasePath(this.getDir("databases", 0).getPath());
         webSetting.setGeolocationDatabasePath(this.getDir("geolocation", 0)
                 .getPath());
-        // webSetting.setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);
-        webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
-        // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
-        // webSetting.setPreFectch(true);
+//         webSetting.setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);
+//        webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
+         webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
+//         webSetting.setPreFectch(true);
 //        long time = System.currentTimeMillis();
 //        if (webUrl == null) {
 //            x5WebView.loadUrl(webUrl);
@@ -414,44 +432,87 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
                 "</head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }
-    //cookie保存用户信息
-    void setCookie(List<CookieEntity> list) {
-        StringBuilder sb = new StringBuilder();
-        AppConfig appConfig = AppConfig.getInstance();
-        sb.append("phone="+ appConfig.getString(AppConstant.MEMBER_PHONE,"")+";");
-        sb.append("isPartyMember="+ appConfig.getBoolean(AppConstant.IS_PARTY_MEMBER,false)+";");
-        sb.append("isPartyBranch="+ appConfig.getBoolean(AppConstant.IS_PARTY_BRANCH,false)+";");
-        sb.append("nickname="+ appConfig.getString(AppConstant.NICK_NAME,"")+";");
-        sb.append("userId="+ appConfig.getInt(AppConstant.USER_ID,-1)+";");
-        sb.append("isPartyCommittee="+ appConfig.getBoolean(AppConstant.IS_PARTY_COMMITTEE,false)+";");
-        sb.append("userName="+ appConfig.getString(AppConstant.USER_NAME,"")+";");
 
-        sb.append("id="+ appConfig.getInt(AppConstant.MEMBER_ID,-1)+";");
-        sb.append("name="+ appConfig.getString(AppConstant.MEMBER_NAME,"")+";");
-        sb.append("code="+ appConfig.getString(AppConstant.MEMBER_CODE,"")+";");
-        sb.append("idCard="+ appConfig.getString(AppConstant.MEMBER_IDCARD,"")+";");
-        sb.append("sex="+ appConfig.getInt(AppConstant.MEMBER_SEX,-1)+";");
-        sb.append("partyBranchId="+ appConfig.getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1)+";");
-        sb.append("status="+ appConfig.getInt(AppConstant.MEMBER_STATUS,-1)+";");
-        sb.append("integral="+ appConfig.getInt(AppConstant.MEMBER_INTEGRAL,-1)+";");
-        if(list!=null&&list.size()>0){
-            for(int i = 0;i < list.size(); i++){
-                CookieEntity cookieEntity = list.get(i);
-                sb.append(cookieEntity.getCookieKey()+"="+cookieEntity.getCookieValue()+";");
-            }
-        }
-        String stringCookie = (sb.deleteCharAt(sb.length()-1)).toString();
-        Log.d("WebActivity","stringCookie----"+stringCookie);
-        CookieManager cookieManager = CookieManager.getInstance();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            cookieManager.removeSessionCookies(null);
-            cookieManager.flush();
-        } else {
-            cookieManager.removeSessionCookie();
-            CookieSyncManager.getInstance().sync();
-        }
-        cookieManager.setAcceptCookie(true);
-        cookieManager.setCookie(webUrl, stringCookie);
-    }
+    
+//    //cookie保存用户信息
+//    void setCookie(List<CookieEntity> list) {
+//        StringBuilder sb = new StringBuilder();
+//        AppConfig appConfig = AppConfig.getInstance();
+//        sb.append("phone="+ appConfig.getString(AppConstant.MEMBER_PHONE,"")+";");
+//        sb.append("isPartyMember="+ appConfig.getBoolean(AppConstant.IS_PARTY_MEMBER,false)+";");
+//        sb.append("isPartyBranch="+ appConfig.getBoolean(AppConstant.IS_PARTY_BRANCH,false)+";");
+//        sb.append("nickname="+ appConfig.getString(AppConstant.NICK_NAME,"")+";");
+//        sb.append("userId="+ appConfig.getInt(AppConstant.USER_ID,-1)+";");
+//        sb.append("isPartyCommittee="+ appConfig.getBoolean(AppConstant.IS_PARTY_COMMITTEE,false)+";");
+//        sb.append("userName="+ appConfig.getString(AppConstant.USER_NAME,"")+";");
+//
+//        sb.append("id="+ appConfig.getInt(AppConstant.MEMBER_ID,-1)+";");
+//        sb.append("name="+ appConfig.getString(AppConstant.MEMBER_NAME,"")+";");
+//        sb.append("code="+ appConfig.getString(AppConstant.MEMBER_CODE,"")+";");
+//        sb.append("idCard="+ appConfig.getString(AppConstant.MEMBER_IDCARD,"")+";");
+//        sb.append("sex="+ appConfig.getInt(AppConstant.MEMBER_SEX,-1)+";");
+//        sb.append("partyBranchId="+ appConfig.getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1)+";");
+//        sb.append("status="+ appConfig.getInt(AppConstant.MEMBER_STATUS,-1)+";");
+//        sb.append("integral="+ appConfig.getInt(AppConstant.MEMBER_INTEGRAL,-1)+";");
+//        if(list!=null&&list.size()>0){
+//            for(int i = 0;i < list.size(); i++){
+//                CookieEntity cookieEntity = list.get(i);
+//                sb.append(cookieEntity.getCookieKey()+"="+cookieEntity.getCookieValue()+";");
+//            }
+//        }
+//        String stringCookie = (sb.deleteCharAt(sb.length()-1)).toString();
+//        Log.d("WebActivity","stringCookie----"+stringCookie);
+//
+//        CookieSyncManager.createInstance(AppApplication.getAppContext());
+//        CookieManager cookieManager = CookieManager.getInstance();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            cookieManager.removeSessionCookies(null);
+//        } else {
+//            cookieManager.removeSessionCookie();
+//        }
+//        cookieManager.setAcceptCookie(true);
+////        cookieManager.setCookie(webUrl, stringCookie);
+//        if (!TextUtils.isEmpty(stringCookie)) {
+//            String[] cookieArray = stringCookie.split(";");// 多个Cookie是使用分号分隔的
+//            for (int i = 0; i < cookieArray.length; i++) {
+//                Log.i("cookie", cookieArray[i]);
+//                cookieManager.setCookie(webUrl, cookieArray[i]);// 设置 Cookie
+////                cookieManager.setCookie(getDomain(webUrl), cookieArray[i]);// 设置 Cookie
+//            }
+//        }
+////        cookieManager.setCookie(getDomain(webUrl), "Domain="+getDomain(webUrl));
+////        cookieManager.setCookie(getDomain(webUrl), "Path=/");
+//
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            cookieManager.flush();
+//        } else {
+//            CookieSyncManager.getInstance().sync();
+//        }
+//
+//        String newCookie = cookieManager.getCookie(webUrl);
+//        if(newCookie != null){
+//            Log.d("cookie", "getCookie===="+newCookie);
+//        }else{
+//            Log.d("cookie", "getCookie===null");
+//        }
+//    }
+
+//    /**
+//     * 获取URL的域名
+//     */
+//    private String getDomain(String url){
+////        url = url.replace("http://", "").replace("https://", "");
+////        if (url.contains("/")) {
+////            url = url.substring(0, url.indexOf('/'));
+////        }
+////        return url;
+//
+//        url = url.replace("file:///android_asset/smart_dj_weixin/", "").replace("https://", "");
+//        if (url.contains("html")) {
+//            url = url.substring(0, url.indexOf("html"));
+//        }
+//        Log.i("cookie", "url--------"+url);
+//        return url;
+//    }
 
 }

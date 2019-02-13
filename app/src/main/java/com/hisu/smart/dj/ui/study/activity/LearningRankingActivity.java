@@ -19,10 +19,12 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.hisu.smart.dj.ui.adapter.StudyRankAdapter;
+import com.hisu.smart.dj.ui.main.activity.WelcomeActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyRankContract;
 import com.hisu.smart.dj.ui.study.model.StudyRankModel;
 import com.hisu.smart.dj.ui.study.presenter.StudyRankPresenter;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.commonutils.NetWorkUtils;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
 
 import java.util.ArrayList;
@@ -145,7 +147,7 @@ public class LearningRankingActivity extends BaseActivity
                 DividerItemDecoration.VERTICAL_LIST));
        commHoursAdapter = new StudyRankAdapter(COMM_TYPE);
        routine_learing_recycler.setAdapter(commHoursAdapter);
-       if(AppApplication.isNet){
+       if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
            //默认是选择支部
            show_branch_data.setTextColor(Color.BLACK);
            getBranchData();
