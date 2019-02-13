@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConfig;
+import com.hisu.smart.dj.ui.login.activity.LoginActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.ProfileEdit;
 import com.jaydenxiao.common.base.BaseActivity;
@@ -82,7 +84,11 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 AboutActivity.startAction(this);
                 break;
             case R.id.edit_load_Btn:
-
+                AppConfig.getInstance().clearAll();
+                Intent intent = new Intent();
+                intent.setClass(SettingActivity.this,LoginActivity.class);
+                startActivity(intent);
+                SettingActivity.this.finish();
                 break;
             case R.id.back_imageView:
                 SettingActivity.this.finish();

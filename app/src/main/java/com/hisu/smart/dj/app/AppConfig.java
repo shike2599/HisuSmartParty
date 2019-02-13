@@ -64,4 +64,11 @@ public class AppConfig  {
         this.mPreferences.edit().putString(key, value).apply();
     }
 
+    public void clearAll() {
+
+        SharedPreferences.Editor editor = this.mPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
 }

@@ -21,6 +21,7 @@
             android:text="昵称"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="55dp"
@@ -41,6 +42,7 @@
             android:text="姓名"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="55dp"
@@ -61,6 +63,7 @@
             android:text="性别"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_sex"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="55dp"
@@ -81,6 +84,7 @@
             android:text="身份证号"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_idcard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -101,6 +105,7 @@
             android:text="联系电话"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
@@ -121,6 +126,7 @@
             android:text="学历"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_xueLi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="55dp"
@@ -141,6 +147,7 @@
             android:text="入党日期"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_joinPartyTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="23dp"
@@ -161,6 +168,7 @@
             android:text="转正日期"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_MemberTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="23dp"
@@ -181,6 +189,7 @@
             android:text="党龄"
             android:textSize="18sp"/>
         <TextView
+            android:id="@+id/user_info_partyYear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
