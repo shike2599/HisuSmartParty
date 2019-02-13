@@ -74,7 +74,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     private static final String Time_Pioneer = "1005"; //时代先锋
     private static final String  Grassroots_Dynamics= "1007"; //基层动态
     private static int SIZE = 6;
-    private int mStartPage = 1;
+    private int mStartPage;
     private String jump_tag;
 
     private String show_title;
@@ -107,6 +107,18 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mStartPage = 1;
+        Log.d("NewsActivity","-----onResume()----");
+        if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
+            showNewsType();//
+        }else{
+            Toast.makeText(this,"网络异常!",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
     public void initView() {
         title.setText(show_title);
         back_img.setOnClickListener(this);
@@ -118,11 +130,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         newsIRecyclerView.setAdapter(newsRecyclerAdapter);
         newsIRecyclerView.setOnLoadMoreListener(this);
         newsIRecyclerView.setOnRefreshListener(this);
-        if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
-            showNewsType();//
-        }else{
-            Toast.makeText(this,"网络异常!",Toast.LENGTH_LONG).show();
-        }
+
     }
 
     public static void startAction(Activity activity, String title){
@@ -190,7 +198,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
                NewsActivity.this.finish();
                break;
            case R.id.follow_upLoad_imageView:
-               StudyExperienceActivity.startAction(this,show_title);
+               StudyExperienceActivity.startAction(this,show_title,follow_id);
                break;
        }
     }
@@ -257,6 +265,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         }else if(follow_id!=-1){
             follow_upload_img.setVisibility(View.VISIBLE);
             Log.d("NewsActivity","践行-----follow_id==="+follow_id);
+            Log.d("NewsActivity","践行-----mStartPage==="+mStartPage);
             mPresenter.getListActionContentRequest(String.valueOf(follow_id),null,mStartPage,SIZE);
         }else if(show_title.equals("时代先锋")){
             mPresenter.getNewsListDataRequest(Time_Pioneer,null,mStartPage,SIZE);

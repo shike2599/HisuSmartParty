@@ -2,7 +2,9 @@ package com.hisu.smart.dj.ui.study.activity;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.support.v7.widget.DialogTitle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -16,13 +18,17 @@ import android.widget.Toast;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
+import com.hisu.smart.dj.entity.NoticeInfoEntity;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.ui.adapter.PicSelectorAdapter;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
 import com.hisu.smart.dj.ui.study.contract.UpLoadFileContract;
 import com.hisu.smart.dj.ui.study.model.UpLoadFileModel;
 import com.hisu.smart.dj.ui.study.presenter.UpLoadFilePresenter;
+import com.hisu.smart.dj.ui.widget.CommomDialog;
 import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
@@ -69,6 +75,9 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     private Integer mediaType;
     private AppConfig appConfig;
     private Map<String, RequestBody> bodyMap;
+    private CommomDialog commomDialog;
+    private int follow_id;
+    private boolean isUploadSuccess;
     @Override
     public int getLayoutId() {
         return R.layout.activity_study_experience;
@@ -77,10 +86,30 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     @Override
     public void initPresenter() {
       title = getIntent().getStringExtra(AppConstant.UPLOAD_TITLE);
+      follow_id = getIntent().getIntExtra(AppConstant.FOLLOW_ID,-1);
+      if(follow_id == -1){
+          follow_id = 0;
+      }
       appConfig = AppConfig.getInstance();
       user_id = appConfig.getInt(AppConstant.USER_ID,-1);
       partyMemberId = appConfig.getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1);
       mPresenter.setVM(this,mModel);
+      commomDialog = new CommomDialog(this,R.style.dialog,"",new CommomDialog.OnCloseListener(){
+          @Override
+          public void onClick(Dialog dialog, boolean confirm) {
+                 if(isUploadSuccess){
+                     if(confirm){
+                         StudyExperienceActivity.this.finish();
+                     }else{
+                         dialog.dismiss();
+                     }
+                 }else{
+                     dialog.dismiss();
+                 }
+          }
+      });
+
+
     }
 
     @Override
@@ -101,6 +130,12 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
         activity.startActivity(intent);
     }
 
+    public static void startAction(Activity activity,String title,int follow_id){
+        Intent intent = new Intent(activity, StudyExperienceActivity.class);
+        intent.putExtra(AppConstant.UPLOAD_TITLE,title);
+        intent.putExtra(AppConstant.FOLLOW_ID,follow_id);
+        activity.startActivity(intent);
+    }
     @Override
     public void onClick(View v) {
          switch (v.getId()){
@@ -108,11 +143,15 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                  StudyExperienceActivity.this.finish();
                  break;
              case R.id.add_img_ImageView:
-                 ImageSelector.builder()
-                         .useCamera(true) // 设置是否使用拍照
-                         .setSingle(false)  //设置是否单选
-                         .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
-                         .start(StudyExperienceActivity.this, REQUEST_CODE); // 打开相册
+                 isUploadSuccess = false;
+                 commomDialog.setTitle("提示");
+                 commomDialog.setContent("暂未开通图片上传！敬请期待！");
+                 commomDialog.show();
+//                 ImageSelector.builder()
+//                         .useCamera(true) // 设置是否使用拍照
+//                         .setSingle(false)  //设置是否单选
+//                         .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+//                         .start(StudyExperienceActivity.this, REQUEST_CODE); // 打开相册
                  break;
              case R.id.start_upload_relativeLayout:
                  String title = title_edit.getText().toString();
@@ -127,12 +166,15 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                          }
                      }else{
                          mediaType = 2;
+                         mPresenter.submitActionContentRequest(user_id,partyMemberId,follow_id,
+                                 null,title,"","",mediaType,content,null,getNowTime(),false);
                      }
-                     mPresenter.submitActionContentRequest(user_id,partyMemberId,null,
-                             null,title,null,bodyMap,mediaType,content,null,getNowTime(),false);
+
                  }else{
-                     Toast.makeText(StudyExperienceActivity.this,
-                             "标题和内容不能为空!",Toast.LENGTH_LONG).show();
+                     isUploadSuccess = false;
+                     commomDialog.setTitle("提示");
+                     commomDialog.setContent("请加标题和内容填写完整!");
+                     commomDialog.show();
                  }
                  break;
          }
@@ -149,8 +191,18 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     }
 
     @Override
-    public void returnSubmitResponse(BaseResponse baseResponse) {
-
+    public void returnSubmitResponse(NotingResponse notingResponse) {
+        if(notingResponse.getResultCode() == 200){
+            isUploadSuccess = true;
+            commomDialog.setTitle("提示");
+            commomDialog.setContent("上传成功！");
+            commomDialog.setNegativeButton("返回");
+        }else{
+            commomDialog.setTitle("提示");
+            commomDialog.setContent("上传失败请重试！！！");
+            commomDialog.setNegativeButton("返回");
+        }
+        commomDialog.show();
     }
 
     @Override
@@ -166,7 +218,10 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     @Override
     public void showErrorTip(String msg, String tag) {
       LoadingDialog.cancelDialogForLoading();
-        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+      isUploadSuccess = false;
+      commomDialog.setTitle("提示");
+      commomDialog.setContent(msg);
+      commomDialog.show();
     }
 
     private String getNowTime(){

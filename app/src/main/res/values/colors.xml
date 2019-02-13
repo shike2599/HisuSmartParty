@@ -8,5 +8,11 @@
     <!--背景浅灰色-->
     <color name="background_color_gory">#f2f1ef</color>
 
+    <color name="font_common_1">#424242</color>
+    <color name="font_common_2">#a1a1a1</color>
+    <color name="font_blue">#42369a</color>
 
+    <color name="font_green">#00cccc</color>
+
+    <color name="commom_background">#f3f3f3</color>
 </resources>

@@ -2,6 +2,7 @@ package com.hisu.smart.dj.ui.study.contract;
 
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.jaydenxiao.common.base.BaseModel;
 import com.jaydenxiao.common.base.BasePresenter;
 import com.jaydenxiao.common.base.BaseView;
@@ -21,19 +22,19 @@ import rx.Observable;
 
 public interface UpLoadFileContract {
     interface Model extends BaseModel {
-        Observable<BaseResponse> submitActionContent(Integer userId, Integer partyMemberId, Integer cateId,
+        Observable<NotingResponse> submitActionContent(Integer userId, Integer partyMemberId, Integer cateId,
                                                      String cateCode, String name, String icon,
-                                                     Map<String, RequestBody> imgPaths, Integer mediaType,
+                                                     String imgPaths, Integer mediaType,
                                                      String content, String url, String publishTime, Boolean isNeedSign);
     }
 
     interface View extends BaseView {
-        void returnSubmitResponse(BaseResponse baseResponse);
+        void returnSubmitResponse(NotingResponse notingResponse);
     }
     abstract static class Presenter extends BasePresenter<View, Model> {
         public abstract void submitActionContentRequest(Integer userId, Integer partyMemberId, Integer cateId,
                                                         String cateCode, String name,String icon,
-                                                        Map<String, RequestBody> imgPaths,Integer mediaType,
+                                                        String imgPaths,Integer mediaType,
                                                         String content,String url,String publishTime,Boolean isNeedSign);
     }
 }

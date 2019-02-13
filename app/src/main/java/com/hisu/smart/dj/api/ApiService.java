@@ -9,6 +9,7 @@ import com.hisu.smart.dj.entity.LoginResponse;
 import com.hisu.smart.dj.entity.MemberInfoResponse;
 import com.hisu.smart.dj.entity.NewsInfoResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
@@ -230,20 +231,19 @@ public interface ApiService {
      * @param isNeedSign	Boolean	是	true：需要签到，false：不需要
      * @return
      */
-    @Multipart
-    @POST("party-app-practice-front/res/write/submitActionContent")
-    Observable<BaseResponse> submitActionContent(@Query("userId") Integer userId,
-                                                      @Query("partyMemberId") Integer partyMemberId,
-                                                      @Query("cateId") Integer cateId,
-                                                      @Query("cateCode") String cateCode,
-                                                      @Query("name") String name,
-                                                      @Query("icon") String icon,
-                                                      @PartMap Map<String,RequestBody> imgPaths,
-                                                      @Query("mediaType") Integer mediaType,
-                                                      @Query("content") String content,
-                                                      @Query("url") String url,
-                                                      @Query("publishTime") String publishTime,
-                                                      @Query("isNeedSign") Boolean isNeedSign);
+    @GET("party-app-practice-front/res/write/submitActionContent")
+    Observable<NotingResponse> submitActionContent(@Query("userId") Integer userId,
+                                                   @Query("partyMemberId") Integer partyMemberId,
+                                                   @Query("cateId") Integer cateId,
+                                                   @Query("cateCode") String cateCode,
+                                                   @Query("name") String name,
+                                                   @Query("icon") String icon,
+                                                   @Query("imgPaths") String imgPaths,
+                                                   @Query("mediaType") Integer mediaType,
+                                                   @Query("content") String content,
+                                                   @Query("url") String url,
+                                                   @Query("publishTime") String publishTime,
+                                                   @Query("isNeedSign") Boolean isNeedSign);
     /**
      * 9.4.获取通知公告数据（手机端）
      * @param userId   用户ID

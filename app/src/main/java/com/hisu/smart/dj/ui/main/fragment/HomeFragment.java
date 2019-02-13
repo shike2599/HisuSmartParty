@@ -319,11 +319,13 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
                 break;
         }
     }
+
     //消息通知内容
     @Override
     public void returnListNoticeByTime(NoticeInfoEntity noticeInfoEntity, String tag) {
 
     }
+
     //消息通知未读数量
     @Override
     public void returnUnReadNoticeNum(UnReadSizeEntity unReadSizeEntity, String tag) {

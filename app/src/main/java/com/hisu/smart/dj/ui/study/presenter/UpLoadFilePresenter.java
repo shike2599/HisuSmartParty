@@ -2,6 +2,7 @@ package com.hisu.smart.dj.ui.study.presenter;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.CateEntity;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonMainContract;
 import com.hisu.smart.dj.ui.study.contract.UpLoadFileContract;
 import com.jaydenxiao.common.basebean.BaseResponse;
@@ -23,11 +24,11 @@ public class UpLoadFilePresenter extends UpLoadFileContract.Presenter{
     @Override
     public void submitActionContentRequest(Integer userId, Integer partyMemberId,
                                            Integer cateId, String cateCode, String name,
-                                           String icon, Map<String, RequestBody> imgPaths,
+                                           String icon, String imgPaths,
                                            Integer mediaType, String content, String url,
                                            String publishTime, Boolean isNeedSign) {
         mRxManage.add(mModel.submitActionContent(userId,partyMemberId,cateId,cateCode,name,icon,imgPaths,
-                mediaType,content,url,publishTime,isNeedSign).subscribe(new RxSubscriber<BaseResponse>(mContext,false) {
+                mediaType,content,url,publishTime,isNeedSign).subscribe(new RxSubscriber<NotingResponse>(mContext,false) {
 
             @Override
             public void onStart() {
@@ -36,8 +37,9 @@ public class UpLoadFilePresenter extends UpLoadFileContract.Presenter{
             }
 
             @Override
-            protected void _onNext(BaseResponse baseResponse) {
-                mView.returnSubmitResponse(baseResponse);
+            protected void _onNext(NotingResponse notingResponse) {
+                mView.returnSubmitResponse(notingResponse);
+                mView.stopLoading("");
             }
 
             @Override
