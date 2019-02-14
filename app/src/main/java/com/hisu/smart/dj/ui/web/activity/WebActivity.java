@@ -24,12 +24,15 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.CookieEntity;
 import com.hisu.smart.dj.entity.NewsInfoResponse;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.ui.news.contract.NewsInfoContract;
 import com.hisu.smart.dj.ui.news.model.NewsInfoModel;
 import com.hisu.smart.dj.ui.news.presenter.NewInfoPresenter;
 import com.hisu.smart.dj.ui.web.SystemScript;
+import com.hisu.smart.dj.ui.widget.CollectToast;
 import com.hisu.smart.dj.utils.X5WebView;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.commonutils.CollectionUtils;
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.IX5WebSettings;
@@ -76,6 +79,10 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
     private Integer newsID;
     private boolean isNeedSign = false;
     private String jump_tag;
+    private CollectToast collectToast;
+    private int user_id;
+    private int partyMemberId;
+    private int resType;
     @Override
     public int getLayoutId() {
         return R.layout.activity_web;
@@ -83,16 +90,32 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
 
     @Override
     public void initPresenter() {
+        collectToast = new CollectToast(this);
         mPresenter.setVM(this, mModel);
         x5WebView = new X5WebView(this,null);
         newsID = getIntent().getIntExtra("NEWSID",-1);
+        user_id = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
+        partyMemberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1);
         Log.d("WebActivity","newsID==="+newsID);
         if(newsID == -1){
             title_str = getIntent().getStringExtra("TITLE");
             webUrl = getIntent().getStringExtra("URL");
         }else{
             jump_tag = getIntent().getStringExtra("TAG");
+            if(jump_tag!=null){
+                if(jump_tag.equals("三会一课")){
+                    resType = 2; //三会一课就是专题学习
+                }else if(jump_tag.equals("常规学习")){
+                    resType = 1;
+                }else if(jump_tag.equals("专题学习")){
+                    resType = 2;
+                }
+            }else{
+                resType = 0;
+            }
+
         }
+
 
     }
 
@@ -113,6 +136,8 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
                    mPresenter.getTopicInfoDataRequest(newsID);
                }else if(jump_tag.equals("常规学习")){
                    mPresenter.getCommonInfoDataRequest(newsID);
+               }else if(jump_tag.equals("专题学习")){
+                   mPresenter.getTopicInfoDataRequest(newsID);
                }
            }else{
                mPresenter.getNewsInfoDataRequest(newsID);
@@ -300,13 +325,22 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
                 //收藏
             case R.id.collection_TextView:
                 if(isNeedSign){
+                    //已经收藏，取消收藏
+                    collectToast.setContext("已取消收藏!");
+                    collectToast.setIsCollect(true);
+                    collectToast.builder().show();
                     collection_img.setBackgroundResource(R.mipmap.links_icon);
                     news_collection_textView.setText("收藏");
                     isNeedSign = false;
                 }else{
-                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
-                    news_collection_textView.setText("取消收藏");
-                    isNeedSign = true;
+                    //未收藏准备收藏
+                    mPresenter.addCollectionDataRequest(user_id,partyMemberId,resType,newsID);
+//                    collectToast.setContext("收藏成功!");
+//                    collectToast.setIsCollect(true);
+//                    collectToast.builder().show();
+//                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
+//                    news_collection_textView.setText("取消收藏");
+//                    isNeedSign = true;
                 }
                 break;
         }
@@ -391,6 +425,22 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
             startLoad(true,webData);
         }
     }
+    //添加收藏
+    @Override
+    public void returnCollectionData(NotingResponse notingResponse) {
+        if(notingResponse.getResultCode() == 200){
+            collectToast.setContext("收藏成功!");
+            collectToast.setIsCollect(true);
+            collectToast.builder().show();
+            collection_img.setBackgroundResource(R.mipmap.pre_likes);
+            news_collection_textView.setText("取消收藏");
+            isNeedSign = true;
+        }else if(notingResponse.getResultCode() == 1001){
+            collectToast.setContext("您已收藏该新闻");
+            collectToast.setIsCollect(false);
+            collectToast.builder().show();
+        }
+    }
 
     @Override
     public void showLoading(String tag) {
@@ -417,8 +467,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
         }else{
             x5WebView.loadUrl(webUrl);
         }
-//        CookieSyncManager.createInstance(this);
-//        CookieSyncManager.getInstance().sync();
+
     }
 
     private String getHtmlData(String bodyHTML) {

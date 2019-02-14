@@ -22,6 +22,7 @@ import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
 import com.hisu.smart.dj.ui.study.contract.StudyTopicContract;
 import com.hisu.smart.dj.ui.study.model.StudyTopicModel;
 import com.hisu.smart.dj.ui.study.presenter.StudyTopicPresenter;
+import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.commonutils.LogUtils;
@@ -211,7 +212,6 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
 
     @Override
     public void onTopicClick(int position, int Information_id) {
-        Toast.makeText(this,"--Information_id--"+Information_id,
-                Toast.LENGTH_SHORT).show();
+        WebActivity.startAction(StudyTopicActivity.this,Information_id,"专题学习");
     }
 }

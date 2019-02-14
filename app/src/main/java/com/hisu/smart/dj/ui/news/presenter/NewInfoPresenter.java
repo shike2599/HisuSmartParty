@@ -2,6 +2,7 @@ package com.hisu.smart.dj.ui.news.presenter;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.NewsInfoResponse;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.hisu.smart.dj.ui.news.contract.NewsInfoContract;
 import com.hisu.smart.dj.ui.study.contract.StudyPlanContract;
@@ -101,6 +102,7 @@ public class NewInfoPresenter extends NewsInfoContract.Presenter {
                         super.onStart();
                         mView.showLoading(mContext.getString(R.string.loading));
                     }
+
                     @Override
                     protected void _onNext(NewsInfoResponse newsInfoResponse) {
                         mView.returnNewsInfoData(newsInfoResponse);
@@ -109,8 +111,30 @@ public class NewInfoPresenter extends NewsInfoContract.Presenter {
 
                     @Override
                     protected void _onError(String message) {
-                        mView.showErrorTip(message,null);
+                        mView.showErrorTip(message,"EMPTY");
                     }
                 }));
     }
+    @Override
+    public void addCollectionDataRequest(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
+        mRxManage.add(mModel.addCollectionData(id,partyBranchId,resType,resId)
+            .subscribe(new RxSubscriber<NotingResponse>(mContext,false) {
+                @Override
+                public void onStart() {
+                    super.onStart();
+                    mView.showLoading(mContext.getString(R.string.loading));
+                }
+
+                @Override
+                protected void _onNext(NotingResponse notingResponse) {
+                    mView.stopLoading("collection");
+                    mView.returnCollectionData(notingResponse);
+                }
+
+                @Override
+                protected void _onError(String message) {
+                    mView.showErrorTip(message,"collection");
+                }
+            }));
+}
 }

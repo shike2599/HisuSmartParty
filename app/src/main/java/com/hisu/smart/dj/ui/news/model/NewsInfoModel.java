@@ -4,9 +4,8 @@ import com.hisu.smart.dj.api.Api;
 import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.NewsInfoResponse;
-import com.hisu.smart.dj.entity.StudyPlanRespone;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.ui.news.contract.NewsInfoContract;
-import com.hisu.smart.dj.ui.study.contract.StudyPlanContract;
 import com.jaydenxiao.common.baserx.RxSchedulers;
 
 import rx.Observable;
@@ -60,7 +59,7 @@ public class NewsInfoModel implements NewsInfoContract.Model {
     //常规详情
     @Override
     public Observable<NewsInfoResponse> getCommonInfoData(Integer id) {
-        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+        return Api.getDefault(AppApplication.getAppContext(), AppConstant.HOST_URL)
                 .getCommonContent(id)
                 .map(new Func1<NewsInfoResponse, NewsInfoResponse>() {
                     @Override
@@ -68,5 +67,18 @@ public class NewsInfoModel implements NewsInfoContract.Model {
                         return newsInfoResponse;
                     }
                 }).compose(RxSchedulers.<NewsInfoResponse>io_main());
+    }
+    //添加收藏
+    @Override
+    public Observable<NotingResponse> addCollectionData(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .addCollection(id,partyBranchId,resType,resId)
+                .map(new Func1<NotingResponse, NotingResponse>() {
+                    @Override
+                    public NotingResponse call(NotingResponse notingResponse) {
+                        return notingResponse;
+                    }
+                })
+                .compose(RxSchedulers.<NotingResponse>io_main());
     }
 }

@@ -341,4 +341,17 @@ public interface ApiService {
                                                                          @Query("codeKeywords") String codeKeywords,
                                                                          @Query("pageNo")Integer pageNo,
                                                                          @Query("pageSize")Integer pageSize);
+    /**
+     * 5.4. 收藏资讯内容（手机端
+     * @param userId   用户ID
+     * @param partyBranchId   课程类型,0：组织生活学习活动（资讯），1：常规学习活动，2：专题学习活动
+     * @param resType   发布时间
+     * @param resId   课程序号
+     * @return
+     */
+    @GET("party-app-education-front/res/write/addCollection")
+    Observable<NotingResponse> addCollection(@Query("userId") Integer userId,
+                                                  @Query("partyMemberId") Integer  partyBranchId,
+                                                  @Query("resType") Integer  resType,
+                                                  @Query("resId") Integer  resId);
 }

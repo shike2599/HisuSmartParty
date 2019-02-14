@@ -18,10 +18,14 @@ package com.hisu.smart.dj.utils;
 
 import android.app.Activity;
 import android.support.design.widget.TabLayout;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.hisu.smart.dj.app.AppApplication;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -54,5 +58,13 @@ public class MyUtils {
     }
     public static View getRootView(Activity context) {
         return ((ViewGroup) context.findViewById(android.R.id.content)).getChildAt(0);
+    }
+
+    public static String getNowTime(){
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(currentTime);
+        Log.d("Time",dateString);
+        return dateString;
     }
 }

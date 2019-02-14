@@ -29,6 +29,15 @@
         <!--背景透明-->
         <item name="android:backgroundDimEnabled">true</item>
         <!--模糊-->
+    </style>
 
+    <!-- CollectionAnimDialog收藏动画对话框样式 -->
+    <style name="CollectionAnimDialogStyle"
+        parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 </resources>
