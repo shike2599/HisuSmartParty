@@ -111,6 +111,8 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
                    mPresenter.getFollowInfoDataRequest(newsID);
                }else if(jump_tag.equals("三会一课")){
                    mPresenter.getTopicInfoDataRequest(newsID);
+               }else if(jump_tag.equals("常规学习")){
+                   mPresenter.getCommonInfoDataRequest(newsID);
                }
            }else{
                mPresenter.getNewsInfoDataRequest(newsID);
@@ -220,7 +222,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
                                         Toast.makeText(
                                                 WebActivity.this,
                                                 "fake message: i'll download...",
-                                                1000).show();
+                                                Toast.LENGTH_LONG).show();
                                     }
                                 })
                         .setNegativeButton("no",
@@ -314,8 +316,9 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
     protected void onDestroy() {
 //        if (mTestHandler != null)
 //            mTestHandler.removeCallbacksAndMessages(null);
-        if (x5WebView != null)
+        if (x5WebView != null){
             x5WebView.destroy();
+        }
         super.onDestroy();
     }
 

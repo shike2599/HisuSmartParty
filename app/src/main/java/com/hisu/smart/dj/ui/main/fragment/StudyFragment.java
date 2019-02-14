@@ -1,7 +1,6 @@
 package com.hisu.smart.dj.ui.main.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.View;
@@ -9,14 +8,13 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
-import com.hisu.smart.dj.ui.news.NewsActivity;
+import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyCommonActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyPlanActivity;

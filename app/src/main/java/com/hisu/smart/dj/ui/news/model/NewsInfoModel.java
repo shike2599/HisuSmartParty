@@ -56,4 +56,17 @@ public class NewsInfoModel implements NewsInfoContract.Model {
                     }
                 }).compose(RxSchedulers.<NewsInfoResponse>io_main());
     }
+
+    //常规详情
+    @Override
+    public Observable<NewsInfoResponse> getCommonInfoData(Integer id) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .getCommonContent(id)
+                .map(new Func1<NewsInfoResponse, NewsInfoResponse>() {
+                    @Override
+                    public NewsInfoResponse call(NewsInfoResponse newsInfoResponse) {
+                        return newsInfoResponse;
+                    }
+                }).compose(RxSchedulers.<NewsInfoResponse>io_main());
+    }
 }

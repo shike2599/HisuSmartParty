@@ -25,14 +25,11 @@ import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
-import com.hisu.smart.dj.ui.main.activity.WelcomeActivity;
 import com.hisu.smart.dj.ui.main.contract.HomeInfoContract;
-import com.hisu.smart.dj.ui.main.contract.NewsListContract;
 import com.hisu.smart.dj.ui.main.model.HomeInfoModel;
-import com.hisu.smart.dj.ui.main.model.NewsListModel;
 import com.hisu.smart.dj.ui.main.presenter.HomeInfoPresenter;
-import com.hisu.smart.dj.ui.main.presenter.NewsListPresenter;
-import com.hisu.smart.dj.ui.news.NewsActivity;
+import com.hisu.smart.dj.ui.news.activity.NewsActivity;
+import com.hisu.smart.dj.ui.news.activity.PartyNewsActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
@@ -227,7 +224,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
     public void onClick(int position) {
 //        Toast.makeText(context,"item"+position,Toast.LENGTH_SHORT).show();
         if(position == 0){
-            WebActivity.startAction(getActivity(),"党建资讯",party_news);
+            PartyNewsActivity.startAction(getActivity());
         }else if(position == 1){
             Toast.makeText(getActivity(),"正在建设中。。。",Toast.LENGTH_LONG).show();
         }else if(position == 2){

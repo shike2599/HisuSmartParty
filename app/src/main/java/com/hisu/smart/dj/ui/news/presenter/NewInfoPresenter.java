@@ -91,4 +91,26 @@ public class NewInfoPresenter extends NewsInfoContract.Presenter {
                     }
                 }));
     }
+
+    @Override
+    public void getCommonInfoDataRequest(Integer id) {
+        mRxManage.add(mModel.getCommonInfoData(id)
+                .subscribe(new RxSubscriber<NewsInfoResponse>(mContext,false) {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        mView.showLoading(mContext.getString(R.string.loading));
+                    }
+                    @Override
+                    protected void _onNext(NewsInfoResponse newsInfoResponse) {
+                        mView.returnNewsInfoData(newsInfoResponse);
+                        mView.stopLoading(null);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.showErrorTip(message,null);
+                    }
+                }));
+    }
 }

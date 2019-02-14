@@ -16,6 +16,8 @@ public interface NewsInfoContract {
         Observable <NewsInfoResponse> getFollowInfoData(Integer id);
         //践行详情
         Observable <NewsInfoResponse> getTopicInfoData(Integer id);
+        //常规学习详情
+        Observable <NewsInfoResponse> getCommonInfoData(Integer id);
     }
 
     interface View extends BaseView {
@@ -30,7 +32,7 @@ public interface NewsInfoContract {
         public abstract void getFollowInfoDataRequest(Integer id);
         //三会一课详情
         public abstract void getTopicInfoDataRequest(Integer id);
-
-
+        //常规学习详情
+        public abstract void getCommonInfoDataRequest(Integer id);
     }
 }

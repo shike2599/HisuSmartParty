@@ -92,35 +92,81 @@ public interface ApiService {
                                                              @Query("sortType") Integer sortType,
                                                              @Query("limitNum") Integer limitNum);
 
+    /**
+     * 支部排名
+     * @param userId   用户ID
+     * @param partyBranchId   支部ID
+     * @param sortType    0：按照总学时排名，1：按照常规学时排名，2：按照专题学时排名
+     * @param limitNum   取前几名
+     * @return
+     */
     @GET("party-data-statistics-front/studyRank/readonly/listPartyBranchRank")
     Observable<BaseResponse<RankEntity>> listPartyBranchRank(@Query("userId") Integer userId,
                                                              @Query("partyBranchId") Integer  partyBranchId,
                                                              @Query("sortType") Integer sortType,
                                                              @Query("limitNum") Integer limitNum);
 
-
+    /**
+     * 党员专题学习活动计划
+     * @param userId   登录用户ID
+     * @param pageNo   第几页
+     * @param pageSize 每页条数
+     * @return
+     */
     @GET("party-app-education-front/plan/readonly/listMemberTopicResPlan")
     Observable<InformationResponse<InformationEntity>> listMemberTopicResPlan(@Query("userId") Integer userId,
                                                                         @Query("pageNo")Integer pageNo,
                                                                         @Query("pageSize")Integer pageSize);
 
+    /**
+     * 支部专题学习活动计划
+     * @param userId   登录用户ID
+     * @param pageNo   第几页
+     * @param pageSize 每页条数
+     * @return
+     */
     @GET("party-app-education-front/plan/readonly/listBranchTopicResPlan")
     Observable<InformationResponse<InformationEntity>> listBranchTopicResPlan(@Query("userId") Integer userId,
                                                                             @Query("pageNo")Integer pageNo,
                                                                             @Query("pageSize")Integer pageSize);
 
+    /**
+     *常规活动分类
+     * @param parentId  父级分类序号
+     * @param parentCode 父级分类编号
+     * @param codeKeywords 关键字，根据分类编号模糊搜索
+     * @return
+     */
     @GET("party-app-education-front/res/readonly/listCommonCate")
     Observable<BaseResponse<CateEntity>> listCommonCate(@Query("parentId") Integer parentId,
                                                         @Query("parentCode") String parentCode,
                                                         @Query("codeKeywords") String codeKeywords);
 
-
+    /**
+     * 常规活动内容列表
+     * @param cateId    分类序号
+     * @param cateCode  分类编号
+     * @param codeKeywords  关键字
+     * @param pageNo       第几页
+     * @param pageSize     每页条数
+     * @return
+     */
     @GET("party-app-education-front/res/readonly/listCommonContent")
     Observable<InformationResponse<InformationEntity>> listCommonContent(@Query("cateId") Integer cateId,
                                                                          @Query("cateCode") String cateCode,
                                                                          @Query("codeKeywords") String codeKeywords,
                                                                          @Query("pageNo")Integer pageNo,
                                                                          @Query("pageSize")Integer pageSize);
+
+
+
+    /**
+     * 常规活动内容详情
+     * @param id   活动序号
+     * @return
+     */
+    @GET("party-app-education-front/res/readonly/getCommonContent")
+    Observable<NewsInfoResponse> getCommonContent(@Query("id") Integer id);
 
     /**
      * 党员信息
@@ -161,7 +207,7 @@ public interface ApiService {
     Observable<NewsInfoResponse> getInformation(@Query("id") Integer id);
 
     /**
-     * 三会一课
+     * 专题活动内容列表
      * @param cateCode   分类编号，不传查所有
      * @param keywords   关键字，根据关键字模糊筛选内容名称
      * @param pageNo   第几页
@@ -267,4 +313,32 @@ public interface ApiService {
     @GET("party-app-education-front/info/readonly/getUnReadNoticeNum")
     Observable<UnReadSizeEntity> getUnReadNoticeNum(@Query("userId") Integer userId,
                                                     @Query("partyBranchId") Integer  partyBranchId);
+
+    /**
+     * 资讯活动分类
+     * @param parentId  父级分类序号
+     * @param parentCode 父级分类编号
+     * @param codeKeywords 关键字，根据分类编号模糊搜索
+     * @return
+     */
+    @GET("party-app-education-front/res/readonly/listInfoCate")
+    Observable<BaseResponse<CateEntity>> listInfoCate(@Query("parentId") Integer parentId,
+                                                        @Query("parentCode") String parentCode,
+                                                        @Query("codeKeywords") String codeKeywords);
+
+    /**
+     *  资讯活动列表
+     * @param cateId    分类序号
+     * @param cateCode  分类编号
+     * @param codeKeywords  关键字
+     * @param pageNo       第几页
+     * @param pageSize     每页条数
+     * @return
+     */
+    @GET("party-app-education-front/res/readonly/listInformation")
+    Observable<InformationResponse<InformationEntity>> listInformation(@Query("cateId") Integer cateId,
+                                                                         @Query("cateCode") String cateCode,
+                                                                         @Query("codeKeywords") String codeKeywords,
+                                                                         @Query("pageNo")Integer pageNo,
+                                                                         @Query("pageSize")Integer pageSize);
 }
