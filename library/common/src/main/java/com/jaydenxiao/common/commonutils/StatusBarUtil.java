@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -73,21 +74,22 @@ public class StatusBarUtil {
             setStatusBarColor(activity, colorId);
             //4.4以上才可以改文字图标颜色
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                if(OSUtil.isMIUI()) {
-                    //小米MIUI系统
-                    setMIUIStatusBarTextMode(activity, isTextDark);
-                } else if(OSUtil.isFlyme()) {
-                    //魅族flyme系统
-                    setFlymeStatusBarTextMode(activity, isTextDark);
-                } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                if(OSUtil.isMIUI()) {
+//                    Log.d("StatusBarUtil","=====是MIUI=======");
+//                    //小米MIUI系统
+//                    setMIUIStatusBarTextMode(activity, isTextDark);
+//                } else if(OSUtil.isFlyme()) {
+//                    //魅族flyme系统
+////                    setFlymeStatusBarTextMode(activity, isTextDark);
+//                } else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     //6.0以上，调用系统方法
                     Window window = activity.getWindow();
                     window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
                     window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                     window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                } else {
-                    //4.4以上6.0以下的其他系统，暂时没有修改状态栏的文字图标颜色的方法，有可以加上
-                }
+//                } else {
+//                    //4.4以上6.0以下的其他系统，暂时没有修改状态栏的文字图标颜色的方法，有可以加上
+//                }
             }
         }
     }

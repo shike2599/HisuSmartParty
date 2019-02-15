@@ -21,8 +21,8 @@
         android:layout_marginTop="20dp"
         android:text="请输入用户名密码"
         android:textColor="#666666"
-        android:textSize="13sp" />
-    <LinearLayout
+        android:textSize="13dp" />
+    <RelativeLayout
         android:id="@+id/ll_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,19 +31,28 @@
         android:layout_alignLeft="@+id/tv_note"
         android:layout_below="@+id/tv_note"
         android:background="@drawable/login_edittext"
-        android:orientation="horizontal">
+        >
         <EditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:inputType="text"
-            android:paddingLeft="8dp"
+            android:paddingLeft="18dp"
             android:paddingRight="10dp"
             android:hint="请输入用户名"
-            android:textSize="14sp"
+            android:textSize="16dp"
             android:maxLength="20"
             android:background="@null"/>
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/show_listPopWindow_img"
+            android:layout_width="23dp"
+            android:layout_height="10dp"
+            android:background="@mipmap/list_pop_bottom_icon"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/et_password"
@@ -51,10 +60,10 @@
         android:layout_height="40dp"
         android:layout_below="@+id/ll_name"
         android:layout_alignLeft="@+id/ll_name"
-        android:paddingLeft="8dp"
+        android:paddingLeft="18dp"
         android:inputType="textPassword"
         android:hint="请输入密码"
-        android:textSize="14sp"
+        android:textSize="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:maxLength="12"

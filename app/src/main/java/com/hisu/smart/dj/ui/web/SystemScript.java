@@ -22,7 +22,7 @@ public class SystemScript {
     public int getUserInfoInt(String key) {
         Log.d(TAG,"---key---"+key);
         int obj = 0;
-        obj =  appConfig.getInt(AppConstant.USER_ID,-1);
+        obj =  appConfig.getInt(key,-1);
         Log.d(TAG,"---obj---"+obj);
         return obj;
     }

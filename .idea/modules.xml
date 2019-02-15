@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/common/common.iml" filepath="$PROJECT_DIR$/library/common/common.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/imageselector/imageselector.iml" filepath="$PROJECT_DIR$/library/imageselector/imageselector.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/imm_sdk_phone/imm_sdk_phone.iml" filepath="$PROJECT_DIR$/library/imm_sdk_phone/imm_sdk_phone.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/irecyclerview/irecyclerview.iml" filepath="$PROJECT_DIR$/library/irecyclerview/irecyclerview.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/jcvideoplayer/jcvideoplayer.iml" filepath="$PROJECT_DIR$/library/jcvideoplayer/jcvideoplayer.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />

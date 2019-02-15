@@ -22,16 +22,18 @@ public class LoginPresenter extends LoginContract.Presenter {
             @Override
             public void onStart() {
                 super.onStart();
+                mView.showLoading("Login");
             }
 
             @Override
             protected void _onNext(LoginResponse loginResponse) {
                 mView.returnLoginResponse(loginResponse);
+                mView.stopLoading("Login");
             }
 
             @Override
             protected void _onError(String message) {
-                mView.showErrorTip(message,"");
+                mView.showErrorTip(message,"Login");
             }
         }));
     }
@@ -43,16 +45,18 @@ public class LoginPresenter extends LoginContract.Presenter {
             @Override
             public void onStart() {
                 super.onStart();
+                mView.showLoading("MemberInfo");
             }
 
             @Override
             protected void _onNext(MemberInfoResponse memberInfoResponse) {
                 mView.returnMemberInfoResponse(memberInfoResponse);
+                mView.stopLoading("MemberInfo");
             }
 
             @Override
             protected void _onError(String message) {
-                mView.showErrorTip(message,"");
+                mView.showErrorTip(message,"MemberInfo");
             }
         }));
     }
