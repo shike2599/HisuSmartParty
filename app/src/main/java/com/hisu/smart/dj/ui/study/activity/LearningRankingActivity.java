@@ -167,6 +167,9 @@ public class LearningRankingActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.branch_rank_textView:
+                show_all_learing.setText("我的支部排名第33位");
+                show_expert_learing.setText("我的支部排名第33位");
+                show_routine_learing.setText("我的支部排名第33位");
                 total_table_text.setText("支部名称");
                 topic_table_text.setText("支部名称");
                 common_table_text.setText("支部名称");
@@ -185,6 +188,9 @@ public class LearningRankingActivity extends BaseActivity
                 }
                 break;
             case R.id.user_rank_textView:
+                show_all_learing.setText("我的排名第33位");
+                show_expert_learing.setText("我的排名第33位");
+                show_routine_learing.setText("我的排名第33位");
                 total_table_text.setText("党员名称");
                 topic_table_text.setText("党员名称");
                 common_table_text.setText("党员名称");

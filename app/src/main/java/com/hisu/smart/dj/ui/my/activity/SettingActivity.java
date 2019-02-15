@@ -51,7 +51,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     }
     private void setIconKey() {
-        pe_userInfo.set(R.mipmap.set_user_info_icon, "我的信息");
+        pe_userInfo.set(R.mipmap.set_user_info_icon, "个人信息");
         pe_update_password.set(R.mipmap.set_update_password_icon, "修改密码");
         pe_reset_password.set(R.mipmap.set_reset_password, "重置密码");
         pe_about_us.set(R.mipmap.set_aboutus_icon, "关于我们");

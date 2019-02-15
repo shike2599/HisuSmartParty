@@ -27,6 +27,9 @@ import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.commonutils.NetWorkUtils;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 import butterknife.Bind;
 
 /**
@@ -235,7 +238,19 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
                 +"课时/计划学习"+expert_planTotalHours+"课时");
         expert_progress.setMax(expert_planTotalHours);
         expert_progress.setProgress((int)expert_totalHours,true);
-        show_expert_state.setText("已学习"+(int)((expert_totalHours/expert_planTotalHours)*100)+"%");
+
+        double learing_state_expert = expert_totalHours/expert_planTotalHours;
+
+        String learning_state_str = null;
+        BigDecimal bigDecimal = new BigDecimal(learing_state_expert);
+        learing_state_expert = bigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+
+        if(learing_state_expert<=1){
+            learning_state_str = learing_state_expert * 100 + "%";
+        }else{
+            learning_state_str = "100%";
+        }
+        show_expert_state.setText("已学习"+learning_state_str);
     }
 
     //设置专题学习需要展示的数据
@@ -244,7 +259,18 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
                 +"课时/计划学习"+toutine_planTotalHours+"课时");
         routine_progress.setMax(toutine_planTotalHours);
         routine_progress.setProgress((int)routine_totalHours,true);
-        show_routine_state.setText("已学习"+(int)((routine_totalHours/toutine_planTotalHours)*100)+"%");
+
+        double learing_state_routine = routine_totalHours/toutine_planTotalHours;
+        String learning_state_str = null;
+
+        BigDecimal bigDecimal = new BigDecimal(learing_state_routine);
+        learing_state_routine = bigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
+        if(learing_state_routine<=1){
+            learning_state_str = learing_state_routine*100 + "%";
+        }else{
+            learning_state_str = "100%";
+        }
+        show_routine_state.setText("已学习"+learning_state_str);
     }
 
     //处理服务器返回的数据

@@ -205,8 +205,8 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     @Override
     public void onNewsClick(int position,int news_id) {
         Log.d(TAG,"----item----position----"+position);
-       Toast.makeText(this,"item-id=="+news_id,
-               Toast.LENGTH_LONG).show();
+//       Toast.makeText(this,"item-id=="+news_id,
+//               Toast.LENGTH_LONG).show();
         if(follow_id!=-1){
             jump_tag = "践行";
             WebActivity.startAction(this,news_id,jump_tag);

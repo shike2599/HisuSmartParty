@@ -73,6 +73,9 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
     ImageView collection_img;
     @Bind(R.id.collection_TextView)
     TextView news_collection_textView;
+    @Bind(R.id.title_LinearLayout)
+    LinearLayout title_layout;
+
     private X5WebView x5WebView;
     private String title_str;
     private String webUrl;
@@ -159,6 +162,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
         x5WebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
+              //file:///android_asset/smart_dj_weixin/partyBuild/targetOrganazition.html 目标
                 return false;
             }
 
@@ -166,18 +170,17 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 Log.d(TAG,"----onPageFinished----");
+                Log.d(TAG,"--onPageFinished--url----"+url);
                 // mTestHandler.sendEmptyMessage(MSG_OPEN_TEST_URL);
 //                mTestHandler.sendEmptyMessageDelayed(MSG_OPEN_TEST_URL, 5000);// 5s?
 //                if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 16)
 //                    changGoForwardButton(view);
                 /* mWebView.showLog("test Log"); */
-
-                Log.i("cookie", "onPageFinished--url-"+url);
-                CookieManager cookieManager = CookieManager.getInstance();
-                String CookieStr = cookieManager.getCookie(url);
-                Log.i("cookie", "onPageFinished---"+CookieStr);
-                if (CookieStr != null) {
-                    Log.i("cookie", "onPageFinished--"+CookieStr);
+                String targeturl = AppConstant.BASE_URL_LOAD+"partyBuild/targetOrganazition.html";
+                if(targeturl.equals(url)){
+                    title_layout.setVisibility(View.GONE);
+                }else{
+                    title_layout.setVisibility(View.VISIBLE);
                 }
             }
         });

@@ -243,7 +243,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         }else if(position == 8){
            NewsActivity.startAction(getActivity(),"支部活动");
         }else if(position == 9){
-            WebActivity.startAction(getActivity(),"党员圈",partyBuild_relation);
+            WebActivity.startAction(getActivity(),"组织关系",partyBuild_relation);
         }
     }
 
