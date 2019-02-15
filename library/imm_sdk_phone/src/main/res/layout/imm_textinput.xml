@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/imm_color_theme_bkg" >
+
+    <LinearLayout
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/imm_textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="输入文字"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/imm_textInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:padding="3dp"
+            android:hint="输入文字..." >
+
+            <requestFocus />
+        </EditText>
+
+        <LinearLayout
+            android:id="@+id/imm_linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingRight="20dp"
+            android:gravity="right"  >
+
+            <Button
+                android:id="@+id/imm_finish"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/imm_finish" />
+
+            <Button
+                android:id="@+id/imm_cancel"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:text="@string/imm_cancel1" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

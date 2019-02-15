@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/imm_set_btnitem"
+    android:paddingLeft="10dip">
+    <TextView
+       android:id="@+id/imm_group_list_item_text" 
+       android:layout_width="wrap_content" 
+       android:layout_height="wrap_content"
+       android:padding="5dip"
+       android:textColor="@color/imm_gray_font"
+       android:text="adsfadsf"
+       android:textSize="@dimen/imm_panle_but_text_size3"
+       android:gravity="center_vertical"/>
+</LinearLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp" >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:gravity="center|left"
+        android:orientation="horizontal" 
+        android:layout_weight="1"
+        android:layout_gravity="center|left"
+        >
+
+        <ImageView
+            android:id="@+id/imm_doc_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/imm_doc_type_excel" />
+
+        <TextView
+            android:id="@+id/imm_file_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:singleLine="true"
+            android:text=""
+            android:ellipsize="end"
+            android:layout_weight="1"
+            android:textSize="@dimen/imm_s0_size_11"
+             />
+
+        <TextView
+            android:id="@+id/imm_file_upload_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:singleLine="true"
+            android:text="" 
+            android:ellipsize="end"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/imm_doc_btn_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center|right"
+        >
+
+        <LinearLayout
+            android:id="@+id/imm_doc_upload_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp" 
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            
+            >
+
+            <ImageView
+                android:id="@+id/imm_doc_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/imm_doc_upload" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imm_doc_share_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="15dp" >
+
+            <ImageView
+                android:id="@+id/imm_doc_share"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/imm_doc_share"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imm_doc_delete_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+             android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
+            <ImageView
+                android:id="@+id/imm_doc_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/imm_doc_delete_disable" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

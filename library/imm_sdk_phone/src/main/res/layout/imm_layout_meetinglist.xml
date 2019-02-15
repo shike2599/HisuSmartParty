@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imm_login_meeting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="15dip"
+    android:background="@drawable/imm_meeting_list_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="15dip"
+    android:paddingTop="5dip"
+    android:visibility="gone" >
+
+    <ListView
+        android:id="@+id/imm_listMeeting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:cacheColorHint="#00000000"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="20dip" >
+    </ListView>
+
+    <Button
+        android:id="@+id/imm_btn_return"
+        android:layout_width="80dip"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|center"
+        android:text="@string/imm_return_text"
+        android:visibility="gone" >
+    </Button>
+
+</LinearLayout>

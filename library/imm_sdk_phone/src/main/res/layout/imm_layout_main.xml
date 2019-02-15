@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ff282E3A" >
+
+    <ImageView 
+         android:id="@+id/imm_imageviewid1"
+         android:background="@drawable/imm_view_checked"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
+    
+    <ImageView 
+         android:id="@+id/imm_imageviewid2"
+         android:background="@drawable/imm_view_checked"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
+    
+    <ImageView 
+         android:id="@+id/imm_imageviewid3"
+         android:background="@drawable/imm_view_checked"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
+    
+    <ImageView 
+         android:id="@+id/imm_speakopen_id"
+         android:background="@drawable/imm_speakopen"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"/>
+    
+	<LinearLayout
+            android:id="@+id/imm_layChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:background="@drawable/imm_bottom_chat_bg"
+            android:visibility="gone"
+             >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/imm_bottom_msg"
+                android:visibility="gone" />
+
+            <com.wdliveuc.android.util.AlwaysMarqueeTextView
+                android:id="@+id/imm_tv_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:ellipsize="marquee"
+                android:maxWidth="240dip"
+                android:singleLine="true"
+                android:textColor="#000"
+                android:textSize="@dimen/imm_text_size_15"
+                 />
+        </LinearLayout>
+        <com.wdliveuc.android.util.ScrollTextView
+        android:id="@+id/paomadeng_id"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:ellipsize="marquee"
+        android:gravity="center_vertical"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:text=""
+        android:textSize="@dimen/imm_text_size_15" />
+</FrameLayout>

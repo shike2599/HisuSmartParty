@@ -1,0 +1,162 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+      <style name="imm_AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+
+
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="imm_AppTheme" parent="android:style/Theme.Black.NoTitleBar">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="imm_TextViewStyle">
+        <item name="android:textSize">@dimen/imm_panle_but_text_size3</item>
+        <item name="android:textColor">#ff000000</item>
+    </style>
+     <style name="imm_ButtonStyle" parent="@android:style/TextAppearance.Widget.Button">
+        <item name="android:textSize">@dimen/imm_panle_but_text_size3</item>
+        <item name="android:textColor">#ff000000</item>
+    </style>
+    <style name="imm_FullHeightDialog1" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 模糊 -->
+    </style>
+      <style name="imm_FullHeightDialogCenter" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <!-- 模糊 -->
+    </style>
+    <style name="imm_Theme_Dialog_Loading" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="imm_main_text">
+        <item name="android:textSize">@dimen/imm_s0_size_15</item>
+        <item name="android:textColor">#ff000000</item>
+        <item name="android:typeface">monospace</item> 
+    </style>
+     <style name="imm_main_edit">
+        <item name="android:autoStart">true</item>
+    </style>
+     <style name="imm_MyCheckBox" parent="android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@null</item>
+        <item name="android:clipToPadding">true</item>
+        <item name="android:textSize">@dimen/imm_panle_but_text_size3</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+    <style name="imm_setting_text">
+        <item name="android:textSize">@dimen/imm_panle_but_text_size3</item>
+        <item name="android:textColor">@color/imm_gray_dialog_text</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+    <style name="imm_setting_text_tip">
+        <item name="android:textSize">@dimen/imm_panle_but_text_size3</item>
+        <item name="android:textColor">@color/imm_gray</item>
+        <item name="android:typeface">monospace</item>
+    </style>
+    <style name="imm_panel_style"> 
+        <item name="android:layout_width">@dimen/imm_panle_but_width</item> 
+        <item name="android:layout_height">@dimen/imm_panle_but_height</item>
+        <item name="android:background">@drawable/imm_click_but_log</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">@dimen/imm_panle_but_text_size</item>
+    </style>
+       <style name="imm_panel_btn_style"> 
+        <item name="android:layout_width">wrap_content</item> 
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/imm_gray_dialog_text</item>
+        <item name="android:textSize">@dimen/imm_panle_but_text_size3</item>
+    </style>
+       <style name="imm_panel_text_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textColor">#8CAAA8</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:textSize">@dimen/imm_panle_but_text_size2</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:paddingLeft">@dimen/imm_join_top_text</item>
+    </style>
+    <style name="imm_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <!-- 边框 -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 是否浮现在activity之上 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <!-- 半透明 -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 无标题 -->
+        <!-- <item name="android:windowBackground">@color/transparent</item>背景透明   去掉背景色边框也就去掉了 -->
+        <item name="android:backgroundDimEnabled">false</item>
+        <!-- 模糊 -->
+        <!-- <item name="android:windowContentOverlay">@null</item> -->
+    </style>
+      <style name="panel_style2">
+        <item name="android:layout_width">@dimen/imm_buttom_height_40</item>
+        <item name="android:layout_height">@dimen/imm_but_width</item>
+        <item name="android:background">@drawable/imm_click_but_log3</item>
+        <item name="android:textColor">#EBDBB4</item>
+        <item name="android:textSize">@dimen/imm_panle_but_text_size</item>
+    </style>
+      <style name="imm_panel_text_style7">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textColor">#8CAAA8</item>
+        <item name="android:selectAllOnFocus">true</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:textSize">@dimen/imm_panle_but_text_size3</item>
+    </style>
+     <!-- 定义ActiveMeeting7主题风格 -->
+    <style name="imm_Theme.ActiveMeeting7" parent="android:style/Theme.Black.NoTitleBar">
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:background">@color/imm_full_transparent</item>
+        <item name="android:foreground">@color/imm_full_transparent</item>
+        <!--<item name="android:windowAnimationStyle">@style/noAnimation</item>-->
+    </style>
+    <style name="imm_mueu_icon_style" >
+     <item name="android:layout_width">@dimen/imm_menu_height</item>
+     <item name="android:layout_height">@dimen/imm_menu_height</item>
+     <item name="android:layout_marginRight">10dip</item>
+     <item name="android:layout_marginLeft">10dip</item>
+     <item name="android:layout_marginTop">5dip</item>
+     <item name="android:layout_marginBottom">2dip</item>
+    </style> 
+    <style name="imm_mSlide_meet_dlg" parent="@android:Animation.Dialog">
+	     <item name="@android:windowEnterAnimation">@anim/imm_slide_meet_dlg_in_right</item>
+       	 <item name="@android:windowExitAnimation">@anim/imm_slide_meet_dlg_out_right</item>
+	</style>  
+	 <style name="imm_customDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>  
+        <item name="android:windowNoTitle">true</item>  
+        <item name="android:windowIsFloating">true</item> 
+    </style>
+    
+
+</resources>

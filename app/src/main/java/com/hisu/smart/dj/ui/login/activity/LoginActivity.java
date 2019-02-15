@@ -134,7 +134,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
             AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_MEMBER,entity.isIsPartyMember());
             AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_BRANCH,entity.isIsPartyBranch());
             AppConfig.getInstance().setBoolean(AppConstant.IS_PARTY_COMMITTEE,entity.isIsPartyCommittee());
-//            MainActivity.startAction(LoginActivity.this);
+//            MainActivity.startAction(IactiveLoginActivity.this);
 //            finish();
 //            mPresenter.loginResponseRequest(username,password);
             //登录成功后，开始拿党员信息

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="imm_color_ewb_bkg">#fe808080</color>
+	<color name="imm_white">#ffffffff</color>
+	<color name="imm_color_notepad_bkg">#e0a2e3e4</color>
+	<color name="imm_color_notepad_text">#ff020304</color>
+	<color name="imm_black">#000000</color>
+	<color name="imm_black_dialog_bg">#ffffffff</color><!-- #75000000 -->
+	<color name="imm_grays">#818181</color>
+	<color name="imm_gray">#AFAFAF</color>
+    <color name="imm_yellow">#F99503</color>
+    <color name="imm_gray_font">#818181</color><!-- 818181 -->
+    <color name="imm_gray_dialog_text">#535353</color><!-- 818181 -->
+    <color name="imm_gray_line">#E5E5E5</color><!-- 818181 -->
+	<color name="imm_color_theme_bkg">#FFA2D5F3</color>
+	<color name="imm_main_video_bkg">#ffEFF9FF</color>
+	
+	<color name="imm_color_list_meeting">#ff10fe10</color>
+    <color name="imm_color_list_meeting_bkg">#80A8DDFD</color>
+    <color name="imm_color_list_meeting_name">#ff000000</color>
+	<color name="imm_color_list_meeting_online">#ff000000</color>
+	<color name="imm_color_list_meeting_lock">#ff000000</color>
+	
+	<color name="imm_xiala_color_click">#50a434</color>
+	<color name="imm_xiala_color">#009ACD</color>
+	<color name="imm_time_color">#ff282E3A</color>
+	<color name="imm_user_list_bkg">#D0A2D5F3</color>
+	<color name="imm_user_list_header">#FFFFFFFF</color>
+	<color name="imm_full_transparent">#00000000</color>
+	<color name="imm_setting_item_select">#00A7FE</color>
+	<color name="imm_blue">#00A7FE</color>
+	<color name="body_bg_color">#F3F3F3</color>
+	<color name="devide_line">#D9D9D9</color>
+	
+	<color name="imm_ewb_color_blue">#0000ff</color>
+	<color name="imm_ewb_color_black">#000000</color>
+	<color name="imm_ewb_color_gray">#787878</color>
+	<color name="imm_ewb_color_red">#fb0006</color>
+	<color name="imm_ewb_color_orange">#fc7707</color>
+	<color name="imm_ewb_color_bulelight">#21ffff</color>
+	<color name="imm_ewb_color_yellow">#ffff09</color>
+	<color name="imm_ewb_color_green">#22ff04</color>
+	<color name="imm_ewb_color_purple">#770078</color>
+	
+</resources>

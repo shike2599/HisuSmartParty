@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="@dimen/imm_join_main_width"
+                android:layout_height="@dimen/imm_join_main_height"
+                android:background="#ff282E3A"
+                 >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/imm_join_top_height"
+        android:layout_marginLeft="@dimen/imm_join_main_left"
+        android:layout_marginRight="@dimen/imm_join_main_right"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/imm_but_top_size"
+            android:layout_marginBottom="@dimen/imm_main_ll_left"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            	android:layout_marginBottom="@dimen/imm_but_top_size"
+            	android:layout_marginTop="@dimen/imm_but_top_size"
+                android:textSize="@dimen/imm_panle_but_text_size2"
+                android:textColor="#ffffff"
+                android:gravity="left"
+                android:text="请输入相关人员的电话号码，通过拨打电话邀请他们来参加会议。"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/imm_panle_but_text_size2"
+            	android:layout_marginTop="@dimen/imm_but_top_size"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="@dimen/imm_but_top_size"
+                android:gravity="left"
+                android:text="注意：固定电话前请加拨区号"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/imm_panle_but_text_size2"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="@dimen/imm_but_top_size"
+             	android:layout_marginTop="@dimen/imm_but_top_size"
+                android:gravity="left"
+                android:text="例如：01062887777,13866668888"
+                />
+            <EditText style="@style/imm_panel_text_style"
+                      android:layout_marginLeft="20dp"
+                      android:gravity="center"
+                      android:layout_height="wrap_content"
+                      android:id="@+id/imm_call_phone_editid"
+            		  android:layout_marginTop="@dimen/imm_but_top_size"
+                      android:background="@drawable/imm_edittext_line"
+                      android:inputType="number"
+                      android:hint="请输入相关人员的电话号码"
+                      android:digits="0123456789"
+                      android:maxLength="11"
+                />
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/imm_user_reg_ll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical|center"
+        android:visibility="gone"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/imm_panle_but_text_size"
+            android:textColor="#ffffff"
+            android:text="@string/imm_user_get_password_memo"
+            />
+    </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/imm_join_top_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/imm_join_bottom_size"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/imm_call_phone_id"
+            style="@style/imm_panel_style"
+            android:layout_marginRight="@dimen/imm_panle_but_size"
+            android:nextFocusLeft="@+id/imm_but_createroom2"
+            android:nextFocusRight="@+id/imm_but_createroom2"
+            android:layout_marginTop="@dimen/imm_join_bottom_size"
+            android:text="拨号"
+             />
+
+        <Button
+            android:id="@+id/imm_call_phone_cancel_id"
+            style="@style/imm_panel_style"
+            android:nextFocusLeft="@+id/imm_call_phone_id"
+            android:nextFocusRight="@+id/imm_call_phone_id"
+            android:layout_marginTop="@dimen/imm_join_bottom_size"
+            android:text="@string/imm_tv_cancel" />
+    </LinearLayout>
+
+</RelativeLayout>

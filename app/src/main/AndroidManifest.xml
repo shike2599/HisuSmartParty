@@ -1,17 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.hisu.smart.dj">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <!-- if you want to load images from the internet -->
-    <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- if you want to load images from a file OR from the internet -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <uses-permission android:name="android.permission.RECORD_VIDEO" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <application
         android:name=".app.AppApplication"
         android:allowBackup="true"
@@ -56,6 +79,43 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.news.activity.PartyNewsActivity"></activity>
+
+        <!--网动视频会议-->
+        <activity android:name=".ui.iactive.activity.IactiveLoginActivity"
+            android:windowSoftInputMode="adjustPan"/>
+
+        <activity android:name=".ui.iactive.activity.JoinRoomListActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+
+        <activity
+            android:name="com.wdliveuc.android.ActiveMeeting7.ActiveMeeting7Activity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:label="@string/imm_app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:theme="@style/imm_Theme.ActiveMeeting7"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.wdliveuc.android.ActiveMeeting7.Login1Activity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.wdliveuc.android.ActiveMeeting7.InviteActivityInput"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Panel"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.wdliveuc.android.ActiveMeeting7.CallPhoneActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Panel"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

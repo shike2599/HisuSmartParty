@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/imm_black_dialog_bg" >
+
+    <LinearLayout
+        		android:id="@+id/imm_invite_user_title"
+            	android:layout_width="fill_parent"
+		        android:layout_height="@dimen/imm_mueu_dialog_title_height"
+		        android:orientation="horizontal"
+		        android:gravity="center"
+		        android:layout_alignParentTop="true"
+		         >
+	         <TextView
+	            android:id="@+id/imm_tvCount"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:gravity="center"
+	            android:text="@string/imm_room_invent"
+	            android:textSize="@dimen/imm_s0_size_18"
+	            android:textColor="@color/imm_gray_dialog_text" />
+        	</LinearLayout>
+        <LinearLayout
+        	    android:id="@+id/imm_title_line"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+		         android:orientation="horizontal"
+		         android:layout_below="@+id/imm_invite_user_title">
+	         <View
+				android:layout_width="match_parent"
+				android:layout_height="1dip"
+				android:background="@color/imm_gray_line" />
+		   </LinearLayout>
+    <LinearLayout
+        android:layout_above="@+id/imm_invite_user_bottom"
+        android:layout_below="@+id/imm_title_line"
+        android:id="@+id/imm_linearlayout_login_join"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+      
+        android:gravity="center"
+        android:orientation="vertical" >
+		<LinearLayout
+            android:id="@+id/imm_ll_roomlist_main"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+<LinearLayout 
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- <ListView
+        android:id="@+id/imm_lv_myroom_myroom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:listSelector="#00000000"
+        android:fadingEdge="none"
+        android:divider="@null">
+
+    </ListView> -->
+    <LinearLayout android:layout_width="fill_parent"                  
+        android:layout_height="fill_parent"
+        >
+    <ExpandableListView   
+        android:id="@+id/imm_lv_myroom_myroom"                 
+        android:layout_width="fill_parent"                  
+        android:layout_height="fill_parent"                
+        android:listSelector="@color/imm_setting_item_select"     
+      	android:padding="3dp"
+      	android:cacheColorHint="@color/imm_gray_line"
+        android:drawSelectorOnTop="false"
+        android:divider="@color/imm_gray_line"
+        android:childDivider="@color/imm_gray_line"
+        android:dividerHeight="1dp"/>
+    </LinearLayout>
+	    <LinearLayout 
+	    android:orientation="vertical"
+	    android:layout_width="match_parent"
+	    android:layout_weight="3"
+	    android:layout_margin="5dp"
+	    android:background="@drawable/imm_line_biankuang"   
+	    android:layout_height="match_parent"
+	    android:visibility="gone">
+    <LinearLayout android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="5dp"
+	        android:orientation="horizontal">
+			<EditText style="@style/imm_panel_text_style7"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:layout_weight="1"
+                   android:id="@+id/imm_login_et_username_input"
+                   android:layout_marginRight="5dp"
+                   android:background="@drawable/imm_edittext_line"
+                   android:hint="请输入邀请手机号"
+                   android:paddingTop="3dp"
+                   android:layout_marginLeft="5dp"
+                   android:paddingBottom="3dp"
+                   android:inputType="number"
+                   android:digits="0123456789"
+                   android:maxLength="11"
+             />
+			<Button
+            android:id="@+id/imm_add_phone_id"
+            style="@style/imm_panel_style"
+            android:background="@drawable/imm_click_but_log3"
+            android:layout_width="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:layout_marginRight="5dp"
+            android:text="添加" />
+			</LinearLayout>
+			</LinearLayout>
+			</LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+   <LinearLayout
+     	android:id="@+id/imm_bottom_line"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/imm_linearlayout_login_join">
+       <View
+	android:layout_width="match_parent"
+	android:layout_height="1dip"
+	android:background="@color/imm_gray_line" />
+  </LinearLayout>
+<LinearLayout
+    android:id="@+id/imm_invite_user_bottom"
+        android:layout_width="fill_parent"
+         android:layout_height="@dimen/imm_buttom_height_40"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal" 
+        >
+		   <LinearLayout
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:gravity="center"
+	        android:orientation="horizontal" 
+	        android:layout_weight="1">
+    
+		<Button
+            android:id="@+id/imm_but_join_join_input"
+            style="@style/imm_panel_btn_style"
+            android:text="@string/imm_tv_ok"
+             />
+		</LinearLayout>
+		   <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal" 
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/imm_but_join_cancel_input"
+            style="@style/imm_panel_btn_style"
+            android:text="@string/imm_tv_cancel" />
+        </LinearLayout>
+    </LinearLayout>
+    
+
+</RelativeLayout>

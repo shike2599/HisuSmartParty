@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_gravity="center"
+    android:background="@color/imm_color_theme_bkg"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/imm_sendfile_title"
+        android:visibility="gone" />
+
+    <TableLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/imm_TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/imm_sender" />
+
+            <TextView
+                style="@style/imm_TextViewStyle"
+                android:id="@+id/imm_sender"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/imm_TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/imm_filename" />
+
+            <TextView
+                style="@style/imm_TextViewStyle"
+                android:id="@+id/imm_filename"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </TableRow>
+        
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                style="@style/imm_TextViewStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/imm_filesize" />
+
+            <TextView
+                style="@style/imm_TextViewStyle"
+                android:id="@+id/imm_filesize"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </TableRow>
+
+        
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:gravity="center_horizontal" >
+
+            <Button
+                style="@style/imm_ButtonStyle"
+                android:id="@+id/imm_button_receive"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/imm_receive" />
+
+            <Button
+                style="@style/imm_ButtonStyle"
+                android:id="@+id/imm_button_refuse"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:text="@string/imm_refuse" />
+        </LinearLayout>
+    </TableLayout>
+
+</LinearLayout>

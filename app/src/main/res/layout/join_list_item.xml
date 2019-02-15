@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
+    android:id="@+id/join_list_item_layout"
+    android:background="@color/white"
+     >
+
+     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" 
+        android:gravity="center"
+        >
+
+       <ImageView  
+           android:id="@+id/room_info_title_icon"
+           style="@style/room_list_item_icon"
+           android:src="@mipmap/join_list_icon_title_myroom"
+           />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+       <LinearLayout
+        android:id="@+id/room_info_title_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:gravity="center|left|bottom"
+        android:paddingBottom="@dimen/join_list_line_padding"
+        >
+
+        <TextView
+            android:id="@+id/join_item_room_name"
+            style="@style/room_list_item_title"
+            android:text="@string/join_room_name_value" />
+    </LinearLayout>
+ <LinearLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_weight="1"
+    	android:gravity="center|left|top"
+    	android:paddingTop="@dimen/join_list_line_padding"
+        >
+                <TextView
+                    style="@style/room_list_item_tv_gray"
+                    android:text="@string/join_room_code" />
+
+                <TextView
+                    android:id="@+id/join_item_room_id"
+                    style="@style/room_list_item_tv_gray"
+                    android:text="@string/join_room_id_value" />
+            <TextView
+                style="@style/room_list_item_tv_gray"
+                android:text="@string/join_room_time_title" 
+                android:paddingLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/join_item_room_time"
+                style="@style/room_list_item_tv_gray"
+                android:text="@string/join_room_time_value" />
+</LinearLayout>
+        
+        
+    </LinearLayout>
+</LinearLayout>

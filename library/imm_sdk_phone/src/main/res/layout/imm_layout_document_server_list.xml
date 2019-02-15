@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/imm_dialog_style" >
+
+    <FrameLayout
+        android:id="@+id/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/imm_mueu_dialog_title_height"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/imm_tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="本地列表"
+            android:textColor="@color/imm_gray_dialog_text"
+            android:textSize="@dimen/imm_panle_but_text_size3" />
+
+        <LinearLayout
+            android:id="@+id/add_file_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|right"
+            android:paddingLeft="10dp"
+            android:paddingRight="15dp" 
+            >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/imm_document_add" />
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="5dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/imm_bk_apart" />
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/document_server_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_bar"
+        android:cacheColorHint="#00000000"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="@color/devide_line"
+        android:dividerHeight="0.5dp"
+        android:fadingEdgeLength="0dp"
+        android:listSelector="#00000000" 
+        android:footerDividersEnabled="true"
+        />
+
+</RelativeLayout>

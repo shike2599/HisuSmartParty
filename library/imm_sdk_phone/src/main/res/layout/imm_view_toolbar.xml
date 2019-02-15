@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:id="@+id/imm_lay_toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="66dip"
+        android:gravity="center"
+        android:padding="15dip" >
+
+        <LinearLayout
+            android:id="@+id/imm_lay_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/imm_checkUserList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:checked="false"
+                android:visibility="gone" />
+
+            <CheckBox
+                android:id="@+id/imm_checkVideo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:button="@null"
+                android:drawableLeft="@drawable/imm_checkbox_button_video"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imm_button_userlist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip" />
+
+            <CheckBox
+                android:id="@+id/imm_checkSpeak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:button="@null"
+                android:paddingLeft="0dip" />
+
+            <ImageView
+                android:id="@+id/imm_button_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imm_button_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip" />
+
+            <CheckBox
+                android:id="@+id/imm_checkHand"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:button="@null"
+                android:paddingLeft="0dip" />
+
+            <ImageView
+                android:id="@+id/imm_button_handup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imm_button_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip" />
+
+            <ImageView
+                android:id="@+id/imm_button_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip" />
+
+            <ImageView
+                android:id="@+id/imm_button_notepad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/imm_button_snapshot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"
+                android:visibility="gone" />
+            
+            <ImageView
+                android:id="@+id/imm_button_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dip"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

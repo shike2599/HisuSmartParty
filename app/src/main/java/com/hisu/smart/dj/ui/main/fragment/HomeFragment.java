@@ -25,6 +25,7 @@ import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
+import com.hisu.smart.dj.ui.iactive.activity.IactiveLoginActivity;
 import com.hisu.smart.dj.ui.main.contract.HomeInfoContract;
 import com.hisu.smart.dj.ui.main.model.HomeInfoModel;
 import com.hisu.smart.dj.ui.main.presenter.HomeInfoPresenter;
@@ -226,7 +227,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         if(position == 0){
             PartyNewsActivity.startAction(getActivity());
         }else if(position == 1){
-            Toast.makeText(getActivity(),"正在建设中。。。",Toast.LENGTH_LONG).show();
+            IactiveLoginActivity.startAction(getActivity());
         }else if(position == 2){
             NewsActivity.startAction(getActivity(),"三会一课");
         }else if(position == 3){

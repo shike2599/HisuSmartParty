@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="imm_app_name">行動視訊會議</string>  
+    <string name="imm_about_version_generatedtime">2014.01.16</string> 
+    <string name="imm_server_update">http://www.51kaihui.com/downloads/android/update.xml</string>
+    <string name="imm_login_serverip_default">www.iactive.com.cn</string>
+    <string name="imm_app_type">0</string>
+    <string name="imm_note_path_default">/mnt/sdcard/note.txt</string>
+    <bool name="imm_isLiveUC">true</bool> 
+    <string name="imm_login_serverport_default">11010</string>
+    <string name="imm_server_report_error">./report/</string>
+</resources>

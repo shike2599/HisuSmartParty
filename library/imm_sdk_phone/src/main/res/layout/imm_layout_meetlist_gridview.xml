@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+android:numColumns="auto_fit" ，GridView的列数设置为自动 
+android:columnWidth="90dp"，每列的宽度，也就是Item的宽度
+android:stretchMode="columnWidth"，缩放与列宽大小同步
+android:verticalSpacing="10dp"，两行之间的边距，如：行一(NO.0~NO.2)与行二(NO.3~NO.5)间距为10dp
+android:horizontalSpacing="10dp"，两列之间的边距
+ -->
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/imm_dialog_style"
+                 >
+
+        	<LinearLayout
+        	    android:id="@+id/imm_zaixianrenshu"
+            	android:layout_width="fill_parent"
+		        android:layout_height="@dimen/imm_mueu_dialog_title_height"
+		        android:orientation="horizontal"
+		        android:gravity="center"
+		       
+		        
+		         >
+		         <Button
+		            android:id="@+id/uppagebtn"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/imm_bg_roundcorner_indigo"
+		            android:textColor="#FFFFFF"
+		            android:padding="3dp"
+		            android:layout_marginRight="10dp"
+		            android:text="上一页" />
+ 		
+	         <TextView
+	            android:id="@+id/imm_tvCount"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:gravity="center"
+	            android:text="@string/imm_count_online"
+	            android:textColor="@color/imm_gray_dialog_text"
+	            android:textSize="@dimen/imm_panle_but_text_size3" />
+	         <Button
+	            android:id="@+id/downpagebtn"
+	            android:padding="3dp"
+	            android:layout_marginLeft="10dp"
+     		        android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:background="@drawable/imm_bg_roundcorner_indigo"
+		            android:textColor="#FFFFFF"
+	            android:text="下一页" />
+        	</LinearLayout>
+        
+        	<LinearLayout
+        	    android:id="@+id/imm_title_line"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+		         android:orientation="horizontal"
+		         android:layout_below="@+id/imm_zaixianrenshu">
+	         <View
+				android:layout_width="match_parent"
+				android:layout_height="1dip"
+				android:background="@color/imm_gray_line" />
+		   </LinearLayout>
+   		<!-- 用户列表 -->
+        <LinearLayout
+            android:layout_below="@+id/imm_title_line"
+            android:layout_above="@+id/imm_tip_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+				<ListView  
+			    android:id="@+id/imm_gridview_meetingid"
+			    android:layout_width="fill_parent" 
+			    android:layout_height="fill_parent"
+			    android:numColumns="auto_fit"
+			    android:cacheColorHint="@null"
+			    android:columnWidth="@dimen/imm_join_main_height2"
+			    android:stretchMode="columnWidth"
+			    android:divider="@color/imm_time_color"
+			    android:gravity="center"
+			    android:listSelector="#00000000"  
+			    android:layout_marginRight="@dimen/imm_userlist_margin" 
+				/>
+				
+					
+        </LinearLayout>
+        <!-- 提示信息 -->
+         <LinearLayout 
+        android:id="@+id/imm_tip_message"
+        android:layout_height="@dimen/imm_join_tip_height"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+       android:layout_above="@+id/imm_canhuirenyuan"
+        >
+	         <TextView android:text=""
+	             android:id="@+id/imm_tip_message_text"
+	             android:layout_height="wrap_content"
+	             android:layout_width="wrap_content"
+	             android:textSize="@dimen/imm_join_tip_text_size"
+	             android:textColor="@color/imm_white"/>
+	         	
+	  </LinearLayout>
+	  <LinearLayout
+        	    android:id="@+id/imm_bottom_line"
+            	android:layout_width="fill_parent"
+            	android:layout_height="wrap_content"
+		         android:orientation="horizontal"
+		         android:layout_below="@+id/imm_tip_message">
+	         <View
+				android:layout_width="match_parent"
+				android:layout_height="1dip"
+				android:background="@color/imm_gray_line" />
+		   </LinearLayout>
+	  <!-- 按钮菜单 -->
+         <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/imm_buttom_height_40"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/imm_canhuirenyuan"
+        android:gravity="center"
+        android:orientation="horizontal" >
+		
+        	    
+        <Button
+            android:id="@+id/imm_adduserweixin"
+            style="@style/imm_panel_style"
+            android:layout_marginLeft="20dp"
+            android:text="微信邀请"
+             android:visibility="gone"
+             />
+        <Button
+            android:id="@+id/imm_adduserphone"
+            style="@style/imm_panel_style"
+            android:layout_marginLeft="20dp"
+            android:text="电话邀请"
+            android:visibility="gone"
+             />
+     
+	        <Button
+	            android:id="@+id/imm_adduser"
+	            android:visibility="gone"
+	            style="@style/imm_panel_style"
+	            android:layout_marginLeft="20dp"
+	            android:layout_marginTop="@dimen/imm_join_bottom_size"
+	            android:text="短信邀请"
+	 		/>
+       
+       <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal" 
+        android:layout_weight="1"
+        android:id="@+id/imm_room_mode_layout"
+        android:clickable="true"
+        
+        >
+        	<ImageView
+        	    android:id="@+id/imm_room_mode_icon"
+        	    android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:src="@drawable/imm_room_mode_icon_master"
+        	    android:layout_marginRight="2dp"
+        	    android:clickable="false"
+        	    />
+           <Button
+            android:id="@+id/imm_room_mode"
+            style="@style/imm_panel_btn_style"
+            android:text="@string/imm_room_mode_open_master" 
+            android:clickable="false"/>
+   	     </LinearLayout>
+	     <LinearLayout
+	        android:layout_weight="1"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:gravity="center"
+	        android:orientation="horizontal"
+	        android:id="@+id/imm_online_please_id_layout"
+	        android:clickable="true"
+	        >
+           <ImageView android:layout_width="wrap_content"
+        	    android:layout_height="wrap_content"
+        	    android:src="@drawable/imm_online_please_id_icon"
+        	    android:layout_marginRight="2dp"
+        	    android:clickable="false"
+        	    />
+            <Button
+		        android:id="@+id/imm_online_please_id"
+		        style="@style/imm_panel_btn_style"
+		        android:text="@string/imm_room_invent"
+		        android:clickable="false"
+	   	    />
+     
+        </LinearLayout>
+        <LinearLayout 
+            android:id="@+id/imm_room_info_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            >
+             <TextView 
+                 	android:id="@+id/imm_room_info"
+                 	android:layout_width="match_parent"
+            	    android:layout_height="wrap_content"
+            	    android:textColor="@color/imm_gray_dialog_text"
+            	    android:textSize="@dimen/imm_panle_but_text_size"
+            	    android:singleLine="true"
+            	    android:ellipsize="marquee"
+            	    android:text="121212"
+            	    android:gravity="center"
+            	    android:focusable="true" 
+			        android:marqueeRepeatLimit="marquee_forever" 
+			        android:focusableInTouchMode="true" 
+			        android:scrollHorizontally="true"
+            			/>
+            
+        </LinearLayout>
+       
+    </LinearLayout>
+
+		
+        
+</RelativeLayout>

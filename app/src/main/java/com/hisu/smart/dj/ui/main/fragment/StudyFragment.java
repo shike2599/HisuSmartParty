@@ -14,6 +14,7 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
+import com.hisu.smart.dj.ui.iactive.activity.IactiveLoginActivity;
 import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyCommonActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
@@ -141,7 +142,7 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
                     StudyCommonActivity.startAction(getActivity());
                 }else if(title=="视频大讲堂"){
                     //视频会议
-
+                    IactiveLoginActivity.startAction(getActivity());
                 }else if(title=="在线考试"){
                     //在线考试
                     WebActivity.startAction(getActivity(),"在线考试",online_exam );

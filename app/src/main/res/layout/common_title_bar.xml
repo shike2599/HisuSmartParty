@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/title_color"
+    android:id="@+id/title_bar"
+    android:layout_height="50dp">
+
+        <LinearLayout
+            android:id="@+id/title_come_back"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:gravity="center_vertical"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/come_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/come_back_1"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/title_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/title_cfm_btn"
+            android:layout_width="60dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@color/title_color"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:text="@string/confirm_btn"
+            android:textColor="@color/whites"
+            android:textSize="16sp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/title_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="60dp"
+            android:contentDescription="@string/title_memu"
+            android:src="@mipmap/ic_done_white_36dp"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/title_memu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@string/title_memu"
+            android:src="@mipmap/ic_list_white_36dp"
+            android:visibility="gone" />
+         <ImageView
+            android:id="@+id/title_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@string/title_memu"
+            android:src="@mipmap/ic_list_title_edit"
+            android:visibility="gone" />
+        
+
+        <LinearLayout
+            android:id="@+id/title_btn_ll"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ll_top_bg"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <Button
+                android:id="@+id/title_left_btn"
+                style="@style/top_group" />
+
+            <Button
+                android:id="@+id/title_right_btn"
+                style="@style/top_all" />
+        </LinearLayout>
+    </RelativeLayout>

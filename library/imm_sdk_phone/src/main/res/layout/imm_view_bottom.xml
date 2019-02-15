@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical" >
+	<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+   
+	<LinearLayout
+        android:id="@+id/imm_lay_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp" 
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_weight="1" >
+
+            <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="180dip"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+             >
+             <LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:orientation="horizontal"
+	            android:layout_weight="1"
+	            android:layout_gravity="left"
+	            android:gravity="center_vertical"
+	             >
+             <com.wdliveuc.android.util.MyTimer
+	            android:id="@+id/imm_online_time"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="2dip"
+	            android:singleLine="true"
+	            android:gravity="center_vertical"
+	            android:textColor="@color/imm_white"
+	            android:textSize="@dimen/imm_panle_but_text_size2"
+	             />
+             <TextView
+                android:id="@+id/imm_admin_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dip"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:textColor="@color/imm_white"
+                android:textSize="@dimen/imm_panle_but_text_size2"
+                android:text="主控模式"
+                android:visibility="gone"
+                 />
+             </LinearLayout>
+            <com.wdliveuc.android.util.AlwaysMarqueeTextView
+                android:id="@+id/imm_meeting_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dip"
+                android:ellipsize="marquee"
+                android:singleLine="true"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/imm_white"
+                android:textSize="@dimen/imm_panle_but_text_size2"
+                 />
+            <TextView
+                android:id="@+id/imm_lostpack_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dip"
+                android:singleLine="true"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textColor="@color/imm_white"
+                android:textSize="@dimen/imm_panle_but_text_size2"
+                 />
+            
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/imm_menulayoutid"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="5dp"
+	            android:layout_marginTop="4dp"
+	            android:orientation="horizontal"
+	            >
+            </LinearLayout>
+        </LinearLayout>
+
+        
+    </LinearLayout>
+    
+	
+    
+
+    <LinearLayout
+        android:id="@+id/imm_TableLayout01"
+        android:layout_width="@dimen/imm_progressbar_width"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/imm_join_top_text"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:id="@+id/imm_TableRow1"
+            android:layout_width="fill_parent"
+            android:gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dip"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/imm_mic_height"
+                android:src="@drawable/imm_bottom_volume" />
+
+            <ProgressBar
+                android:id="@+id/imm_progressBar_volume_in"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/imm_join_main_right1"
+                android:layout_weight="1"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/imm_bottom_progress" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imm_TableRow2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="5dip"
+            android:layout_weight="1" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/imm_mic_height"
+                android:src="@drawable/imm_bottom_mic" />
+
+            <ProgressBar
+                android:id="@+id/imm_progressBar_volume_out"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/imm_join_main_right1"
+                android:layout_weight="1"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/imm_bottom_progress" />
+        </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+   <!--  <LinearLayout
+        android:id="@+id/imm_menu_id_layout"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            
+            android:gravity="center_vertical"
+            android:layout_weight="1" >
+   </LinearLayout> -->
+    
+</LinearLayout>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imm_layout_advance"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="5dip"
+    android:orientation="vertical"
+    android:visibility="gone" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="15dip" >
+
+        <TextView
+            style="@style/imm_main_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imm_application_type"
+            android:textAppearance="?android:attr/textAppearanceSmall" >
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/imm_radioGroupAppleType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="5dip"
+            android:orientation="vertical" >
+
+            <RadioButton
+                android:id="@+id/imm_type_meeting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/imm_check_radio"
+                android:checked="true"
+                android:text="@string/imm_type_meeting"
+                android:textColor="@color/imm_white" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/imm_type_education"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/imm_check_radio"
+                android:text="@string/imm_type_education"
+                android:textColor="@color/imm_white" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/imm_type_uc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/imm_check_radio"
+                android:text="@string/imm_type_uc"
+                android:textColor="@color/imm_white" >
+            </RadioButton>
+        </RadioGroup>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="2.0dip"
+        android:layout_marginTop="5.0dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/imm_login_line2" />
+
+    <LinearLayout
+        android:id="@+id/imm_linearLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dip"
+        android:paddingTop="5dip" >
+
+        <TextView
+            android:id="@+id/imm_textView1"
+            style="@style/imm_main_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imm_login_text_Protocol"
+            android:textAppearance="?android:attr/textAppearanceSmall" >
+        </TextView>
+
+        <RadioGroup
+            android:id="@+id/imm_radioGroupProtocol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginLeft="5dip"
+            android:orientation="vertical" >
+
+            <RadioButton
+                android:id="@+id/imm_radioUDP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/imm_check_radio"
+                android:checked="true"
+                android:text="@string/imm_udp"
+                android:textColor="@color/imm_white" >
+            </RadioButton>
+
+            <RadioButton
+                android:id="@+id/imm_radioTCP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/imm_check_radio"
+                android:text="@string/imm_tcp"
+                android:textColor="@color/imm_white" >
+            </RadioButton>
+            
+            <RadioButton
+                android:id="@+id/imm_radioMTP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/imm_check_radio"
+                android:text="@string/imm_MultiCast"
+                android:textColor="@color/imm_white" >
+            </RadioButton>
+            
+        </RadioGroup>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="2.0dip"
+        android:layout_marginTop="5.0dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/imm_login_line2" />
+
+    <LinearLayout
+        android:id="@+id/imm_linearLayoutPort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dip"
+        android:paddingTop="5dip"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/imm_textServerPort"
+            style="@style/imm_main_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:text="@string/imm_login_text_serverport" >
+        </TextView>
+
+        <EditText
+            android:id="@+id/imm_editServerPort"
+            android:layout_width="120dip"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:imeOptions="actionDone"
+            android:numeric="integer"
+            android:singleLine="true"
+            android:text="@string/imm_login_serverport_default" >
+        </EditText>
+    </LinearLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="2.0dip"
+        android:layout_marginTop="5.0dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/imm_login_line2"
+        android:visibility="gone" />
+    
+    <LinearLayout
+        android:id="@+id/imm_linearLayoutCache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="15dip"
+        android:paddingTop="5dip">
+
+        <CheckBox
+            android:id="@+id/imm_checkbox_deletecache"
+            style="@style/imm_MyCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:drawableLeft="@drawable/imm_checkbox"
+            android:gravity="center"
+            android:paddingLeft="0dip"
+            android:text="@string/imm_delete_cache" />
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2.0dip"
+        android:layout_marginRight="2.0dip"
+        android:layout_marginTop="5.0dip"
+        android:scaleType="fitXY"
+        android:src="@drawable/imm_login_line2" />
+
+</LinearLayout>

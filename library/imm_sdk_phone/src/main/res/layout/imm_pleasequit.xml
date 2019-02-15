@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/imm_join_main_width"
+    android:layout_height="@dimen/imm_panle_but_size"
+    android:background="#282E3A"
+    android:gravity="center"
+    android:orientation="vertical" >
+	<TextView
+         android:id="@+id/imm_please_quit_id"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginLeft="2dip"
+         android:singleLine="true"
+         android:layout_weight="1"
+         android:gravity="center"
+         android:text=""
+         android:textColor="@color/imm_white"
+         android:textSize="@dimen/imm_panle_but_text_size3"
+          />
+</LinearLayout>

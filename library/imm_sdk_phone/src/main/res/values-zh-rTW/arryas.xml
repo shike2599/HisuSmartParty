@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="imm_create_room_usercount">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item> 
+    </string-array>
+    <string-array name="imm_create_room_time_long">
+        <item>1小時</item>
+        <item>2小時</item>
+        <item>3小時</item>
+        <item>4小時</item>
+        <item>5小時</item>
+        <item>6小時</item>
+        <item>12小時</item>
+        <item>24小時</item>
+    </string-array>
+    
+    <string-array name="imm_roomtype">
+        <item>@string/imm_roomtype1</item>
+        <item>@string/imm_roomtype2</item>
+    </string-array>
+
+    <string-array name="imm_roomstandard">
+        <item>@string/imm_roomscope1</item>
+        <item>@string/imm_roomscope2</item>
+    </string-array>
+    
+    <string-array name="imm_roomscope">
+        <item>@string/imm_roomscope1</item>
+        <item>@string/imm_roomscope2</item>
+    </string-array>
+    
+    <string-array name="imm_linenum">
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
+
+    <string-array name="imm_roomusernum">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
+     <string-array name = "imm_menu_item_name_array">
+		<item>"一般視窗"</item>
+		<item>"我的影像"</item>  
+	    <item>"白板全屏"</item>  
+	    <item>"影像全屏"</item>  
+		<item>" 二分屏 "</item>
+		<item>" 四分屏 "</item>
+	</string-array>
+	
+    <string-array name="imm_camara_setting_fps_array">
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"20"</item>
+        <item>"25"</item>
+    </string-array>
+    
+    <string-array name="imm_setting_video_fps_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+    </string-array>
+    
+    <string-array name="imm_camara_setting_size_array">
+        <item>"160*120"</item>
+        <item>"320*240"</item>
+        <item>"352*288"</item>
+        <item>"640*480"</item>
+        <item>"720*576"</item>
+        <item>"800*480"</item>
+        <item>"800*600"</item>
+        <item>"1024*768"</item>
+        <item>"1280*720"</item>
+    </string-array>
+         
+    <string-array name="imm_camara_setting_quality_array">
+        <item>"低"</item>
+        <item>"中"</item>
+        <item>"高"</item>
+    </string-array>    
+    
+    <string-array name="imm_camara_setting_flow_array">
+        <item>"32 kbps"</item>
+        <item>"64 kbps"</item>
+        <item>"128 kbps"</item>
+        <item>"256 kbps"</item>
+        <item>"384 kbps"</item>
+        <item>"512 kbps"</item>
+        <item>"768 kbps"</item>
+        <item>"1024 kbps"</item>
+        <item>"2048 kbps"</item>
+        <item>"4096 kbps"</item>
+    </string-array>
+    
+    <!-- 語音壓縮演算法  -->
+    <string-array name="imm_setting_audio_algorithm_array">
+        <item>"G723.1-6.4kbps"</item>
+        <item>"iLBC-13kbps"</item>
+        <item>"CELP-24kbps"</item>
+    </string-array>
+     
+    <!-- 視訊壓縮演算法  -->
+    <string-array name="imm_setting_video_compact_array">
+        <item>"低品質壓縮"</item>
+        <item>"高品質壓縮"</item>
+    </string-array>
+    <string-array name="imm_setting_video_hardware_expedite_array">
+        <item>"關閉"</item>
+        <item>"啟用"</item>
+    </string-array>
+    <string-array name="imm_setting_checkbox_AEC">
+        <item>開啟</item>
+        <item>關閉</item>
+    </string-array>
+    <string-array name="imm_setting_show_video">
+        <item>"顯示"</item>
+        <item>"隱藏"</item>
+    </string-array>
+	 <string-array name="imm_camara_setting_quality_array_list">
+        <item>"SD"</item>
+        <item>"HD"</item>
+    </string-array>    
+    
+</resources>

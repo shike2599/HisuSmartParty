@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/imm_join_main_width"
+    android:layout_height="@dimen/imm_join_main_height"
+    android:orientation="vertical"
+    android:background="#282E3A" >   
+ 
+    <LinearLayout
+            android:layout_width="@dimen/imm_join_main_width"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+    	<LinearLayout
+                android:layout_width="@dimen/imm_join_main_width"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:id="@+id/imm_erfenping"
+                android:onClick="onAllMenuClick"
+                android:focusable="true"
+                android:background="@drawable/imm_fenpinitemback"
+                android:gravity="left"
+                 >
+                 <TextView
+                android:layout_width="@dimen/imm_join_main_width"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:text="二分屏"
+                android:textColor="@color/imm_black"
+                
+                android:textSize="@dimen/imm_panel_editext_top"/>
+                 <!-- 语音发言 -->
+                <!-- <ImageView
+                    android:id="@+id/imm_all_menu_voicetospeak"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/btn_click_menu1" 
+                    android:padding="5dip"
+                    android:focusable="true"
+                    android:onClick="onAllMenuClick"/> -->
+    	</LinearLayout>
+    	<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="5.0dip"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:src="@drawable/imm_login_line" />
+    	<LinearLayout 
+                android:layout_width="@dimen/imm_join_main_width"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:id="@+id/imm_sanfenping"
+                android:onClick="onAllMenuClick"
+                android:focusable="true"
+                android:background="@drawable/imm_fenpinitemback"
+                android:gravity="center_vertical"
+                 >
+                 <TextView
+                android:layout_width="@dimen/imm_join_main_width"
+                android:layout_height="fill_parent"
+                android:gravity="center_vertical"
+                android:textColor="@color/imm_black"
+                android:text="三分屏"
+                android:textSize="@dimen/imm_panel_editext_top"/>
+                <!-- 文字交流 -->
+                <!-- <ImageView
+                    android:id="@+id/imm_all_menu_written_communication"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="5dip"
+                    android:focusable="true"
+                    android:src="@drawable/btn_click_menu2" 
+                    android:onClick="onAllMenuClick"/> -->
+    	</LinearLayout>
+    	<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="5.0dip"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:src="@drawable/imm_login_line" />
+    	<LinearLayout
+                android:id="@+id/imm_all_menu_electronic_hands"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:background="@drawable/imm_btn_menu_click"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                android:onClick="onAllMenuClick" >
+                
+        	<TextView
+                android:id="@+id/imm_textView_electronic_hands"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/imm_handup_menu"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="电子举手"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+    	</LinearLayout>
+    	
+    	<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="5.0dip"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:src="@drawable/imm_login_line" />
+    	<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="5.0dip"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:src="@drawable/imm_login_line" />
+    	<ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="5.0dip"
+                    android:scaleType="fitXY"
+                    android:visibility="gone"
+                    android:src="@drawable/imm_login_line" />
+    </LinearLayout>
+    
+           
+</LinearLayout>

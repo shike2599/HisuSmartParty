@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/imm_join_main_width2"
+    android:layout_height="@dimen/imm_join_main_height1"
+    android:background="@drawable/imm_bk_dlg" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/imm_join_top_height"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/imm_join_top_text"
+        android:paddingTop="@dimen/imm_join_top_text"
+         >
+
+        <ImageView android:layout_width="wrap_content"
+            android:paddingLeft="@dimen/imm_join_top_left"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/imm_join_top_text"
+            android:src="@drawable/imm_tvjoinmeeting"/>
+            
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="参数设置"
+            android:textColor="#ffffff"
+            android:paddingLeft="8dp"
+            android:layout_marginBottom="@dimen/imm_join_top_text"
+            android:textSize="@dimen/imm_join_text_size" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/imm_join_top_height"
+        android:layout_marginLeft="@dimen/imm_join_main_left" 
+        android:layout_marginRight="@dimen/imm_join_main_right"
+        android:layout_marginTop="@dimen/imm_join_top_height"
+        android:gravity="top"
+        android:orientation="vertical" >
+        
+        <LinearLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="fill_parent"
+	            android:orientation="horizontal" >
+	            
+			    <LinearLayout   
+			        android:layout_width="fill_parent"  
+			        android:layout_height="fill_parent" 
+			        android:layout_weight="4"
+			        android:layout_marginTop="@dimen/imm_but_top_size"
+			        android:layout_marginRight="2dp" 
+			        android:orientation="vertical">  
+			          
+			        <Button   
+			            android:id="@+id/imm_tv_guid1"  
+			            style="@style/imm_setting_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:focusable="true"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="@dimen/imm_but_top_size"
+                android:paddingRight="@dimen/imm_but_top_size"
+                android:background="@drawable/imm_select_textbtn"
+                android:text="视频设置" />  
+                <requestFocus />
+			        <Button    
+			            android:id="@+id/imm_tv_guid2"    
+			            style="@style/imm_setting_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                 android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="@dimen/imm_but_top_size"
+                android:paddingRight="@dimen/imm_but_top_size"
+                 android:focusable="true"
+                 android:layout_marginTop="@dimen/imm_edit_padding"
+                 android:background="@drawable/imm_select_textbtn"
+                android:text="声音设置" />     
+			        <Button    
+			            android:id="@+id/imm_tv_guid3"    
+			            style="@style/imm_setting_text"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                 android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:paddingLeft="@dimen/imm_but_top_size"
+                android:paddingRight="@dimen/imm_but_top_size"
+                 android:focusable="true"
+                 android:layout_marginTop="@dimen/imm_edit_padding"
+                 android:background="@drawable/imm_select_textbtn"
+                android:text="其他设置" />     
+			    </LinearLayout>
+	    		<ImageView
+                    android:layout_width="5dp"
+                    android:layout_height="fill_parent"
+                    android:layout_marginTop="@dimen/imm_but_top_size"
+                    android:layout_marginBottom="@dimen/imm_but_top_size"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_menuditu" />
+	    		<LinearLayout
+			            android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="top"
+        android:orientation="vertical" >
+        
+		<ScrollView
+        android:id="@+id/imm_scrollView1"
+        android:layout_marginRight="@dimen/imm_but_top_size"
+    	android:layout_marginLeft="@dimen/imm_but_top_size"
+    	android:layout_marginBottom="@dimen/imm_join_main_right1"
+    	android:fadeScrollbars="false" 
+    	 android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+            <LinearLayout
+                android:id="@+id/imm_linearLayoutset1"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" 
+	            android:background="@drawable/imm_set_btnitem"
+	            android:focusable="true"
+	            >
+	            		<ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" /> 
+                
+		<RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+              
+               >
+
+              <TextView
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="left"
+                  android:text="@string/imm_setting_video_compact" />
+
+              
+				<TextView
+                  android:id="@+id/imm_tv_video_compact"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+          </RelativeLayout>
+          </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/imm_linearLayoutset2"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" 
+	            android:background="@drawable/imm_set_btnitem"
+	            android:focusable="true"
+	            >
+		<ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+            <TextView
+                style="@style/imm_setting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/imm_setting_camara_fps" />
+
+            <TextView
+                  android:id="@+id/imm_tv_camara_fps"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+        </RelativeLayout>
+        </LinearLayout>
+		
+		<LinearLayout
+                android:id="@+id/imm_linearLayoutset3"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:background="@drawable/imm_set_btnitem"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+       <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+            <TextView
+                android:id="@+id/imm_tv_camara_size"
+                style="@style/imm_setting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/imm_setting_camara_size" />
+
+            <TextView
+                  android:id="@+id/imm_setting_camara_size"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+        </RelativeLayout>
+        </LinearLayout>
+
+<LinearLayout
+                android:id="@+id/imm_linearLayoutset4"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:background="@drawable/imm_set_btnitem"
+	            >
+       <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+            <TextView
+                style="@style/imm_setting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/imm_setting_camara_quality" />
+
+            <TextView
+                  android:id="@+id/imm_setting_camara_quality"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+        </RelativeLayout>
+        </LinearLayout>
+
+<LinearLayout
+                android:id="@+id/imm_linearLayoutset5"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+            <TextView
+                style="@style/imm_setting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/imm_setting_camara_flow" />
+
+            <TextView
+                  android:id="@+id/imm_setting_camara_flow"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+        </RelativeLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+                android:id="@+id/imm_linearLayoutset6"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:visibility="gone"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+            <TextView
+                style="@style/imm_setting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/imm_setting_camara_hardware_expedite" />
+
+            <TextView
+                  android:id="@+id/imm_setting_camara_hardware_expedite"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+        </RelativeLayout>
+        </LinearLayout>
+        
+        <LinearLayout
+                android:id="@+id/imm_linearLayoutset2_1"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:visibility="gone"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+              <TextView
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="left"
+                  android:text="@string/imm_setting_audio_aec" />
+
+              
+				<TextView
+                  android:id="@+id/imm_tv_checkbox_aec"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+          </RelativeLayout>
+          </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/imm_linearLayoutset2_2"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:visibility="gone"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+            <TextView
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="left"
+                android:text="@string/imm_setting_audio_algorithm" />
+
+            <TextView
+                  android:id="@+id/imm_tv_audioalgorithm"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+        </RelativeLayout>
+        </LinearLayout>
+            
+            <LinearLayout
+                android:id="@+id/imm_linearLayoutsetshowvideo"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:visibility="gone"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+              <TextView
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="left"
+                  android:text="显示视频信息:" />
+
+				<TextView
+                  android:id="@+id/imm_tv_showvedioinfo"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+          </RelativeLayout>
+          </LinearLayout>
+          <LinearLayout
+              android:id="@+id/imm_linearLayoutsethard_solution"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem1"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:visibility="gone"
+	            >
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/imm_setpage_margin"
+              android:padding="@dimen/imm_setpage_margin"
+               >
+
+              <TextView
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="left"
+                  android:text="@string/imm_setting_hard_solution" />
+              
+				<TextView
+                  android:id="@+id/imm_tv_setting_hard_solution"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:drawablePadding="3dp"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+          </RelativeLayout>
+          </LinearLayout>
+          <LinearLayout
+                android:id="@+id/imm_linearLayoutsettcpudp"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:visibility="gone"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dip"
+              android:padding="5dip"
+               >
+              <TextView
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="right"
+                  android:text="数据接收协议:" />
+				<TextView
+                  android:id="@+id/imm_tv_tcpudp"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+				
+          </RelativeLayout>
+          </LinearLayout>
+          
+            <LinearLayout
+                android:id="@+id/imm_linearLayoutsettcpudpsend"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:visibility="gone"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dip"
+              android:padding="5dip"
+               >
+              <TextView
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="right"
+                  android:text="数据发送协议:" />
+				<TextView
+                  android:id="@+id/imm_tv_tcpudpsend"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+          </RelativeLayout>
+          </LinearLayout>
+          
+            <LinearLayout
+                android:id="@+id/imm_linearmaxrcvvideo"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/imm_set_btnitem"
+	            android:orientation="vertical" 
+	            android:focusable="true"
+	            android:visibility="gone"
+	            >
+        <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+        <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="5dip"
+              android:padding="5dip"
+               >
+              <TextView
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:gravity="right"
+                  android:text="视频最多路数:" />
+				<TextView
+                  android:id="@+id/imm_tv_maxrcvvideo"
+                  style="@style/imm_setting_text"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:text="" />
+          </RelativeLayout>
+          </LinearLayout>
+            <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="5dp"
+                    android:layout_marginLeft="2.0dip"
+                    android:layout_marginRight="2.0dip"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/imm_bk_apart" />
+            
+            
+        </LinearLayout>
+        
+    </ScrollView>
+    </LinearLayout>
+    </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/imm_join_top_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/imm_join_bottom_size"
+        android:gravity="center"
+        android:orientation="horizontal" >
+		<Button
+            android:id="@+id/imm_linearLayoutset2_3"
+            style="@style/imm_panel_style"
+            android:layout_marginRight="@dimen/imm_panle_but_size"
+            android:text="默认设置" />
+		<Button
+            android:id="@+id/imm_set_layout1_ok"
+            style="@style/imm_panel_style"
+            android:layout_marginRight="@dimen/imm_panle_but_size"
+            android:text="确定" />
+        <Button
+            android:id="@+id/imm_set_layout1_cancel"
+            style="@style/imm_panel_style"
+            android:text="@string/imm_tv_cancel" />
+    </LinearLayout>
+
+</RelativeLayout>

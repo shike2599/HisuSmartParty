@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/imm_join_main_width1"
+    android:layout_height="@dimen/imm_join_main_height1"
+    android:background="@drawable/imm_bk_dlg" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/imm_join_top_height"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/imm_join_top_text"
+        android:layout_marginLeft="@dimen/imm_join_top_text"
+        android:layout_marginTop="@dimen/imm_join_top_text"
+         >
+
+        <ImageView android:layout_width="wrap_content"
+            android:paddingLeft="@dimen/imm_join_top_left"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/imm_join_top_text"
+            android:src="@drawable/imm_tvjoinmeeting"/>
+            
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/imm_video_rcv_quality_choose"
+            android:textColor="#ffffff"
+            android:paddingLeft="8dp"
+            android:layout_marginBottom="@dimen/imm_join_top_text"
+            android:textSize="@dimen/imm_join_text_size" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/linearlayout_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginBottom="@dimen/imm_join_top_height"
+        android:layout_marginLeft="@dimen/imm_join_main_left"
+        android:layout_marginRight="@dimen/imm_join_main_left"
+        android:layout_marginTop="@dimen/imm_join_top_height"
+        android:background="@drawable/imm_bk_dlgarea"
+        android:gravity="top"
+        android:orientation="vertical" >
+     <ListView
+        android:id="@+id/lv_stream_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:cacheColorHint="#00000000"
+        android:fadingEdgeLength="0dp"
+        android:footerDividersEnabled="true"
+        android:divider="@color/imm_color_ewb_bkg"
+        android:dividerHeight="1px"
+        android:listSelector="@drawable/imm_set_btnitem1"
+        ></ListView> 
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/imm_join_top_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/imm_join_bottom_size"
+        android:layout_marginLeft="@dimen/imm_join_top_text"
+        android:gravity="center"
+        android:orientation="horizontal" >
+<LinearLayout  android:layout_width="fill_parent"
+            android:layout_weight="4"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_marginRight="@dimen/imm_join_top_left"
+            android:gravity="center">
+<Button
+            android:id="@+id/imm_but_join_ok"
+            style="@style/imm_panel_style"
+            android:layout_marginRight="@dimen/imm_panle_but_size"
+            android:text="@string/imm_comm_dialog_positive" />
+
+        <Button
+            android:id="@+id/imm_but_join_cancel"
+            style="@style/imm_panel_style"
+            android:text="@string/imm_tv_cancel" />
+
+</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,1 +1,1 @@
-include ':app',  ':library:common', ':library:irecyclerview', ':library:jcvideoplayer', ':library:oneKeyShareSDK', ':library:photoPicker', ':library:selectordialog',':library:imageselector',':library:zbarcode'
+include ':app',  ':library:common', ':library:irecyclerview', ':library:jcvideoplayer', ':library:oneKeyShareSDK', ':library:photoPicker', ':library:selectordialog',':library:imageselector',':library:zbarcode',':library:imm_sdk_phone'

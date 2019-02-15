@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <com.wdliveuc.android.util.AlwaysMarqueeTextView
+        android:id="@+id/imm_meeting_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="5dip"
+        android:layout_marginTop="10dip"
+        android:layout_marginBottom="10dip"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:textColor="@color/imm_color_list_meeting_name"
+        android:textSize="@dimen/imm_s0_size_18" />
+
+    <com.wdliveuc.android.util.AlwaysMarqueeTextView
+        android:id="@+id/imm_meeting_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:gravity="right|center_vertical"
+        android:singleLine="true"
+        android:textColor="@color/imm_color_list_meeting_online"
+        android:textSize="@dimen/imm_s0_size_15" />
+
+</LinearLayout>

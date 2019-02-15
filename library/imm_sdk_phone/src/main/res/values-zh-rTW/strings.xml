@@ -1,0 +1,247 @@
+<resources>
+  <string name="imm_app_host">http://imm.liveuc.net/api</string>
+  <string name="imm_app_host1">http://imm2.liveuc.net/api</string>
+  <!--  <string name="imm_app_host">http://test2.liveuc.net/ucapi/api</string>
+  <string name="imm_app_host1">http://test2.liveuc.net/ucapi/api</string> -->
+<!--   <string name="imm_master_host">master.liveuc.net</string>  -->
+  <string name="imm_enterpris_name">imm</string>
+  <string name="imm_start_android_head">liveuc</string>
+  <string name="imm_app_key">2001</string>
+  
+  
+   <!-- api相關 -->
+   <string name="imm_api_request_uid">iactive.imm.api^2014</string>
+   <string name="imm_api_request_pass">imm.api.#$^</string>
+    
+  <string name="imm_surface_ewb_line_width_set">線寬設定</string>
+  <string name="imm_notification_content">會議客戶端正在執行</string>
+  <string name="imm_notification_nologin">未登入</string>
+	
+  <string name="imm_ok">確  定</string>
+  <string name="imm_prompt">提  示</string>
+  <string name="imm_cancel1">取  消</string>
+  <string name="imm_exit">退  出</string>
+  <string name="imm_return_text">返  回</string>
+  <string name="imm_finish">完  成</string>
+  <string name="imm_exit_not1">您是否要結束會議？</string>
+  <string name="imm_login_error_userlogined_forceKickout">,是否強行踢出已登入的用戶</string>
+  <string name="imm_login_please_out">您被請出會議，退出</string>
+  <string name="imm_please_quit">您被請出會議,將在</string>
+    <string name="imm_please_quit1">秒鐘退出！</string>
+  <string name="imm_dlg_note_title">輸入檔案名</string>
+  <string name="imm_note_not_fond">未找到筆記!</string>
+  <string name="imm_note_load">載入筆記</string> 
+  <string name="imm_note_save">儲存筆記</string>
+  <string name="imm_note_exit"> 退 出 </string>
+  <string name="imm_note_save_success">成功儲存筆記!</string>
+   <string name="imm_note_empty">.筆記空白!</string>
+  
+  <string name="imm_send">發  送</string>
+  <string name="imm_comm_dialog_title">提示</string>
+  <string name="imm_comm_dialog_positive">確定</string>	 
+  
+  <string name="imm_sendfile_title">接收檔案</string> 
+  <string name="imm_sender">發送人:</string>
+  <string name="imm_filename">檔案名稱:</string>
+  <string name="imm_filesize">檔案大小:</string>
+  <string name="imm_receive">接收</string>
+  <string name="imm_refuse">不接收</string>
+  <string name="imm_filesavepath">檔案儲存路徑為:</string>
+  
+  <string name="imm_get_data_from_fail">網路通訊失敗！</string>
+  <string name="imm_net_error">網路連線失敗，請檢查是否已連接網路或網路是否異常</string>
+  
+  
+  <string name="imm_count_online">與會人員列表(%1$d人)</string>
+    <string name="imm_title_video_select">檢視視訊</string>
+    <string name="imm_menu_show_video_all">檢視所有視訊</string>
+    <string name="imm_menu_show_video">檢視視訊</string>
+    <string name="imm_all_video">所有視訊</string>
+    <string name="imm_video">視訊</string>
+     <string name="imm_login_title">用戶登入</string>
+     <string name="imm_login_liveUC">租賃平台</string>
+     
+      <string name="imm_login_text_server_name">伺服器 :</string>
+     
+     
+    <string name="imm_login_hint_server_name">輸入伺服器名</string>
+    <string name="imm_login_text_enterprise_name">企業帳號:</string>
+    <string name="imm_login_hint_enterprise_name">輸入企業帳號</string>
+    <string name="imm_login_text_serverport">埠 口:</string>
+    <string name="imm_login_text_username">用戶帳號:</string>
+    <string name="imm_login_text_username2">用戶名稱:</string>
+    <string name="imm_login_hint_username">輸入用戶名</string>
+    <string name="imm_login_text_password">使用者密碼:</string>
+    <string name="imm_login_text_password_meeting">會議密碼:</string>
+    <string name="imm_login_hint_password">請輸入密碼</string>
+    <string name="imm_login_text_LoginButton">登  入</string>
+    <string name="imm_login_text_RoomID">會議編號:</string>
+    <string name="imm_login_hint_RoomID">輸入會議編號</string>
+    <string name="imm_login_text_Protocol">網路通訊協定:</string>
+    <string name="imm_login_save_password">記住密碼</string>
+    <string name="imm_login_autologin">自動登入</string>
+    <string name="imm_login_anonymous">匿名登入</string>
+    <string name="imm_login_set_advance">設  定</string>
+    <string name="imm_login_error_userwrong">用戶名或密碼錯誤</string>
+    <string name="imm_login_error_userlogined">用戶已登入</string>
+    <string name="imm_login_error_countlimit">用戶數已達到上限</string>
+    <string name="imm_login_error_noslaver">無分發服務</string>
+    <string name="imm_login_error_nopower">用戶權限不足</string>
+    <string name="imm_login_error_internet">服務錯誤或網路異常</string>
+    
+    <string name="imm_application_type">應用類型:</string>
+    <string name="imm_type_meeting">視訊會議</string>
+    <string name="imm_type_education">遠距教學</string>
+    <string name="imm_type_uc">e-UC</string>
+    <string name="imm_delete_cache">退出刪除快取檔案</string>
+    <string name="imm_udp">UDP協定</string>
+    <string name="imm_tcp">TCP協定</string>
+    <string name="imm_MultiCast">多路廣播協定</string>
+    <string name="imm_tip_inputRoomID">請輸入會議編號</string>
+    <string name="imm_tip_password_error">輸入的密碼錯誤！</string>
+    <string name="imm_password_no_null">密碼不能空白</string>
+    <string name="imm_room_password_error">房間密碼錯誤！</string>
+    <string name="imm_room_no_use">會議室無法使用！</string>
+    <string name="imm_no_login_room">沒有可登入的會議室</string>
+    <string name="imm_room_user_max">房間用戶已滿</string>
+    <string name="imm_meeting_password_title">輸入密碼:</string>
+    
+    <string name="imm_m_host_online">主持人上線</string>
+    <string name="imm_m_host_outline">主持人離線</string>
+    
+     <string name="imm_setting_camara_title">視訊配備</string>
+    <string name="imm_setting_camara_fps">幅 率:</string>
+    <string name="imm_setting_camara_size">解析度:</string>
+    <string name="imm_setting_camara_quality">品 質:</string>
+    <string name="imm_setting_camara_flow">流量限定:</string>
+    <string name="imm_setting_camara_hardware_expedite">硬體加速:</string>
+    <string name="imm_setting_video_compact">視訊壓縮:</string>
+    <string name="imm_setting_camara_defult">預設設定</string>
+    <string name="imm_setting_camara_ok">確 定</string>
+    <string name="imm_setting_camara_cancel">取 消</string>
+    <string name="imm_setting_audio_title">音訊設定</string>
+    <string name="imm_setting_audio_aec">回聲抑制:</string>
+    <string name="imm_setting_audio_aecvalue">啟用</string>
+    <string name="imm_setting_audio_algorithm">語音壓縮:</string>
+    <string name="imm_setting_hard_solution">硬體解碼:</string>
+    <string name="imm_prompt_select_fps">請選擇幅率</string>
+    <string name="imm_prompt_select_size">請選擇解析度</string>
+    <string name="imm_prompt_select_quality">請選擇品質</string>
+    <string name="imm_prompt_select_flow">請選擇流量限定值</string>
+    <string name="imm_prompt_select_hardware_expedite">是否啟用硬體加速(重新啟動)</string>
+    <string name="imm_prompt_select_algorithm">請選擇語音壓縮演算法</string>
+    <string name="imm_prompt_select_video_compact">設定視訊壓縮演算法:</string>
+    
+    <string name="imm_tv_cancel">取消</string>
+    <string name="imm_tv_ok">確定</string>
+    <string name="imm_tv_cancel_close">關閉</string>
+    <string name="imm_tv_main_quit">退        出</string>
+    
+     <string name="imm_roomtype1">視訊會議</string>
+    <string name="imm_roomtype2">直播會議</string>
+    <string name="imm_roomscope1">SD</string>
+    <string name="imm_roomscope2">HD</string>
+    
+     <string name="imm_user_check_password">驗證密碼：</string>
+    <string name="imm_user_get_password">獲取密碼</string>
+    <string name="imm_user_get_password_secs">秒重獲</string>
+    <string name="imm_user_get_password_memo">（點擊獲取密碼後驗證密碼通過手機簡訊發送）</string>
+    <string name="imm_user_check_password_error">驗證密碼錯誤</string>
+    
+    <string name="imm_opt_ok">此操作成功</string>
+    <string name="imm_opt_ok1">邀請成功</string>
+    <string name="imm_opt_no1">沒有邀請權限，請聯繫管理員</string>
+    <string name="imm_opt_no2">請新增邀請的手機號碼</string>
+    
+    <string name="imm_TAG_Position" />
+    <string name="imm_TAG_Status" />
+    
+      <!--  與會人員 會管提示 -->
+	<string name="imm_att_video_open">視訊開啟</string>
+	<string name="imm_att_video_close">視訊關閉</string>
+	<string name="imm_att_adminmode_setspeaker">主控模式下才能設定主講人</string>
+	<string name="imm_att_isadmin_setspeaker">只有主持人能設定主講人</string>
+	<string name="imm_att_setspeaker_success">設定主講人成功</string>
+	<string name="imm_att_setvoice_main">請在主畫面中按住發言鍵發言</string>
+	<string name="imm_att_voice_open">音訊開啟</string>
+	<string name="imm_att_voice_close">音訊關閉</string>
+	<string name="imm_att_isadmin_open_voice">只有主持人能開啟關閉音訊</string>
+    
+    <string name="imm_pickcolor">顏色選擇器</string>
+    <string name="imm_meeting_is_starting">正在啟動會議...</string>
+    
+    <string name="imm_room_notexist">會議不存在</string>
+    
+    
+     <string name="imm_mueu_hangup">掛斷</string>
+     <string name="imm_all_menu_voicetospeak_open">開啟語音</string>
+     <string name="imm_all_menu_voicetospeak_close">關閉語音</string>
+     <string name="imm_all_menu_fenping_text">視窗排列</string>
+     <string name="imm_all_menu_attendees_text">與會人員</string>
+     <string name="imm_all_menu_room_control_text">會議管理</string>
+     <string name="imm_all_menu_setting_text">系統設定</string>
+     <string name="imm_mueu_camara_change_text">切換鏡頭</string>
+     <string name="imm_mueu_video_controll_open_text">開啟視訊</string>
+     <string name="imm_mueu_video_controll_close_text">關閉視訊</string>
+     <string name="imm_mueu_video_model_change_sd">切換HD</string>
+     <string name="imm_mueu_video_model_change_hd">切換SD</string>
+     
+    <string name="imm_room_mode_master">主控模式</string>
+    <string name="imm_room_mode_free">討論模式</string>
+    <string name="imm_room_mode_free_no">非討論模式</string>
+    <string name="imm_room_mode_master_free">主控+討論模式</string>
+    <string name="imm_room_mode_open_master">開啟主控</string>
+    <string name="imm_room_mode_close_master">關閉主控</string>
+    <string name="imm_room_invent">會議邀請</string>
+    
+    <string name="imm_can_not_set_meet_control">無法操作會議控制管理員</string>
+     <string name="imm_tv_wait_admin_agreewith_speak">已申請舉手，請等待</string>
+     <string name="imm_tv_electronic_hands_cancle_request">已取消舉手申請</string>
+     <string name="imm_tv_electronic_hands_cancle">取消申請</string>
+     <string name="imm_tv_electronic_hands">申請發言</string>
+     <string name="imm_please_at_main_checked_btn_speaker">已經申請發言</string>
+     <string name="imm_only_compere_open_or_close_voice">只有主持人能開啟關閉聲音</string>       
+	<string name="imm_only_compere_open_or_close_video">只有主持人能開啟關閉視訊</string> 
+	<string name="imm_The_teacher_back">主持權收回</string>
+    <string name="imm_The_assistant_back">助理權收回</string>
+    <string name="imm_master_model_only_set_speaker">主控模式下才能設定主講人</string>
+    <string name="imm_set_speaker_success1">設定</string>
+    <string name="imm_set_speaker_success2">設主講人成功</string>
+    <string name="imm_off_set_speaker_success1">取消設定</string>
+    <string name="imm_off_set_speaker_success2">主講人成功</string>
+    <string name="imm_off_set_speaker_success3">資料共享權限</string>
+    <string name="imm_off_set_speaker_success4">有資料共享權限</string>
+    <string name="imm_noset_speaker_teacher">不能設定主持人或助理為發言人</string>  
+	<string name="imm_noset_speaker_teacher2">助理無法取回主持人資料分享權限</string>       
+	<string name="imm_noset_speaker_teacher3">無法設定主持人為發言人</string>       
+	<string name="imm_no_heping_change">合屏模式下不能設定影像</string> 
+	 <string name="imm_only_compere_set_speaker">只有主持人能設定主講人</string>
+	 <string name="imm_admin_allow_speak_wait">等待主持人允許發言</string>
+	 <string name="imm_my">(我)</string>
+	 <string name="imm_meeting_sign_ack">會議發起者正在點名，請點擊確認進行簽到</string>
+    
+     <string name="imm_api_method_contacts_get">imm.contacts.get</string>
+     <string name="imm_api_method_invite">imm.room.invite</string>
+  
+	<string name="imm_super_clear">UHD(</string>
+    <string name="imm_high_definition">HD(</string>
+    <string name="imm_standard_definition">SD(</string>
+	<string name="imm_network_nogood_change_video">網路下載品質變差，自動切換為較低品質的視訊</string>
+    <string name="imm_video_rcv_quality_choose">視訊接收品質選擇</string>
+    
+    <string name="imm_please_insert_the_headset">請插入耳機</string>
+    
+    <string name="imm_sdk_call_upper_interface_clsname"></string>
+    <string name="imm_video_bg_third_party">imm_background_video_on_third_party</string>
+    <string name="imm_login_meeting_bg_third_party">imm_background_login_meeting_third_party</string>
+    <string name="imm_is_hide_setting">imm_is_hide_setting_third_party</string>
+    <string name="imm_is_hide_room_invite">imm_is_hide_room_invite_third_party</string>
+    <string name="imm_call_contact_third_party">imm_call_contact_third_party_img</string>
+    <string name="imm_voice_open_third_party">imm_voice_open_third_party_string</string>
+    <string name="imm_iativemeeting_login_roomlist_third_party">imm_iativemeeting_login_roomlist_third_party</string>
+	
+    <string name="company_server_line">服務熱線：+886(0979)363-454</string>
+	<string name="company_server_tel">+886(02)22515403</string>
+	<string name="company_copyright">©iActive</string>
+
+</resources>

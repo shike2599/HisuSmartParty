@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"    
+    android:keepScreenOn="true"
+    android:orientation="vertical"
+    android:paddingBottom="10dip"
+    android:background="#282E3A"
+    android:paddingLeft="25dip"
+    android:paddingRight="25dip"
+    android:paddingTop="18dip" >
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/imm_linearLayout0"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" >
+
+            <CheckBox
+                android:id="@+id/imm_checkbox_AEC"
+                style="@style/imm_MyCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:drawableRight="@drawable/imm_checkbox"
+                android:paddingLeft="0dip"
+                android:text="@string/imm_setting_audio_aec" />
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/imm_linearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"  >
+
+            <TextView 
+                style="@style/imm_setting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收敛时间:" 
+                android:textColor="@color/imm_black"  />
+            
+            <EditText android:id="@+id/imm_et_echotime"
+                android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="80" /> 
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/imm_linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" 
+            android:gravity="center"  >
+
+            <TextView
+                android:id="@+id/imm_tv_audio_compression_algorithm"
+                style="@style/imm_setting_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="0dip"
+                android:text="@string/imm_setting_audio_algorithm" />
+
+            <Spinner
+                android:id="@+id/imm_spin_audio_algorithm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/imm_camera_setting_spin"
+                android:entries="@array/imm_setting_audio_algorithm_array"
+                android:prompt="@string/imm_prompt_select_algorithm" />
+        </TableRow>
+    </TableLayout>
+    
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" >
+        
+        <Button android:id="@+id/imm_btn_audio_apply"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content" 
+            android:text="应用"/>
+        
+        <Button
+            android:id="@+id/imm_btn_audio_cancel"
+            android:layout_width="80dip"
+            android:layout_height="wrap_content"
+            android:text="取消" />
+    </LinearLayout>
+        
+
+</LinearLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/imm_customStyleDialog_rLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="@dimen/imm_custom_dialog_large_width"
+        android:layout_height="@dimen/imm_custom_dialog_large_height"
+        android:background="@drawable/imm_bg_custom_dialog" >
+
+        <LinearLayout
+            android:id="@+id/imm_custom_title_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/imm_join_top_left"
+                android:background="@drawable/imm_top_icon_dialog" />
+
+            <TextView
+                android:id="@+id/imm_custom_title"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="@string/imm_comm_dialog_title"
+                android:textColor="@color/imm_white"
+                android:textSize="@dimen/imm_vhome_text_title_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/imm_custom_content"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/imm_custom_title_layout"
+            android:layout_marginBottom="@dimen/imm_custom_dialog_bottom_height"
+            android:background="@drawable/imm_bg_custom_dialog_message"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/imm_custom_message"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/imm_progressbar_margin_line"
+                android:layout_marginRight="@dimen/imm_progressbar_margin_line"
+                android:layout_marginTop="@dimen/imm_progressbar_margin_line"
+                android:gravity="left"
+                android:lineSpacingMultiplier="1.5"
+                android:paddingBottom="@dimen/imm_progressbar_margin_line"
+                android:paddingLeft="@dimen/imm_progressbar_margin_line"
+                android:paddingRight="@dimen/imm_progressbar_margin_line"
+                android:paddingTop="5dip"
+                android:textColor="@color/imm_gray_dialog_text"
+                android:textSize="@dimen/imm_vhome_text_body_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_alignTop="@+id/imm_bottom_btnLayout"
+            android:layout_below="@+id/imm_custom_content"
+            android:layout_marginLeft="@dimen/imm_progressbar_margin_line"
+            android:layout_marginRight="@dimen/imm_progressbar_margin_line"
+            android:background="#ffd0d0d0" />
+
+        <LinearLayout
+            android:id="@+id/imm_bottom_btnLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/imm_custom_dialog_bottom_height"
+            android:paddingTop="5dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/imm_custom_positiveButton"
+                android:layout_width="@dimen/imm_custom_dialog_btn_width"
+                android:layout_height="wrap_content"
+                android:background="@drawable/imm_btn_dialog_confirm"
+                android:gravity="center"
+                android:text="@string/imm_tv_ok"
+                android:textColor="@color/imm_color_dialog_confirm"
+                android:textSize="@dimen/imm_vhome_text_body_size" />
+
+            <Button
+                android:id="@+id/imm_custom_negativeButton"
+                android:layout_width="@dimen/imm_custom_dialog_btn_width"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:background="@drawable/imm_btn_dialog_confirm"
+                android:gravity="center"
+                android:text="@string/imm_tv_cancel"
+                android:textColor="@color/imm_color_dialog_confirm"
+                android:textSize="@dimen/imm_vhome_text_body_size" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

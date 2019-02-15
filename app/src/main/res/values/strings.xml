@@ -3,4 +3,60 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="server_update">http://test.liveuc.net/downloads/android/update_org.xml</string>
+    <string name="title_memu">标题菜单</string>
+    <string name="dy_login_btn">立即设置</string>
+    <string name="setting_version">当前版本：</string>
+    <string name="contact_confirm_btn">本地导入</string>
+    <string name="login_firmName">请输入服务器地址</string>
+    <string name="login_firm_username_hint">请输入用户账号</string>
+    <string name="login_firm_password_hint">请输入用户密码</string>
+    <string name="login_btn">立即登录</string>
+    <string name="reg_tv">注册新用户</string>
+    <string name="confirm_btn">导入</string>
+    <string name="roomtype1">视频会议</string>
+    <string name="roomtype2">直播会议</string>
+    <string name="roomscope1">标清</string>
+    <string name="roomscope2">高清</string>
+
+    <string name="login_firm_name_isnull">请输入服务器地址</string>
+    <string name="login_username_isnull">请输入用户名</string>
+    <string name="login_pass_isnull">请输入密码</string>
+    <string name="login_pass_is_only_number_or_char">密码只能为数字或字母</string>
+    <string name="login_memu_title">登录</string>
+
+    <string name="join_room_btn_title">参加会议</string>
+
+    <string name="download_title">"更新提示"</string>
+    <string name="download_msg">正在下载...</string>
+    <string name="version_msg">获取版本失败</string>
+    <string name="update_msg">获取更新信息异常</string>
+    <string name="update_error_msg">"sd卡不可用，更新失败"</string>
+    <string name="save">确定</string>
+    <string name="tv_cancel">取消</string>
+    <string name="imm_start_android_head_iactive">activemeeting</string>
+    <string name="join_otherroom_title">您还可以参加其他会议</string>
+    <string name="join_room_ts">提示：您可以使用电脑、手机、智能电视、机顶盒、硬件会议终端、电话参加会议。</string>
+
+    <!-- Refresh -->
+    <string name="p2refresh_head_load_more">加载更多</string>
+    <string name="p2refresh_end_load_more">更    多</string>
+    <string name="p2refresh_end_click_load_more">点击加载</string>
+    <string name="p2refresh_release_refresh">松开立即刷新</string>
+    <string name="p2refresh_pull_to_refresh">下拉刷新</string>
+    <string name="p2refresh_doing_head_refresh">正在刷新&#8230;</string>
+    <string name="p2refresh_doing_end_refresh">加载中&#8230;</string>
+    <string name="p2refresh_refresh_lasttime">最近更新&#160;&#058;&#160;</string>
+    <string name="tv_loading">正在努力加载,请稍后...</string>
+
+    <string name="join_room_id_value">10000</string>
+    <string name="join_room_title">您可以参加以下会议</string>
+    <string name="join_room_time_value">2014-11-15 12:30</string>
+    <string name="join_room_time_title">在线人数:</string>
+    <string name="join_room_code">编号:</string>
+    <string name="join_room_name_value">默认会议</string>
+    <string name="update_info_tip">检测到新版本：</string>
+    <string name="first_open_app">立即体验</string>
 </resources>

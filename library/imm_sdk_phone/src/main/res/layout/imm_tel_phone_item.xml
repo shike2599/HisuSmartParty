@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dip">
+    <!-- 图片和文字 -->
+    <!-- 随便放了一张图片，稍微美化一下 -->
+    <!-- <CheckBox 
+        android:id="@+id/group_list_item_check"
+       android:layout_width="wrap_content"
+       android:clickable="false"
+       android:focusable="false"
+       android:layout_height="wrap_content"/> -->
+    <TextView
+       android:id="@+id/imm_tel_phone_item_id" 
+       android:layout_width="fill_parent" 
+       android:layout_height="fill_parent"
+       android:textSize="@dimen/imm_panle_but_text_size2"
+       android:drawableRight="@drawable/imm_close_button_nor"
+       android:paddingRight="15dip"
+       android:gravity="center_vertical"/>
+</LinearLayout>

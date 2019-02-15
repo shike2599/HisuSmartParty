@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="imm_create_room_usercount">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item> 
+    </string-array>
+  <!--   <integer-array name="create_room_usercount">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        
+    </integer-array> -->
+    <string-array name="imm_create_room_time_long">
+        <item>1小时</item>
+        <item>2小时</item>
+        <item>3小时</item>
+        <item>4小时</item>
+        <item>5小时</item>
+        <item>6小时</item>
+        <item>12小时</item>
+        <item>24小时</item>
+    </string-array>
+    
+    <string-array name="imm_roomtype">
+        <item>@string/imm_roomtype1</item>
+        <item>@string/imm_roomtype2</item>
+    </string-array>
+
+    <string-array name="imm_roomstandard">
+        <item>@string/imm_roomscope1</item>
+        <item>@string/imm_roomscope2</item>
+    </string-array>
+    
+    <string-array name="imm_roomscope">
+        <item>@string/imm_roomscope1</item>
+        <item>@string/imm_roomscope2</item>
+    </string-array>
+    
+    <string-array name="imm_linenum">
+        <item>5</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
+
+    <string-array name="imm_roomusernum">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+    </string-array>
+     <string-array name = "imm_menu_item_name_array">
+		<item>"普通界面"</item>
+		<item>"我的视频"</item>  
+	    <item>"白板全屏"</item>  
+	    <item>"视频全屏"</item>  
+		<item>" 二分屏 "</item>
+		<item>" 四分屏 "</item>
+	</string-array>
+	
+<!-- 		<item>"镜头切换"</item>
+		<item>"视频设置"</item>
+	    <item>"  取消     "</item>  -->
+    
+    <string-array name="imm_camara_setting_fps_array">
+        <item>"5"</item>
+        <item>"10"</item>
+        <item>"15"</item>
+        <item>"20"</item>
+        <item>"25"</item>
+        <item>"30"</item>
+    </string-array>
+    
+    <string-array name="imm_setting_video_fps_array">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+      <!--   <item>30</item> -->
+    </string-array>
+    
+    <string-array name="imm_camara_setting_size_array">
+       <!--  <item>"160*120"</item>-->
+        <!-- <item>"320*240"</item> --> 
+        <item>"352*288"</item>
+        <item>"640*480"</item>
+    <!--     <item>"720*576"</item>
+        <item>"800*480"</item>
+        <item>"800*600"</item>
+        <item>"1024*768"</item> -->
+        <item>"1280*720"</item>
+        <!-- <item>"1920*1080"</item> -->
+    </string-array>
+         
+    <string-array name="imm_camara_setting_quality_array">
+        <item>"低"</item>
+        <item>"中"</item>
+        <item>"高"</item>
+    </string-array>    
+    
+    <string-array name="imm_camara_setting_flow_array">
+        <item>"128 kbps"</item>
+        <item>"256 kbps"</item>
+        <item>"384 kbps"</item>
+        <item>"512 kbps"</item>
+        <item>"768 kbps"</item>
+        <item>"1024 kbps"</item>
+        <item>"2048 kbps"</item>
+    </string-array>
+    
+    <!-- 语音压缩算法  -->
+    <string-array name="imm_setting_audio_algorithm_array">
+        <item>"G723.1-6.4kbps"</item>
+        <item>"iLBC-13kbps"</item>
+        <item>"CELP-24kbps"</item>
+    </string-array>
+     
+    <!-- 视频压缩算法  -->
+    <string-array name="imm_setting_video_compact_array">
+        <item>"低质量压缩"</item>
+        <item>"高质量压缩"</item>
+    </string-array>
+    <string-array name="imm_setting_video_hardware_expedite_array">
+        <item>"关闭"</item>
+        <item>"启用"</item>
+    </string-array>
+    <string-array name="imm_setting_checkbox_AEC">
+        <item>开启</item>
+        <item>关闭</item>
+    </string-array>
+    <string-array name="imm_setting_show_video">
+        <item>"显示"</item>
+        <item>"隐藏"</item>
+    </string-array>
+	 <string-array name="imm_camara_setting_quality_array_list">
+        <item>"标清"</item>
+        <item>"高清"</item>
+    </string-array>   
+    <integer-array name="imm_ewb_pen_colors">
+        <item>@color/imm_ewb_color_blue</item>
+        <item>@color/imm_ewb_color_black</item>
+        <item>@color/imm_ewb_color_gray</item>
+        <item>@color/imm_ewb_color_red</item>
+        <item>@color/imm_ewb_color_orange</item>
+        <item>@color/imm_ewb_color_bulelight</item>
+        <item>@color/imm_ewb_color_yellow</item>
+        <item>@color/imm_ewb_color_green</item>
+        <item>@color/imm_ewb_color_purple</item>
+    </integer-array> 
+    
+</resources>

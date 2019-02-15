@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/imm_dialog_style" >
+
+    <FrameLayout
+        android:id="@+id/title_bar"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/imm_mueu_dialog_title_height"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|left"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="20dp"
+            android:src="@drawable/imm_come_back_bule" />
+
+        <TextView
+            android:id="@+id/imm_tvCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/imm_doc_search_title"
+            android:textColor="@color/imm_gray_dialog_text"
+            android:textSize="@dimen/imm_panle_but_text_size3" />
+
+        <FrameLayout
+            android:id="@+id/upload_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|right"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingRight="10dp"
+                android:text="@string/imm_doc_search_add"
+                android:textColor="@color/imm_blue"
+                android:textSize="@dimen/imm_panle_but_text_size3" />
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|right"
+                android:layout_marginBottom="5dp"
+                android:paddingRight="3dp"
+                android:id="@+id/select_point_layout"
+                android:visibility="gone"
+                 >
+
+                <ImageView
+                    android:layout_width="11dp"
+                    android:layout_height="11dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:src="@drawable/imm_circle" />
+
+                <TextView
+                    android:id="@+id/select_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="5"
+                    android:textColor="@color/imm_white"
+                    android:textSize="@dimen/imm_but_top_size1" />
+            </FrameLayout>
+            
+        </FrameLayout>
+         <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="5dp"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:scaleType="fitXY"
+            android:src="@drawable/imm_bk_apart" />
+    </FrameLayout>
+
+    <ListView
+        android:id="@+id/document_search_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_bar"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/devide_line"
+        android:dividerHeight="0.5dp"
+        android:fadingEdgeLength="0dp"
+        android:listSelector="#00000000" />
+
+    <com.wdliveuc.android.util.LoadingView
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</RelativeLayout>
