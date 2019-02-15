@@ -3,8 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="48dp"
     android:orientation="horizontal"
-    android:gravity="center"
-    android:background="@color/gray">
+    android:gravity="center">
     <include
         android:id="@+id/theEndView"
         layout="@layout/layout_irecyclerview_load_more_footer_the_end_view" />
