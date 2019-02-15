@@ -14,14 +14,14 @@
     <TextView
         android:id="@+id/item_title"
         android:text="本职工作"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color"
         android:textSize="13sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/item_desc"
         android:text="规划学习,有的放矢"
-        android:textColor="@color/gray_deep"
+        android:textColor="@color/text_color"
         android:textSize="12sp"
         android:paddingBottom="15dp"
         android:marqueeRepeatLimit="marquee_forever"

@@ -6,4 +6,5 @@
     android:layout_height="36dp"
     android:gravity="center"
     android:layout_gravity="center"
-    android:text="NETWORK ERROR, TRY AGAIN" />
+    android:text="NETWORK ERROR, TRY AGAIN"
+    android:background="@color/transparent"/>

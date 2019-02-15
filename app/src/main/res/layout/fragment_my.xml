@@ -51,7 +51,7 @@
             android:layout_marginTop="25dp"
             android:layout_toRightOf="@+id/img_my_head"
             android:text="牛正星"
-            android:textColor="@color/black"
+            android:textColor="@color/text_color"
             android:textSize="15sp" />
 
         <TextView
@@ -72,6 +72,7 @@
             android:layout_below="@+id/tv_my_name"
             android:layout_toRightOf="@id/img_my_head"
             android:layout_alignLeft="@id/tv_my_name"
+            android:textColor="@color/text_color"
             android:text="陕西 西安"/>
         <ImageView
             android:id="@+id/img_my_dang_rank"
@@ -90,6 +91,7 @@
             android:layout_toRightOf="@+id/img_my_dang_rank"
             android:layout_alignTop="@+id/img_my_dang_rank"
             android:text="党员排名188个"
+            android:textColor="@color/text_color"
             android:textSize="12sp"/>
         <ImageView
             android:id="@+id/img_my_part_rank"
@@ -108,6 +110,7 @@
             android:layout_toRightOf="@+id/img_my_part_rank"
             android:layout_alignTop="@+id/img_my_part_rank"
             android:text="支部排名99个"
+            android:textColor="@color/text_color"
             android:textSize="12sp"/>
     </RelativeLayout>
 
