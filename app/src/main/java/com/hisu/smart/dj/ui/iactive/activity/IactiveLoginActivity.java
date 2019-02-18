@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.hisu.smart.dj.ui.iactive.utils.ConfigService;
 import com.hisu.smart.dj.ui.iactive.utils.StartMeetingUtils;
 import com.hisu.smart.dj.ui.iactive.utils.StringUtils;
 import com.hisu.smart.dj.ui.iactive.view.TitleBarView;
+import com.jaydenxiao.common.commonutils.StatusBarUtil;
 import com.wdliveuc.android.ActiveMeeting7.ActiveMeeting7Activity;
 import com.wdliveuc.android.ActiveMeeting7.BaseActivity;
 import com.wdliveuc.android.ActiveMeeting7.ClassList.ClassInfo;
@@ -55,7 +57,8 @@ public class IactiveLoginActivity extends BaseActivity {
 	public static String iac_ser_ip="";
 	public static String iac_username="";
 	public static String iac_password="";
-
+    private ImageView back_img;
+    private TextView title_text;
 	public static void startAction(Activity activity){
 		Intent intent = new Intent(activity, IactiveLoginActivity.class);
 		activity.startActivity(intent);
@@ -125,6 +128,9 @@ public class IactiveLoginActivity extends BaseActivity {
 //	        intent.setData(uri);
 //	        startActivityForResult(intent, 144);
 			break;
+		case R.id.back_imageView:
+			 IactiveLoginActivity.this.finish();
+				break;
 		}
 	}
 	private ProgressDialog m_progressDialog;
@@ -143,12 +149,15 @@ public class IactiveLoginActivity extends BaseActivity {
 
 	@Override
 	protected void findViewById() {
+		StatusBarUtil.setStatusBarMode(this, true, com.jaydenxiao.common.R.color.white);
 		mLogin = (Button) findViewById(R.id.firm_login);
 		et_firm_name = (EditText) findViewById(R.id.firmName);
 		et_username = (EditText) findViewById(R.id.firmUsername);
 		et_password = (EditText) findViewById(R.id.firmPassword);
 		mTitleBarView = (TitleBarView)findViewById(R.id.title_bar);
 		tv_login_version=(TextView) findViewById(R.id.tv_login_version);
+		back_img = findViewById(R.id.back_imageView);
+		title_text = findViewById(R.id.title_TextView);
 		initTitle();
 		configEntity = ConfigService.LoadConfig(this);
 		configEntity.isLiveUC = false;
@@ -224,14 +233,16 @@ public class IactiveLoginActivity extends BaseActivity {
 	protected void setListener() {
 
 		mLogin.setOnClickListener(this);
+		back_img.setOnClickListener(this);
 			
 	}
 
 
 	
 	private void initTitle(){
-		mTitleBarView.setVisibility(View.VISIBLE);
-		mTitleBarView.setCommonTitle(View.VISIBLE);
+		title_text.setText("视频会议系统");
+//		mTitleBarView.setVisibility(View.VISIBLE);
+//		mTitleBarView.setCommonTitle(View.VISIBLE);
 		mTitleBarView.setTitleText(R.string.login_memu_title);
 		mTitleBarView.setComeBackOnclickListener(comeBackClickListener);
 	}
