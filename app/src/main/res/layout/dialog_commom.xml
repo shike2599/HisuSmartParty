@@ -53,6 +53,7 @@
             android:textColor="@color/font_common_2"/>
 
         <View
+            android:id="@+id/common_segmentation_line"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             android:background="@color/commom_background"/>

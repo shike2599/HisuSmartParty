@@ -23,7 +23,8 @@ public class CommomDialog extends Dialog implements View.OnClickListener{
     private String positiveName;
     private String negativeName;
     private String title;
-
+    private View centen_line;
+    private boolean isShowCancel;
     public CommomDialog(Context context) {
         super(context);
         this.mContext = context;
@@ -78,7 +79,19 @@ public class CommomDialog extends Dialog implements View.OnClickListener{
         }
         return this;
     }
-
+   public CommomDialog isShowCancelBtn(boolean isshow){
+        this.isShowCancel = isshow;
+        if(cancelTxt!=null){
+            if(isshow){
+                cancelTxt.setVisibility(View.VISIBLE);
+                centen_line.setVisibility(View.VISIBLE);
+            }else{
+                cancelTxt.setVisibility(View.GONE);
+                centen_line.setVisibility(View.GONE);
+            }
+        }
+        return this;
+   }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +101,7 @@ public class CommomDialog extends Dialog implements View.OnClickListener{
     }
 
     private void initView(){
+        centen_line = findViewById(R.id.common_segmentation_line);
         contentTxt = (TextView)findViewById(R.id.content);
         titleTxt = (TextView)findViewById(R.id.title);
         submitTxt = (TextView)findViewById(R.id.submit);
@@ -107,7 +121,13 @@ public class CommomDialog extends Dialog implements View.OnClickListener{
         if(!TextUtils.isEmpty(title)){
             titleTxt.setText(title);
         }
-
+        if(isShowCancel){
+            cancelTxt.setVisibility(View.VISIBLE);
+            centen_line.setVisibility(View.VISIBLE);
+        }else{
+            cancelTxt.setVisibility(View.GONE);
+            centen_line.setVisibility(View.GONE);
+        }
     }
 
     @Override

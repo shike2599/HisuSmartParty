@@ -39,6 +39,9 @@ public class AppConstant {
     public static final String  SHOW_TITLE = "title";
     public static final String  FOLLOW_ID = "FollowId";
     public static final String  UPLOAD_TITLE = "upload_title";
+    public static final String  ADD_COLLECTION_TAG = "add_collection";
+    public static final String  QUERY_COLLECTION_TAG = "query_collection";
+
 //    public static  boolean  isExitLogin = false;
 
 }

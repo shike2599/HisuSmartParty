@@ -1,9 +1,11 @@
 package com.hisu.smart.dj.ui.news.presenter;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.NewsInfoResponse;
 import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.news.contract.NewsInfoContract;
 import com.hisu.smart.dj.ui.study.contract.StudyPlanContract;
 import com.jaydenxiao.common.baserx.RxSubscriber;
@@ -115,10 +117,11 @@ public class NewInfoPresenter extends NewsInfoContract.Presenter {
                     }
                 }));
     }
+    //添加收藏
     @Override
     public void addCollectionDataRequest(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
         mRxManage.add(mModel.addCollectionData(id,partyBranchId,resType,resId)
-            .subscribe(new RxSubscriber<NotingResponse>(mContext,false) {
+            .subscribe(new RxSubscriber<UserCollectionEntity>(mContext,false) {
                 @Override
                 public void onStart() {
                     super.onStart();
@@ -126,9 +129,9 @@ public class NewInfoPresenter extends NewsInfoContract.Presenter {
                 }
 
                 @Override
-                protected void _onNext(NotingResponse notingResponse) {
+                protected void _onNext(UserCollectionEntity userCollectionEntity) {
                     mView.stopLoading("collection");
-                    mView.returnCollectionData(notingResponse);
+                    mView.returnCollectionData(userCollectionEntity,AppConstant.ADD_COLLECTION_TAG);
                 }
 
                 @Override
@@ -137,4 +140,50 @@ public class NewInfoPresenter extends NewsInfoContract.Presenter {
                 }
             }));
 }
+    //取消收藏
+    @Override
+    public void cancelCollectionRequest(Integer id) {
+        mRxManage.add(mModel.cancelCollection(id)
+                .subscribe(new RxSubscriber<NotingResponse>(mContext,false) {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        mView.showLoading(mContext.getString(R.string.loading));
+                    }
+
+                    @Override
+                    protected void _onNext(NotingResponse notingResponse) {
+                        mView.stopLoading("collection");
+                        mView.returnCancelCollectionData(notingResponse);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.showErrorTip(message,"collection");
+                    }
+                }));
+    }
+    //收藏状态
+    @Override
+    public void getUserCollectionDataRequest(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
+        mRxManage.add(mModel.getUserCollectionData(id,partyBranchId,resType,resId)
+                .subscribe(new RxSubscriber<UserCollectionEntity>(mContext,false) {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        mView.showLoading(mContext.getString(R.string.loading));
+                    }
+
+                    @Override
+                    protected void _onNext(UserCollectionEntity userCollectionEntity) {
+                        mView.stopLoading("UserCollection");
+                        mView.returnCollectionData(userCollectionEntity, AppConstant.QUERY_COLLECTION_TAG);
+                    }
+
+                    @Override
+                    protected void _onError(String message) {
+                        mView.showErrorTip(message,"UserCollection");
+                    }
+                }));
+    }
 }

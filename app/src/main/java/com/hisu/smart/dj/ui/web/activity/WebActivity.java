@@ -25,6 +25,7 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.CookieEntity;
 import com.hisu.smart.dj.entity.NewsInfoResponse;
 import com.hisu.smart.dj.entity.NotingResponse;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.news.contract.NewsInfoContract;
 import com.hisu.smart.dj.ui.news.model.NewsInfoModel;
 import com.hisu.smart.dj.ui.news.presenter.NewInfoPresenter;
@@ -86,6 +87,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
     private int user_id;
     private int partyMemberId;
     private int resType;
+    private int collectSeri = 0; //收藏序号
     @Override
     public int getLayoutId() {
         return R.layout.activity_web;
@@ -132,6 +134,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
 
        if(newsID!=-1){
            title_textView.setVisibility(View.INVISIBLE);
+           LoadingDialog.showDialogForLoading(this,"请稍候！",false);
            if(jump_tag!=null){
                if(jump_tag.equals("践行")){
                    mPresenter.getFollowInfoDataRequest(newsID);
@@ -145,8 +148,8 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
            }else{
                mPresenter.getNewsInfoDataRequest(newsID);
            }
-
-
+           //查询是否收藏
+           mPresenter.getUserCollectionDataRequest(user_id,partyMemberId,resType,newsID);
        }else{
            show_news_layout.setVisibility(View.GONE);
            title_textView.setText(title_str);
@@ -327,16 +330,18 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
                 break;
                 //收藏
             case R.id.collection_TextView:
-                if(isNeedSign){
+                if(collectSeri!=0){
                     //已经收藏，取消收藏
-                    collectToast.setContext("已取消收藏!");
-                    collectToast.setIsCollect(true);
-                    collectToast.builder().show();
-                    collection_img.setBackgroundResource(R.mipmap.links_icon);
-                    news_collection_textView.setText("收藏");
-                    isNeedSign = false;
+//                    collectToast.setContext("已取消收藏!");
+//                    collectToast.setIsCollect(true);
+//                    collectToast.builder().show();
+//                    collection_img.setBackgroundResource(R.mipmap.links_icon);
+//                    news_collection_textView.setText("收藏");
+                    mPresenter.cancelCollectionRequest(collectSeri);
+                    Log.d("isCollectionTAG","===已经收藏，取消收藏==");
                 }else{
                     //未收藏准备收藏
+                    Log.d("isCollectionTAG","===未收藏准备收藏==");
                     mPresenter.addCollectionDataRequest(user_id,partyMemberId,resType,newsID);
 //                    collectToast.setContext("收藏成功!");
 //                    collectToast.setIsCollect(true);
@@ -406,9 +411,10 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
         }
         return super.onKeyDown(keyCode, event);
     }
-
+    //新闻详情返回数据
     @Override
     public void returnNewsInfoData(NewsInfoResponse newsInfoResponse) {
+        LoadingDialog.cancelDialogForLoading();
         Log.d("WebActivity","newsInfoResponse---=="+newsInfoResponse);
         if(newsInfoResponse.getData()!=null){
             NewsInfoResponse.DataBean dataBean = newsInfoResponse.getData();
@@ -417,43 +423,69 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
             String title = dataBean.getName();
             show_news_title.setText(title);
             isNeedSign = dataBean.isIsNeedSign();
-            if(isNeedSign){
-                collection_img.setBackgroundResource(R.mipmap.pre_likes);
-                news_collection_textView.setText("取消收藏");
-            }else{
-                collection_img.setBackgroundResource(R.mipmap.links_icon);
-                news_collection_textView.setText("收藏");
-            }
             String webData = dataBean.getContent();
             startLoad(true,webData);
         }
     }
-    //添加收藏
+    //添加收藏/查询序号
     @Override
-    public void returnCollectionData(NotingResponse notingResponse) {
+    public void returnCollectionData(UserCollectionEntity userCollectionEntity,String tag) {
+        Log.d("isCollectionTAG","===returnCollectionData=tag="+tag);
+
+        Log.d("isCollectionTAG","===userCollectionEntity==DATA=="+userCollectionEntity.getData());
+        //查询收藏接口
+        if(tag.equals(AppConstant.QUERY_COLLECTION_TAG)){
+            if(userCollectionEntity.getResultCode() == 200){
+                collectSeri = userCollectionEntity.getData();
+                if(collectSeri !=0){
+                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
+                    news_collection_textView.setText("取消收藏");
+                }else{
+                    collection_img.setBackgroundResource(R.mipmap.links_icon);
+                    news_collection_textView.setText("收藏");
+                }
+            }
+        }
+        //添加收藏
+        if(tag.equals(AppConstant.ADD_COLLECTION_TAG)){
+            if(userCollectionEntity.getResultCode() == 200){
+                collectSeri = userCollectionEntity.getData();
+                collectToast.setContext("收藏成功!");
+                collectToast.setIsCollect(true);
+                collectToast.builder().show();
+                collection_img.setBackgroundResource(R.mipmap.pre_likes);
+                news_collection_textView.setText("取消收藏");
+            }else if(userCollectionEntity.getResultCode() == 1001){
+                collectToast.setContext("您已收藏该新闻");
+                collectToast.setIsCollect(false);
+                collectToast.builder().show();
+            }
+        }
+
+
+    }
+    //取消收藏返回
+    @Override
+    public void returnCancelCollectionData(NotingResponse notingResponse) {
         if(notingResponse.getResultCode() == 200){
-            collectToast.setContext("收藏成功!");
+            collectToast.setContext("您已取消该收藏!");
             collectToast.setIsCollect(true);
             collectToast.builder().show();
-            collection_img.setBackgroundResource(R.mipmap.pre_likes);
-            news_collection_textView.setText("取消收藏");
-            isNeedSign = true;
-        }else if(notingResponse.getResultCode() == 1001){
-            collectToast.setContext("您已收藏该新闻");
-            collectToast.setIsCollect(false);
-            collectToast.builder().show();
+            collection_img.setBackgroundResource(R.mipmap.links_icon);
+            news_collection_textView.setText("收藏");
+            collectSeri = 0;
         }
     }
 
     @Override
     public void showLoading(String tag) {
-        LoadingDialog.showDialogForLoading(this,"请稍候！",false);
+//        LoadingDialog.showDialogForLoading(this,"请稍候！",false);
     }
 
     @Override
     public void stopLoading(String tag) {
         Log.d("WebActivity","---stopLoading---==");
-      LoadingDialog.cancelDialogForLoading();
+//      LoadingDialog.cancelDialogForLoading();
     }
 
     @Override

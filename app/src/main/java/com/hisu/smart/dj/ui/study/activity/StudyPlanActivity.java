@@ -238,15 +238,16 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
                 +"课时/计划学习"+expert_planTotalHours+"课时");
         expert_progress.setMax(expert_planTotalHours);
         expert_progress.setProgress((int)expert_totalHours,true);
-
+        //计算百分比
         double learing_state_expert = expert_totalHours/expert_planTotalHours;
-
         String learning_state_str = null;
+        //格式化数字
         BigDecimal bigDecimal = new BigDecimal(learing_state_expert);
         learing_state_expert = bigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
 
         if(learing_state_expert<=1){
-            learning_state_str = learing_state_expert * 100 + "%";
+//            learning_state_str = learing_state_expert * 100 + "%";
+            learning_state_str = roundTwoNumber(learing_state_expert * 100);
         }else{
             learning_state_str = "100%";
         }
@@ -259,20 +260,30 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
                 +"课时/计划学习"+toutine_planTotalHours+"课时");
         routine_progress.setMax(toutine_planTotalHours);
         routine_progress.setProgress((int)routine_totalHours,true);
-
+        //计算百分比
         double learing_state_routine = routine_totalHours/toutine_planTotalHours;
         String learning_state_str = null;
-
+        //格式化数字
         BigDecimal bigDecimal = new BigDecimal(learing_state_routine);
         learing_state_routine = bigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
         if(learing_state_routine<=1){
-            learning_state_str = learing_state_routine*100 + "%";
+//            learning_state_str = learing_state_routine*100 + "%";
+            learning_state_str = roundTwoNumber(learing_state_routine * 100);
         }else{
             learning_state_str = "100%";
         }
         show_routine_state.setText("已学习"+learning_state_str);
     }
-
+    //保留两位小数
+    private String roundTwoNumber(double number){
+        String num_str = String.valueOf(number);
+        if(num_str.length()>5){
+            num_str = num_str.substring(0,5);
+        }else if(num_str.length()==4){
+            num_str = num_str+"0";
+        }
+        return num_str+"%";
+    }
     //处理服务器返回的数据
     private void setReturnData(StudyPlanRespone studyPlanRespone,Integer timeType){
         String code = String.valueOf(studyPlanRespone.getResultCode());

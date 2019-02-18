@@ -79,11 +79,11 @@ public class AppConfig  {
     public void setUserNameAndPassWordString(String key, String value) {
         this.mPreferences_user.edit().putString(key, value).apply();
     }
-    public void clearAll() {
-
-        SharedPreferences.Editor editor = this.mPreferences.edit();
-        editor.clear();
-        editor.apply();
+    public void clearPassWord(String key) {
+        this.mPreferences.edit().remove(key).apply();
+//        SharedPreferences.Editor editor = this.mPreferences.edit();
+//        editor.clear();
+//        editor.apply();
     }
     //获取所有的账号密码
     public List<String> getAllData() {

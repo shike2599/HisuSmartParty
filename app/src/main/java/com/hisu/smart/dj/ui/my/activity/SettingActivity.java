@@ -3,6 +3,7 @@ package com.hisu.smart.dj.ui.my.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.login.activity.LoginActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.ProfileEdit;
@@ -84,7 +86,8 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 AboutActivity.startAction(this);
                 break;
             case R.id.edit_load_Btn:
-                AppConfig.getInstance().clearAll();
+                //删除密码
+                AppConfig.getInstance().clearPassWord(AppConstant.USER_PASSWORD);
                 Intent intent = new Intent();
                 intent.setClass(SettingActivity.this,LoginActivity.class);
                 startActivity(intent);

@@ -5,6 +5,7 @@ import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.NewsInfoResponse;
 import com.hisu.smart.dj.entity.NotingResponse;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.news.contract.NewsInfoContract;
 import com.jaydenxiao.common.baserx.RxSchedulers;
 
@@ -70,9 +71,22 @@ public class NewsInfoModel implements NewsInfoContract.Model {
     }
     //添加收藏
     @Override
-    public Observable<NotingResponse> addCollectionData(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
+    public Observable<UserCollectionEntity> addCollectionData(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
         return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
                 .addCollection(id,partyBranchId,resType,resId)
+                .map(new Func1<UserCollectionEntity, UserCollectionEntity>() {
+                    @Override
+                    public UserCollectionEntity call(UserCollectionEntity userCollectionEntity) {
+                        return userCollectionEntity;
+                    }
+                })
+                .compose(RxSchedulers.<UserCollectionEntity>io_main());
+    }
+    //取消收藏
+    @Override
+    public Observable<NotingResponse> cancelCollection(Integer id) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .cancelCollection(id)
                 .map(new Func1<NotingResponse, NotingResponse>() {
                     @Override
                     public NotingResponse call(NotingResponse notingResponse) {
@@ -80,5 +94,19 @@ public class NewsInfoModel implements NewsInfoContract.Model {
                     }
                 })
                 .compose(RxSchedulers.<NotingResponse>io_main());
+    }
+
+    //查询收藏状态
+    @Override
+    public Observable<UserCollectionEntity> getUserCollectionData(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .getUserCollection(id,partyBranchId,resType,resId)
+                .map(new Func1<UserCollectionEntity, UserCollectionEntity>() {
+                    @Override
+                    public UserCollectionEntity call(UserCollectionEntity userCollectionEntity) {
+                        return userCollectionEntity;
+                    }
+                })
+                .compose(RxSchedulers.<UserCollectionEntity>io_main());
     }
 }

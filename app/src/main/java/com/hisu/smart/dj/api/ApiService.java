@@ -13,6 +13,7 @@ import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
 import java.util.List;
@@ -345,13 +346,36 @@ public interface ApiService {
      * 5.4. 收藏资讯内容（手机端
      * @param userId   用户ID
      * @param partyBranchId   课程类型,0：组织生活学习活动（资讯），1：常规学习活动，2：专题学习活动
-     * @param resType   发布时间
+     * @param resType   课程类型,0：组织生活学习活动（资讯），1：常规学习活动，2：专题学习活动
      * @param resId   课程序号
      * @return
      */
     @GET("party-app-education-front/res/write/addCollection")
-    Observable<NotingResponse> addCollection(@Query("userId") Integer userId,
+    Observable<UserCollectionEntity> addCollection(@Query("userId") Integer userId,
                                                   @Query("partyMemberId") Integer  partyBranchId,
                                                   @Query("resType") Integer  resType,
                                                   @Query("resId") Integer  resId);
+
+    /**
+     * 5.7.取消收藏资讯（手机端）
+     * @param id   用户ID
+     * @return
+     */
+    @GET("party-app-education-front/res/write/cancelCollection")
+    Observable<NotingResponse> cancelCollection(@Query("id") Integer id);
+
+    /**
+     * 资讯收藏状态查询（手机端））
+     * @param userId   用户ID
+     * @param partyBranchId   课程类型,0：组织生活学习活动（资讯），1：常规学习活动，2：专题学习活动
+     * @param resType   课程类型,0：组织生活学习活动（资讯），1：常规学习活动，2：专题学习活动
+     * @param resId   课程序号
+     * @return
+     */
+    @GET("party-app-education-front/res/readonly/getUserCollection")
+    Observable<UserCollectionEntity> getUserCollection(@Query("userId") Integer userId,
+                                                       @Query("partyMemberId") Integer  partyBranchId,
+                                                       @Query("resType") Integer  resType,
+                                                       @Query("resId") Integer  resId);
+
 }

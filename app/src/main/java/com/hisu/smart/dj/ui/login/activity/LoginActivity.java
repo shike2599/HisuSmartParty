@@ -75,13 +75,15 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
             @Override
             public void onClick(Dialog dialog, boolean confirm) {
                     dialog.dismiss();
+                LoadingDialog.cancelDialogForLoading();
             }
         });
+        commomDialog.isShowCancelBtn(false);
         mListPop = new ListPopupWindow(this);
         lists = AppConfig.getInstance().getAllData();
         if(lists!=null&&lists.size()>0){
-            save_username = lists.get(0);
-            save_password = AppConfig.getInstance().getUserNameAndPassWordString(lists.get(0),"");
+            save_username = AppConfig.getInstance().getString(AppConstant.USER_NAME,"");
+            save_password = AppConfig.getInstance().getUserNameAndPassWordString(save_username,"");
             mListPop.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, lists));
 
         }
@@ -121,7 +123,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
             }
         });
 
-        if(!TextUtils.isEmpty(username)){
+        if(!TextUtils.isEmpty(password)){
             MainActivity.startAction(LoginActivity.this);
             finish();
         }
@@ -230,7 +232,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         }else{
 //            ToastUitl.show(loginResponse.getResultDesc(),Toast.LENGTH_SHORT);
             commomDialog.setTitle("提示");
-            commomDialog.setContent(loginResponse.getResultDesc());
+            commomDialog.setContent("用户名和密码错误，请重新输入!");
             commomDialog.show();
         }
     }
