@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/imm_join_main_width1"
-    android:layout_height="@dimen/imm_join_main_height1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/imm_bk_dlg" >
 
     <LinearLayout
@@ -67,13 +67,13 @@
         android:layout_marginLeft="@dimen/imm_join_top_text"
         android:gravity="center"
         android:orientation="horizontal" >
-<LinearLayout  android:layout_width="fill_parent"
+	<LinearLayout  android:layout_width="fill_parent"
             android:layout_weight="4"
             android:layout_height="fill_parent"
             android:orientation="horizontal"
             android:layout_marginRight="@dimen/imm_join_top_left"
             android:gravity="center">
-<Button
+	<Button
             android:id="@+id/imm_but_join_ok"
             style="@style/imm_panel_style"
             android:layout_marginRight="@dimen/imm_panle_but_size"

@@ -27,17 +27,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/vertical_margin"
-    android:paddingLeft="@dimen/horizontal_margin"
-    android:paddingRight="@dimen/horizontal_margin"
-    android:paddingTop="@dimen/vertical_margin"
+    android:paddingBottom="@dimen/imm_vertical_margin"
+    android:paddingLeft="@dimen/imm_horizontal_margin"
+    android:paddingRight="@dimen/imm_horizontal_margin"
+    android:paddingTop="@dimen/imm_vertical_margin"
     tools:context="com.serenegiant.usb.CameraDialog" >
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/camera" />
+        android:text="@string/imm_camera" />
 
     <Spinner
         android:id="@+id/spinner1"
@@ -48,6 +48,6 @@
         android:id="@id/android:empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/no_device" />
+        android:text="@string/imm_no_device" />
 
 </LinearLayout>

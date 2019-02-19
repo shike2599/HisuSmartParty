@@ -29,8 +29,8 @@
 	<color name="imm_full_transparent">#00000000</color>
 	<color name="imm_setting_item_select">#00A7FE</color>
 	<color name="imm_blue">#00A7FE</color>
-	<color name="body_bg_color">#F3F3F3</color>
-	<color name="devide_line">#D9D9D9</color>
+	<color name="imm_body_bg_color">#F3F3F3</color>
+	<color name="imm_devide_line">#D9D9D9</color>
 	
 	<color name="imm_ewb_color_blue">#0000ff</color>
 	<color name="imm_ewb_color_black">#000000</color>

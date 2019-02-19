@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#282E3A"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/imm_but_top_size"
+        android:layout_marginRight="@dimen/imm_but_top_size" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/imm_setpage_margin"
+                android:text="@string/imm_login_huikongnew_meeting"
+                android:textColor="@color/imm_white"
+                android:layout_marginTop="10dp"
+                android:textSize="@dimen/imm_panle_but_text_size3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="@dimen/imm_setpage_margin" >
+
+                <Button
+                    android:id="@+id/joinnewmeeting"
+                    style="@style/imm_panel_text_style8"
+                    android:layout_marginBottom="@dimen/imm_join_top_left"
+                    android:layout_marginLeft="@dimen/imm_main_ll_left"
+                    android:layout_marginRight="@dimen/imm_main_ll_left"
+                    android:layout_marginTop="@dimen/imm_join_top_left"
+                    android:text="@string/imm_login_new_meeting"
+                    android:textSize="@dimen/imm_panle_but_text_size3" />
+
+                <Button
+                    android:id="@+id/nojoinnewmeeting"
+                    style="@style/imm_panel_text_style8"
+                    android:layout_marginBottom="@dimen/imm_join_top_left"
+                    android:layout_marginLeft="@dimen/imm_main_ll_left"
+                    android:layout_marginRight="@dimen/imm_main_ll_left"
+                    android:layout_marginTop="@dimen/imm_join_top_left"
+                    android:text="@string/imm_nologin_new_meeting"
+                    android:textSize="@dimen/imm_panle_but_text_size3" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -4,14 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@drawable/imm_login_back"
      >
 
 
-        <!-- <ProgressBar
+        <ProgressBar
             android:id="@+id/imm_progressBar1"
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" /> -->
+            android:layout_height="wrap_content"
+            />
             
             <!--ImageView
         android:id="@+id/imageView1"

@@ -1,4 +1,17 @@
 <resources>
+    
+    <string name="imm_app_name">即会通视频会议</string>  
+    <string name="imm_about_version_generatedtime">2014.01.16</string> 
+    <string name="imm_server_update">http://www.51kaihui.com/downloads/android/update.xml</string>
+    <!-- 默认服务器名称 -->
+    <string name="imm_login_serverip_default">www.iactive.com.cn</string>
+    <string name="imm_app_type">0</string>
+    <string name="imm_note_path_default">/mnt/sdcard/note.txt</string>
+    <!-- 默认登录界面是否是运营平台 -->
+    <bool name="imm_isLiveUC">true</bool> 
+    <string name="imm_login_serverport_default">11010</string>
+    <string name="imm_server_report_error">./report/</string>
+    
   <string name="imm_app_host">http://imm.liveuc.net/api</string>
   <string name="imm_app_host1">http://imm2.liveuc.net/api</string>
   <!--  <string name="imm_app_host">http://test2.liveuc.net/ucapi/api</string>
@@ -125,6 +138,7 @@
     <string name="imm_setting_audio_aecvalue">启用</string>
     <string name="imm_setting_audio_algorithm">语音压缩</string>
     <string name="imm_setting_hard_solution">硬件解码</string>
+    <string name="imm_setting_opengl">OpenGL绘制</string>
     <string name="imm_prompt_select_fps">请选择帧率</string>
     <string name="imm_prompt_select_size">请选择分辨率</string>
     <string name="imm_prompt_select_quality">请选择质量</string>
@@ -186,7 +200,7 @@
      <string name="imm_mueu_video_controll_open_text">打开视频</string>
      <string name="imm_mueu_video_controll_close_text">关闭视频</string>
      <string name="imm_mueu_video_model_change_sd">切换高清</string>
-     <string name="imm_mueu_video_model_change_hd">切换标清</string>
+     <string name="imm_mueu_video_model_change_hd">切换模板</string>
      
     <string name="imm_room_mode_master">主控模式</string>
     <string name="imm_room_mode_free">讨论模式</string>
@@ -254,25 +268,41 @@
     <string name="imm_voice_open_third_party">imm_voice_open_third_party_string</string>
     <string name="imm_iativemeeting_login_roomlist_third_party">imm_iativemeeting_login_roomlist_third_party</string>
 	
-    <string name="company_server_line">服务热线：400-708-2211</string>
-	<string name="company_server_tel">4007082211</string>
-	<string name="company_copyright">Copyright©北京网动网络科技股份有限公司</string>
-	<string name="usbname">usb摄像机</string>
+    <string name="imm_company_server_line">服务热线：400-728-2338</string>
+	<string name="imm_company_server_tel">4007282338</string>
+	<string name="imm_company_copyright">Copyright©北京网动网络科技股份有限公司</string>
+	<string name="imm_usbname">usb摄像机</string>
 	
 	<string name="imm_comm_input_phonenum">请输入正确的手机号码</string>
 	<string name="imm_comm_input_phoneagain">请勿重复添加</string>
 	
 	
-	<string name="select">选择USB网络摄像头</string>
-    <string name="camera">摄像头</string>
-    <string name="refresh">刷新</string>
-    <string name="no_device">没有发现USB相机</string>
-    <string name="permission_title">许可标题</string>
-    <string name="permission_ext_storage">许可扩展存储</string>
-    <string name="permission_network">允许网络</string>
-    <string name="permission_ext_storage_request">扩展存储请求许可</string>
-    <string name="permission_network_request">请求允许网络</string>
-    <string name="permission_audio">允许声音</string>
-    <string name="permission_camera_request">请求允许摄像头</string>
-    <string name="permission_audio_recording_request">请求许可录音</string>
+	<string name="imm_select">选择USB网络摄像头</string>
+    <string name="imm_camera">摄像头</string>
+    <string name="imm_refresh">刷新</string>
+    <string name="imm_no_device">没有发现USB相机</string>
+    <string name="imm_permission_title">许可标题</string>
+    <string name="imm_permission_ext_storage">许可扩展存储</string>
+    <string name="imm_permission_network">允许网络</string>
+    <string name="imm_permission_ext_storage_request">扩展存储请求许可</string>
+    <string name="imm_permission_network_request">请求允许网络</string>
+    <string name="imm_permission_audio">允许声音</string>
+    <string name="imm_permission_camera_request">请求允许摄像头</string>
+    <string name="imm_permission_audio_recording_request">请求许可录音</string>
+
+    <string name="imm_join_room_id_value">10000</string>
+     <string name="imm_join_room_title">您可以参加以下会议</string>
+      <string name="imm_join_room_time_value">2014-11-15 12:30</string>
+       <string name="imm_join_room_time_title">在线人数:</string>
+          <string name="imm_join_room_code">编号:</string>
+     <string name="imm_join_room_name_value">默认会议</string>
+     	<string name="imm_update_info_tip">检测到新版本：</string>
+     	<string name="imm_first_open_app">立即体验</string>
+     	<string name="imm_chioce_room">选择登录的会议室</string>
+     	
+    <string name="imm_login_huikongnew_meeting">会控邀请您参加新会议</string>
+    <string name="imm_login_new_meeting">参加新会议</string>
+    <string name="imm_nologin_new_meeting">不参加新会议</string>
+    <string name="imm_settingencodeh265">采用H265编码</string>
+     	
 </resources>

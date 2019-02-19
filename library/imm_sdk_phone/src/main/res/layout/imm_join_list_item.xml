@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="3dp"
+    android:paddingBottom="3dp"
+    android:id="@+id/join_list_item_layout"
+    android:background="@color/imm_white"
+     >
+
+     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent" 
+        android:gravity="center"
+        >
+
+       <ImageView  
+           android:id="@+id/room_info_title_icon"
+           style="@style/imm_room_list_item_icon"
+           android:src="@drawable/imm_join_list_icon_title_myroom"
+           />
+    </LinearLayout>
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+       <LinearLayout
+        android:id="@+id/room_info_title_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:gravity="center|left|bottom"
+        android:paddingBottom="2dp"
+        >
+
+        <TextView
+            android:id="@+id/join_item_room_name"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="16sp"
+            android:textColor="#2D2D2D"
+            android:text="@string/imm_join_room_name_value" />
+    </LinearLayout>
+ <LinearLayout 
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal" 
+    	android:layout_weight="1"
+    	android:gravity="center|left|top"
+    	android:paddingTop="2dp"
+        >
+                <TextView
+                    style="@style/imm_room_list_item_tv_gray"
+                    android:text="@string/imm_join_room_code" />
+
+                <TextView
+                    android:id="@+id/join_item_room_id"
+                    style="@style/imm_room_list_item_tv_gray"
+                    android:text="@string/imm_join_room_id_value" />
+            <TextView
+                style="@style/imm_room_list_item_tv_gray"
+                android:text="@string/imm_join_room_time_title" 
+                android:paddingLeft="15dp"/>
+
+            <TextView
+                android:id="@+id/join_item_room_time"
+                style="@style/imm_room_list_item_tv_gray"
+                android:text="@string/imm_join_room_time_value" />
+</LinearLayout>
+        
+        
+    </LinearLayout>
+</LinearLayout>

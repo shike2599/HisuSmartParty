@@ -85,7 +85,7 @@
         <item>15</item>
         <item>20</item>
         <item>25</item>
-      <!--   <item>30</item> -->
+      <item>30</item>
     </string-array>
     
     <string-array name="imm_camara_setting_size_array">
@@ -114,7 +114,10 @@
         <item>"512 kbps"</item>
         <item>"768 kbps"</item>
         <item>"1024 kbps"</item>
+        <item>"1536 kbps"</item>
         <item>"2048 kbps"</item>
+        <item>"3072 kbps"</item>
+        <item>"4096 kbps"</item>
     </string-array>
     
     <!-- 语音压缩算法  -->

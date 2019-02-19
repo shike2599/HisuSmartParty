@@ -99,11 +99,11 @@
     <dimen name="imm_progressbar_margin_line">10dp</dimen>
     <dimen name="imm_vhome_text_body_size">18sp</dimen>
  
- 	<dimen name="horizontal_margin">16dp</dimen>
-	<dimen name="vertical_margin">16dp</dimen>
-	<dimen name="button_size">48dp</dimen>
-    <dimen name="list_font_size">18sp</dimen>
-    <dimen name="list_height_min">32dp</dimen>
+ 	<dimen name="imm_horizontal_margin">16dp</dimen>
+	<dimen name="imm_vertical_margin">16dp</dimen>
+	<dimen name="imm_button_size">48dp</dimen>
+    <dimen name="imm_list_font_size">18sp</dimen>
+    <dimen name="imm_list_height_min">32dp</dimen>
     
   
 </resources>
