@@ -232,7 +232,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         }else{
 //            ToastUitl.show(loginResponse.getResultDesc(),Toast.LENGTH_SHORT);
             commomDialog.setTitle("提示");
-            commomDialog.setContent("用户名和密码错误，请重新输入!");
+            commomDialog.setContent("用户名或密码错误，请重新输入!");
             commomDialog.show();
         }
     }
