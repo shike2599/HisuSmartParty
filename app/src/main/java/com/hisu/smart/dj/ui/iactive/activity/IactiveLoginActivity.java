@@ -261,8 +261,7 @@ public class IactiveLoginActivity extends BaseActivity {
 	
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-        	finish();
-//        	System.exit(0);
+			MainActivity.startAction(this);
         }
         return true;
     }
