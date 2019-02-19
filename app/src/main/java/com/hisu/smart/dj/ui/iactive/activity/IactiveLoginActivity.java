@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.ui.iactive.view.TitleBarView;
+import com.hisu.smart.dj.ui.main.activity.MainActivity;
 import com.jaydenxiao.common.commonutils.StatusBarUtil;
 import com.wdliveuc.android.ActiveMeeting7.ActiveMeeting7Activity;
 import com.wdliveuc.android.ActiveMeeting7.BaseActivity;
@@ -150,8 +151,8 @@ public class IactiveLoginActivity extends BaseActivity {
 //	        startActivityForResult(intent, 144);
 			break;
 		case R.id.back_imageView:
-			 IactiveLoginActivity.this.finish();
-				break;
+			MainActivity.startAction(this);
+			break;
 		}
 	}
 	private ProgressDialog m_progressDialog;
