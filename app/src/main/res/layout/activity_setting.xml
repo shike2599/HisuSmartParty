@@ -27,11 +27,26 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:background="#333" />
-
-    <com.hisu.smart.dj.ui.widget.ProfileEdit
-        android:id="@+id/pe_reset_password"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="51dp" />
+        android:layout_height="wrap_content">
+        <com.hisu.smart.dj.ui.widget.ProfileEdit
+            android:id="@+id/pe_reset_password"
+            android:layout_width="match_parent"
+            android:layout_height="51dp" />
+        <TextView
+            android:id="@+id/version_TextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="当前版本为：2.12"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/text_color"
+            android:layout_marginRight="40dp"
+            android:textSize="12dp"
+            />
+    </RelativeLayout>
+
 
     <View
         android:layout_width="match_parent"

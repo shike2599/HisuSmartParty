@@ -80,7 +80,7 @@
         <activity android:name=".ui.study.activity.LearningRankingActivity" />
         <activity android:name=".ui.my.activity.ForgotPasswordActivity" />
         <activity android:name=".ui.my.activity.ResetPasswordActivity" />
-        <activity android:name=".ui.my.activity.ModifyActivity" />
+        <activity android:name=".ui.my.activity.UpdatePassWordActivity" />
         <activity android:name=".ui.my.activity.MyInfoActivity" />
         <activity android:name=".ui.my.activity.AboutActivity" />
         <activity android:name=".ui.study.activity.StudyExperienceActivity" />

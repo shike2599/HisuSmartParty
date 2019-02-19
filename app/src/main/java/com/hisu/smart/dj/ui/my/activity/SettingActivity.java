@@ -2,6 +2,7 @@ package com.hisu.smart.dj.ui.my.activity;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -14,8 +15,11 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.login.activity.LoginActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
+import com.hisu.smart.dj.ui.widget.CommomDialog;
 import com.hisu.smart.dj.ui.widget.ProfileEdit;
+import com.hisu.smart.dj.utils.APKVersionCodeUtils;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.commonwidget.LoadingDialog;
 
 import butterknife.Bind;
 
@@ -34,6 +38,9 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
      ImageView back_img;
      @Bind(R.id.title_TextView)
      TextView show_title;
+     @Bind(R.id.version_TextView)
+     TextView show_version;
+     private CommomDialog commomDialog;
     @Override
     public int getLayoutId() {
         return R.layout.activity_setting;
@@ -48,20 +55,26 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         pe_reset_password.setOnClickListener(this);
         pe_about_us.setOnClickListener(this);
         exit_Btn.setOnClickListener(this);
-
+        commomDialog = new CommomDialog(this,R.style.dialog,"",new CommomDialog.OnCloseListener(){
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                dialog.dismiss();
+            }
+        });
         setIconKey();
 
     }
     private void setIconKey() {
         pe_userInfo.set(R.mipmap.set_user_info_icon, "个人信息");
         pe_update_password.set(R.mipmap.set_update_password_icon, "修改密码");
-        pe_reset_password.set(R.mipmap.set_reset_password, "重置密码");
+        pe_reset_password.set(R.mipmap.check_version_icon, "版本更新");
         pe_about_us.set(R.mipmap.set_aboutus_icon, "关于我们");
 
     }
     @Override
     public void initView() {
-
+        String versionName = APKVersionCodeUtils.getVerName(this);
+        show_version.setText("当前版本："+versionName);
     }
 
     public static void startAction(Activity activity){
@@ -77,10 +90,14 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                 MyInfoActivity.startAction(this);
                 break;
             case R.id.pe_update_password:
-                ForgotPasswordActivity.startAction(this);
+                UpdatePassWordActivity.startAction(this);
                 break;
-            case R.id.pe_reset_password:
-                ResetPasswordActivity.startAction(this);
+            case R.id.pe_reset_password://版本更新
+                commomDialog.isShowCancelBtn(false);
+                commomDialog.setTitle("提示");
+                commomDialog.setContent("当前为最新版本，无需更新!");
+                commomDialog.show();
+//                ResetPasswordActivity.startAction(this);
                 break;
             case R.id.pe_about_us:
                 AboutActivity.startAction(this);

@@ -144,6 +144,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                  break;
              case R.id.add_img_ImageView:
                  isUploadSuccess = false;
+                 commomDialog.isShowCancelBtn(false);
                  commomDialog.setTitle("提示");
                  commomDialog.setContent("暂未开通图片上传！敬请期待！");
                  commomDialog.show();
@@ -172,6 +173,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
 
                  }else{
                      isUploadSuccess = false;
+                     commomDialog.isShowCancelBtn(false);
                      commomDialog.setTitle("提示");
                      commomDialog.setContent("请加标题和内容填写完整!");
                      commomDialog.show();
@@ -194,10 +196,12 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     public void returnSubmitResponse(NotingResponse notingResponse) {
         if(notingResponse.getResultCode() == 200){
             isUploadSuccess = true;
+            commomDialog.isShowCancelBtn(true);
             commomDialog.setTitle("提示");
             commomDialog.setContent("上传成功！");
             commomDialog.setNegativeButton("返回");
         }else{
+            commomDialog.isShowCancelBtn(false);
             commomDialog.setTitle("提示");
             commomDialog.setContent("上传失败请重试！！！");
             commomDialog.setNegativeButton("返回");

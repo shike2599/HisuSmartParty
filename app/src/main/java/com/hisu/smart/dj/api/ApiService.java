@@ -378,4 +378,18 @@ public interface ApiService {
                                                        @Query("resType") Integer  resType,
                                                        @Query("resId") Integer  resId);
 
+    /**
+     * 3.11.修改密码
+     * @param userName   用户名（手机号码)
+     * @param oldPwd   旧密码
+     * @param newPwd   新密码
+     * @param phone   手机号码
+     * @return
+     */
+    @GET("party-user-front/login/write/changePassword")
+    Observable<NotingResponse> changePassword(@Query("userName") String userName,
+                                                       @Query("oldPwd") String  oldPwd,
+                                                       @Query("newPwd") String  newPwd,
+                                                       @Query("phone") String  phone);
+
 }
