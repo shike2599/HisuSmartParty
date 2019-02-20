@@ -71,7 +71,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     private PicSelectorAdapter picSelectorAdapter;
     private String title;
     private Integer user_id;
-    private Integer partyMemberId;
+    private Integer memberId;
     private Integer mediaType;
     private AppConfig appConfig;
     private Map<String, RequestBody> bodyMap;
@@ -92,7 +92,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
       }
       appConfig = AppConfig.getInstance();
       user_id = appConfig.getInt(AppConstant.USER_ID,-1);
-      partyMemberId = appConfig.getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1);
+      memberId = appConfig.getInt(AppConstant.MEMBER_ID,-1);
       mPresenter.setVM(this,mModel);
       commomDialog = new CommomDialog(this,R.style.dialog,"",new CommomDialog.OnCloseListener(){
           @Override
@@ -167,7 +167,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                          }
                      }else{
                          mediaType = 2;
-                         mPresenter.submitActionContentRequest(user_id,partyMemberId,follow_id,
+                         mPresenter.submitActionContentRequest(user_id,memberId,follow_id,
                                  null,title,"","",mediaType,content,null,getNowTime(),false);
                      }
 

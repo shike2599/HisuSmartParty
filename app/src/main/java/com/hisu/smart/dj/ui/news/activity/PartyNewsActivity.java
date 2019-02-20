@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,7 +44,7 @@ public class PartyNewsActivity extends BaseActivity<PartyNewsMainPresenter,Party
     @Bind(R.id.view_news_pager)
     ViewPager viewPager;
     private BaseFragmentAdapter fragmentAdapter;
-
+    private String[] partyNewsTitle = {"时政新闻","热点新闻","党建要闻","党员风采","时代先锋","制度文件","基层动态","警钟长鸣"};
     public static void startAction(Activity activity){
         Intent intent = new Intent(activity, PartyNewsActivity.class);
         activity.startActivity(intent);
@@ -62,7 +63,7 @@ public class PartyNewsActivity extends BaseActivity<PartyNewsMainPresenter,Party
 
     @Override
     public void initView() {
-        mTitle.setText("党建咨讯");
+        mTitle.setText("党建资讯");
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,10 +93,26 @@ public class PartyNewsActivity extends BaseActivity<PartyNewsMainPresenter,Party
         if(cateEntitys != null) {
             List<String> channelNames = new ArrayList<>();
             List<Fragment> commonFragmentList = new ArrayList<>();
+            //拿到对应的标题
             for (int i = 0; i < cateEntitys.size(); i++) {
-                channelNames.add(cateEntitys.get(i).getName());
-                commonFragmentList.add(createListFragments(cateEntitys.get(i)));
+                String StrA = cateEntitys.get(i).getName();
+                for (int j = 0; j < partyNewsTitle.length; j++) {
+                    if (StrA.equals(partyNewsTitle[j])) {
+                        //取到共同元素，写逻辑
+                        String StrB = partyNewsTitle[j];
+//                        Log.d("PartyNewsActivity","channelNames==="+channelNames);
+                        channelNames.add(StrB);
+                        commonFragmentList.add(createListFragments(cateEntitys.get(i)));
+                        break;
+                    }
+                }
             }
+            //暂时先注释
+//            for (int i = 0; i < cateEntitys.size(); i++) {
+//                channelNames.add(cateEntitys.get(i).getName());
+//                commonFragmentList.add(createListFragments(cateEntitys.get(i)));
+//            }
+
             if(fragmentAdapter==null) {
                 fragmentAdapter = new BaseFragmentAdapter(getSupportFragmentManager(), commonFragmentList, channelNames);
             }else{

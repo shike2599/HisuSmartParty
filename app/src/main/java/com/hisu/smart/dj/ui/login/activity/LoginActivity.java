@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.support.v7.widget.ListPopupWindow;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.LoginResponse;
@@ -26,15 +28,12 @@ import com.hisu.smart.dj.ui.login.model.LoginModel;
 import com.hisu.smart.dj.ui.login.presenter.LoginPresenter;
 import com.hisu.smart.dj.ui.main.activity.MainActivity;
 import com.hisu.smart.dj.ui.my.activity.ForgotPasswordActivity;
-import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.ui.widget.CommomDialog;
 import com.jaydenxiao.common.base.BaseActivity;
-import com.jaydenxiao.common.commonutils.LogUtils;
+import com.jaydenxiao.common.baseapp.AppManager;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
-import com.jaydenxiao.common.commonwidget.LoadingTip;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -62,6 +61,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     private List<String> lists;
     private String save_username;
     private String save_password;
+//    private boolean isExit = false;
+
+    @Override
+    public void finishActivity(int requestCode) {
+        super.finishActivity(requestCode);
+    }
 
     @Override
     public int getLayoutId() {
@@ -70,13 +75,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
 
     @Override
     public void initPresenter() {
+        //添加Activity到堆栈
         mPresenter.setVM(this,mModel);
         commomDialog = new CommomDialog(this,R.style.dialog,"",new CommomDialog.OnCloseListener(){
             @Override
             public void onClick(Dialog dialog, boolean confirm) {
-                    dialog.dismiss();
-                LoadingDialog.cancelDialogForLoading();
-            }
+                        dialog.dismiss();
+                    LoadingDialog.cancelDialogForLoading();
+                }
         });
         commomDialog.isShowCancelBtn(false);
         mListPop = new ListPopupWindow(this);
@@ -197,13 +203,17 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         Log.d("LoginActivity","ResultCode()---"+loginResponse.getResultCode());
         if(AppConstant.REQUEST_SUCCESS.equals(loginResponse.getResultCode())){
             LoginUserEntity entity = loginResponse.getData();
+
+            if(entity.isIsPartyMember()){
             //保存用户名和密码，用户用户选择
             if(lists!=null){
                 String isSavedStr = AppConfig.getInstance().getUserNameAndPassWordString(username,"");
-                Log.d("LoginActivity","isSavedStr---"+isSavedStr);
+//                Log.d("LoginActivity","isSavedStr---"+isSavedStr);
+//                Log.d("LoginActivity","lists-==size---"+lists.size());
                 //查重
-                if(isSavedStr.equals("")){
+                if(!isSavedStr.equals("")){
                     if(lists.size()>3){
+//                        Log.d("LoginActivity","大于三了准备删除==="+lists.get(2));
                         AppConfig.getInstance().deleteThreadData(lists.get(2));
                     }
                     AppConfig.getInstance().setUserNameAndPassWordString(username,password);
@@ -212,8 +222,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
                 //集合为空说明是第一次保存
                 AppConfig.getInstance().setUserNameAndPassWordString(username,password);
             }
-
-
             //保存当前用户登陆状态
             AppConfig.getInstance().setInt(AppConstant.USER_ID,entity.getUserId());
             AppConfig.getInstance().setString(AppConstant.USER_NAME,entity.getUserName());
@@ -228,7 +236,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
 //            finish();
 //            mPresenter.loginResponseRequest(username,password);
             //登录成功后，开始拿党员信息
-            mPresenter.MemberInfoResponseRequest(entity.getUserId());
+              mPresenter.MemberInfoResponseRequest(entity.getUserId());
+            }else{
+                commomDialog.setTitle("提示");
+                commomDialog.setContent("该用户不存在!");
+                commomDialog.show();
+            }
+
         }else{
 //            ToastUitl.show(loginResponse.getResultDesc(),Toast.LENGTH_SHORT);
             commomDialog.setTitle("提示");
@@ -257,7 +271,35 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
             AppConfig.getInstance().setInt(AppConstant.MEMBER_STATUS,memberInfo.getStatus()); //党员性质 0-在职 1-退休 2-农民
             AppConfig.getInstance().setInt(AppConstant.MEMBER_INTEGRAL,memberInfo.getIntegral()); //积分
             MainActivity.startAction(LoginActivity.this);
-            finish();
+            LoginActivity.this.finish();
         }
     }
+    // 用来计算返回键的点击间隔时间
+//    private long exitTime = 0;
+//     @Override
+//     public boolean onKeyDown(int keyCode, KeyEvent event) {
+//         if (keyCode == KeyEvent.KEYCODE_BACK
+//                && event.getAction() == KeyEvent.ACTION_DOWN) {
+//                commomDialog.isShowCancelBtn(true);
+//                commomDialog.setTitle("提示");
+//                commomDialog.setContent("您确定要退出智慧党建吗？");
+//                commomDialog.show();
+//                isExit = true;
+//
+//            if ((System.currentTimeMillis() - exitTime) > 2000) {
+//                //弹出提示，可以有多种方式
+//                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+//                exitTime = System.currentTimeMillis();
+//                 } else {
+////                AppManager.getAppManager().AppExit(LoginActivity.this);
+//                commomDialog.isShowCancelBtn(true);
+//                commomDialog.setTitle("提示");
+//                commomDialog.setContent("您确定要退出智慧党建吗？");
+//                commomDialog.show();
+//                isExit = true;
+//            }
+//             return true;
+//         }
+//         return super.onKeyDown(keyCode, event);
+//     }
 }

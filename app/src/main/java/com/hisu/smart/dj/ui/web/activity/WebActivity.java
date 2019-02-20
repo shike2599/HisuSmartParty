@@ -507,15 +507,15 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
 
     private String getHtmlData(String bodyHTML) {
         String head = "<head>" +
-                "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"> " +
+                "<meta name=\"viewport\" content=\"width=100%, initial-scale=1.0, user-scalable=no,height=auto\"> " +
                 "<style>html{padding:15px;} body{background-color: #f2f1ef;"+
-                " padding: 0.7rem;" +
+                "padding: 0.7rem;" +
                 "font-size: 14px;" +
                 " margin-top: 0;" +
                 " margin-bottom: 10px;" +
                 " font-family:'微软雅黑';" +
                 " color: #666666}"+
-                "p{padding:0px;margin:0px;margin-bottom:10px;font-size:18px;color:#222222;line-height:1.5rem;text-indent:1.2rem} img{padding:0px;max-width:100%; width:auto; height:auto;}</style>" +
+                "img{padding:0px;max-width:100%; width:auto; height:auto;}</style>" +
                 "</head>";
         return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
     }

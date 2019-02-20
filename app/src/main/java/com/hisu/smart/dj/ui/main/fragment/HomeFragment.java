@@ -17,12 +17,14 @@ import com.hisu.smart.dj.R;
 
 import com.hisu.smart.dj.app.AppApplication;
 
+import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 import com.hisu.smart.dj.ui.iactive.activity.IactiveLoginActivity;
@@ -73,7 +75,8 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
     private RecyclerView mRecyclerView; //首页子栏目RecyclerView
     private RecyclerView homeNewRecyclerView;  //首页党建要闻RecyclerView
     private RecyclerView homeShizhRecyclerView;  //首页时政要闻RecyclerView
-
+    private TextView noReadSizeText;
+    private TextView noticeMsgTv;
     private NewsRecyclerAdapter newsRecyclerAdapter; //党建要闻Adapter
     private NewsRecyclerAdapter shizhRecyclerAdapter;  //时政要闻Adapter
 
@@ -97,7 +100,9 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
     private int[] Images = {
             R.mipmap.home_banner_1,R.mipmap.home_banner_1,
             R.mipmap.home_banner_1,R.mipmap.home_banner_1};
-
+    private int user_id;
+    private int partyMemberId;
+    private int partyBranchId;
     public HomeFragment() {
 
     }
@@ -128,6 +133,9 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
     @Override
     public void initPresenter() {
         mPresenter.setVM(this, mModel);
+        user_id = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
+        partyMemberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
+        partyBranchId = AppConfig.getInstance().getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1);
         initData();
     }
 
@@ -136,6 +144,8 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
        more_news_textView = rootView.findViewById(R.id.more_news_textView);
        more_shiznew_textView = rootView.findViewById(R.id.shizh_more_news_textView);
        notive_rela = rootView.findViewById(R.id.home_notice_RelativeLayout);
+       noReadSizeText = rootView.findViewById(R.id.show_no_read_message_textView);
+       noticeMsgTv = rootView.findViewById(R.id.show_message_textView);
 
        notive_rela.setOnClickListener(this);
        more_news_textView.setOnClickListener(this);
@@ -206,6 +216,10 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
 
        //有网络则请求数据
        if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
+           //未读消息获取
+           mPresenter.getUnReadNoticeNuRequest(user_id,partyMemberId);
+           //获取最新消息
+           mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,1);
            //请求党建要闻
            mPresenter.getNewsListDataRequest("1003","",1,2);
            //请求时政要闻
@@ -260,32 +274,41 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
     }
     @Override
     public void showLoading(String tag) {
-        if(tag.equals("1003")){
-            newTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+        if(tag!=null){
+            if(tag.equals("1003")){
+                newTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+            }
+            if(tag.equals("1001")){
+                shizhTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+            }
         }
-        if(tag.equals("1001")){
-            shizhTip.setLoadingTip(LoadingTip.LoadStatus.loading);
-        }
+
     }
 
     @Override
     public void stopLoading(String tag) {
-        if(tag.equals("1003")){
-            newTip.setLoadingTip(LoadingTip.LoadStatus.finish);
+        if(tag!=null){
+            if(tag.equals("1003")){
+                newTip.setLoadingTip(LoadingTip.LoadStatus.finish);
+            }
+            if(tag.equals("1001")){
+                shizhTip.setLoadingTip(LoadingTip.LoadStatus.finish);
+            }
         }
-        if(tag.equals("1001")){
-            shizhTip.setLoadingTip(LoadingTip.LoadStatus.finish);
-        }
+
     }
 
     @Override
     public void showErrorTip(String msg,String tag) {
-        if(tag.equals("1003")){
-            newTip.setTips(msg);
+        if(tag!=null){
+            if(tag.equals("1003")){
+                newTip.setTips(msg);
+            }
+            if(tag.equals("1001")){
+                shizhTip.setTips(msg);
+            }
         }
-        if(tag.equals("1001")){
-            shizhTip.setTips(msg);
-        }
+
     }
     //首页新闻数据返回
     @Override
@@ -326,12 +349,28 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
     //消息通知内容
     @Override
     public void returnListNoticeByTime(NoticeInfoEntity noticeInfoEntity, String tag) {
-
+        if(noticeInfoEntity.getResultCode() == 200){
+            List<NoticeInfoEntity.DataListBean> list = noticeInfoEntity.getDataList();
+            if(list!=null&&list.size()>0){
+                noticeMsgTv.setText(noticeInfoEntity.getDataList().get(0).getContent());
+            }else{
+                noticeMsgTv.setText("暂无消息");
+            }
+        }
     }
 
     //消息通知未读数量
     @Override
-    public void returnUnReadNoticeNum(UnReadSizeEntity unReadSizeEntity, String tag) {
+    public void returnUnReadNoticeNum(UserCollectionEntity userCollectionEntity, String tag) {
+      if(userCollectionEntity.getResultCode() == 200){
+          int data = userCollectionEntity.getData();
+          if(data == 0){
+              noReadSizeText.setVisibility(View.INVISIBLE);
+          }else{
+              noReadSizeText.setVisibility(View.VISIBLE);
+              noReadSizeText.setText(userCollectionEntity.getData()+"");
+          }
 
+      }
     }
 }

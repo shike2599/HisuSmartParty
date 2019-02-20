@@ -84,6 +84,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     Intent intent = new Intent();
                     intent.setClass(WelcomeActivity.this,LoginActivity.class);
                     startActivity(intent);
+                    WelcomeActivity.this.finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

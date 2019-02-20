@@ -44,6 +44,7 @@ public class StudyCommonActivity extends BaseActivity<StudyCommonMainPresenter,S
     @Bind(R.id.view_pager)
     ViewPager viewPager;
     private BaseFragmentAdapter fragmentAdapter;
+    private String[] commonStudyTitle = {"党史研究","党章党纪","理论武装","思想理论"};
 
 
     public static void startAction(Activity activity){
@@ -92,10 +93,26 @@ public class StudyCommonActivity extends BaseActivity<StudyCommonMainPresenter,S
         if(cateEntitys != null) {
             List<String> channelNames = new ArrayList<>();
             List<Fragment> commonFragmentList = new ArrayList<>();
+
+            //拿到对应的标题
             for (int i = 0; i < cateEntitys.size(); i++) {
-                channelNames.add(cateEntitys.get(i).getName());
-                commonFragmentList.add(createListFragments(cateEntitys.get(i)));
+                String StrA = cateEntitys.get(i).getName();
+                for (int j = 0; j < commonStudyTitle.length; j++) {
+                    if (StrA.equals(commonStudyTitle[j])) {
+                        //取到共同元素，写逻辑
+                        String StrB = commonStudyTitle[j];
+//                        Log.d("PartyNewsActivity","channelNames==="+channelNames);
+                        channelNames.add(StrB);
+                        commonFragmentList.add(createListFragments(cateEntitys.get(i)));
+                        break;
+                    }
+                }
             }
+            //暂时注释
+//            for (int i = 0; i < cateEntitys.size(); i++) {
+//                channelNames.add(cateEntitys.get(i).getName());
+//                commonFragmentList.add(createListFragments(cateEntitys.get(i)));
+//            }
             if(fragmentAdapter==null) {
                 fragmentAdapter = new BaseFragmentAdapter(getSupportFragmentManager(), commonFragmentList, channelNames);
             }else{

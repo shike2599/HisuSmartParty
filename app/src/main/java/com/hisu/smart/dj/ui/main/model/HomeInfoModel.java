@@ -9,6 +9,7 @@ import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.main.contract.HomeInfoContract;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
 import com.jaydenxiao.common.baserx.RxSchedulers;
@@ -44,16 +45,16 @@ public class HomeInfoModel implements HomeInfoContract.Model {
     }
 
     @Override
-    public Observable<UnReadSizeEntity> getUnReadNoticeNum(Integer userId, Integer partyBranchId) {
+    public Observable<UserCollectionEntity> getUnReadNoticeNum(Integer userId, Integer partyBranchId) {
         return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
                 .getUnReadNoticeNum(userId,partyBranchId)
-                .map(new Func1<UnReadSizeEntity, UnReadSizeEntity>() {
+                .map(new Func1<UserCollectionEntity, UserCollectionEntity>() {
                     @Override
-                    public UnReadSizeEntity call(UnReadSizeEntity unReadSizeEntity) {
-                        return unReadSizeEntity;
+                    public UserCollectionEntity call(UserCollectionEntity userCollectionEntity) {
+                        return userCollectionEntity;
                     }
                 })
-                .compose(RxSchedulers.<UnReadSizeEntity>io_main());
+                .compose(RxSchedulers.<UserCollectionEntity>io_main());
     }
 
     @Override

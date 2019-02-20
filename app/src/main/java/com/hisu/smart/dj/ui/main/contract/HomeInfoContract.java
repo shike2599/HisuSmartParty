@@ -4,6 +4,7 @@ import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.jaydenxiao.common.base.BaseModel;
 import com.jaydenxiao.common.base.BasePresenter;
 import com.jaydenxiao.common.base.BaseView;
@@ -20,7 +21,7 @@ public interface HomeInfoContract {
         //请求通知数据
         Observable <NoticeInfoEntity> getListNoticeByTime(Integer userId, Integer  partyBranchId, String  publishTime, Integer limitNum);
         //未读通知消息个数
-        Observable <UnReadSizeEntity> getUnReadNoticeNum(Integer userId, Integer  partyBranchId);
+        Observable <UserCollectionEntity> getUnReadNoticeNum(Integer userId, Integer  partyMemberId);
         //请求获取新闻
         Observable <InformationResponse<InformationEntity>> getNewsListData(String cateCode,String keywords,Integer pageNo,Integer pageSize);
         ////专题内容
@@ -33,7 +34,7 @@ public interface HomeInfoContract {
         //返回通知数据
         void returnListNoticeByTime(NoticeInfoEntity noticeInfoEntity, String tag);
         //返回未读通知消息个数
-        void returnUnReadNoticeNum(UnReadSizeEntity unReadSizeEntity, String tag);
+        void returnUnReadNoticeNum(UserCollectionEntity userCollectionEntity, String tag);
         //返回获取的新闻
         void returnNewsListData(InformationResponse informationResponse,String tag);
     }
@@ -41,7 +42,7 @@ public interface HomeInfoContract {
         //发起通知数据请求
         public abstract void getListNoticeByTimeRequest(Integer userId, Integer  partyBranchId, String  publishTime, Integer limitNum);
         //未读通知消息个数
-        public abstract void getUnReadNoticeNuRequest(Integer userId, Integer  partyBranchId);
+        public abstract void getUnReadNoticeNuRequest(Integer userId, Integer  partyMemberId);
         //发起获取新闻请求
         public abstract void getNewsListDataRequest(String cateCode,String keywords,Integer pageNo,Integer pageSize);
         //专题内容

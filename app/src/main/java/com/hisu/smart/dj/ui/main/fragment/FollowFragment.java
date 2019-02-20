@@ -86,22 +86,22 @@ public class FollowFragment extends BaseFragment {
                 TextView textView = view.findViewById(R.id.item_title);
                 String follow_str = textView.getText().toString();
                 if(follow_str.equals("本职工作")){
-                    followId = 1;
+                    followId = 5001;
                     title_str = "本职工作";
                 }else if(follow_str.equals("党组工作")){
-                    followId = 2;
+                    followId = 5002;
                     title_str = "党组工作";
                 }else if(follow_str.equals("志愿者活动")){
-                    followId = 5;
+                    followId = 5005;
                     title_str = "志愿者活动";
                 }else if(follow_str.equals("脱贫攻坚")){
-                    followId = 4;
+                    followId = 5004;
                     title_str = "脱贫攻坚";
                 }else if(follow_str.equals("困难帮扶")){
-                    followId = 6;
+                    followId = 5006;
                     title_str = "困难帮扶";
                 }else if(follow_str.equals("典型事迹")){
-                    followId = 3;
+                    followId = 5003;
                     title_str = "典型事迹";
                 }
                 NewsActivity.startAction(getActivity(),title_str,followId);

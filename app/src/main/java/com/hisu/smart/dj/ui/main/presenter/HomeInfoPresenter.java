@@ -4,6 +4,7 @@ import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.main.contract.HomeInfoContract;
 import com.jaydenxiao.common.baserx.RxSubscriber;
 
@@ -46,15 +47,15 @@ public class HomeInfoPresenter extends HomeInfoContract.Presenter {
     @Override
     public void getUnReadNoticeNuRequest(Integer userId, Integer partyBranchId) {
         mRxManage.add(mModel.getUnReadNoticeNum(userId,partyBranchId)
-                .subscribe(new RxSubscriber<UnReadSizeEntity>(mContext,false) {
+                .subscribe(new RxSubscriber<UserCollectionEntity>(mContext,false) {
                     @Override
                     public void onStart() {
                         super.onStart();
                         mView.showLoading(null);
                     }
                     @Override
-                    protected void _onNext(UnReadSizeEntity unReadSizeEntity) {
-                        mView.returnUnReadNoticeNum(unReadSizeEntity,null);
+                    protected void _onNext(UserCollectionEntity userCollectionEntity) {
+                        mView.returnUnReadNoticeNum(userCollectionEntity,null);
                         mView.showLoading(null);
                     }
 

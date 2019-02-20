@@ -3,6 +3,7 @@ package com.hisu.smart.dj.ui.main.fragment;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -37,12 +38,12 @@ import java.util.List;
 public class StudyFragment extends BaseFragment implements View.OnClickListener{
     private static final String mHomeUrl = "http://app.html5.qq.com/navi/index";
     private static final String BaseStudy = "subjectStudy/";
-    //专题学习页面
-    private static final String normalStudy = AppConstant.BASE_URL+BaseStudy+"normalStudy.html";
-    //常规学习页面
-    private static final String studyList = AppConstant.BASE_URL_LOAD+BaseStudy+"studyList.html";
-    //三会一课页面
-    private static final String study_scale = AppConstant.BASE_URL+BaseStudy+"normalStudy.html";
+//    //专题学习页面
+//    private static final String normalStudy = AppConstant.BASE_URL+BaseStudy+"normalStudy.html";
+//    //常规学习页面
+//    private static final String studyList = AppConstant.BASE_URL_LOAD+BaseStudy+"studyList.html";
+//    //三会一课页面
+//    private static final String study_scale = AppConstant.BASE_URL+BaseStudy+"normalStudy.html";
     //在线考试页面
     private static final String online_exam = AppConstant.BASE_URL_LOAD+"study/studyExamination.html";
 
@@ -61,6 +62,8 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
 
     private List<GridViewItemEntity> gridViewItemEntities;
     private GridViewAdapter gridViewAdapter ;
+    private boolean isPartyBranch;
+    private boolean isPartyCommittee;
     public StudyFragment() {
     }
 
@@ -106,6 +109,14 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
     @Override
     protected void initView() {
         change_Layout = rootView.findViewById(R.id.change_study_state_Layout);
+        //判断是否是党员账号
+        isPartyBranch =  AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_BRANCH,false);
+        isPartyCommittee =  AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_COMMITTEE,false);
+        if(isPartyBranch || isPartyCommittee){
+            change_Layout.setVisibility(View.VISIBLE);
+        }else{
+            change_Layout.setVisibility(View.GONE);
+        }
         change_Layout.setOnClickListener(this);
         change_state_textView = rootView.findViewById(R.id.study_member_or_branch_TextView);
         studyBanner = rootView.findViewById(R.id.study_banner);

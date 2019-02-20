@@ -103,7 +103,12 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
         recyclerView.setAdapter(topicAdapter);
         recyclerView.setOnLoadMoreListener(this);
         recyclerView.setOnRefreshListener(this);
-        if(getIntent().getBooleanExtra(AppConstant.IS_PARTY_BRANCH,false)){
+//        if(getIntent().getBooleanExtra(AppConstant.IS_PARTY_BRANCH,false)){
+//            mPresenter.getBranchTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
+//        }else{
+//            mPresenter.getMemberTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
+//        }
+        if(AppConstant.IS_STUDY_BRANCH){
             mPresenter.getBranchTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
         }else{
             mPresenter.getMemberTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);

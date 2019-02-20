@@ -93,7 +93,7 @@ public class UpdatePassWordActivity extends BaseActivity<UpdatePasswordPresenter
                 if(old_Pwd == null || old_Pwd.equals("")){
                     commomDialog.setTitle("提示");
                     commomDialog.isShowCancelBtn(false);
-                    commomDialog.setContent("请输入旧密码!");
+                    commomDialog.setContent("请输入原密码!");
                     commomDialog.show();
                     return;
                 }else{

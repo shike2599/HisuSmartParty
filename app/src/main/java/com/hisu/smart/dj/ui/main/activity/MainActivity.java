@@ -1,23 +1,29 @@
 package com.hisu.smart.dj.ui.main.activity;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.TabEntity;
+import com.hisu.smart.dj.ui.login.activity.LoginActivity;
 import com.hisu.smart.dj.ui.main.fragment.FollowFragment;
 import com.hisu.smart.dj.ui.main.fragment.HomeFragment;
 import com.hisu.smart.dj.ui.main.fragment.MyFragment;
 import com.hisu.smart.dj.ui.main.fragment.PartyBuildFragment;
 import com.hisu.smart.dj.ui.main.fragment.StudyFragment;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.baseapp.AppManager;
 import com.jaydenxiao.common.commonutils.LogUtils;
 
 import java.util.ArrayList;
@@ -220,7 +226,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(false);
+                moveTaskToBack(false);
             return true;
         }
         return super.onKeyDown(keyCode, event);

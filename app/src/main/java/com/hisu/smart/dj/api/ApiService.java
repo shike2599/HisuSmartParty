@@ -275,6 +275,7 @@ public interface ApiService {
      * @param content	String	是	资讯内容
      * @param url	String	否	视频链接地址
      * @param publishTime	String	是	活动发布时间（yyyy-MM-dd HH:mm:ss）
+     * @param videoPath	videoPath
      * @param isNeedSign	Boolean	是	true：需要签到，false：不需要
      * @return
      */
@@ -296,24 +297,24 @@ public interface ApiService {
      * @param userId   用户ID
      * @param partyBranchId   支部ID（党员所在支部|支部领导管理的支部
      * @param publishTime   发布时间
-     * @param limitNum   返回最大条数
+     * @param pageSize   返回最大条数
      * @return
      */
     @GET("party-app-education-front/info/readonly/listNoticeByTime")
     Observable<NoticeInfoEntity> listNoticeByTime(@Query("userId") Integer userId,
                                                   @Query("partyBranchId") Integer  partyBranchId,
                                                   @Query("publishTime") String  publishTime,
-                                                  @Query("limitNum") Integer  limitNum);
+                                                  @Query("pageSize") Integer  pageSize);
 
     /**
      * 9.3.获取用户未读通知公告个数
      * @param userId   用户ID
-     * @param partyBranchId   支部ID（党员所在支部|支部领导管理的支部
+     * @param partyMemberId   支部ID（党员所在支部|支部领导管理的支部
      * @return
      */
     @GET("party-app-education-front/info/readonly/getUnReadNoticeNum")
-    Observable<UnReadSizeEntity> getUnReadNoticeNum(@Query("userId") Integer userId,
-                                                    @Query("partyBranchId") Integer  partyBranchId);
+    Observable<UserCollectionEntity> getUnReadNoticeNum(@Query("userId") Integer userId,
+                                                    @Query("partyMemberId") Integer  partyMemberId);
 
     /**
      * 资讯活动分类
