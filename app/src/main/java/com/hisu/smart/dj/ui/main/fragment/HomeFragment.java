@@ -29,6 +29,7 @@ import com.hisu.smart.dj.ui.iactive.activity.IactiveLoginActivity;
 import com.hisu.smart.dj.ui.main.contract.HomeInfoContract;
 import com.hisu.smart.dj.ui.main.model.HomeInfoModel;
 import com.hisu.smart.dj.ui.main.presenter.HomeInfoPresenter;
+import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.news.activity.PartyNewsActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
@@ -249,9 +250,13 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
 
 
     @Override
-    public void onNewsClick(int position, int news_id) {
-//        Toast.makeText(context,"item---id==="+news_id,Toast.LENGTH_SHORT).show();
-        WebActivity.startAction(getActivity(),news_id);
+    public void onNewsClick(int position, InformationEntity data) {
+        if(data.getMediaType() == 0){
+            MediaPlayerActivity.startAction(getActivity(),data);
+        }else{
+            WebActivity.startAction(getActivity(),data.getId());
+        }
+
     }
     @Override
     public void showLoading(String tag) {

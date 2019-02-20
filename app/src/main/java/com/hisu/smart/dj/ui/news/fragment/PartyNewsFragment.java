@@ -15,6 +15,7 @@ import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 
+import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.news.contract.PartyNewsContract;
 import com.hisu.smart.dj.ui.news.model.PartyNewsModel;
 import com.hisu.smart.dj.ui.news.presenter.PartyNewsPresenter;
@@ -174,7 +175,12 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
     }
 
     @Override
-    public void onNewsClick(int position, int news_id) {
-        WebActivity.startAction(getActivity(),news_id);
+    public void onNewsClick(int position, InformationEntity data) {
+        if(data.getMediaType() == 0){
+            MediaPlayerActivity.startAction(getActivity(),data);
+        }else{
+            WebActivity.startAction(getActivity(),data.getId());
+        }
+
     }
 }

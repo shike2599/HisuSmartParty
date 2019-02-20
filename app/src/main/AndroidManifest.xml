@@ -5,9 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -22,7 +20,6 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -55,11 +52,9 @@
 
     <permission
         android:name="getui.permission.GetuiService.com.wdliveuc.android.ActiveMeeting7"
-        android:protectionLevel="normal" >
-    </permission>
+        android:protectionLevel="normal"></permission>
+
     <!-- 个推SDK权限配置结束 -->
-
-
     <application
         android:name=".app.AppApplication"
         android:allowBackup="true"
@@ -76,7 +71,7 @@
         </activity>
         <activity android:name=".ui.study.activity.StudyPlanActivity" />
         <activity android:name=".ui.study.activity.StudyTopicActivity" />
-        <activity android:name=".ui.login.activity.LoginActivity"></activity>
+        <activity android:name=".ui.login.activity.LoginActivity" />
         <activity android:name=".ui.study.activity.LearningRankingActivity" />
         <activity android:name=".ui.my.activity.ForgotPasswordActivity" />
         <activity android:name=".ui.my.activity.ResetPasswordActivity" />
@@ -103,12 +98,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.news.activity.PartyNewsActivity"></activity>
-
-        <!--网动视频会议-->
-        <activity android:name=".ui.iactive.activity.IactiveLoginActivity"
+        <activity android:name=".ui.news.activity.PartyNewsActivity" />
+        <activity android:name=".ui.news.activity.MediaPlayerActivity"
+            android:theme="@style/NoTitleFullscreen"
+            android:screenOrientation="landscape"/>
+        <!-- 网动视频会议 -->
+        <activity
+            android:name=".ui.iactive.activity.IactiveLoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"/>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name="com.wdliveuc.android.ActiveMeeting7.ActiveMeeting7Activity"
             android:configChanges="orientation|keyboard|keyboardHidden"
@@ -116,15 +114,13 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
             android:theme="@style/imm_Theme.ActiveMeeting7"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
         <activity
             android:name="com.wdliveuc.android.ActiveMeeting7.Login1Activity"
             android:configChanges="orientation|keyboard|keyboardHidden"
             android:launchMode="singleTop"
             android:screenOrientation="landscape"
-            android:windowSoftInputMode="adjustUnspecified|stateHidden" >
-        </activity>
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"></activity>
         <activity
             android:name="com.wdliveuc.android.ActiveMeeting7.InviteActivityInput"
             android:screenOrientation="landscape"

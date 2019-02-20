@@ -14,6 +14,7 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
+import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonContract;
 import com.hisu.smart.dj.ui.study.model.StudyCommonModel;
 import com.hisu.smart.dj.ui.study.presenter.StudyCommonPresenter;
@@ -173,7 +174,11 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
     }
 
     @Override
-    public void onTopicClick(int position, int information_id) {
-        WebActivity.startAction(getActivity(),information_id,"常规学习");
+    public void onTopicClick(int position, InformationEntity data) {
+        if(data.getMediaType() == 0){
+            MediaPlayerActivity.startAction(getActivity(),data);
+        }else{
+            WebActivity.startAction(getActivity(),data.getId(),"常规学习");
+        }
     }
 }

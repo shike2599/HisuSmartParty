@@ -94,7 +94,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
             holder.topic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    topicItemClickListener.onTopicClick(position,topicEntity.getId());
+                    topicItemClickListener.onTopicClick(position,topicEntity);
                 }
             });
         }
@@ -136,7 +136,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
         return dataList.size();
     }
     public interface  OnTopicItemClickListener{
-        void onTopicClick(int position,int Information_id);
+        void onTopicClick(int position,InformationEntity data);
     }
     public void setOnItemClickListener(StudyTopicAdapter.OnTopicItemClickListener onItemClickListener){
         this.topicItemClickListener = onItemClickListener;

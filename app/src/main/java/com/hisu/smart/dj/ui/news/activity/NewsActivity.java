@@ -203,18 +203,30 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     }
 
     @Override
-    public void onNewsClick(int position,int news_id) {
+    public void onNewsClick(int position,InformationEntity data) {
         Log.d(TAG,"----item----position----"+position);
 //       Toast.makeText(this,"item-id=="+news_id,
 //               Toast.LENGTH_LONG).show();
         if(follow_id!=-1){
             jump_tag = "践行";
-            WebActivity.startAction(this,news_id,jump_tag);
+            if(data.getMediaType() == 0){
+                MediaPlayerActivity.startAction(this,data);
+            }else{
+                WebActivity.startAction(this,data.getId(),jump_tag);
+            }
         }else if(show_title.equals("三会一课")){
             jump_tag = "三会一课";
-            WebActivity.startAction(this,news_id,jump_tag);
+            if(data.getMediaType() == 0){
+                MediaPlayerActivity.startAction(this,data);
+            }else {
+                WebActivity.startAction(this, data.getId(), jump_tag);
+            }
         }else{
-            WebActivity.startAction(this,news_id);
+            if(data.getMediaType() == 0){
+                MediaPlayerActivity.startAction(this,data);
+            }else {
+                WebActivity.startAction(this, data.getId());
+            }
         }
 
     }

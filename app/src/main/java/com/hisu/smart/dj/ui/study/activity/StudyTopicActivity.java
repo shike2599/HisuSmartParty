@@ -19,6 +19,7 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
+import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyTopicContract;
 import com.hisu.smart.dj.ui.study.model.StudyTopicModel;
 import com.hisu.smart.dj.ui.study.presenter.StudyTopicPresenter;
@@ -211,7 +212,11 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
 
 
     @Override
-    public void onTopicClick(int position, int Information_id) {
-        WebActivity.startAction(StudyTopicActivity.this,Information_id,"专题学习");
+    public void onTopicClick(int position, InformationEntity data) {
+        if(data.getMediaType() == 0){
+            MediaPlayerActivity.startAction(this,data);
+        }else {
+            WebActivity.startAction(this, data.getId(), "专题学习");
+        }
     }
 }

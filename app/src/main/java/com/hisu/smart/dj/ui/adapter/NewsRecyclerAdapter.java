@@ -72,7 +72,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    newsItemClickListener.onNewsClick(position,mDatas.get(position).getId());
+                    newsItemClickListener.onNewsClick(position,mDatas.get(position));
                 }
             });
         }
@@ -135,7 +135,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     }
 
     public interface  OnNewsItemClickListener{
-        void onNewsClick(int position,int news_id);
+        void onNewsClick(int position,InformationEntity data);
 //        void onLongClick(int position);
     }
     public void setOnItemClickListener(NewsRecyclerAdapter.OnNewsItemClickListener onItemClickListener){
