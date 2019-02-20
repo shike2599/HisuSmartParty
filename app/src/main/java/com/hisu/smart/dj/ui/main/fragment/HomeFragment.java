@@ -228,7 +228,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         if(position == 0){
             PartyNewsActivity.startAction(getActivity());
         }else if(position == 1){
-            IactiveLoginActivity.startAction(getActivity());
+            IactiveLoginActivity.startAction(getActivity(),0);
         }else if(position == 2){
             NewsActivity.startAction(getActivity(),"三会一课");
         }else if(position == 3){

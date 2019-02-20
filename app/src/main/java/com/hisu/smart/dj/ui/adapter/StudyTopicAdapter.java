@@ -68,8 +68,22 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
             holder.thematic_video.setVisibility(View.VISIBLE);
             holder.thematic_video.backButton.setVisibility(View.GONE);
             holder.thematic_video.tinyBackImageView.setVisibility(View.GONE);
-            holder.thematic_video.startButton.setEnabled(false);
-            holder.thematic_video.thumbImageView.setEnabled(false);
+            holder.thematic_video.startButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(topicItemClickListener != null){
+                        topicItemClickListener.onTopicClick(position,topicEntity);
+                    }
+                }
+            });
+            holder.thematic_video.thumbImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(topicItemClickListener != null){
+                        topicItemClickListener.onTopicClick(position,topicEntity);
+                    }
+                }
+            });
             holder.thematic_cover.setVisibility(View.GONE);
             Glide.with(mContext)
                     .load(topicEntity.getIcon())
@@ -94,7 +108,9 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
             holder.topic_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    topicItemClickListener.onTopicClick(position,topicEntity);
+                    if(topicItemClickListener != null){
+                        topicItemClickListener.onTopicClick(position,topicEntity);
+                    }
                 }
             });
         }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.iactive.view.TitleBarView;
 import com.hisu.smart.dj.ui.main.activity.MainActivity;
 import com.jaydenxiao.common.commonutils.StatusBarUtil;
@@ -47,15 +48,20 @@ public class IactiveLoginActivity extends BaseActivity {
     private ImageView back_img;
     private TextView title_text;
 
+	private static int currentTabPosition;
+
 	public static boolean m_ShowJoinRoomList=false;
-
-
 
 	public static void startAction(Activity activity){
 		Intent intent = new Intent(activity, IactiveLoginActivity.class);
 		activity.startActivity(intent);
 	}
 
+	public static void startAction(Activity activity,int currentTabPosition){
+		Intent intent = new Intent(activity, IactiveLoginActivity.class);
+		intent.putExtra(AppConstant.HOME_CURRENT_TAB_POSITION,currentTabPosition);
+		activity.startActivity(intent);
+	}
 
 
 
@@ -68,22 +74,23 @@ public class IactiveLoginActivity extends BaseActivity {
 			String firmName = et_firm_name.getText().toString().trim();
 			String username = et_username.getText().toString().trim();
 			String password = et_password.getText().toString().trim();
-			
+
 			if (immStringUtils.isBlank(firmName)) {
 				CommonUtil.showToast(this,
 						getString(R.string.login_firm_name_isnull),
-						Toast.LENGTH_LONG);
+						Toast.LENGTH_SHORT);
+				return;
 			}
 			if (username == null || "".equals(username)) {
 				CommonUtil.showToast(this,
 						getString(R.string.login_firm_username_hint),
-						Toast.LENGTH_LONG);
+						Toast.LENGTH_SHORT);
 				return;
 			}
 			if (password == null || "".equals(password)) {
 				CommonUtil.showToast(this,
 						getString(R.string.login_pass_isnull),
-						Toast.LENGTH_LONG);
+						Toast.LENGTH_SHORT);
 				return;
 			}
 //			if(!immStringUtils.isNumberOrChar(password)){
@@ -151,7 +158,7 @@ public class IactiveLoginActivity extends BaseActivity {
 //	        startActivityForResult(intent, 144);
 			break;
 		case R.id.back_imageView:
-			MainActivity.startAction(this);
+			MainActivity.startAction(this,currentTabPosition);
 			break;
 		}
 	}
@@ -212,6 +219,7 @@ public class IactiveLoginActivity extends BaseActivity {
 //				// TODO Auto-generated method stub
 //			}
 //		};
+		currentTabPosition = getIntent().getIntExtra(AppConstant.HOME_CURRENT_TAB_POSITION,0);
 	}
 
 	@Override
@@ -261,7 +269,7 @@ public class IactiveLoginActivity extends BaseActivity {
 	
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-			MainActivity.startAction(this);
+			MainActivity.startAction(this,currentTabPosition);
         }
         return true;
     }

@@ -47,6 +47,8 @@ public class MainActivity extends BaseActivity {
     private FollowFragment followFragment;
     private MyFragment myFragment;
 
+    private static int currentTabPosition;
+
     /**
      * 入口
      * @param activity
@@ -58,7 +60,13 @@ public class MainActivity extends BaseActivity {
                 com.jaydenxiao.common.R.anim.fade_out);
     }
 
-
+    public static void startAction(Activity activity,int currentTabPosition){
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra(AppConstant.HOME_CURRENT_TAB_POSITION,currentTabPosition);
+        activity.startActivity(intent);
+        activity.overridePendingTransition(R.anim.fade_in,
+                com.jaydenxiao.common.R.anim.fade_out);
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +95,7 @@ public class MainActivity extends BaseActivity {
      */
     private void initFragment(Bundle savedInstanceState) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        int currentTabPosition = 0;
+        currentTabPosition = getIntent().getIntExtra(AppConstant.HOME_CURRENT_TAB_POSITION,0);
         if (savedInstanceState != null) {
             homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag("homeFragment");
             partyBuildFragment = (PartyBuildFragment) getSupportFragmentManager().findFragmentByTag("partyBuildFragment");

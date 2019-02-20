@@ -142,7 +142,7 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
                     StudyCommonActivity.startAction(getActivity());
                 }else if(title=="视频大讲堂"){
                     //视频会议
-                    IactiveLoginActivity.startAction(getActivity());
+                    IactiveLoginActivity.startAction(getActivity(),1);
                 }else if(title=="在线考试"){
                     //在线考试
                     WebActivity.startAction(getActivity(),"在线考试",online_exam );
