@@ -100,7 +100,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
         x5WebView = new X5WebView(this,null);
         newsID = getIntent().getIntExtra("NEWSID",-1);
         user_id = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
-        partyMemberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1);
+        partyMemberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
         Log.d("WebActivity","newsID==="+newsID);
         if(newsID == -1){
             title_str = getIntent().getStringExtra("TITLE");

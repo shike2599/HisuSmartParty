@@ -104,9 +104,14 @@ public class NewsListModel implements NewsListContract.Model {
                 Date date = null;
                 String dateStr;
                 try {
-                    date = new SimpleDateFormat("yyyy-MM-d H:m:s").parse(entity.getPublishTime());
-                    dateStr = new SimpleDateFormat("yyyy年MM月dd日").format(date);
-                    entity.setPublishTime(dateStr);
+                    if(entity.getPublishTime()!=null){
+                        date = new SimpleDateFormat("yyyy-MM-d H:m:s").parse(entity.getPublishTime());
+                        dateStr = new SimpleDateFormat("yyyy年MM月dd日").format(date);
+                        entity.setPublishTime(dateStr);
+                    }else{
+                        entity.setPublishTime("");
+                    }
+
                 } catch (ParseException e) {
                     e.printStackTrace();
                     entity.setPublishTime("");

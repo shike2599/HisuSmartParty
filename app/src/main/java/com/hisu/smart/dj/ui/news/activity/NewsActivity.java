@@ -192,7 +192,9 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
                NewsActivity.this.finish();
                break;
            case R.id.follow_upLoad_imageView:
-               StudyExperienceActivity.startAction(this,show_title,follow_id);
+               String cateId = String.valueOf(follow_id);
+               cateId = cateId.substring(cateId.length()-1,cateId.length());
+               StudyExperienceActivity.startAction(this,show_title,Integer.valueOf(cateId));
                break;
        }
     }

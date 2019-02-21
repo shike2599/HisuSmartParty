@@ -6,6 +6,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
@@ -46,7 +47,8 @@ public class PartyBuildFragment extends BaseFragment {
             R.mipmap.home_banner_1,R.mipmap.home_banner_1,
             R.mipmap.home_banner_1,R.mipmap.home_banner_1};
     private GridView gridView;
-
+    private boolean isPartyBranch;
+    private boolean isPartyCommittee;
     private List<GridViewItemEntity> gridViewItemEntities;
     private GridViewAdapter gridViewAdapter ;
     public PartyBuildFragment() {
@@ -55,6 +57,8 @@ public class PartyBuildFragment extends BaseFragment {
 
     private void initBannerData() {
         partyBannerImages = new ArrayList<>();
+        isPartyBranch = AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_BRANCH,false);
+        isPartyCommittee = AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_COMMITTEE,false);
         for(int i = 0; i < Images.length; i++){
             partyBannerImages.add(Images[i]);
         }
@@ -68,7 +72,10 @@ public class PartyBuildFragment extends BaseFragment {
         gridViewItemEntities.add(new GridViewItemEntity(R.mipmap.dang_task,"党务公开","方便党员及时党建情况"));
         gridViewItemEntities.add(new GridViewItemEntity(R.mipmap.dang_xmind,"党组架构","党组织及党员信息查看"));
         gridViewItemEntities.add(new GridViewItemEntity(R.mipmap.dang_events,"支部活动","支部活动实时了解及参与"));
-        gridViewItemEntities.add(new GridViewItemEntity(R.mipmap.big_data,"党建大数据","辅助决策，提升党的管理"));
+        //普通党员账号不显示党建大数据栏目
+        if(isPartyBranch || isPartyCommittee){
+            gridViewItemEntities.add(new GridViewItemEntity(R.mipmap.big_data,"党建大数据","辅助决策，提升党的管理"));
+        }
     }
 
 

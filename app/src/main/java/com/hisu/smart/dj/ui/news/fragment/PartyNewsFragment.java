@@ -11,6 +11,7 @@ import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConstant;
+import com.hisu.smart.dj.entity.CateEntity;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
@@ -54,7 +55,8 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
     NewsRecyclerAdapter commonAdapter;
     private static int SIZE = 6;
     private int mStartPage = 1;
-
+    private final static String party_cateCode = "100511"; //制度文件-》党办
+    private boolean isFile;
     public PartyNewsFragment() {
 
     }
@@ -75,6 +77,7 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
         BannerWidget.setBanner(commonBanner, bannerImages);
         if (getArguments() != null) {
             cateCode = getArguments().getString(AppConstant.COMMON_CATE_CODE);
+            isFile = getArguments().getBoolean("ISFILE",false);
         }
         commonAdapter = new NewsRecyclerAdapter(getActivity());
         commonAdapter.setOnItemClickListener(this);
@@ -85,7 +88,12 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
         //数据为空才重新发起请求
         if (commonAdapter.getSize() == 0) {
             mStartPage = 0;
-            mPresenter.listInformationRequest(null, cateCode, "", mStartPage, SIZE);
+            if(isFile){
+                mPresenter.listInformationRequest(null, party_cateCode, "", mStartPage, SIZE);
+            }else{
+                mPresenter.listInformationRequest(null, cateCode, "", mStartPage, SIZE);
+
+            }
         }
     }
 

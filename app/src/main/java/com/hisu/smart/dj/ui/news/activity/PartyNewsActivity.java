@@ -129,6 +129,9 @@ public class PartyNewsActivity extends BaseActivity<PartyNewsMainPresenter,Party
     private PartyNewsFragment createListFragments(CateEntity cateEntity) {
         PartyNewsFragment fragment = new PartyNewsFragment();
         Bundle bundle = new Bundle();
+        if(cateEntity.getName().equals("制度文件")){
+            bundle.putBoolean("ISFILE",true);
+        }
         bundle.putString(AppConstant.COMMON_CATE_CODE, cateEntity.getCode());
         fragment.setArguments(bundle);
         return fragment;
@@ -142,6 +145,7 @@ public class PartyNewsActivity extends BaseActivity<PartyNewsMainPresenter,Party
 
             @Override
             public void onPageSelected(int position) {
+
             }
 
             @Override

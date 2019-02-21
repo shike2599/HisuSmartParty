@@ -63,7 +63,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     private List<String> lists;
     private String save_username;
     private String save_password;
-//    private boolean isExit = false;
+    private boolean isExit = false;
 
 
 
@@ -90,8 +90,20 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
         commomDialog = new CommomDialog(this,R.style.dialog,"",new CommomDialog.OnCloseListener(){
             @Override
             public void onClick(Dialog dialog, boolean confirm) {
+                if(isExit){
+                    if(confirm){
                         dialog.dismiss();
+                        isExit = false;
+                        AppManager.getAppManager().AppExit(LoginActivity.this,true);
+                    }else{
+                        isExit = false;
+                    }
+                }else {
+                    dialog.dismiss();
+                    isExit = false;
                     LoadingDialog.cancelDialogForLoading();
+                }
+
                 }
         });
         commomDialog.isShowCancelBtn(false);
@@ -218,13 +230,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
             //保存用户名和密码，用户用户选择
             if(lists!=null){
                 String isSavedStr = AppConfig.getInstance().getUserNameAndPassWordString(username,"");
-//                Log.d("LoginActivity","isSavedStr---"+isSavedStr);
-//                Log.d("LoginActivity","lists-==size---"+lists.size());
+                Log.d("LoginActivity","lists-==size---"+lists.size());
                 //查重
-                if(!isSavedStr.equals("")){
-                    if(lists.size()>3){
-//                        Log.d("LoginActivity","大于三了准备删除==="+lists.get(2));
-                        AppConfig.getInstance().deleteThreadData(lists.get(2));
+                if(isSavedStr.equals("")){
+                    if(lists.size()>=3){
+                        Log.d("LoginActivity","大于三了准备删除==="+lists.get(2));
+                        AppConfig.getInstance().deleteThreadData(lists.get(0));
                     }
                     AppConfig.getInstance().setUserNameAndPassWordString(username,password);
                 }
@@ -249,7 +260,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
               mPresenter.MemberInfoResponseRequest(entity.getUserId());
             }else{
                 commomDialog.setTitle("提示");
-                commomDialog.setContent("该用户不存在!");
+                commomDialog.setContent("用户名或密码错误，请重新输入!");
                 commomDialog.show();
             }
 
@@ -284,46 +295,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
             LoginActivity.this.finish();
         }
     }
-    // 用来计算返回键的点击间隔时间
-//    private long exitTime = 0;
-//     @Override
-//     public boolean onKeyDown(int keyCode, KeyEvent event) {
-//         if (keyCode == KeyEvent.KEYCODE_BACK
-//                && event.getAction() == KeyEvent.ACTION_DOWN) {
-//                commomDialog.isShowCancelBtn(true);
-//                commomDialog.setTitle("提示");
-//                commomDialog.setContent("您确定要退出智慧党建吗？");
-//                commomDialog.show();
-//                isExit = true;
-//
-//            if ((System.currentTimeMillis() - exitTime) > 2000) {
-//                //弹出提示，可以有多种方式
-//                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
-//                exitTime = System.currentTimeMillis();
-//                 } else {
-////                AppManager.getAppManager().AppExit(LoginActivity.this);
-//                commomDialog.isShowCancelBtn(true);
-//                commomDialog.setTitle("提示");
-//                commomDialog.setContent("您确定要退出智慧党建吗？");
-//                commomDialog.show();
-//                isExit = true;
-//            }
-//             return true;
-//         }
-//         return super.onKeyDown(keyCode, event);
-//     }
 
-   private long firstTime = 0;
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
-            long secondTime = System.currentTimeMillis();
-            if (secondTime - firstTime > 200) {
-                firstTime = secondTime;
-                return true;
-            } else {
-               AppManager.getAppManager().AppExit(this,true);
-            }
+            commomDialog.isShowCancelBtn(true);
+            commomDialog.setTitle("提示");
+            commomDialog.setContent("您确定要退出智慧党建吗？");
+            commomDialog.show();
+            isExit = true;
+            return true;
         }
         return super.onKeyUp(keyCode, event);
     }

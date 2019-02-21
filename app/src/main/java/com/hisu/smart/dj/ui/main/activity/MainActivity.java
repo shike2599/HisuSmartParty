@@ -215,12 +215,14 @@ public class MainActivity extends BaseActivity {
     public boolean onKeyUp(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
             long secondTime = System.currentTimeMillis();
-            if (secondTime - firstTime > 200) {
+            if (secondTime - firstTime > 2000) {
                 firstTime = secondTime;
 //                moveTaskToBack(false);
+            Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 return true;
             } else {
-                finish();
+//                finish();
+                AppManager.getAppManager().AppExit(this,true);
             }
         }
         return super.onKeyUp(keyCode, event);

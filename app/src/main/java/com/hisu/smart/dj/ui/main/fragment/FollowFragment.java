@@ -37,6 +37,7 @@ public class FollowFragment extends BaseFragment {
     private List<GridViewItemEntity> gridViewItemEntities;
     private GridViewAdapter gridViewAdapter ;
     private int followId;//分类ID 本职工作=1，党组工作=2，志愿者活动=5，脱贫攻坚=4 困难帮扶=6 典型事迹=3
+    private int cateId;
     private String title_str;
 
     public FollowFragment() {
@@ -87,21 +88,27 @@ public class FollowFragment extends BaseFragment {
                 String follow_str = textView.getText().toString();
                 if(follow_str.equals("本职工作")){
                     followId = 5001;
+                    cateId = 1;
                     title_str = "本职工作";
                 }else if(follow_str.equals("党组工作")){
                     followId = 5002;
+                    cateId = 2;
                     title_str = "党组工作";
                 }else if(follow_str.equals("志愿者活动")){
                     followId = 5005;
+                    cateId = 5;
                     title_str = "志愿者活动";
                 }else if(follow_str.equals("脱贫攻坚")){
                     followId = 5004;
+                    cateId = 4;
                     title_str = "脱贫攻坚";
                 }else if(follow_str.equals("困难帮扶")){
                     followId = 5006;
+                    cateId = 6;
                     title_str = "困难帮扶";
                 }else if(follow_str.equals("典型事迹")){
                     followId = 5003;
+                    cateId = 3;
                     title_str = "典型事迹";
                 }
                 NewsActivity.startAction(getActivity(),title_str,followId);
