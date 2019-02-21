@@ -57,13 +57,23 @@ public interface ApiService {
     /**
      * 校验验证码
      * @param phone  手机号
-     * @param code   手机验证码
+     * @param code   String	是	新密码
      * @return
      */
     @FormUrlEncoded
     @POST("party-user-front/login/readonly/verifyPhoneCode")
     Observable<BaseResponse> verifyPhoneCode(@Field("phone") String phone,
                                              @Field("code") String code);
+    /**
+     * 3.12.忘记密码
+     * @param phone  手机号
+     * @param code   手机验证码
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("party-user-front/login/write/forgetPassword")
+    Observable<BaseResponse> forgetPassword(@Field("phone") String phone,
+                                             @Field("newPwd") String code);
 
     /**
      * 资讯活动列表
@@ -275,7 +285,6 @@ public interface ApiService {
      * @param content	String	是	资讯内容
      * @param url	String	否	视频链接地址
      * @param publishTime	String	是	活动发布时间（yyyy-MM-dd HH:mm:ss）
-     * @param videoPath	videoPath
      * @param isNeedSign	Boolean	是	true：需要签到，false：不需要
      * @return
      */

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
 
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.my.contract.ForgotPasswordContract;
 import com.hisu.smart.dj.ui.my.model.ForgotPasswordModel;
 import com.hisu.smart.dj.ui.my.presenter.ForgotPasswordPresenter;
@@ -121,6 +122,7 @@ public class ForgotPasswordActivity extends BaseActivity<ForgotPasswordPresenter
         if(!"200".equals(code)){
             ToastUitl.show(baseResponse.getResultDesc(), Toast.LENGTH_SHORT);
         }else {
+            AppConstant.RESET_PWD_PHONE = phone;
             ResetPasswordActivity.startAction(ForgotPasswordActivity.this);
         }
     }

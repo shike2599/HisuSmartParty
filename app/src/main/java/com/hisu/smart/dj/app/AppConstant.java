@@ -32,6 +32,7 @@ public class AppConstant {
 
     public static final String BASE_URL = "http://59.152.38.196:8991/smart_dj_weixin/";
     public static final String BASE_URL_LOAD = "file:///android_asset/smart_dj_weixin/";
+    public static String RESET_PWD_PHONE;
     public static Boolean IS_STUDY_BRANCH = false;
 
     public static final int QR_CODE =1;

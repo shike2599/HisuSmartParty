@@ -12,11 +12,15 @@ import com.jaydenxiao.common.commonutils.NetWorkUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.CacheControl;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
@@ -118,7 +122,22 @@ public class Api {
             return chain.proceed(request);
         }
     };
+    /**
+     * 设置Cookie
+     */
+    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+    CookieJar cookieJar = new CookieJar() {
+        @Override
+        public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+            cookieStore.put(url.host(), cookies);
+        }
 
+        @Override
+        public List<Cookie> loadForRequest(HttpUrl url) {
+            List<Cookie> cookies = cookieStore.get(url.host());
+            return cookies != null ? cookies : new ArrayList<Cookie>();
+        }
+    };
 
     //构造方法私有
     private Api(Context context,String baseUrl) {
@@ -149,6 +168,7 @@ public class Api {
                 .addInterceptor(logInterceptor)
                 .addInterceptor(paramsInterceptor)
                 .cache(cache)
+                .cookieJar(cookieJar)
                 .build();
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").serializeNulls().create();
         retrofit = new Retrofit.Builder()
