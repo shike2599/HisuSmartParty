@@ -150,7 +150,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             //我的收藏
             case R.id.pe_collect:
-                WebActivity.startAction(getActivity(),"我的审批",myCollection);
+                WebActivity.startAction(getActivity(),"我的收藏",myCollection);
                 break;
             //设置
             case R.id.pe_setting:

@@ -61,7 +61,7 @@ public class MyInfoActivity extends BaseActivity implements View.OnClickListener
         if(sex_type == 1){
             sex.setText("男");
         }else if(sex_type == 0){
-            sex.setText("n女");
+            sex.setText("女");
         }
         idCard.setText(appConfig.getString(AppConstant.MEMBER_IDCARD,""));
         phone.setText(appConfig.getString(AppConstant.USER_PHONE,""));

@@ -3,6 +3,7 @@ package com.hisu.smart.dj.ui.my.activity;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.graphics.drawable.GradientDrawable;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -42,7 +43,6 @@ public class ForgotPasswordActivity extends BaseActivity<ForgotPasswordPresenter
     EditText et_phone;
     @Bind(R.id.et_yzcode)
     EditText et_yzcode;
-
     CountDownTimerUtils countDownTimer;
     private String phone;
     private String yzcode;
@@ -156,5 +156,4 @@ public class ForgotPasswordActivity extends BaseActivity<ForgotPasswordPresenter
          }
          return true;
     }
-
 }
