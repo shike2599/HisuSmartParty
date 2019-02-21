@@ -14,6 +14,7 @@ import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.login.activity.LoginActivity;
+import com.hisu.smart.dj.ui.main.activity.MainActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.CommomDialog;
 import com.hisu.smart.dj.ui.widget.ProfileEdit;
@@ -105,9 +106,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             case R.id.edit_load_Btn:
                 //删除密码
                 AppConfig.getInstance().clearPassWord(AppConstant.USER_PASSWORD);
-                Intent intent = new Intent();
-                intent.setClass(SettingActivity.this,LoginActivity.class);
-                startActivity(intent);
+                LoginActivity.startAction(SettingActivity.this);
                 SettingActivity.this.finish();
                 break;
             case R.id.back_imageView:

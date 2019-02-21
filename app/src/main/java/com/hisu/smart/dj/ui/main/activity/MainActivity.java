@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -29,7 +30,6 @@ import com.jaydenxiao.common.commonutils.LogUtils;
 import java.util.ArrayList;
 
 import butterknife.Bind;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 
 /**
  * @author lichee
@@ -55,6 +55,9 @@ public class MainActivity extends BaseActivity {
 
     private static int currentTabPosition;
 
+    private final static String TAG = "MainActivity";
+    private long firstTime =  0;
+
     /**
      * 入口
      * @param activity
@@ -68,6 +71,7 @@ public class MainActivity extends BaseActivity {
 
     public static void startAction(Activity activity,int currentTabPosition){
         Intent intent = new Intent(activity, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(AppConstant.HOME_CURRENT_TAB_POSITION,currentTabPosition);
         activity.startActivity(intent);
         activity.overridePendingTransition(R.anim.fade_in,
@@ -205,40 +209,31 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
+    
 
-    /**
-     * 监听全屏视频时返回键
-     */
     @Override
-    public void onBackPressed() {
-        if (JCVideoPlayer.backPress()) {
-            return;
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 200) {
+                firstTime = secondTime;
+//                moveTaskToBack(false);
+                return true;
+            } else {
+                finish();
+            }
         }
-        super.onBackPressed();
+        return super.onKeyUp(keyCode, event);
     }
-    /**
-     * 监听返回键
-     *
-     * @param keyCode
-     * @param event
-     * @return
-     */
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-                moveTaskToBack(false);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         //奔溃前保存位置
-        LogUtils.logi("MAIN","onSaveInstanceState进来了1");
+       Log.i(TAG,"onSaveInstanceState进来了1");
         if (tabLayout != null) {
-            LogUtils.logi("MAIN","onSaveInstanceState进来了2");
+            Log.i(TAG,"onSaveInstanceState进来了2");
             outState.putInt(AppConstant.HOME_CURRENT_TAB_POSITION, tabLayout.getCurrentTab());
         }
     }
@@ -251,4 +246,9 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -52,6 +53,8 @@ public class IactiveLoginActivity extends BaseActivity {
 
 	public static boolean m_ShowJoinRoomList=false;
 
+	private static final String TAG = "IactiveLoginActivity";
+
 	public static void startAction(Activity activity){
 		Intent intent = new Intent(activity, IactiveLoginActivity.class);
 		activity.startActivity(intent);
@@ -59,6 +62,7 @@ public class IactiveLoginActivity extends BaseActivity {
 
 	public static void startAction(Activity activity,int currentTabPosition){
 		Intent intent = new Intent(activity, IactiveLoginActivity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		intent.putExtra(AppConstant.HOME_CURRENT_TAB_POSITION,currentTabPosition);
 		activity.startActivity(intent);
 	}
@@ -159,6 +163,7 @@ public class IactiveLoginActivity extends BaseActivity {
 			break;
 		case R.id.back_imageView:
 			MainActivity.startAction(this,currentTabPosition);
+			finish();
 			break;
 		}
 	}
@@ -267,11 +272,13 @@ public class IactiveLoginActivity extends BaseActivity {
 	};
 
 	
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK  && event.getAction() == KeyEvent.ACTION_UP) {
 			MainActivity.startAction(this,currentTabPosition);
+			finish();
+			return true;
         }
-        return true;
+		return super.onKeyUp(keyCode, event);
     }
     
     
@@ -280,7 +287,6 @@ public class IactiveLoginActivity extends BaseActivity {
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		System.exit(0);
 	}
 
 	private void comeback(){

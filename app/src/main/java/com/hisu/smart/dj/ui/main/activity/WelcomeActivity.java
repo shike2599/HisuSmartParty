@@ -5,19 +5,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.hisu.smart.dj.BuildConfig;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
-import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.ui.login.activity.LoginActivity;
-import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.commonutils.LogUtils;
-import com.jaydenxiao.common.commonutils.NetWorkUtils;
 import com.tencent.smtt.sdk.QbSdk;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -82,9 +77,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     Thread.sleep(3000);
                     welBanner.stopAutoPlay();
                     Intent intent = new Intent();
-                    intent.setClass(WelcomeActivity.this,LoginActivity.class);
-                    startActivity(intent);
+                    LoginActivity.startAction(WelcomeActivity.this);
                     WelcomeActivity.this.finish();
+                    finish();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

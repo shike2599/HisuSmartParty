@@ -1,6 +1,8 @@
 package com.hisu.smart.dj.ui.login.activity;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.support.v7.widget.ListPopupWindow;
 import android.text.TextUtils;
 import android.util.Log;
@@ -62,6 +64,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
     private String save_username;
     private String save_password;
 //    private boolean isExit = false;
+
+
+
+    public static void startAction(Activity activity){
+        Intent intent = new Intent(activity, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        activity.startActivity(intent);
+    }
 
     @Override
     public void finishActivity(int requestCode) {
@@ -302,4 +312,19 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
 //         }
 //         return super.onKeyDown(keyCode, event);
 //     }
+
+   private long firstTime = 0;
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
+            long secondTime = System.currentTimeMillis();
+            if (secondTime - firstTime > 200) {
+                firstTime = secondTime;
+                return true;
+            } else {
+               AppManager.getAppManager().AppExit(this,true);
+            }
+        }
+        return super.onKeyUp(keyCode, event);
+    }
 }
