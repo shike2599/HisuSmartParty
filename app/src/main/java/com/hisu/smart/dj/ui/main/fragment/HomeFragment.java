@@ -22,6 +22,7 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.HomeItemBean;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.entity.UserCollectionEntity;
@@ -266,7 +267,14 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
     @Override
     public void onNewsClick(int position, InformationEntity data) {
         if(data.getMediaType() == 0){
-            MediaPlayerActivity.startAction(getActivity(),data);
+            MediaParamEntity info = new MediaParamEntity();
+            info.setUrl(data.getUrl());
+            info.setTitle(data.getName());
+            info.setResId(data.getId());
+            info.setResType(0);
+            info.setCover(data.getIcon());
+            info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+            MediaPlayerActivity.startAction(getActivity(), info);
         }else{
             WebActivity.startAction(getActivity(),data.getId());
         }

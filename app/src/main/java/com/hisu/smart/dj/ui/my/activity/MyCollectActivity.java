@@ -17,6 +17,7 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.CollectEntity;
 import com.hisu.smart.dj.entity.InformationEntity;
+import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.ui.adapter.CollectRecyclerAdapter;
 import com.hisu.smart.dj.ui.my.contract.MyCollectContract;
 import com.hisu.smart.dj.ui.my.model.MyCollectModel;
@@ -158,9 +159,12 @@ public class MyCollectActivity extends BaseActivity<MyCollectPresenter, MyCollec
     @Override
     public void onCollectClick(int position, CollectEntity data) {
         if (data.getMediaType() == 0) {
-            InformationEntity info = new InformationEntity();
+            MediaParamEntity info = new MediaParamEntity();
             info.setUrl(data.getUrl());
-            info.setName(data.getName());
+            info.setTitle(data.getName());
+            info.setResId(data.getResId());
+            info.setResType(data.getResId());
+            info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
             MediaPlayerActivity.startAction(this, info);
         } else {
             int resType = data.getResType();

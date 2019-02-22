@@ -10,10 +10,12 @@ import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.CateEntity;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
@@ -185,7 +187,14 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
     @Override
     public void onNewsClick(int position, InformationEntity data) {
         if(data.getMediaType() == 0){
-            MediaPlayerActivity.startAction(getActivity(),data);
+            MediaParamEntity info = new MediaParamEntity();
+            info.setUrl(data.getUrl());
+            info.setTitle(data.getName());
+            info.setResId(data.getId());
+            info.setResType(0);
+            info.setCover(data.getIcon());
+            info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+            MediaPlayerActivity.startAction(getActivity(), info);
         }else{
             WebActivity.startAction(getActivity(),data.getId());
         }

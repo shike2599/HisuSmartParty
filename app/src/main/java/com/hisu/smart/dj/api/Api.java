@@ -26,6 +26,7 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -108,16 +109,20 @@ public class Api {
             }else if(method.equals(POST)){
                 // 构造新的请求表单
                 FormBody.Builder builder = new FormBody.Builder();
-                FormBody body = (FormBody) request.body();
-                //将以前的参数添加
-                for (int i = 0; i < body.size(); i++) {
-                    builder.add(body.encodedName(i), body.encodedValue(i));
+                FormBody body;
+                RequestBody requestBody = request.body();
+                if( requestBody instanceof FormBody ){
+                    body = (FormBody) request.body();
+                    //将以前的参数添加
+                    for (int i = 0; i < body.size(); i++) {
+                        builder.add(body.encodedName(i), body.encodedValue(i));
+                    }
+                    //追加新的参数
+                    builder.add("requestUser", "hotel");
+                    builder.add("requestPassword", "123456");
+                    //构造新的请求体
+                    request = request.newBuilder().post(builder.build()).build();
                 }
-                //追加新的参数
-                builder.add("requestUser", "hotel");
-                builder.add("requestPassword", "123456");
-                //构造新的请求体
-                request = request.newBuilder().post(builder.build()).build();
             }
             return chain.proceed(request);
         }

@@ -46,6 +46,7 @@ public class AppConstant {
 
     public static final String VIDEO = "video";
 
+
 //    public static  boolean  isExitLogin = false;
 
 }

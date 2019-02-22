@@ -10,9 +10,11 @@ import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.hisu.smart.dj.R;
+import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonContract;
@@ -176,7 +178,14 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
     @Override
     public void onTopicClick(int position, InformationEntity data) {
         if(data.getMediaType() == 0){
-            MediaPlayerActivity.startAction(getActivity(),data);
+            MediaParamEntity info = new MediaParamEntity();
+            info.setUrl(data.getUrl());
+            info.setTitle(data.getName());
+            info.setResId(data.getId());
+            info.setResType(1);
+            info.setCover(data.getIcon());
+            info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+            MediaPlayerActivity.startAction(getActivity(), info);
         }else{
             WebActivity.startAction(getActivity(),data.getId(),"常规学习");
         }

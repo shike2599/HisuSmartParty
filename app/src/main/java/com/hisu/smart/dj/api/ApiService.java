@@ -14,6 +14,9 @@ import com.hisu.smart.dj.entity.NewsInfoResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.RankEntity;
+import com.hisu.smart.dj.entity.StudiedDetailEntity;
+import com.hisu.smart.dj.entity.StudiedDetailResponse;
+import com.hisu.smart.dj.entity.StudyLogParam;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.entity.UserCollectionEntity;
@@ -23,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -408,7 +412,6 @@ public interface ApiService {
                                                        @Query("phone") String  phone);
 
     /**
-<<<<<<< Updated upstream
      * 9.2.标记通知公告为已读状态
      * @param userId   用户ID
      * @param partyMemberId   党员ID
@@ -430,6 +433,89 @@ public interface ApiService {
     Observable<BaseResponse<CollectEntity>>listMyCollection(@Query("userId") Integer userId,
                                                             @Query("id") Integer id,
                                                             @Query("pageSize") Integer pageSize);
+
+    /**
+     * 某个课程当月已学情况查询（集体学习）
+     * @param userId
+     * @param resType
+     * @param resId
+     * @return
+     */
+    @GET("party-data-statistics-front/studyLog/readonly/getBranchResStudiedDetail")
+    Observable<StudiedDetailResponse>getBranchResStudiedDetail(@Query("userId") Integer userId,
+                                                                                    @Query("resType") Integer resType,
+                                                                                    @Query("resId") Integer resId);
+    /**
+     * 某个课程当月已学情况查询（个人学习）
+     * @param userId
+     * @param resType
+     * @param resId
+     * @return
+     */
+    @GET("party-data-statistics-front/studyLog/readonly/getMemberResStudiedDetail")
+    Observable<StudiedDetailResponse>getMemberResStudiedDetail(@Query("userId") Integer userId,
+                                                                           @Query("resType") Integer resType,
+                                                                           @Query("resId") Integer resId);
+
+
+    /**
+     * 课程学习日志收集（集体学习）
+     * @param userId
+     * @param logId
+     * @param partyBranchId
+     * @param resType
+     * @param resId
+     * @param resName
+     * @param duration
+     * @param studiedHours
+     * @param resTotalHours
+     * @param pagePath
+     * @param remark
+     * @return
+     */
+    @FormUrlEncoded
+   @POST("party-data-statistics-front/studyLog/write/addPartyBranchStudyLogs")
+    Observable<BaseResponse> addPartyBranchStudyLogs(@Field("userId") Integer userId,
+                                                     @Field("logId") Integer logId,
+                                                     @Field("partyBranchId") Integer partyBranchId,
+                                                     @Field("resType") Integer resType,
+                                                     @Field("resId") Integer resId,
+                                                     @Query("resName") String resName,
+                                                     @Field("duration") Long duration,
+                                                     @Field("studiedHours") Float studiedHours,
+                                                     @Field("resTotalHours") Float resTotalHours,
+                                                     @Query("pagePath") String pagePath,
+                                                     @Query("remark") String remark);
+
+
+    /**
+     * 课程学习日志收集（个人学习）
+     * @param userId
+     * @param logId
+     * @param partyBranchId
+     * @param resType
+     * @param resId
+     * @param resName
+     * @param duration
+     * @param studiedHours
+     * @param resTotalHours
+     * @param pagePath
+     * @param remark
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("party-data-statistics-front/studyLog/write/addPartyMemberStudyLogs")
+    Observable<BaseResponse> addPartyMemberStudyLogs(@Field("userId") Integer userId,
+                                                     @Field("logId") Integer logId,
+                                                     @Field("partyBranchId") Integer partyBranchId,
+                                                     @Field("resType") Integer resType,
+                                                     @Field("resId") Integer resId,
+                                                     @Query("resName") String resName,
+                                                     @Field("duration") Long duration,
+                                                     @Field("studiedHours") Float studiedHours,
+                                                     @Field("resTotalHours") Float resTotalHours,
+                                                     @Query("pagePath") String pagePath,
+                                                     @Query("remark") String remark);
 
 
 }

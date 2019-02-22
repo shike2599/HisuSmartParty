@@ -1,5 +1,6 @@
 package com.hisu.smart.dj.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * @date 2019/1/30
  */
 
-public class CateEntity {
+public class CateEntity implements Serializable {
 
     /**
      * id : 2

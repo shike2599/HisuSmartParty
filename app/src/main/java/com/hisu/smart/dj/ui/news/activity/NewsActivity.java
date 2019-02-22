@@ -15,9 +15,11 @@ import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppApplication;
+import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
 import com.hisu.smart.dj.ui.main.model.NewsListModel;
@@ -212,20 +214,41 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         if(follow_id!=-1){
             jump_tag = "践行活动";
             if(data.getMediaType() == 0){
-                MediaPlayerActivity.startAction(this,data);
+                MediaParamEntity info = new MediaParamEntity();
+                info.setUrl(data.getUrl());
+                info.setTitle(data.getName());
+                info.setResId(data.getId());
+                info.setResType(0);
+                info.setCover(data.getIcon());
+                info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+                MediaPlayerActivity.startAction(this, info);
             }else{
                 WebActivity.startAction(this,data.getId(),jump_tag);
             }
         }else if(show_title.equals("三会一课")){
             jump_tag = "专题学习";
             if(data.getMediaType() == 0){
-                MediaPlayerActivity.startAction(this,data);
+                MediaParamEntity info = new MediaParamEntity();
+                info.setUrl(data.getUrl());
+                info.setTitle(data.getName());
+                info.setResId(data.getId());
+                info.setResType(2);
+                info.setCover(data.getIcon());
+                info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+                MediaPlayerActivity.startAction(this, info);
             }else {
                 WebActivity.startAction(this, data.getId(), jump_tag);
             }
         }else{
             if(data.getMediaType() == 0){
-                MediaPlayerActivity.startAction(this,data);
+                MediaParamEntity info = new MediaParamEntity();
+                info.setUrl(data.getUrl());
+                info.setTitle(data.getName());
+                info.setResId(data.getId());
+                info.setResType(0);
+                info.setCover(data.getIcon());
+                info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+                MediaPlayerActivity.startAction(this, info);
             }else {
                 WebActivity.startAction(this, data.getId());
             }
