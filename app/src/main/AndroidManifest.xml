@@ -134,8 +134,12 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Panel"
             android:windowSoftInputMode="adjustPan" />
+
         <activity android:name=".ui.my.activity.MyNoticeActivity" />
         <activity android:name=".ui.my.activity.NoticeInfoActivity"></activity>
+
+        <activity android:name=".ui.my.activity.MyCollectActivity"></activity>
+
     </application>
 
 </manifest>

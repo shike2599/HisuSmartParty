@@ -1,6 +1,9 @@
 package com.hisu.smart.dj.api;
 
+import android.content.Intent;
+
 import com.hisu.smart.dj.entity.CateEntity;
+import com.hisu.smart.dj.entity.CollectEntity;
 import com.hisu.smart.dj.entity.FollowActionListBean;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
@@ -405,6 +408,7 @@ public interface ApiService {
                                                        @Query("phone") String  phone);
 
     /**
+<<<<<<< Updated upstream
      * 9.2.标记通知公告为已读状态
      * @param userId   用户ID
      * @param partyMemberId   党员ID
@@ -415,5 +419,17 @@ public interface ApiService {
     Observable<NotingResponse> readNoticeNum(@Query("userId") Integer userId,
                                               @Query("partyMemberId") Integer  partyMemberId,
                                               @Query("noticeInfoId") Integer  noticeInfoId);
+    /**
+     * 我的收藏
+     * @param userId    用户序号
+     * @param id        收藏记录id
+     * @param pageSize  每页数据条数
+     * @return
+     */
+    @GET("party-app-education-front/res/readonly/listMyCollection")
+    Observable<BaseResponse<CollectEntity>>listMyCollection(@Query("userId") Integer userId,
+                                                            @Query("id") Integer id,
+                                                            @Query("pageSize") Integer pageSize);
+
 
 }

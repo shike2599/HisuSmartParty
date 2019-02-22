@@ -210,14 +210,14 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
 //       Toast.makeText(this,"item-id=="+news_id,
 //               Toast.LENGTH_LONG).show();
         if(follow_id!=-1){
-            jump_tag = "践行";
+            jump_tag = "践行活动";
             if(data.getMediaType() == 0){
                 MediaPlayerActivity.startAction(this,data);
             }else{
                 WebActivity.startAction(this,data.getId(),jump_tag);
             }
         }else if(show_title.equals("三会一课")){
-            jump_tag = "三会一课";
+            jump_tag = "专题学习";
             if(data.getMediaType() == 0){
                 MediaPlayerActivity.startAction(this,data);
             }else {

@@ -7,14 +7,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hisu.smart.dj.R;
 
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
-import com.hisu.smart.dj.ui.main.activity.MainActivity;
+
 import com.hisu.smart.dj.ui.my.activity.MyNoticeActivity;
+
+import com.hisu.smart.dj.ui.my.activity.MyCollectActivity;
+
 import com.hisu.smart.dj.ui.my.activity.SettingActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.ProfileEdit;
@@ -22,10 +24,6 @@ import com.jaydenxiao.common.base.BaseFragment;
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
 import com.znq.zbarcode.CaptureActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -152,7 +150,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             //我的收藏
             case R.id.pe_collect:
-                WebActivity.startAction(getActivity(),"我的收藏",myCollection);
+                MyCollectActivity.startAction(getActivity());
                 break;
             //设置
             case R.id.pe_setting:

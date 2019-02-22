@@ -191,7 +191,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
         mStartPage = 1;
         //发起请求
         recyclerView.setRefreshing(true);
-        if(getIntent().getBooleanExtra(AppConstant.IS_PARTY_BRANCH,false)){
+        if(AppConstant.IS_STUDY_BRANCH){
             mPresenter.getBranchTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
         }else{
             mPresenter.getMemberTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);

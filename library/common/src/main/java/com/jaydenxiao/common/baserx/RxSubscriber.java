@@ -32,16 +32,16 @@ public abstract class RxSubscriber<T> extends Subscriber<T> {
 
     private Context mContext;
     private String msg;
-    private boolean showDialog=true;
+    private boolean showDialog = true;
 
     /**
      * 是否显示浮动dialog
      */
     public void showDialog() {
-        this.showDialog= true;
+        this.showDialog = true;
     }
     public void hideDialog() {
-        this.showDialog= true;
+        this.showDialog = true;
     }
 
     public RxSubscriber(Context context, String msg,boolean showDialog) {

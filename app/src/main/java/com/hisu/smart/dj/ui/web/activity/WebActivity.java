@@ -107,13 +107,13 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
             webUrl = getIntent().getStringExtra("URL");
         }else{
             jump_tag = getIntent().getStringExtra("TAG");
-            if(jump_tag!=null){
-                if(jump_tag.equals("三会一课")){
-                    resType = 2; //三会一课就是专题学习
-                }else if(jump_tag.equals("常规学习")){
+            if(jump_tag != null){
+                if(jump_tag.equals("常规学习")){
                     resType = 1;
                 }else if(jump_tag.equals("专题学习")){
                     resType = 2;
+                }else if(jump_tag.equals("践行活动")){
+                    resType = 3;
                 }
             }else{
                 resType = 0;
@@ -132,18 +132,16 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
        back_img.setOnClickListener(this);
        news_collection_textView.setOnClickListener(this);
 
-       if(newsID!=-1){
+       if(newsID != -1){
            title_textView.setVisibility(View.INVISIBLE);
            LoadingDialog.showDialogForLoading(this,"请稍候！",false);
-           if(jump_tag!=null){
-               if(jump_tag.equals("践行")){
+           if(jump_tag != null){
+               if(jump_tag.equals("践行活动")){
                    mPresenter.getFollowInfoDataRequest(newsID);
-               }else if(jump_tag.equals("三会一课")){
+               }else if(jump_tag.equals("专题学习")){
                    mPresenter.getTopicInfoDataRequest(newsID);
                }else if(jump_tag.equals("常规学习")){
                    mPresenter.getCommonInfoDataRequest(newsID);
-               }else if(jump_tag.equals("专题学习")){
-                   mPresenter.getTopicInfoDataRequest(newsID);
                }
            }else{
                mPresenter.getNewsInfoDataRequest(newsID);
@@ -431,13 +429,12 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
     @Override
     public void returnCollectionData(UserCollectionEntity userCollectionEntity,String tag) {
         Log.d("isCollectionTAG","===returnCollectionData=tag="+tag);
-
         Log.d("isCollectionTAG","===userCollectionEntity==DATA=="+userCollectionEntity.getData());
         //查询收藏接口
         if(tag.equals(AppConstant.QUERY_COLLECTION_TAG)){
             if(userCollectionEntity.getResultCode() == 200){
                 collectSeri = userCollectionEntity.getData();
-                if(collectSeri !=0){
+                if(collectSeri != 0){
                     collection_img.setBackgroundResource(R.mipmap.pre_likes);
                     news_collection_textView.setText("取消收藏");
                 }else{

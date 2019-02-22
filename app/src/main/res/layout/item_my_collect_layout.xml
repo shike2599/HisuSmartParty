@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/my_collect_layout">
+    <TextView
+        android:id="@+id/my_collect_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="2019年02月21日"
+        android:textSize="11sp"
+        android:textColor="@color/text_color"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/my_collect_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:maxLines="3"
+            android:text="全国老干部局长会议1月16日在京召开。中共中央政治局委员、全国老干部局长会议1月16日在京召开。中共中央政治局委员、全国老干部局长会议1月16日在京召开。中共中央政治局委员、全国老干部局长会议1月16日在京召开。中共中央政治局委员、"
+            android:textColor="@color/text_color"
+            android:textSize="16sp"/>
+
+        <ImageView
+            android:id="@+id/my_collect_image"
+            android:layout_width="100dp"
+            android:layout_height="60dp" />
+
+        <fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard
+            android:id="@+id/my_collect_video"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:longClickable="false"
+            android:visibility="gone"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/background_color_gory"
+        >
+    </View>
+</LinearLayout>

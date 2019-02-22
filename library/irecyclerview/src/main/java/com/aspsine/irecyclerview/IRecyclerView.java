@@ -833,6 +833,4 @@ public class IRecyclerView extends RecyclerView {
             return false;
         }
     }
-
-
 }

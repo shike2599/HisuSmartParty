@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConstant;
+import com.hisu.smart.dj.entity.CollectEntity;
 import com.hisu.smart.dj.entity.InformationEntity;
 
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -29,7 +30,6 @@ public class MediaPlayerActivity extends AppCompatActivity {
         intent.putExtra(AppConstant.VIDEO,data);
         activity.startActivity(intent);
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
