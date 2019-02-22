@@ -19,7 +19,7 @@ import rx.Observable;
 public interface HomeInfoContract {
     interface Model extends BaseModel {
         //请求通知数据
-        Observable <NoticeInfoEntity> getListNoticeByTime(Integer userId, Integer  partyBranchId, String  publishTime, Integer limitNum);
+        Observable <NoticeInfoEntity> getListNoticeByTime(Integer userId, Integer  partyBranchId,Integer id,String  publishTime, Integer limitNum);
         //未读通知消息个数
         Observable <UserCollectionEntity> getUnReadNoticeNum(Integer userId, Integer  partyMemberId);
         //请求获取新闻
@@ -40,7 +40,7 @@ public interface HomeInfoContract {
     }
     abstract static class Presenter extends BasePresenter<View, Model> {
         //发起通知数据请求
-        public abstract void getListNoticeByTimeRequest(Integer userId, Integer  partyBranchId, String  publishTime, Integer limitNum);
+        public abstract void getListNoticeByTimeRequest(Integer userId, Integer  partyBranchId, Integer id ,String  publishTime, Integer limitNum);
         //未读通知消息个数
         public abstract void getUnReadNoticeNuRequest(Integer userId, Integer  partyMemberId);
         //发起获取新闻请求

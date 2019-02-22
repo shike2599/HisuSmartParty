@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/notice_item_relativeLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/notice_imageView"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:background="@mipmap/meg_noopened_icon"
+        />
+
+    <LinearLayout
+        android:id="@+id/notice_content_linearLayout"
+        android:layout_toRightOf="@id/notice_imageView"
+        android:layout_marginLeft="@dimen/imm_s0_size_10"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/notice_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公告"
+            android:textColor="@color/black"
+            android:textSize="17dp"
+            android:singleLine="true"
+            />
+        <TextView
+            android:id="@+id/notice_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="请大家即使缴纳党费"
+            android:maxLines="3"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/black"
+            android:textSize="15dp"
+            />
+        <TextView
+            android:layout_marginTop="2dp"
+            android:id="@+id/notice_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="201902212102"
+            android:textColor="@color/text_color"
+            android:textSize="13dp"
+            />
+    </LinearLayout>
+    <View
+        android:layout_below="@id/notice_content_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/background_color_gory"
+        android:layout_marginTop="7dp"
+        ></View>
+
+</RelativeLayout>

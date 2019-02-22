@@ -32,9 +32,9 @@ import rx.functions.Func1;
 public class HomeInfoModel implements HomeInfoContract.Model {
 
     @Override
-    public Observable<NoticeInfoEntity> getListNoticeByTime(Integer userId, Integer partyBranchId, String publishTime, Integer limitNum) {
+    public Observable<NoticeInfoEntity> getListNoticeByTime(Integer userId, Integer partyBranchId,Integer id, String publishTime, Integer limitNum) {
         return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
-                .listNoticeByTime(userId,partyBranchId,publishTime,limitNum)
+                .listNoticeByTime(userId,partyBranchId,id,publishTime,limitNum)
                 .map(new Func1<NoticeInfoEntity, NoticeInfoEntity>() {
                     @Override
                     public NoticeInfoEntity call(NoticeInfoEntity noticeInfoEntity) {

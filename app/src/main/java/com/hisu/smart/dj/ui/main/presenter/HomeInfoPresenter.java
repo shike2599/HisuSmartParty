@@ -22,8 +22,8 @@ public class HomeInfoPresenter extends HomeInfoContract.Presenter {
     }
     //通知消息内容
     @Override
-    public void getListNoticeByTimeRequest(Integer userId, Integer partyBranchId, String publishTime, Integer limitNum) {
-        mRxManage.add(mModel.getListNoticeByTime(userId,partyBranchId,publishTime,limitNum)
+    public void getListNoticeByTimeRequest(Integer userId, Integer partyBranchId, Integer id,String publishTime, Integer limitNum) {
+        mRxManage.add(mModel.getListNoticeByTime(userId,partyBranchId,id,publishTime,limitNum)
         .subscribe(new RxSubscriber<NoticeInfoEntity>(mContext,false) {
             @Override
             public void onStart() {

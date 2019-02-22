@@ -219,7 +219,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
            //未读消息获取
            mPresenter.getUnReadNoticeNuRequest(user_id,partyMemberId);
            //获取最新消息
-           mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,1);
+           mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,null,1);
            //请求党建要闻
            mPresenter.getNewsListDataRequest("1003","",1,2);
            //请求时政要闻

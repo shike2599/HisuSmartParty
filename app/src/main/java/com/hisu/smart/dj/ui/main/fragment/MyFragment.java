@@ -14,6 +14,7 @@ import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.main.activity.MainActivity;
+import com.hisu.smart.dj.ui.my.activity.MyNoticeActivity;
 import com.hisu.smart.dj.ui.my.activity.SettingActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.ProfileEdit;
@@ -138,7 +139,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             //消息通知
             case R.id.pe_msg:
-                WebActivity.startAction(getActivity(),"消息通知",mymessage);
+//                WebActivity.startAction(getActivity(),"消息通知",mymessage);
+                MyNoticeActivity.startAction(getActivity());
                 break;
             //我的积分
             case R.id.pe_score:

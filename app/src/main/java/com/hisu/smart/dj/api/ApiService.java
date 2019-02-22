@@ -306,12 +306,14 @@ public interface ApiService {
      * @param userId   用户ID
      * @param partyBranchId   支部ID（党员所在支部|支部领导管理的支部
      * @param publishTime   发布时间
+     * @param id   活动id（第一页时，可以不传
      * @param pageSize   返回最大条数
      * @return
      */
     @GET("party-app-education-front/info/readonly/listNoticeByTime")
     Observable<NoticeInfoEntity> listNoticeByTime(@Query("userId") Integer userId,
                                                   @Query("partyBranchId") Integer  partyBranchId,
+                                                  @Query("id") Integer  id,
                                                   @Query("publishTime") String  publishTime,
                                                   @Query("pageSize") Integer  pageSize);
 
@@ -401,5 +403,17 @@ public interface ApiService {
                                                        @Query("oldPwd") String  oldPwd,
                                                        @Query("newPwd") String  newPwd,
                                                        @Query("phone") String  phone);
+
+    /**
+     * 9.2.标记通知公告为已读状态
+     * @param userId   用户ID
+     * @param partyMemberId   党员ID
+     * @param noticeInfoId   通知公告ID
+     * @return
+     */
+    @GET("party-app-education-front/info/write/readNoticeNum")
+    Observable<NotingResponse> readNoticeNum(@Query("userId") Integer userId,
+                                              @Query("partyMemberId") Integer  partyMemberId,
+                                              @Query("noticeInfoId") Integer  noticeInfoId);
 
 }

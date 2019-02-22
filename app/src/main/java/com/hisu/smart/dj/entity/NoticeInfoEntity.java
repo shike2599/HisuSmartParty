@@ -52,7 +52,7 @@ public class NoticeInfoEntity implements Serializable {
         this.dataList = dataList;
     }
 
-    public static class DataListBean {
+    public static class DataListBean implements Serializable {
         /**
          * id : 5
          * content : 海数科技智慧党建2.0平台上线了，欢迎大家使用！
