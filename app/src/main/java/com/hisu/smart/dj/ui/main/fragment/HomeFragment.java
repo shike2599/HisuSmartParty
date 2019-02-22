@@ -32,6 +32,7 @@ import com.hisu.smart.dj.ui.iactive.activity.IactiveLoginActivity;
 import com.hisu.smart.dj.ui.main.contract.HomeInfoContract;
 import com.hisu.smart.dj.ui.main.model.HomeInfoModel;
 import com.hisu.smart.dj.ui.main.presenter.HomeInfoPresenter;
+import com.hisu.smart.dj.ui.my.activity.MyNoticeActivity;
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.news.activity.PartyNewsActivity;
@@ -349,7 +350,8 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
                 NewsActivity.startAction(getActivity(),"时政要闻");
                 break;
             case R.id.home_notice_RelativeLayout:
-                WebActivity.startAction(getActivity(),"消息通知",mymessage);
+//                WebActivity.startAction(getActivity(),"消息通知",mymessage);
+                MyNoticeActivity.startAction(getActivity());
                 break;
         }
     }
