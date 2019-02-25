@@ -194,6 +194,7 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
             info.setResType(0);
             info.setCover(data.getIcon());
             info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+            info.setCreateTime(data.getPublishTime());
             MediaPlayerActivity.startAction(getActivity(), info);
         }else{
             WebActivity.startAction(getActivity(),data.getId());

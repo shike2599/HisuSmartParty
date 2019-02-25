@@ -103,7 +103,6 @@
         <activity android:name=".ui.news.activity.PartyNewsActivity" />
         <activity
             android:name=".ui.news.activity.MediaPlayerActivity"
-            android:screenOrientation="landscape"
             android:theme="@style/NoTitleFullscreen" />
         <!-- 网动视频会议 -->
         <activity

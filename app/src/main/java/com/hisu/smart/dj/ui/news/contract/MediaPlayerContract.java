@@ -1,8 +1,10 @@
 package com.hisu.smart.dj.ui.news.contract;
 
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
 import com.hisu.smart.dj.entity.StudyLogParam;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.jaydenxiao.common.base.BaseModel;
 import com.jaydenxiao.common.base.BasePresenter;
 import com.jaydenxiao.common.base.BaseView;
@@ -42,6 +44,14 @@ public interface MediaPlayerContract {
                                                           Float resTotalHours,
                                                           String pagePath,
                                                           String remark);
+        //添加收藏
+        Observable <UserCollectionEntity> addCollectionData(Integer id, Integer partyBranchId,
+                                                            Integer resType, Integer resId);
+        //取消收藏
+        Observable <NotingResponse> cancelCollection(Integer id);
+        //查询收藏状态
+        Observable <UserCollectionEntity> getUserCollectionData(Integer id, Integer partyBranchId,
+                                                                Integer resType, Integer resId);
     }
 
     interface View extends BaseView {
@@ -49,6 +59,11 @@ public interface MediaPlayerContract {
         void returnMemberResStudiedDetail(StudiedDetailEntity studiedDetailEntity);
         void returnAddPartyBranchStudyLogs(BaseResponse baseResponse);
         void returnAddPartyMemberStudyLogs(BaseResponse baseResponse);
+
+        //添加收藏/状态查询
+        void returnCollectionData(UserCollectionEntity userCollectionEntity,String tag);
+        //取消收藏
+        void returnCancelCollectionData(NotingResponse notingResponse);
     }
     abstract static class Presenter extends BasePresenter<View, Model> {
         public abstract void getBranchResStudiedDetailRequest(Integer userId,Integer resType,Integer resId);
@@ -75,5 +90,13 @@ public interface MediaPlayerContract {
                                                             Float resTotalHours,
                                                             String pagePath,
                                                             String remark);
+        //添加收藏
+        public abstract void addCollectionDataRequest(Integer id,Integer partyBranchId,
+                                                      Integer resType,Integer resId);
+        //取消收藏
+        public abstract void cancelCollectionRequest(Integer id);
+        //查询收藏状态
+        public abstract void getUserCollectionDataRequest(Integer id,Integer partyBranchId,
+                                                          Integer resType,Integer resId);
     }
 }

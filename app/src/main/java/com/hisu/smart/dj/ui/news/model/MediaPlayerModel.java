@@ -3,9 +3,11 @@ package com.hisu.smart.dj.ui.news.model;
 import com.hisu.smart.dj.api.Api;
 import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
 import com.hisu.smart.dj.entity.StudyLogParam;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.news.contract.MediaPlayerContract;
 import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.baserx.RxSchedulers;
@@ -84,5 +86,44 @@ public class MediaPlayerModel implements MediaPlayerContract.Model {
                         return response;
                     }
                 }).compose(RxSchedulers.<BaseResponse>io_main());
+    }
+
+    @Override
+    public Observable<UserCollectionEntity> addCollectionData(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .addCollection(id,partyBranchId,resType,resId)
+                .map(new Func1<UserCollectionEntity, UserCollectionEntity>() {
+                    @Override
+                    public UserCollectionEntity call(UserCollectionEntity userCollectionEntity) {
+                        return userCollectionEntity;
+                    }
+                })
+                .compose(RxSchedulers.<UserCollectionEntity>io_main());
+    }
+
+    @Override
+    public Observable<NotingResponse> cancelCollection(Integer id) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .cancelCollection(id)
+                .map(new Func1<NotingResponse, NotingResponse>() {
+                    @Override
+                    public NotingResponse call(NotingResponse notingResponse) {
+                        return notingResponse;
+                    }
+                })
+                .compose(RxSchedulers.<NotingResponse>io_main());
+    }
+
+    @Override
+    public Observable<UserCollectionEntity> getUserCollectionData(Integer id, Integer partyBranchId, Integer resType, Integer resId) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .getUserCollection(id,partyBranchId,resType,resId)
+                .map(new Func1<UserCollectionEntity, UserCollectionEntity>() {
+                    @Override
+                    public UserCollectionEntity call(UserCollectionEntity userCollectionEntity) {
+                        return userCollectionEntity;
+                    }
+                })
+                .compose(RxSchedulers.<UserCollectionEntity>io_main());
     }
 }

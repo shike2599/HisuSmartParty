@@ -221,6 +221,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
                 info.setResType(0);
                 info.setCover(data.getIcon());
                 info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+                info.setCreateTime(data.getPublishTime());
                 MediaPlayerActivity.startAction(this, info);
             }else{
                 WebActivity.startAction(this,data.getId(),jump_tag);
@@ -235,6 +236,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
                 info.setResType(2);
                 info.setCover(data.getIcon());
                 info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+                info.setCreateTime(data.getPublishTime());
                 MediaPlayerActivity.startAction(this, info);
             }else {
                 WebActivity.startAction(this, data.getId(), jump_tag);
@@ -248,6 +250,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
                 info.setResType(0);
                 info.setCover(data.getIcon());
                 info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+                info.setCreateTime(data.getPublishTime());
                 MediaPlayerActivity.startAction(this, info);
             }else {
                 WebActivity.startAction(this, data.getId());

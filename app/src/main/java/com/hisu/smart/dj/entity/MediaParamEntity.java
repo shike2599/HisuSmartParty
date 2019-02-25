@@ -13,6 +13,15 @@ public class MediaParamEntity implements Serializable {
     private String title;
     private String url;
     private String cover;
+    private String createTime;
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -71,6 +80,7 @@ public class MediaParamEntity implements Serializable {
                 ", title='" + title + '\'' +
                 ", url='" + url + '\'' +
                 ", cover='" + cover + '\'' +
+                ", createTime='" + createTime + '\'' +
                 '}';
     }
 }

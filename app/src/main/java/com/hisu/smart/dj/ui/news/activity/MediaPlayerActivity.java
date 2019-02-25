@@ -1,13 +1,15 @@
 package com.hisu.smart.dj.ui.news.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 
-import android.content.pm.ActivityInfo;
+import android.content.Intent;
 
 import android.text.TextUtils;
 import android.util.Log;
+
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -17,27 +19,46 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 
 import com.hisu.smart.dj.entity.MediaParamEntity;
+import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudyLogParam;
+import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.news.contract.MediaPlayerContract;
 import com.hisu.smart.dj.ui.news.model.MediaPlayerModel;
 import com.hisu.smart.dj.ui.news.presenter.MediaPlayerPresenter;
+import com.hisu.smart.dj.ui.widget.CollectToast;
 import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
-import fm.jiecao.jcvideoplayer_lib.JCBuriedPoint;
-import fm.jiecao.jcvideoplayer_lib.JCMediaManager;
+import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
-import tv.danmaku.ijk.media.player.IMediaPlayer;
 
-public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, MediaPlayerModel> implements MediaPlayerContract.View {
 
-    private JCVideoPlayerStandard player;
+public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, MediaPlayerModel> implements MediaPlayerContract.View, View.OnClickListener {
+
+    @Bind(R.id.title_TextView)
+    TextView title_textView;
+    @Bind(R.id.back_imageView)
+    ImageView back_img;
+    @Bind(R.id.video_collection_imageView)
+    ImageView collection_img;
+    @Bind(R.id.video_collection_textView)
+    TextView collection_textView;
+    @Bind(R.id.new_video_player)
+    JCVideoPlayerStandard player;
+    @Bind(R.id.video_title)
+    TextView video_title;
+    @Bind(R.id.video_time)
+    TextView video_time;
     private MediaParamEntity videoData;
     private boolean isParyBranch = false;
     private int resType = 0;
     private StudiedDetailEntity studiedDetail;
+    private int mSeekTimePosition = 0;
+    private int collectSeri = 0; //收藏序号
+    private CollectToast collectToast;
+    private int partyMemberId;
 
     private final static String TAG = "MediaPlayerActivity";
 
@@ -59,20 +80,18 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
 
     @Override
     public void initView() {
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        player = findViewById(R.id.new_video_player);
-        player.fullscreenButton.setVisibility(View.GONE);
-        player.backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        collectToast = new CollectToast(this);
+        title_textView.setText("");
+        back_img.setOnClickListener(this);
+        collection_textView.setOnClickListener(this);
         videoData = (MediaParamEntity) getIntent().getSerializableExtra(AppConstant.VIDEO);
+        partyMemberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
+        video_title.setText(videoData.getTitle());
+        video_time.setText(videoData.getCreateTime());
         Log.i(TAG, "url:" + videoData.getUrl() + ",resId:" + videoData.getResId() + "resType:" + videoData.getResType());
         boolean setUp = player.setUp(
                 TextUtils.isEmpty(videoData.getUrl()) ? "" : videoData.getUrl(),
-                JCVideoPlayer.SCREEN_WINDOW_FULLSCREEN,
+                JCVideoPlayer.SCREEN_LAYOUT_LIST,
                 TextUtils.isEmpty(videoData.getTitle()) ? "" : videoData.getTitle());
         if (setUp) {
             Glide.with(this)
@@ -83,7 +102,11 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
                             .placeholder(com.jaydenxiao.common.R.drawable.no_content_tip))
                     .into(player.thumbImageView);
         }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
         resType = videoData.getResType();
         isParyBranch = AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_BRANCH, false);
         Log.i(TAG, "isParyBranch========================" + isParyBranch);
@@ -94,61 +117,70 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
                 mPresenter.getMemberResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
             }
         }
+        mPresenter.getUserCollectionDataRequest(videoData.getUserId(),partyMemberId,resType, videoData.getResId());
     }
 
     @Override
     public void onPause() {
-        super.onPause();
+        addStudyLogs();
         JCVideoPlayer.releaseAllVideos();
+        super.onPause();
     }
+
+    public void addStudyLogs() {
+        int position = player.getCurrentPositionWhenPlaying();
+        Log.i(TAG, "addStudyLogs==============" + position + "===========mSeekTimePosition=============" + mSeekTimePosition);
+        if (mSeekTimePosition > position) {
+            return;
+        }
+        if (resType > 0) {
+            StudyLogParam param = new StudyLogParam();
+            param.setUserId(videoData.getUserId());
+            param.setResName(videoData.getTitle());
+            param.setResId(videoData.getResId());
+            param.setResType(videoData.getResType());
+            if (studiedDetail != null) {
+                param.setLogId(studiedDetail.getId());
+                param.setPartyBranchId(studiedDetail.getPartyBranchId());
+                param.setStudiedHours(studiedDetail.getHours());
+                param.setResTotalHours(studiedDetail.getTotalHours());
+            }
+            param.setDuration(Long.parseLong(position + ""));
+            param.setPagePath("com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity");
+            param.setRemark("v1.0");
+            Log.i(TAG, "param:" + param.toString());
+            if (isParyBranch) {
+                mPresenter.addPartyBranchStudyLogsRequest(param.getUserId(),
+                        param.getLogId(),
+                        param.getPartyBranchId(),
+                        param.getResType(),
+                        param.getResId(),
+                        param.getResName(),
+                        param.getDuration(),
+                        param.getStudiedHours(),
+                        param.getResTotalHours(),
+                        param.getPagePath(),
+                        param.getRemark());
+            } else {
+                mPresenter.addPartyMemberStudyLogsRequest(param.getUserId(),
+                        param.getLogId(),
+                        param.getPartyBranchId(),
+                        param.getResType(),
+                        param.getResId(),
+                        param.getResName(),
+                        param.getDuration(),
+                        param.getStudiedHours(),
+                        param.getResTotalHours(),
+                        param.getPagePath(),
+                        param.getRemark());
+            }
+        }
+    }
+
 
     @Override
     public void onBackPressed() {
-        int position = player.getCurrentPositionWhenPlaying();
         if (JCVideoPlayer.backPress()) {
-            if (resType > 0) {
-                StudyLogParam param = new StudyLogParam();
-                param.setUserId(videoData.getUserId());
-                param.setResName(videoData.getTitle());
-                param.setResId(videoData.getResId());
-                param.setResType(videoData.getResType());
-                if (studiedDetail != null) {
-                    param.setLogId(studiedDetail.getId());
-                    param.setPartyBranchId(studiedDetail.getPartyBranchId());
-                    param.setStudiedHours(studiedDetail.getHours());
-                    param.setResTotalHours(studiedDetail.getTotalHours());
-                }
-                param.setDuration(Long.parseLong(position + ""));
-                param.setPagePath("com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity");
-                param.setRemark("v1.0");
-                Log.i(TAG, "progress:" + position);
-                Log.i(TAG, "param:" + param.toString());
-                if (isParyBranch) {
-                    mPresenter.addPartyBranchStudyLogsRequest(param.getUserId(),
-                            param.getLogId(),
-                            param.getPartyBranchId(),
-                            param.getResType(),
-                            param.getResId(),
-                            param.getResName(),
-                            param.getDuration(),
-                            param.getStudiedHours(),
-                            param.getResTotalHours(),
-                            param.getPagePath(),
-                            param.getRemark());
-                } else {
-                    mPresenter.addPartyMemberStudyLogsRequest(param.getUserId(),
-                            param.getLogId(),
-                            param.getPartyBranchId(),
-                            param.getResType(),
-                            param.getResId(),
-                            param.getResName(),
-                            param.getDuration(),
-                            param.getStudiedHours(),
-                            param.getResTotalHours(),
-                            param.getPagePath(),
-                            param.getRemark());
-                }
-            }
             return;
         }
         super.onBackPressed();
@@ -174,7 +206,7 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
         studiedDetail = studiedDetailEntity;
         if (studiedDetailEntity != null) {
             Log.i(TAG, "returnBranchResStudiedDetail========" + studiedDetail.toString());
-            int mSeekTimePosition = studiedDetail.getDuration();
+            mSeekTimePosition = studiedDetail.getDuration();
             player.seekToInAdvance = mSeekTimePosition;
         }
     }
@@ -184,7 +216,7 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
         studiedDetail = studiedDetailEntity;
         if (studiedDetailEntity != null) {
             Log.i(TAG, "returnMemberResStudiedDetail========" + studiedDetail.toString());
-            int mSeekTimePosition = studiedDetail.getDuration();
+            mSeekTimePosition = studiedDetail.getDuration();
             player.seekToInAdvance = mSeekTimePosition;
         }
     }
@@ -197,5 +229,74 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     @Override
     public void returnAddPartyMemberStudyLogs(BaseResponse baseResponse) {
         Log.i(TAG, "returnAddPartyMemberStudyLogs========" + baseResponse.toString());
+    }
+
+    //添加收藏/查询序号
+    @Override
+    public void returnCollectionData(UserCollectionEntity userCollectionEntity, String tag) {
+        Log.d(TAG,"===returnCollectionData=tag="+tag);
+        Log.d(TAG,"===userCollectionEntity==DATA=="+userCollectionEntity.getData());
+        //查询收藏接口
+        if(tag.equals(AppConstant.QUERY_COLLECTION_TAG)){
+            if(userCollectionEntity.getResultCode() == 200){
+                collectSeri = userCollectionEntity.getData();
+                if(collectSeri != 0){
+                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
+                    collection_textView.setText("取消收藏");
+                }else{
+                    collection_img.setBackgroundResource(R.mipmap.links_icon);
+                    collection_textView.setText("收藏");
+                }
+            }
+        }
+        //添加收藏
+        if(tag.equals(AppConstant.ADD_COLLECTION_TAG)){
+            if(userCollectionEntity.getResultCode() == 200){
+                collectSeri = userCollectionEntity.getData();
+                collectToast.setContext("收藏成功!");
+                collectToast.setIsCollect(true);
+                collectToast.builder().show();
+                collection_img.setBackgroundResource(R.mipmap.pre_likes);
+                collection_textView.setText("取消收藏");
+            }else if(userCollectionEntity.getResultCode() == 1001){
+                collectToast.setContext("您已收藏该新闻");
+                collectToast.setIsCollect(false);
+                collectToast.builder().show();
+            }
+        }
+
+
+    }
+    //取消收藏返回
+    @Override
+    public void returnCancelCollectionData(NotingResponse notingResponse) {
+        if(notingResponse.getResultCode() == 200){
+            collectToast.setContext("您已取消该收藏!");
+            collectToast.setIsCollect(true);
+            collectToast.builder().show();
+            collection_img.setBackgroundResource(R.mipmap.links_icon);
+            collection_textView.setText("收藏");
+            collectSeri = 0;
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.back_imageView:
+                finish();
+                break;
+            //收藏
+            case R.id.video_collection_textView:
+                if(collectSeri != 0){
+                    mPresenter.cancelCollectionRequest(collectSeri);
+                    Log.d(TAG,"===已经收藏，取消收藏==");
+                }else{
+                    //未收藏准备收藏
+                    Log.d(TAG,"===未收藏准备收藏==");
+                    mPresenter.addCollectionDataRequest(videoData.getUserId(),partyMemberId,resType,videoData.getResId());
+                }
+                break;
+        }
     }
 }
