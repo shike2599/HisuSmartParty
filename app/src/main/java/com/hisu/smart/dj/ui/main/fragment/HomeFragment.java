@@ -240,7 +240,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,null,1);
 
     }
- 
+
     //轮播图点击事件
     @Override
     public void OnBannerClick(int position) {
