@@ -1,6 +1,8 @@
 package com.hisu.smart.dj.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -59,6 +61,7 @@ public class NoticeRecyclerAdapter extends RecyclerView.Adapter<NoticeRecyclerAd
         return newsHolder;
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void onBindViewHolder(NoticeHolder holder,final int position) {
         NoticeInfoEntity.DataListBean notiveBean = mDatas.get(position);
@@ -69,14 +72,24 @@ public class NoticeRecyclerAdapter extends RecyclerView.Adapter<NoticeRecyclerAd
         holder.timeTv.setText(notiveBean.getPublishTime());
         if(notiveBean.getName().equals("系统消息")){
             if(notiveBean.isHasRead()){
+                holder.contentTv.setTextColor(R.color.text_color);
+                holder.nameTv.setTextColor(R.color.text_color);
+                holder.timeTv.setTextColor(R.color.text_color);
                 holder.noticeImg.setBackgroundResource(R.mipmap.system_meg_open_icon);
             }else{
+                holder.contentTv.setTextColor(Color.BLACK);
+                holder.nameTv.setTextColor(Color.BLACK);
                 holder.noticeImg.setBackgroundResource(R.mipmap.system_meg_noopen_icon);
             }
         }else{
             if(notiveBean.isHasRead()){
+                holder.contentTv.setTextColor(R.color.text_color);
+                holder.nameTv.setTextColor(R.color.text_color);
+                holder.timeTv.setTextColor(R.color.text_color);
                 holder.noticeImg.setBackgroundResource(R.mipmap.meg_opened_icon);
             }else{
+                holder.contentTv.setTextColor(Color.BLACK);
+                holder.nameTv.setTextColor(Color.BLACK);
                 holder.noticeImg.setBackgroundResource(R.mipmap.meg_noopened_icon);
             }
         }

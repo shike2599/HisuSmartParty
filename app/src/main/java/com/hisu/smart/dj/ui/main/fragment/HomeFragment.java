@@ -219,9 +219,9 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
        //有网络则请求数据
        if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
            //未读消息获取
-           mPresenter.getUnReadNoticeNuRequest(user_id,partyMemberId);
+//           mPresenter.getUnReadNoticeNuRequest(user_id,partyMemberId);
            //获取最新消息
-           mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,null,1);
+//           mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,null,1);
            //请求党建要闻
            mPresenter.getNewsListDataRequest("1003","",1,2);
            //请求时政要闻
@@ -229,9 +229,18 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
        }else{
            Toast.makeText(context,"网络异常，请检查网络",Toast.LENGTH_SHORT).show();
        }
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        //未读消息获取
+        mPresenter.getUnReadNoticeNuRequest(user_id,partyMemberId);
+        //获取最新消息
+        mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,null,1);
 
     }
+ 
     //轮播图点击事件
     @Override
     public void OnBannerClick(int position) {
