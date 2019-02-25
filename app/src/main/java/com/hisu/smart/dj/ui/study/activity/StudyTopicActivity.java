@@ -228,7 +228,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
             info.setCover(data.getIcon());
             info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
             info.setCreateTime(data.getPublishTime());
-            MediaPlayerActivity.startAction(this, info);
+            MediaPlayerActivity.startAction(this, info,true);
         }else {
             WebActivity.startAction(this, data.getId(), "专题学习");
         }

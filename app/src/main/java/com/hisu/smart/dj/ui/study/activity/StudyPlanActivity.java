@@ -239,7 +239,11 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
         expert_progress.setMax(expert_planTotalHours);
         expert_progress.setProgress((int)expert_totalHours,true);
         //计算百分比
-        double learing_state_expert = expert_totalHours/expert_planTotalHours;
+        double learing_state_expert = 0;
+        if(expert_planTotalHours!=0){
+             learing_state_expert = expert_totalHours/expert_planTotalHours;
+        }
+
         String learning_state_str = null;
         //格式化数字
         BigDecimal bigDecimal = new BigDecimal(learing_state_expert);
@@ -261,7 +265,10 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
         routine_progress.setMax(toutine_planTotalHours);
         routine_progress.setProgress((int)routine_totalHours,true);
         //计算百分比
-        double learing_state_routine = routine_totalHours/toutine_planTotalHours;
+        double learing_state_routine = 0;
+        if(toutine_planTotalHours!=0){
+            learing_state_routine = routine_totalHours/toutine_planTotalHours;
+        }
         String learning_state_str = null;
         //格式化数字
         BigDecimal bigDecimal = new BigDecimal(learing_state_routine);

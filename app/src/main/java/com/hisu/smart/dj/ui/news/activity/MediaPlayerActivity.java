@@ -35,7 +35,8 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 
-public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, MediaPlayerModel> implements MediaPlayerContract.View, View.OnClickListener {
+public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, MediaPlayerModel>
+        implements MediaPlayerContract.View, View.OnClickListener {
 
     @Bind(R.id.title_TextView)
     TextView title_textView;
@@ -59,12 +60,18 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     private int collectSeri = 0; //收藏序号
     private CollectToast collectToast;
     private int partyMemberId;
-
     private final static String TAG = "MediaPlayerActivity";
-
+    private boolean isStudy = false;
     public static void startAction(Activity activity, MediaParamEntity data) {
         Intent intent = new Intent(activity, MediaPlayerActivity.class);
         intent.putExtra(AppConstant.VIDEO, data);
+        activity.startActivity(intent);
+    }
+
+    public static void startAction(Activity activity, MediaParamEntity data,boolean isStudy) {
+        Intent intent = new Intent(activity, MediaPlayerActivity.class);
+        intent.putExtra(AppConstant.VIDEO, data);
+        intent.putExtra(AppConstant.IS_VIDEO_STUDY, isStudy);
         activity.startActivity(intent);
     }
 
@@ -76,6 +83,7 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     @Override
     public void initPresenter() {
         mPresenter.setVM(this, mModel);
+        isStudy = getIntent().getBooleanExtra(AppConstant.IS_VIDEO_STUDY,false);
     }
 
     @Override
@@ -108,13 +116,17 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     protected void onResume() {
         super.onResume();
         resType = videoData.getResType();
-        isParyBranch = AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_BRANCH, false);
+//        isParyBranch = AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_BRANCH, false);
+        isParyBranch =  AppConstant.IS_STUDY_BRANCH;
         Log.i(TAG, "isParyBranch========================" + isParyBranch);
-        if (resType > 0) {
-            if (isParyBranch) {
-                mPresenter.getBranchResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
-            } else {
-                mPresenter.getMemberResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
+        Log.i(TAG, "isStudy========================" + isStudy);
+        if(isStudy){
+            if (resType > 0) {
+                if (isParyBranch) {
+                    mPresenter.getBranchResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
+                } else {
+                    mPresenter.getMemberResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
+                }
             }
         }
         mPresenter.getUserCollectionDataRequest(videoData.getUserId(),partyMemberId,resType, videoData.getResId());
@@ -133,48 +145,52 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
         if (mSeekTimePosition > position) {
             return;
         }
-        if (resType > 0) {
-            StudyLogParam param = new StudyLogParam();
-            param.setUserId(videoData.getUserId());
-            param.setResName(videoData.getTitle());
-            param.setResId(videoData.getResId());
-            param.setResType(videoData.getResType());
-            if (studiedDetail != null) {
-                param.setLogId(studiedDetail.getId());
-                param.setPartyBranchId(studiedDetail.getPartyBranchId());
-                param.setStudiedHours(studiedDetail.getHours());
-                param.setResTotalHours(studiedDetail.getTotalHours());
-            }
-            param.setDuration(Long.parseLong(position + ""));
-            param.setPagePath("com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity");
-            param.setRemark("v1.0");
-            Log.i(TAG, "param:" + param.toString());
-            if (isParyBranch) {
-                mPresenter.addPartyBranchStudyLogsRequest(param.getUserId(),
-                        param.getLogId(),
-                        param.getPartyBranchId(),
-                        param.getResType(),
-                        param.getResId(),
-                        param.getResName(),
-                        param.getDuration(),
-                        param.getStudiedHours(),
-                        param.getResTotalHours(),
-                        param.getPagePath(),
-                        param.getRemark());
-            } else {
-                mPresenter.addPartyMemberStudyLogsRequest(param.getUserId(),
-                        param.getLogId(),
-                        param.getPartyBranchId(),
-                        param.getResType(),
-                        param.getResId(),
-                        param.getResName(),
-                        param.getDuration(),
-                        param.getStudiedHours(),
-                        param.getResTotalHours(),
-                        param.getPagePath(),
-                        param.getRemark());
+        Log.i(TAG, "isStudy==============" + isStudy);
+        if(isStudy){
+            if (resType > 0) {
+                StudyLogParam param = new StudyLogParam();
+                param.setUserId(videoData.getUserId());
+                param.setResName(videoData.getTitle());
+                param.setResId(videoData.getResId());
+                param.setResType(videoData.getResType());
+                if (studiedDetail != null) {
+                    param.setLogId(studiedDetail.getId());
+                    param.setPartyBranchId(studiedDetail.getPartyBranchId());
+                    param.setStudiedHours(studiedDetail.getHours());
+                    param.setResTotalHours(studiedDetail.getTotalHours());
+                }
+                param.setDuration(Long.parseLong(position + ""));
+                param.setPagePath("com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity");
+                param.setRemark("v1.0");
+                Log.i(TAG, "param:" + param.toString());
+                if (isParyBranch) {
+                    mPresenter.addPartyBranchStudyLogsRequest(param.getUserId(),
+                            param.getLogId(),
+                            param.getPartyBranchId(),
+                            param.getResType(),
+                            param.getResId(),
+                            param.getResName(),
+                            param.getDuration(),
+                            param.getStudiedHours(),
+                            param.getResTotalHours(),
+                            param.getPagePath(),
+                            param.getRemark());
+                } else {
+                    mPresenter.addPartyMemberStudyLogsRequest(param.getUserId(),
+                            param.getLogId(),
+                            param.getPartyBranchId(),
+                            param.getResType(),
+                            param.getResId(),
+                            param.getResName(),
+                            param.getDuration(),
+                            param.getStudiedHours(),
+                            param.getResTotalHours(),
+                            param.getPagePath(),
+                            param.getRemark());
+                }
             }
         }
+
     }
 
 
@@ -299,4 +315,5 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
                 break;
         }
     }
+
 }

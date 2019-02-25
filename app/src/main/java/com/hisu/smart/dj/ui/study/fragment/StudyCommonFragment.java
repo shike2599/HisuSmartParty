@@ -186,7 +186,7 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
             info.setCover(data.getIcon());
             info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
             info.setCreateTime(data.getPublishTime());
-            MediaPlayerActivity.startAction(getActivity(), info);
+            MediaPlayerActivity.startAction(getActivity(), info,true);
         }else{
             WebActivity.startAction(getActivity(),data.getId(),"常规学习");
         }
