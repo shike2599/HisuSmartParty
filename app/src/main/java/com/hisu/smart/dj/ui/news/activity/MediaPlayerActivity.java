@@ -118,11 +118,18 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
         isParyBranch =  AppConstant.IS_STUDY_BRANCH;
         Log.i(TAG, "isParyBranch========================" + isParyBranch);
             if (resType > 0) {
+                JCVideoPlayer.isStudy = true;
+                player.progressBar.setClickable(false);
+                player.progressBar.setEnabled(false);
+                player.progressBar.setSelected(false);
+                player.progressBar.setFocusable(false);
                 if (isParyBranch) {
                     mPresenter.getBranchResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
                 } else {
                     mPresenter.getMemberResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
                 }
+            }else{
+                JCVideoPlayer.isStudy = false;
             }
         mPresenter.getUserCollectionDataRequest(videoData.getUserId(),partyMemberId,resType, videoData.getResId());
         player.startPlayLogic();

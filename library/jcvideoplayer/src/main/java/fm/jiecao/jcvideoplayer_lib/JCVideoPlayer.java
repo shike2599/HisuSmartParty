@@ -106,7 +106,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
     protected int     mGestureDownVolume;
     protected int     mSeekTimePosition;
 
-
+    public static boolean isStudy = false;
 
     public JCVideoPlayer(Context context) {
         super(context);
@@ -134,7 +134,6 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
         progressBar.setOnSeekBarChangeListener(this);
         bottomContainer.setOnClickListener(this);
         textureViewContainer.setOnClickListener(this);
-
         textureViewContainer.setOnTouchListener(this);
         mScreenWidth = getContext().getResources().getDisplayMetrics().widthPixels;
         mScreenHeight = getContext().getResources().getDisplayMetrics().heightPixels;
@@ -251,7 +250,6 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
                 case MotionEvent.ACTION_DOWN:
                     Log.i(TAG, "onTouch surfaceContainer actionDown [" + this.hashCode() + "] ");
                     mTouchingProgressBar = true;
-
                     mDownX = x;
                     mDownY = y;
                     mChangeVolume = false;
@@ -260,6 +258,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
                     break;
                 case MotionEvent.ACTION_MOVE:
                     Log.i(TAG, "onTouch surfaceContainer actionMove [" + this.hashCode() + "] ");
+                if(!isStudy){
                     float deltaX = x - mDownX;
                     float deltaY = y - mDownY;
                     float absDeltaX = Math.abs(deltaX);
@@ -301,7 +300,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
 
                         showVolumeDialog(-deltaY, volumePercent);
                     }
-
+                }
                     break;
                 case MotionEvent.ACTION_UP:
                     Log.i(TAG, "onTouch surfaceContainer actionUp [" + this.hashCode() + "] ");
@@ -660,6 +659,13 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
             FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(h, w);
             lp.setMargins((w - h) / 2, -(w - h) / 2, 0, 0);
             vp.addView(jcVideoPlayer, lp);
+
+            if(isStudy){
+                jcVideoPlayer.progressBar .setClickable(false);
+                jcVideoPlayer.progressBar .setEnabled(false);
+                jcVideoPlayer.progressBar .setSelected(false);
+                jcVideoPlayer.progressBar .setFocusable(false);
+            }
             jcVideoPlayer.setUp(url, JCVideoPlayerStandard.SCREEN_WINDOW_FULLSCREEN, objects);
             jcVideoPlayer.setUiWitStateAndScreen(currentState);
             jcVideoPlayer.addTextureView();
