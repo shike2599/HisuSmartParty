@@ -17,6 +17,7 @@ import com.hisu.smart.dj.entity.RankEntity;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
 import com.hisu.smart.dj.entity.StudyLogParam;
+import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.entity.UserCollectionEntity;
@@ -132,9 +133,9 @@ public interface ApiService {
      * @return
      */
     @GET("party-app-education-front/plan/readonly/listMemberTopicResPlan")
-    Observable<InformationResponse<InformationEntity>> listMemberTopicResPlan(@Query("userId") Integer userId,
-                                                                        @Query("pageNo")Integer pageNo,
-                                                                        @Query("pageSize")Integer pageSize);
+    Observable<InformationResponse<StudyPlanEntity>> listMemberTopicResPlan(@Query("userId") Integer userId,
+                                                                            @Query("pageNo")Integer pageNo,
+                                                                            @Query("pageSize")Integer pageSize);
 
     /**
      * 支部专题学习活动计划
@@ -144,7 +145,7 @@ public interface ApiService {
      * @return
      */
     @GET("party-app-education-front/plan/readonly/listBranchTopicResPlan")
-    Observable<InformationResponse<InformationEntity>> listBranchTopicResPlan(@Query("userId") Integer userId,
+    Observable<InformationResponse<StudyPlanEntity>> listBranchTopicResPlan(@Query("userId") Integer userId,
                                                                             @Query("pageNo")Integer pageNo,
                                                                             @Query("pageSize")Integer pageSize);
 
@@ -170,7 +171,7 @@ public interface ApiService {
      * @return
      */
     @GET("party-app-education-front/res/readonly/listCommonContent")
-    Observable<InformationResponse<InformationEntity>> listCommonContent(@Query("cateId") Integer cateId,
+    Observable<InformationResponse<StudyPlanEntity>> listCommonContent(@Query("cateId") Integer cateId,
                                                                          @Query("cateCode") String cateCode,
                                                                          @Query("codeKeywords") String codeKeywords,
                                                                          @Query("pageNo")Integer pageNo,

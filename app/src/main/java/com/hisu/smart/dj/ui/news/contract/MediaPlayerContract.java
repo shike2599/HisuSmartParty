@@ -1,5 +1,7 @@
 package com.hisu.smart.dj.ui.news.contract;
 
+import com.hisu.smart.dj.entity.InformationEntity;
+import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;

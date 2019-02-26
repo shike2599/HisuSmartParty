@@ -698,4 +698,5 @@ public class JCVideoPlayerStandard extends JCVideoPlayer {
             }
         }
     }
+
 }

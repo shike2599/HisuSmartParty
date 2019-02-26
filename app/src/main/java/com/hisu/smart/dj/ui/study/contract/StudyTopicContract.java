@@ -1,12 +1,10 @@
 package com.hisu.smart.dj.ui.study.contract;
 
-import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.jaydenxiao.common.base.BaseModel;
 import com.jaydenxiao.common.base.BasePresenter;
 import com.jaydenxiao.common.base.BaseView;
-
-import java.util.List;
 
 import rx.Observable;
 
@@ -18,13 +16,13 @@ import rx.Observable;
 
 public interface StudyTopicContract {
     interface Model extends BaseModel {
-        Observable<InformationResponse<InformationEntity>> listMemberTopicResPlan( Integer userId, Integer pageNo, Integer pageSize);
-        Observable<InformationResponse<InformationEntity>> listBranchTopicResPlan( Integer userId, Integer pageNo, Integer pageSize);
+        Observable<InformationResponse<StudyPlanEntity>> listMemberTopicResPlan(Integer userId, Integer pageNo, Integer pageSize);
+        Observable<InformationResponse<StudyPlanEntity>> listBranchTopicResPlan( Integer userId, Integer pageNo, Integer pageSize);
     }
 
     interface View extends BaseView {
-        void returnMemberTopicData(InformationResponse<InformationEntity> informationResponse);
-        void returnBranchTopicData(InformationResponse<InformationEntity> informationResponse);
+        void returnMemberTopicData(InformationResponse<StudyPlanEntity> informationResponse);
+        void returnBranchTopicData(InformationResponse<StudyPlanEntity> informationResponse);
     }
     abstract static class Presenter extends BasePresenter<View,Model> {
         public abstract void getMemberTopicDataRequest(Integer userId, Integer pageNo, Integer pageSize);

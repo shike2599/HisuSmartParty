@@ -14,6 +14,15 @@ public class MediaParamEntity implements Serializable {
     private String url;
     private String cover;
     private String createTime;
+    private float totalHours;
+
+    public float getTotalHours() {
+        return totalHours;
+    }
+
+    public void setTotalHours(float totalHours) {
+        this.totalHours = totalHours;
+    }
 
     public String getCreateTime() {
         return createTime;

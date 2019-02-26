@@ -19,6 +19,7 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.MediaParamEntity;
+import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyTopicContract;
@@ -144,8 +145,8 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
     }
 
     @Override
-    public void returnMemberTopicData(InformationResponse<InformationEntity> informationResponse) {
-        List<InformationEntity> topicPlanEntitys = informationResponse.getDataList();
+    public void returnMemberTopicData(InformationResponse<StudyPlanEntity> informationResponse) {
+        List<StudyPlanEntity> topicPlanEntitys = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
         if (topicPlanEntitys != null) {
             LogUtils.logd("returnMemberTopicData======"+topicPlanEntitys.size());
@@ -166,8 +167,8 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
     }
 
     @Override
-    public void returnBranchTopicData(InformationResponse<InformationEntity> informationResponse) {
-        List<InformationEntity> topicPlanEntitys = informationResponse.getDataList();
+    public void returnBranchTopicData(InformationResponse<StudyPlanEntity> informationResponse) {
+        List<StudyPlanEntity> topicPlanEntitys = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
         if (topicPlanEntitys != null) {
             LogUtils.logd("returnBranchTopicData======"+topicPlanEntitys.size());
@@ -218,7 +219,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
 
 
     @Override
-    public void onTopicClick(int position, InformationEntity data) {
+    public void onTopicClick(int position, StudyPlanEntity data) {
         if(data.getMediaType() == 0){
             MediaParamEntity info = new MediaParamEntity();
             info.setUrl(data.getUrl());
@@ -228,7 +229,8 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
             info.setCover(data.getIcon());
             info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
             info.setCreateTime(data.getPublishTime());
-            MediaPlayerActivity.startAction(this, info,true);
+            info.setTotalHours(data.getTotalHours());
+            MediaPlayerActivity.startAction(this, info);
         }else {
             WebActivity.startAction(this, data.getId(), "专题学习");
         }

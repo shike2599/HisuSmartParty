@@ -3,7 +3,6 @@ package com.hisu.smart.dj.ui.study.fragment;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
@@ -12,9 +11,10 @@ import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
-import com.hisu.smart.dj.entity.InformationEntity;
+
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.MediaParamEntity;
+import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonContract;
@@ -129,8 +129,8 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
     }
 
     @Override
-    public void returnlistCommonContent(InformationResponse<InformationEntity> informationResponse) {
-        List<InformationEntity> informations = informationResponse.getDataList();
+    public void returnlistCommonContent(InformationResponse<StudyPlanEntity> informationResponse) {
+        List<StudyPlanEntity> informations = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
         if (informations != null && informations.size() > 0) {
             LogUtils.logd("returnlistCommonContent======" + informations.size());
@@ -176,7 +176,7 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
     }
 
     @Override
-    public void onTopicClick(int position, InformationEntity data) {
+    public void onTopicClick(int position, StudyPlanEntity data) {
         if(data.getMediaType() == 0){
             MediaParamEntity info = new MediaParamEntity();
             info.setUrl(data.getUrl());
@@ -186,7 +186,8 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
             info.setCover(data.getIcon());
             info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
             info.setCreateTime(data.getPublishTime());
-            MediaPlayerActivity.startAction(getActivity(), info,true);
+            info.setTotalHours(data.getTotalHours());
+            MediaPlayerActivity.startAction(getActivity(), info);
         }else{
             WebActivity.startAction(getActivity(),data.getId(),"常规学习");
         }

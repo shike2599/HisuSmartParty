@@ -2,6 +2,7 @@ package com.hisu.smart.dj.ui.news.presenter;
 
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConstant;
+;
 import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
@@ -10,6 +11,8 @@ import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.news.contract.MediaPlayerContract;
 import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.baserx.RxSubscriber;
+
+
 
 /**
  * Created by lichee on 2019/2/22.
@@ -186,4 +189,5 @@ public class MediaPlayerPresenter extends MediaPlayerContract.Presenter {
                     }
                 }));
     }
+
 }

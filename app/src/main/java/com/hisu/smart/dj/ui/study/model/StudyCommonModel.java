@@ -3,8 +3,8 @@ package com.hisu.smart.dj.ui.study.model;
 import com.hisu.smart.dj.api.Api;
 import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
-import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonContract;
 
 import com.jaydenxiao.common.baserx.RxSchedulers;
@@ -26,17 +26,17 @@ import rx.functions.Func1;
 
 public class StudyCommonModel implements StudyCommonContract.Model {
     @Override
-    public Observable<InformationResponse<InformationEntity>> listCommonContent(Integer cateId, String cateCode, String codeKeywords, Integer pageNo, Integer pageSize) {
+    public Observable<InformationResponse<StudyPlanEntity>> listCommonContent(Integer cateId, String cateCode, String codeKeywords, Integer pageNo, Integer pageSize) {
         return Api.getDefault(AppApplication.getAppContext(), AppConstant.HOST_URL)
                 .listCommonContent(cateId,cateCode,codeKeywords,pageNo,pageSize)
-                .map(new Func1<InformationResponse<InformationEntity>, InformationResponse<InformationEntity>>() {
+                .map(new Func1<InformationResponse<StudyPlanEntity>, InformationResponse<StudyPlanEntity>>() {
                     @Override
-                    public InformationResponse<InformationEntity> call(InformationResponse<InformationEntity> informations) {
-                        List<InformationEntity> informationEntityList = new ArrayList<>();
+                    public InformationResponse<StudyPlanEntity> call(InformationResponse<StudyPlanEntity> informations) {
+                        List<StudyPlanEntity> informationEntityList = new ArrayList<>();
                         if(informations != null){
                             int size = informations.getDataList().size();
                             for(int i = 0; i < size; i++){
-                                InformationEntity entity = informations.getDataList().get(i);
+                                StudyPlanEntity entity = informations.getDataList().get(i);
                                 entity.setIcon(informations.getOutServer()+entity.getIcon());
                                 Date date = null;
                                 String dateStr;
@@ -57,6 +57,6 @@ public class StudyCommonModel implements StudyCommonContract.Model {
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<InformationResponse<InformationEntity>>io_main());
+                .compose(RxSchedulers.<InformationResponse<StudyPlanEntity>>io_main());
     }
 }

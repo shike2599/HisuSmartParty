@@ -1,5 +1,6 @@
 package fm.jiecao.jcvideoplayer_lib;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.SurfaceTexture;
@@ -104,6 +105,8 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
     protected int     mDownPosition;
     protected int     mGestureDownVolume;
     protected int     mSeekTimePosition;
+
+
 
     public JCVideoPlayer(Context context) {
         super(context);
@@ -395,6 +398,10 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
             seekToInAdvance = -1;
         }
         startProgressTimer();
+        if(mPrepareListener != null){
+            mPrepareListener.onPrepare();
+        }
+
         setUiWitStateAndScreen(CURRENT_STATE_PLAYING);
     }
 
@@ -660,7 +667,6 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
 
             final Animation ra = AnimationUtils.loadAnimation(getContext(), R.anim.start_fullscreen);
             jcVideoPlayer.setAnimation(ra);
-
             JCVideoPlayerManager.setLastListener(this);
             JCVideoPlayerManager.setListener(jcVideoPlayer);
 
@@ -671,6 +677,9 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
             e.printStackTrace();
         }
     }
+
+
+
 
     public void startWindowTiny() {
         Log.i(TAG, "startWindowTiny " + " [" + this.hashCode() + "] ");
@@ -705,6 +714,29 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
 
     }
 
+    public OnCompletionListener completionListener;
+
+    public interface OnCompletionListener{
+        void onCompletion();
+    }
+
+    public void setOnCompletionListener(OnCompletionListener listener){
+        completionListener = listener;
+    }
+
+
+    public OnPrepareListener mPrepareListener;
+
+    public interface OnPrepareListener{
+        void onPrepare();
+    }
+
+    public void setOnPrepareListener(OnPrepareListener listener){
+        mPrepareListener = listener;
+    }
+
+
+
     public class ProgressTimerTask extends TimerTask {
         @Override
         public void run() {
@@ -712,6 +744,11 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
                 int position = getCurrentPositionWhenPlaying();
                 int duration = getDuration();
                 Log.v(TAG, "onProgressUpdate " + position + "/" + duration + " [" + this.hashCode() + "] ");
+                if(position == duration){
+                    if(completionListener != null){
+                        completionListener.onCompletion();
+                    }
+                }
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -861,6 +898,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
         }
     }
 
+    @SuppressLint("RestrictedApi")
     public static void hideSupportActionBar(Context context) {
         if (ACTION_BAR_EXIST) {
             ActionBar ab = JCUtils.getAppCompActivity(context).getSupportActionBar();
@@ -875,6 +913,7 @@ public abstract class JCVideoPlayer extends FrameLayout implements JCMediaPlayer
         }
     }
 
+    @SuppressLint("RestrictedApi")
     public static void showSupportActionBar(Context context) {
         if (ACTION_BAR_EXIST) {
             ActionBar ab = JCUtils.getAppCompActivity(context).getSupportActionBar();

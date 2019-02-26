@@ -8,7 +8,6 @@ public class AppConstant {
     //登录信息
     public static final String HOME_CURRENT_TAB_POSITION="HOME_CURRENT_TAB_POSITION";
     public static final String HOST_URL = "http://171.8.79.251";
-//    public static final String HOST_URL = "http://10.10.7.29:8088";
     public static final String REQUEST_SUCCESS = "200";
     public static final String USER_ID = "user_id";                  //登录用户ID int
     public static final String USER_PHOTO = "user_photo";            //用户头像 str

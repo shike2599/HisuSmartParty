@@ -3,10 +3,11 @@ package com.hisu.smart.dj.ui.news.model;
 import com.hisu.smart.dj.api.Api;
 import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
+
 import com.hisu.smart.dj.entity.NotingResponse;
-import com.hisu.smart.dj.entity.StudiedDetailEntity;
+
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
-import com.hisu.smart.dj.entity.StudyLogParam;
+
 import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.ui.news.contract.MediaPlayerContract;
 import com.jaydenxiao.common.basebean.BaseResponse;
@@ -126,4 +127,5 @@ public class MediaPlayerModel implements MediaPlayerContract.Model {
                 })
                 .compose(RxSchedulers.<UserCollectionEntity>io_main());
     }
+
 }

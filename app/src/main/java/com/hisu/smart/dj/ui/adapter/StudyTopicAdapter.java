@@ -16,7 +16,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import com.hisu.smart.dj.R;
-import com.hisu.smart.dj.entity.InformationEntity;
+
+import com.hisu.smart.dj.entity.StudyPlanEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
  */
 public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.RankHolder> {
 
-    private List<InformationEntity> dataList;
+    private List<StudyPlanEntity> dataList;
     private Context mContext;
     private PageBean pageBean;
     private OnTopicItemClickListener topicItemClickListener;
@@ -39,13 +40,13 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
         pageBean = new PageBean();
     }
 
-    public void setData(List<InformationEntity> list){
+    public void setData(List<StudyPlanEntity> list){
         dataList.clear();
         dataList.addAll(list) ;
         notifyDataSetChanged();
     }
 
-    public void addAll(List<InformationEntity> list){
+    public void addAll(List<StudyPlanEntity> list){
         dataList.addAll(list) ;
         notifyDataSetChanged();
     }
@@ -60,7 +61,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
 
     @Override
     public void onBindViewHolder(RankHolder holder, final int position) {
-        final InformationEntity topicEntity = dataList.get(position);
+        final StudyPlanEntity topicEntity = dataList.get(position);
         holder.tv_title.setText(topicEntity.getName());
         holder.tv_date.setText(topicEntity.getPublishTime());
         int mediaType = topicEntity.getMediaType();
@@ -152,7 +153,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
         return dataList.size();
     }
     public interface  OnTopicItemClickListener{
-        void onTopicClick(int position,InformationEntity data);
+        void onTopicClick(int position,StudyPlanEntity data);
     }
     public void setOnItemClickListener(StudyTopicAdapter.OnTopicItemClickListener onItemClickListener){
         this.topicItemClickListener = onItemClickListener;

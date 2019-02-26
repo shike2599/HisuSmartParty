@@ -1,8 +1,8 @@
 package com.hisu.smart.dj.ui.study.presenter;
 
 
-import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonContract;
 
 import com.jaydenxiao.common.baserx.RxSubscriber;
@@ -19,7 +19,7 @@ public class StudyCommonPresenter extends StudyCommonContract.Presenter{
 
     @Override
     public void listCommonContentRequest(Integer cateId, String cateCode, String codeKeywords, Integer pageNo, Integer pageSize) {
-        mRxManage.add(mModel.listCommonContent( cateId,cateCode,codeKeywords,pageNo,pageSize).subscribe(new RxSubscriber<InformationResponse<InformationEntity>>(mContext,false)  {
+        mRxManage.add(mModel.listCommonContent( cateId,cateCode,codeKeywords,pageNo,pageSize).subscribe(new RxSubscriber<InformationResponse<StudyPlanEntity>>(mContext,false)  {
             @Override
             public void onStart() {
                 super.onStart();
@@ -27,8 +27,8 @@ public class StudyCommonPresenter extends StudyCommonContract.Presenter{
             }
 
             @Override
-            protected void _onNext(InformationResponse<InformationEntity> informationResponse) {
-                List<InformationEntity> informationEntityList = informationResponse.getDataList();
+            protected void _onNext(InformationResponse<StudyPlanEntity> informationResponse) {
+                List<StudyPlanEntity> informationEntityList = informationResponse.getDataList();
                 mView.returnlistCommonContent(informationResponse);
                 if(informationEntityList !=null && informationEntityList.size() > 0){
                     mView.stopLoading("");

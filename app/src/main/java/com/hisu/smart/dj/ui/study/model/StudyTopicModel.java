@@ -3,8 +3,9 @@ package com.hisu.smart.dj.ui.study.model;
 import com.hisu.smart.dj.api.Api;
 import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
-import com.hisu.smart.dj.entity.InformationEntity;
+
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.ui.study.contract.StudyTopicContract;
 import com.jaydenxiao.common.baserx.RxSchedulers;
 
@@ -27,17 +28,17 @@ import rx.functions.Func1;
 public class StudyTopicModel implements StudyTopicContract.Model {
 
     @Override
-    public Observable<InformationResponse<InformationEntity>> listMemberTopicResPlan(Integer userId, Integer pageNo, Integer pageSize) {
+    public Observable<InformationResponse<StudyPlanEntity>> listMemberTopicResPlan(Integer userId, Integer pageNo, Integer pageSize) {
         return Api.getDefault(AppApplication.getAppContext(), AppConstant.HOST_URL)
                 .listMemberTopicResPlan(userId,pageNo,pageSize)
-                .map(new Func1<InformationResponse<InformationEntity>,InformationResponse<InformationEntity>>() {
+                .map(new Func1<InformationResponse<StudyPlanEntity>,InformationResponse<StudyPlanEntity>>() {
                     @Override
-                    public InformationResponse<InformationEntity> call(InformationResponse<InformationEntity> topicPlanEntityResponse) {
-                        List<InformationEntity> topicPlanEntityList = new ArrayList<>();
+                    public InformationResponse<StudyPlanEntity> call(InformationResponse<StudyPlanEntity> topicPlanEntityResponse) {
+                        List<StudyPlanEntity> topicPlanEntityList = new ArrayList<>();
                         if(topicPlanEntityResponse != null){
                             int size = topicPlanEntityResponse.getDataList().size();
                             for(int i = 0; i < size; i++){
-                                InformationEntity entity = topicPlanEntityResponse.getDataList().get(i);
+                                StudyPlanEntity entity = topicPlanEntityResponse.getDataList().get(i);
                                 entity.setIcon(topicPlanEntityResponse.getOutServer()+entity.getIcon());
                                 Date date = null;
                                 String dateStr;
@@ -58,21 +59,21 @@ public class StudyTopicModel implements StudyTopicContract.Model {
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<InformationResponse<InformationEntity>>io_main());
+                .compose(RxSchedulers.<InformationResponse<StudyPlanEntity>>io_main());
     }
 
     @Override
-    public Observable<InformationResponse<InformationEntity>> listBranchTopicResPlan(Integer userId, Integer pageNo, Integer pageSize) {
+    public Observable<InformationResponse<StudyPlanEntity>> listBranchTopicResPlan(Integer userId, Integer pageNo, Integer pageSize) {
         return Api.getDefault(AppApplication.getAppContext(), AppConstant.HOST_URL)
                 .listBranchTopicResPlan(userId,pageNo,pageSize)
-                .map(new Func1<InformationResponse<InformationEntity>,InformationResponse<InformationEntity>>() {
+                .map(new Func1<InformationResponse<StudyPlanEntity>,InformationResponse<StudyPlanEntity>>() {
                     @Override
-                    public InformationResponse<InformationEntity> call(InformationResponse<InformationEntity> topicPlanEntityResponse) {
-                        List<InformationEntity> topicPlanEntityList = new ArrayList<>();
+                    public InformationResponse<StudyPlanEntity> call(InformationResponse<StudyPlanEntity> topicPlanEntityResponse) {
+                        List<StudyPlanEntity> topicPlanEntityList = new ArrayList<>();
                         if(topicPlanEntityResponse != null){
                             int size = topicPlanEntityResponse.getDataList().size();
                             for(int i = 0; i < size; i++){
-                                InformationEntity entity = topicPlanEntityResponse.getDataList().get(i);
+                                StudyPlanEntity entity = topicPlanEntityResponse.getDataList().get(i);
                                 entity.setIcon(topicPlanEntityResponse.getOutServer()+entity.getIcon());
                                 Date date = null;
                                 String dateStr;
@@ -93,6 +94,6 @@ public class StudyTopicModel implements StudyTopicContract.Model {
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<InformationResponse<InformationEntity>>io_main());
+                .compose(RxSchedulers.<InformationResponse<StudyPlanEntity>>io_main());
     }
 }

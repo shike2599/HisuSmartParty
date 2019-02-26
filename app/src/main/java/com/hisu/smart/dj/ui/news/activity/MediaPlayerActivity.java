@@ -17,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
-
 import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
@@ -30,13 +29,16 @@ import com.hisu.smart.dj.ui.widget.CollectToast;
 import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
+import java.text.NumberFormat;
+
 import butterknife.Bind;
+
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
 
-public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, MediaPlayerModel>
-        implements MediaPlayerContract.View, View.OnClickListener {
+public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, MediaPlayerModel> implements MediaPlayerContract.View, View.OnClickListener, JCVideoPlayerStandard.OnCompletionListener, JCVideoPlayer.OnPrepareListener {
+
 
     @Bind(R.id.title_TextView)
     TextView title_textView;
@@ -60,18 +62,12 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     private int collectSeri = 0; //收藏序号
     private CollectToast collectToast;
     private int partyMemberId;
+    private int totalTime = 0;
+
     private final static String TAG = "MediaPlayerActivity";
-    private boolean isStudy = false;
     public static void startAction(Activity activity, MediaParamEntity data) {
         Intent intent = new Intent(activity, MediaPlayerActivity.class);
         intent.putExtra(AppConstant.VIDEO, data);
-        activity.startActivity(intent);
-    }
-
-    public static void startAction(Activity activity, MediaParamEntity data,boolean isStudy) {
-        Intent intent = new Intent(activity, MediaPlayerActivity.class);
-        intent.putExtra(AppConstant.VIDEO, data);
-        intent.putExtra(AppConstant.IS_VIDEO_STUDY, isStudy);
         activity.startActivity(intent);
     }
 
@@ -83,7 +79,6 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     @Override
     public void initPresenter() {
         mPresenter.setVM(this, mModel);
-        isStudy = getIntent().getBooleanExtra(AppConstant.IS_VIDEO_STUDY,false);
     }
 
     @Override
@@ -110,7 +105,10 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
                             .placeholder(com.jaydenxiao.common.R.drawable.no_content_tip))
                     .into(player.thumbImageView);
         }
+        player.setOnCompletionListener(this);
+        player.setOnPrepareListener(this);
     }
+
 
     @Override
     protected void onResume() {
@@ -119,8 +117,6 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
 //        isParyBranch = AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_BRANCH, false);
         isParyBranch =  AppConstant.IS_STUDY_BRANCH;
         Log.i(TAG, "isParyBranch========================" + isParyBranch);
-        Log.i(TAG, "isStudy========================" + isStudy);
-        if(isStudy){
             if (resType > 0) {
                 if (isParyBranch) {
                     mPresenter.getBranchResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
@@ -128,66 +124,69 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
                     mPresenter.getMemberResStudiedDetailRequest(videoData.getUserId(), resType, videoData.getResId());
                 }
             }
-        }
         mPresenter.getUserCollectionDataRequest(videoData.getUserId(),partyMemberId,resType, videoData.getResId());
+        player.startPlayLogic();
     }
+
 
     @Override
     public void onPause() {
-        addStudyLogs();
+        int position = player.getCurrentPositionWhenPlaying();
+        addStudyLogs(position);
         JCVideoPlayer.releaseAllVideos();
         super.onPause();
     }
 
-    public void addStudyLogs() {
-        int position = player.getCurrentPositionWhenPlaying();
-        Log.i(TAG, "addStudyLogs==============" + position + "===========mSeekTimePosition=============" + mSeekTimePosition);
-        if (mSeekTimePosition > position) {
+    public void addStudyLogs(long position) {
+        Log.i(TAG, "addStudyLogs==============" +String.valueOf(position)  + "===========mSeekTimePosition=============" + mSeekTimePosition);
+
+        if (mSeekTimePosition >= position) {
             return;
         }
-        Log.i(TAG, "isStudy==============" + isStudy);
-        if(isStudy){
-            if (resType > 0) {
-                StudyLogParam param = new StudyLogParam();
-                param.setUserId(videoData.getUserId());
-                param.setResName(videoData.getTitle());
-                param.setResId(videoData.getResId());
-                param.setResType(videoData.getResType());
-                if (studiedDetail != null) {
-                    param.setLogId(studiedDetail.getId());
-                    param.setPartyBranchId(studiedDetail.getPartyBranchId());
-                    param.setStudiedHours(studiedDetail.getHours());
-                    param.setResTotalHours(studiedDetail.getTotalHours());
-                }
-                param.setDuration(Long.parseLong(position + ""));
-                param.setPagePath("com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity");
-                param.setRemark("v1.0");
-                Log.i(TAG, "param:" + param.toString());
-                if (isParyBranch) {
-                    mPresenter.addPartyBranchStudyLogsRequest(param.getUserId(),
-                            param.getLogId(),
-                            param.getPartyBranchId(),
-                            param.getResType(),
-                            param.getResId(),
-                            param.getResName(),
-                            param.getDuration(),
-                            param.getStudiedHours(),
-                            param.getResTotalHours(),
-                            param.getPagePath(),
-                            param.getRemark());
-                } else {
-                    mPresenter.addPartyMemberStudyLogsRequest(param.getUserId(),
-                            param.getLogId(),
-                            param.getPartyBranchId(),
-                            param.getResType(),
-                            param.getResId(),
-                            param.getResName(),
-                            param.getDuration(),
-                            param.getStudiedHours(),
-                            param.getResTotalHours(),
-                            param.getPagePath(),
-                            param.getRemark());
-                }
+        if (resType > 0) {
+            StudyLogParam param = new StudyLogParam();
+            param.setUserId(videoData.getUserId());
+            param.setResName(videoData.getTitle());
+            param.setResId(videoData.getResId());
+            param.setResType(videoData.getResType());
+            if (studiedDetail != null) {
+                param.setLogId(studiedDetail.getId());
+                param.setPartyBranchId(studiedDetail.getPartyBranchId());
+                Log.i(TAG,"position:"+String.valueOf(position) +",totalTime:"+totalTime);
+                float studiedHours = videoData.getTotalHours()*((float) position/totalTime);
+                NumberFormat nf = NumberFormat.getNumberInstance();
+                nf.setMaximumFractionDigits(2);
+                param.setStudiedHours(Float.valueOf(nf.format(studiedHours)));
+                param.setResTotalHours(videoData.getTotalHours());
+            }
+            param.setDuration(Long.parseLong(position + ""));
+            param.setPagePath("com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity");
+            param.setRemark("v1.0");
+            Log.i(TAG, "param:" + param.toString());
+            if (isParyBranch) {
+                mPresenter.addPartyBranchStudyLogsRequest(param.getUserId(),
+                        param.getLogId(),
+                        param.getPartyBranchId(),
+                        param.getResType(),
+                        param.getResId(),
+                        param.getResName(),
+                        param.getDuration(),
+                        param.getStudiedHours(),
+                        param.getResTotalHours(),
+                        param.getPagePath(),
+                        param.getRemark());
+            } else {
+                mPresenter.addPartyMemberStudyLogsRequest(param.getUserId(),
+                        param.getLogId(),
+                        param.getPartyBranchId(),
+                        param.getResType(),
+                        param.getResId(),
+                        param.getResName(),
+                        param.getDuration(),
+                        param.getStudiedHours(),
+                        param.getResTotalHours(),
+                        param.getPagePath(),
+                        param.getRemark());
             }
         }
 
@@ -296,6 +295,7 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
         }
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -316,4 +316,16 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
         }
     }
 
+    @Override
+    public void onCompletion() {
+        int position = player.getDuration();
+        Log.i(TAG,"onCompletion======================"+position);
+        addStudyLogs(position);
+    }
+
+    @Override
+    public void onPrepare() {
+        totalTime = player.getDuration();
+        Log.i(TAG,"onPrepare================="+totalTime);
+    }
 }
