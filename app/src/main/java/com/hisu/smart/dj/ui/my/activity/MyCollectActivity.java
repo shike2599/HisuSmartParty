@@ -166,7 +166,7 @@ public class MyCollectActivity extends BaseActivity<MyCollectPresenter, MyCollec
             info.setResType(data.getResId());
             info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
             info.setCreateTime(data.getCreateTime());
-            MediaPlayerActivity.startAction(this, info);
+            MediaPlayerActivity.startAction(this, info,data.getId());
         } else {
             int resType = data.getResType();
             String jump_tag = null;

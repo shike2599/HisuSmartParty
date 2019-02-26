@@ -131,7 +131,7 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
         user_id = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
         partyMemberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
         partyBranchId = AppConfig.getInstance().getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1);
-
+        partyBranchId = -1;
         if(partyMemberId == -1){
             partyMemberId = null;
         }

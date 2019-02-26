@@ -63,7 +63,6 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     private CollectToast collectToast;
     private int partyMemberId;
     private int totalTime = 0;
-
     private final static String TAG = "MediaPlayerActivity";
     public static void startAction(Activity activity, MediaParamEntity data) {
         Intent intent = new Intent(activity, MediaPlayerActivity.class);
@@ -71,6 +70,12 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
         activity.startActivity(intent);
     }
 
+    public static void startAction(Activity activity, MediaParamEntity data,int collect_id) {
+        Intent intent = new Intent(activity, MediaPlayerActivity.class);
+        intent.putExtra(AppConstant.VIDEO, data);
+        intent.putExtra(AppConstant.COLLECT_SERI,collect_id);
+        activity.startActivity(intent);
+    }
     @Override
     public int getLayoutId() {
         return R.layout.activity_video_player;
@@ -79,6 +84,7 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     @Override
     public void initPresenter() {
         mPresenter.setVM(this, mModel);
+        collectSeri =  getIntent().getIntExtra(AppConstant.COLLECT_SERI,-1);
     }
 
     @Override
@@ -131,7 +137,12 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
             }else{
                 JCVideoPlayer.isStudy = false;
             }
-        mPresenter.getUserCollectionDataRequest(videoData.getUserId(),partyMemberId,resType, videoData.getResId());
+        if(collectSeri == -1){
+            mPresenter.getUserCollectionDataRequest(videoData.getUserId(),partyMemberId,resType, videoData.getResId());
+        }else{
+            collection_img.setBackgroundResource(R.mipmap.pre_likes);
+            collection_textView.setText("取消收藏");
+        }
         player.startPlayLogic();
     }
 
