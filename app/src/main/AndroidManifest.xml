@@ -49,7 +49,8 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <!-- 自定义权限 -->
     <uses-permission android:name="getui.permission.GetuiService.com.wdliveuc.android.ActiveMeeting7" />
-
+    <!-- 拨号 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <permission
         android:name="getui.permission.GetuiService.com.wdliveuc.android.ActiveMeeting7"
         android:protectionLevel="normal" />

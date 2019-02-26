@@ -518,5 +518,16 @@ public interface ApiService {
                                                      @Query("pagePath") String pagePath,
                                                      @Query("remark") String remark);
 
+    /**
+     * 党员专题学习活动计划
+     * @param userId   机顶盒用户ID
+     * @param stbType   盒子类型，0：中间件盒子 1：OTT盒子
+     * @param userId 登录用户ID
+     * @return
+     */
+    @GET("party-user-front/login/write/qrcodeToLogin")
+    Observable<NotingResponse> qrcodeToLogin(@Query("stbUserId") Integer stbUserId,
+                                            @Query("stbType")Integer stbType,
+                                            @Query("userId")Integer userId);
 
 }

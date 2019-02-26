@@ -2,6 +2,7 @@ package com.hisu.smart.dj.ui.main.activity;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,19 +14,29 @@ import android.widget.Toast;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.gson.Gson;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppApplication;
+import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
+import com.hisu.smart.dj.entity.NotingResponse;
+import com.hisu.smart.dj.entity.QRCodeResponse;
 import com.hisu.smart.dj.entity.TabEntity;
 import com.hisu.smart.dj.ui.login.activity.LoginActivity;
+import com.hisu.smart.dj.ui.main.contract.QrCodeToLoginContract;
 import com.hisu.smart.dj.ui.main.fragment.FollowFragment;
 import com.hisu.smart.dj.ui.main.fragment.HomeFragment;
 import com.hisu.smart.dj.ui.main.fragment.MyFragment;
 import com.hisu.smart.dj.ui.main.fragment.PartyBuildFragment;
 import com.hisu.smart.dj.ui.main.fragment.StudyFragment;
+import com.hisu.smart.dj.ui.main.model.QrCodeToLoginModel;
+import com.hisu.smart.dj.ui.main.presenter.QrCodeToLoginPresenter;
+import com.hisu.smart.dj.ui.widget.CommomDialog;
 import com.jaydenxiao.common.base.BaseActivity;
 import com.jaydenxiao.common.baseapp.AppManager;
 import com.jaydenxiao.common.commonutils.LogUtils;
+import com.jaydenxiao.common.commonwidget.LoadingDialog;
+import com.znq.zbarcode.CaptureActivity;
 
 import java.util.ArrayList;
 
@@ -34,7 +45,8 @@ import butterknife.Bind;
 /**
  * @author lichee
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity<QrCodeToLoginPresenter,QrCodeToLoginModel>
+        implements QrCodeToLoginContract.View{
 
     @Bind(R.id.tab_layout)
     CommonTabLayout tabLayout;
@@ -57,7 +69,8 @@ public class MainActivity extends BaseActivity {
 
     private final static String TAG = "MainActivity";
     private long firstTime =  0;
-
+    private CommomDialog commomDialog;
+    private int userId;
     /**
      * 入口
      * @param activity
@@ -91,7 +104,15 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initPresenter() {
-
+        mPresenter.setVM(this,mModel);
+        userId = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
+        commomDialog = new CommomDialog(this,R.style.dialog,"",new CommomDialog.OnCloseListener(){
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                commomDialog.dismiss();
+                LoadingDialog.cancelDialogForLoading();
+            }
+        });
     }
 
     @Override
@@ -244,7 +265,30 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AppConstant.QR_CODE&&resultCode==RESULT_OK) {
-
+            if(data == null){
+                return;
+            }
+            Bundle b=data.getExtras();
+            String result = b.getString(CaptureActivity.EXTRA_STRING);
+            if(result.contains("stbType")&&result.contains("stbUserId")){
+                Gson gson = new Gson();
+                QRCodeResponse qrCodeResponse = gson.fromJson(result, QRCodeResponse.class);
+                int stbType = qrCodeResponse.getStbType();
+                int stbUserId = qrCodeResponse.getStbUserId();
+                if(stbType!=-1&&stbUserId!=-1){
+                    mPresenter.qrcodeToLoginRequest(stbUserId,stbType,userId);
+                }else{
+                    commomDialog.isShowCancelBtn(false);
+                    commomDialog.setTitle("提示");
+                    commomDialog.setContent("无效的二维码!");
+                    commomDialog.show();
+                }
+            }else{
+                commomDialog.isShowCancelBtn(false);
+                commomDialog.setTitle("提示");
+                commomDialog.setContent("无效的二维码!");
+                commomDialog.show();
+            }
         }
     }
 
@@ -252,5 +296,34 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void returnQrcodeToLoginData(NotingResponse notingResponse) {
+         if(notingResponse.getResultCode() == 200){
+             commomDialog.isShowCancelBtn(false);
+             commomDialog.setTitle("提示");
+             commomDialog.setContent("TV端登录成功!");
+             commomDialog.show();
+         }
+    }
+
+    @Override
+    public void showLoading(String tag) {
+        LoadingDialog.showDialogForLoading(this,"正在登录中...",true);
+    }
+
+    @Override
+    public void stopLoading(String tag) {
+        LoadingDialog.cancelDialogForLoading();
+    }
+
+    @Override
+    public void showErrorTip(String msg, String tag) {
+        LoadingDialog.cancelDialogForLoading();
+        commomDialog.isShowCancelBtn(false);
+        commomDialog.setTitle("提示");
+        commomDialog.setContent(msg);
+        commomDialog.show();
     }
 }
