@@ -88,7 +88,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
       title = getIntent().getStringExtra(AppConstant.UPLOAD_TITLE);
       follow_id = getIntent().getIntExtra(AppConstant.FOLLOW_ID,-1);
       if(follow_id == -1){
-          follow_id = 8; //学习心得
+          follow_id = 5008; //学习心得
       }
       appConfig = AppConfig.getInstance();
       user_id = appConfig.getInt(AppConstant.USER_ID,-1);
@@ -168,15 +168,20 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                          }
                      }else{
                          mediaType = 2;
-                         mPresenter.submitActionContentRequest(user_id,memberId,follow_id,
-                                 null,title,"","",mediaType,content,null,getNowTime(),false);
+                         if(follow_id == 5008){
+                             mPresenter.submitActionContentRequest(user_id,memberId,null,
+                                     String.valueOf(follow_id),title,"","",mediaType,content,null,getNowTime(),false);
+                         }else{
+                             mPresenter.submitActionContentRequest(user_id,memberId,follow_id,
+                                     null,title,"","",mediaType,content,null,getNowTime(),false);
+                         }
                      }
 
                  }else{
                      isUploadSuccess = false;
                      commomDialog.isShowCancelBtn(false);
                      commomDialog.setTitle("提示");
-                     commomDialog.setContent("请加标题和内容填写完整!");
+                     commomDialog.setContent("请将标题和内容填写完整!");
                      commomDialog.show();
                  }
                  break;

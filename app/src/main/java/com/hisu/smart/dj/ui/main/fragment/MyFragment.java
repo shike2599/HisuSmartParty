@@ -34,13 +34,13 @@ import com.znq.zbarcode.CaptureActivity;
 public class MyFragment extends BaseFragment implements View.OnClickListener {
     private static final String MYCENTE = "mycenter/";
     //消息通知
-    private static String mymessage = AppConstant.BASE_URL_LOAD+MYCENTE+"mymessage.html";
+//    private static String mymessage = AppConstant.BASE_URL_LOAD+MYCENTE+"mymessage.html";
     //我的积分
     private static String myIntegral = AppConstant.BASE_URL_LOAD+MYCENTE+"myIntegral.html";
     //我的审批
     private static String myApproval = AppConstant.BASE_URL_LOAD+MYCENTE+"myApproval.html";
     //我的收藏
-    private static String myCollection = AppConstant.BASE_URL_LOAD+MYCENTE+"myCollection.html";
+//    private static String myCollection = AppConstant.BASE_URL_LOAD+MYCENTE+"myCollection.html";
 //    private ImageView img_sao;
 
     private ImageView img_head;
