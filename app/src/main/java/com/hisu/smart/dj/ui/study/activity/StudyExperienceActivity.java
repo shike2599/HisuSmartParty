@@ -88,7 +88,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
       title = getIntent().getStringExtra(AppConstant.UPLOAD_TITLE);
       follow_id = getIntent().getIntExtra(AppConstant.FOLLOW_ID,-1);
       if(follow_id == -1){
-          follow_id = 0;
+          follow_id = 8; //学习心得
       }
       appConfig = AppConfig.getInstance();
       user_id = appConfig.getInt(AppConstant.USER_ID,-1);
@@ -99,6 +99,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
           public void onClick(Dialog dialog, boolean confirm) {
                  if(isUploadSuccess){
                      if(confirm){
+                         dialog.dismiss();
                          StudyExperienceActivity.this.finish();
                      }else{
                          dialog.dismiss();

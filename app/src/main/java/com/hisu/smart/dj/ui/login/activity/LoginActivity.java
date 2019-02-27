@@ -97,6 +97,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginModel> imple
                         AppManager.getAppManager().AppExit(LoginActivity.this,true);
                     }else{
                         isExit = false;
+                        dialog.dismiss();
                     }
                 }else {
                     dialog.dismiss();

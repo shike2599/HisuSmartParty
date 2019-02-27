@@ -67,6 +67,8 @@ public class ResetPasswordActivity extends
                         isSuccess = false;
                         LoginActivity.startAction(ResetPasswordActivity.this);
                         ResetPasswordActivity.this.finish();
+                    }else{
+                        dialog.dismiss();
                     }
                 }else{
                     dialog.dismiss();

@@ -30,7 +30,7 @@ import rx.functions.Func1;
 public class QrCodeToLoginModel implements QrCodeToLoginContract.Model {
     @Override
     public Observable<NotingResponse> qrcodeToLogin(Integer stbUserId, Integer stbType, Integer userId) {
-        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL_QR)
                 .qrcodeToLogin(stbUserId,stbType,userId)
                 .map(new Func1<NotingResponse, NotingResponse>() {
                     @Override

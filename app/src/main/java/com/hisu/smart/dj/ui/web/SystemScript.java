@@ -9,6 +9,7 @@ import android.webkit.JavascriptInterface;
 
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
+import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 
 public class SystemScript {
     String TAG = "SystemScript";
@@ -58,10 +59,25 @@ public class SystemScript {
      * 调用拨号界面
      * @param phone 电话号码
      */
-    private void call(String phone) {
+    @JavascriptInterface
+    public void call(String phone) {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+phone));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         webAc.startActivity(intent);
     }
+
+    /**
+     * 跳转到学习心得上传页面
+     * @param cateCode 分类ID
+     */
+    @JavascriptInterface
+    public void toUpLoadActivity(int cateCode) {
+//        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+phone));
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        webAc.startActivity(intent);
+        StudyExperienceActivity.startAction(webAc,"党员圈",cateCode);
+    }
+
+
 }
 
