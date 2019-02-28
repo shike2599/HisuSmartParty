@@ -1,5 +1,9 @@
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -56,15 +60,6 @@
             />
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
         <android.support.v7.widget.RecyclerView
             android:id="@+id/home_recyclerView"
             android:layout_width="wrap_content"
@@ -108,6 +103,7 @@
                 android:textColor="@color/text_color"
                 android:textSize="17dp"
                 android:text="党建要闻"
+                android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/vertical_line_image"
@@ -116,8 +112,8 @@
                 android:id="@+id/more_news_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_color"
-                android:textSize="11dp"
+                android:textColor="@color/black"
+                android:textSize="13dp"
                 android:text="更多"
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentRight="true"
@@ -169,8 +165,9 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/text_color"
                     android:textSize="17dp"
-                    android:text="时政要闻"
+                    android:text="时政新闻"
                     android:layout_marginLeft="10dp"
+                    android:textStyle="bold"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/shizh_vertical_line_image"
                     />
@@ -178,8 +175,8 @@
                     android:id="@+id/shizh_more_news_textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_color"
-                    android:textSize="11dp"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
                     android:text="更多"
                     android:layout_marginLeft="10dp"
                     android:layout_alignParentRight="true"
@@ -204,9 +201,7 @@
                     android:layout_height="wrap_content"/>
             </RelativeLayout>
 
-
         </LinearLayout>
 
-   </LinearLayout>
-  </ScrollView>
 </LinearLayout>
+</ScrollView>

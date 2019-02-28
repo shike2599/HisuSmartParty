@@ -1,4 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:id="@+id/study_ScrollView"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -7,14 +13,12 @@
         android:id="@+id/study_banner"
         android:layout_width="match_parent"
         android:layout_height="160dp" />
-
     <RelativeLayout
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background_color_gory">
-
-        <GridView
+        <com.hisu.smart.dj.ui.widget.MyGridView
             android:layout_margin="3dp"
             android:gravity="center"
             android:layout_marginTop="2dp"
@@ -26,9 +30,10 @@
             android:verticalSpacing="2dp"
             android:background="@color/background_color_gory"
             android:id="@+id/study_gridview"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </GridView>
+        </com.hisu.smart.dj.ui.widget.MyGridView>
         <RelativeLayout
             android:id="@+id/change_study_state_Layout"
             android:layout_centerVertical="true"
@@ -49,8 +54,6 @@
                 android:textColor="@color/white"
                 />
         </RelativeLayout>
-
-
     </RelativeLayout>
-
 </LinearLayout>
+</ScrollView>

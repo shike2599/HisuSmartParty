@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
@@ -24,6 +25,7 @@ import com.hisu.smart.dj.ui.study.activity.LearningRankingActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyTopicActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
+import com.hisu.smart.dj.ui.widget.MyGridView;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.youth.banner.Banner;
 
@@ -58,8 +60,7 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
             R.mipmap.home_banner_1,R.mipmap.home_banner_1,
             R.mipmap.home_banner_1,R.mipmap.home_banner_1};
 
-    private GridView gridView;
-
+    private MyGridView gridView;
     private List<GridViewItemEntity> gridViewItemEntities;
     private GridViewAdapter gridViewAdapter ;
     private boolean isPartyBranch;
@@ -104,7 +105,6 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
     public void initPresenter() {
         initData();
     }
-
 
     @Override
     protected void initView() {
