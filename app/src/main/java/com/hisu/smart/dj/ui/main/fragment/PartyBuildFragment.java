@@ -1,5 +1,6 @@
 package com.hisu.smart.dj.ui.main.fragment;
 
+import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -13,6 +14,7 @@ import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
 import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
+import com.hisu.smart.dj.ui.widget.MyGridView;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.youth.banner.Banner;
 
@@ -46,11 +48,12 @@ public class PartyBuildFragment extends BaseFragment {
     private int[] Images = {
             R.mipmap.home_banner_1,R.mipmap.home_banner_1,
             R.mipmap.home_banner_1,R.mipmap.home_banner_1};
-    private GridView gridView;
+    private MyGridView gridView;
     private boolean isPartyBranch;
     private boolean isPartyCommittee;
     private List<GridViewItemEntity> gridViewItemEntities;
     private GridViewAdapter gridViewAdapter ;
+    private NestedScrollView nestedScrollView;
     public PartyBuildFragment() {
     }
 
@@ -97,8 +100,11 @@ public class PartyBuildFragment extends BaseFragment {
     @Override
     protected void initView() {
         partyBanner = rootView.findViewById(R.id.party_build_banner);
+        nestedScrollView = rootView.findViewById(R.id.party_build_ScrollView);
         BannerWidget.setBanner(partyBanner,partyBannerImages);
         gridView = rootView.findViewById(R.id.party_gridview);
+        nestedScrollView.requestFocus();
+        gridView.setFocusable(false);
         gridViewAdapter = new GridViewAdapter(getActivity());
         gridViewAdapter.setGridViewItemEntities(gridViewItemEntities);
         gridView.setAdapter(gridViewAdapter);

@@ -3,6 +3,7 @@ package com.hisu.smart.dj.ui.main.fragment;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,6 +66,7 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
     private GridViewAdapter gridViewAdapter ;
     private boolean isPartyBranch;
     private boolean isPartyCommittee;
+    private NestedScrollView nestedScrollView;
     public StudyFragment() {
     }
 
@@ -109,6 +111,7 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
     @Override
     protected void initView() {
         change_Layout = rootView.findViewById(R.id.change_study_state_Layout);
+        nestedScrollView = rootView.findViewById(R.id.study_ScrollView);
         //判断是否是党员账号
         isPartyBranch =  AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_BRANCH,false);
         isPartyCommittee =  AppConfig.getInstance().getBoolean(AppConstant.IS_PARTY_COMMITTEE,false);
@@ -122,6 +125,8 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
         studyBanner = rootView.findViewById(R.id.study_banner);
         BannerWidget.setBanner(studyBanner,studyBannerImages);
         gridView = rootView.findViewById(R.id.study_gridview);
+        nestedScrollView.requestFocus();
+        gridView.setFocusable(false);
         gridViewAdapter = new GridViewAdapter(getActivity());
         gridViewAdapter.setGridViewItemEntities(gridViewItemEntities);
         gridView.setAdapter(gridViewAdapter);

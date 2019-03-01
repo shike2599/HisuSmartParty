@@ -1,5 +1,6 @@
 package com.hisu.smart.dj.ui.main.fragment;
 
+import android.support.v4.widget.NestedScrollView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -10,6 +11,7 @@ import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
 import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
+import com.hisu.smart.dj.ui.widget.MyGridView;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.youth.banner.Banner;
 
@@ -32,8 +34,8 @@ public class FollowFragment extends BaseFragment {
             R.mipmap.home_banner_1,R.mipmap.home_banner_1,
             R.mipmap.home_banner_1,R.mipmap.home_banner_1};
 
-    private GridView gridView;
-
+    private MyGridView gridView;
+    private NestedScrollView nestedScrollView;
     private List<GridViewItemEntity> gridViewItemEntities;
     private GridViewAdapter gridViewAdapter ;
     private int followId;//分类ID 本职工作=1，党组工作=2，志愿者活动=5，脱贫攻坚=4 困难帮扶=6 典型事迹=3
@@ -76,8 +78,11 @@ public class FollowFragment extends BaseFragment {
     @Override
     protected void initView() {
         followBanner = rootView.findViewById(R.id.follow_banner);
+        nestedScrollView = rootView.findViewById(R.id.follow_ScrollView);
         BannerWidget.setBanner(followBanner,followBannerImages);
         gridView = rootView.findViewById(R.id.follow_gridview);
+        nestedScrollView.requestFocus();
+        gridView.setFocusable(false);
         gridViewAdapter = new GridViewAdapter(getActivity());
         gridViewAdapter.setGridViewItemEntities(gridViewItemEntities);
         gridView.setAdapter(gridViewAdapter);
