@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
     <include
         android:id="@+id/titele_layout"
         layout="@layout/title_bar_layout" />
 
-    <com.youth.banner.Banner
-        android:layout_below="@id/titele_layout"
-        android:id="@+id/news_banner"
-        android:layout_width="match_parent"
-        android:layout_height="160dp" />
     <com.aspsine.irecyclerview.IRecyclerView
-        android:layout_below="@id/news_banner"
         android:id="@+id/news_recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,4 +37,4 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
-</RelativeLayout>
+</LinearLayout>

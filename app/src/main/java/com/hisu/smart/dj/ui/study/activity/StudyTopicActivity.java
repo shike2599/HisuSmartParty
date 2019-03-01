@@ -3,10 +3,11 @@ package com.hisu.smart.dj.ui.study.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
@@ -15,8 +16,6 @@ import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
-
-import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.entity.StudyPlanEntity;
@@ -44,8 +43,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
         StudyTopicContract.View, OnRefreshListener, OnLoadMoreListener,
         StudyTopicAdapter.OnTopicItemClickListener {
 
-    @Bind(R.id.thematic_banner)
-    Banner thematic_banner;
+
     @Bind(R.id.thematic_recycle_view)
     IRecyclerView recyclerView;
     @Bind(R.id.title_TextView)
@@ -55,7 +53,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
     @Bind(R.id.topic_loadedTip)
     LoadingTip loadingTip;
     private int totalPages ;
-
+    private Banner thematic_banner;
     private List<Integer> thematicBannerImages;
     private int[] images = {
             R.mipmap.home_banner_1,R.mipmap.home_banner_1,
@@ -64,6 +62,8 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
     StudyTopicAdapter topicAdapter;
     private static int SIZE = 6;
     private int mStartPage = 1;
+
+    private final static String TAG = "StudyTopicActivity";
 
     public static void startAction(Activity activity,boolean isPartyBranch){
         Intent intent = new Intent(activity, StudyTopicActivity.class);
@@ -98,7 +98,10 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
                 finish();
             }
         });
+        thematic_banner =  (Banner) LayoutInflater.from(this).inflate(R.layout.layout_banner_view, recyclerView.getHeaderContainer(), false);
         BannerWidget.setBanner(thematic_banner,thematicBannerImages);
+        recyclerView.removeHeaderAllView();
+        recyclerView.addHeaderView(thematic_banner);
         topicAdapter = new StudyTopicAdapter(this);
         topicAdapter.setOnItemClickListener(this);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
@@ -135,7 +138,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
     public void showErrorTip(String msg, String tag) {
         if( topicAdapter.getPageBean().isRefresh()) {
             if(topicAdapter.getSize()<=0) {
-                loadingTip.setLoadingTip(LoadingTip.LoadStatus.error);
+                loadingTip.setLoadingTip(LoadingTip.LoadStatus.empty);
                 loadingTip.setTips(msg);
             }
             recyclerView.setRefreshing(false);
@@ -193,6 +196,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
         mStartPage = 1;
         //发起请求
         recyclerView.setRefreshing(true);
+        loadingTip.setLoadingTip(LoadingTip.LoadStatus.loading);
         if(AppConstant.IS_STUDY_BRANCH){
             mPresenter.getBranchTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
         }else{

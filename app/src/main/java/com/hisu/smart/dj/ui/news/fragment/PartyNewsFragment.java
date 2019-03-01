@@ -3,6 +3,7 @@ package com.hisu.smart.dj.ui.news.fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.aspsine.irecyclerview.IRecyclerView;
@@ -41,8 +42,6 @@ import butterknife.Bind;
  */
 public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNewsModel> implements PartyNewsContract.View, OnLoadMoreListener, OnRefreshListener, NewsRecyclerAdapter.OnNewsItemClickListener {
 
-    @Bind(R.id.party_news_banner)
-    Banner commonBanner;
     @Bind(R.id.party_news_recycle_view)
     IRecyclerView party_news_recycle_view;
     @Bind(R.id.party_news_loadedTip)
@@ -54,7 +53,8 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
             R.mipmap.home_banner_1, R.mipmap.home_banner_1,
             R.mipmap.home_banner_1, R.mipmap.home_banner_1};
     private String cateCode;
-    NewsRecyclerAdapter commonAdapter;
+    private Banner commonBanner;
+    private NewsRecyclerAdapter commonAdapter;
     private static int SIZE = 6;
     private int mStartPage = 1;
     private final static String party_cateCode = "100511"; //制度文件-》党办
@@ -76,7 +76,7 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
 
     @Override
     protected void initView() {
-        BannerWidget.setBanner(commonBanner, bannerImages);
+        commonBanner = (Banner) LayoutInflater.from(getActivity()).inflate(R.layout.layout_banner_view, party_news_recycle_view.getHeaderContainer(), false);
         if (getArguments() != null) {
             cateCode = getArguments().getString(AppConstant.COMMON_CATE_CODE);
             isFile = getArguments().getBoolean("ISFILE",false);
@@ -84,6 +84,9 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
         commonAdapter = new NewsRecyclerAdapter(getActivity());
         commonAdapter.setOnItemClickListener(this);
         party_news_recycle_view.setLayoutManager(new LinearLayoutManager(getContext()));
+        party_news_recycle_view.removeHeaderAllView();
+        party_news_recycle_view.addHeaderView(commonBanner);
+        BannerWidget.setBanner(commonBanner, bannerImages);
         party_news_recycle_view.setAdapter(commonAdapter);
         party_news_recycle_view.setOnLoadMoreListener(this);
         party_news_recycle_view.setOnRefreshListener(this);

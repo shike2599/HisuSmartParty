@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,14 +47,15 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     TextView title;
     @Bind(R.id.back_imageView)
     ImageView back_img;
-    @Bind(R.id.news_banner)
-    Banner newsBanner;
     @Bind(R.id.news_recycle_view)
     IRecyclerView newsIRecyclerView;
     @Bind(R.id.news_loadedTip)
     LoadingTip news_LoadTip;
     @Bind(R.id.follow_upLoad_imageView)
     ImageView follow_upload_img;
+    private Banner newsBanner;
+
+
     private boolean isShowDiaTip = true;
 
     private static final String TAG = "NewsActivity";
@@ -119,6 +121,9 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         title.setText(show_title);
         back_img.setOnClickListener(this);
         follow_upload_img.setOnClickListener(this);
+
+        newsBanner = (Banner)LayoutInflater.from(this).inflate(R.layout.layout_banner_view, newsIRecyclerView.getHeaderContainer(), false);
+        newsIRecyclerView.addHeaderView(newsBanner);
         newsBanner.setOnBannerListener(this);
         BannerWidget.setBanner(newsBanner,newsBannerImages);
 

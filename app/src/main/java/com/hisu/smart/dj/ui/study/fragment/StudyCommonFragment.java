@@ -2,6 +2,7 @@ package com.hisu.smart.dj.ui.study.fragment;
 
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.aspsine.irecyclerview.IRecyclerView;
@@ -38,12 +39,12 @@ import butterknife.Bind;
  */
 public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, StudyCommonModel> implements StudyCommonContract.View, OnLoadMoreListener, OnRefreshListener, StudyTopicAdapter.OnTopicItemClickListener {
 
-    @Bind(R.id.common_banner)
-    Banner commonBanner;
+
     @Bind(R.id.common_recycle_view)
     IRecyclerView common_recycle_view;
     @Bind(R.id.common_loadedTip)
     LoadingTip loadingTip;
+    private Banner commonBanner;
     private int totalPages;
     private static String TAG = "StudyCommonFragment";
     private List<Integer> bannerImages;
@@ -72,14 +73,16 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
 
     @Override
     protected void initView() {
-        commonBanner = rootView.findViewById(R.id.common_banner);
-        BannerWidget.setBanner(commonBanner, bannerImages);
+        Banner commonBanner = (Banner) LayoutInflater.from(getActivity()).inflate(R.layout.layout_banner_view, common_recycle_view.getHeaderContainer(), false);
         if (getArguments() != null) {
             cateCode = getArguments().getString(AppConstant.COMMON_CATE_CODE);
         }
         commonAdapter = new StudyTopicAdapter(getActivity());
         commonAdapter.setOnItemClickListener(this);
         common_recycle_view.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        common_recycle_view.removeHeaderAllView();
+        common_recycle_view.addHeaderView(commonBanner);
+        BannerWidget.setBanner(commonBanner, bannerImages);
         common_recycle_view.setAdapter(commonAdapter);
         common_recycle_view.setOnLoadMoreListener(this);
         common_recycle_view.setOnRefreshListener(this);
