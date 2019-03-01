@@ -291,6 +291,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     }
     //判断显示哪类新闻
     private void showNewsType(){
+        newsRecyclerAdapter.getPageBean().setRefresh(true);//每次请求时先刷新数据
         if(show_title.equals("三会一课")){
             mPresenter.getTopicListContentRequest(SANH_Y_K,null,mStartPage,SIZE);
         }else if(show_title.equals("支部活动")){

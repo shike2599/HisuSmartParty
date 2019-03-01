@@ -21,6 +21,7 @@ import com.hisu.smart.dj.ui.iactive.activity.IactiveLoginActivity;
 import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyCommonActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
+import com.hisu.smart.dj.ui.study.activity.StudyListActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyPlanActivity;
 import com.hisu.smart.dj.ui.study.activity.LearningRankingActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyTopicActivity;
@@ -148,7 +149,8 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
                     LearningRankingActivity.startAction(getActivity());
                 }else if(title=="学习心得"){
                     //心得
-                    StudyExperienceActivity.startAction(getActivity(),"学习心得",5008);
+                    StudyListActivity.startAction(getActivity(),null);
+//                    StudyExperienceActivity.startAction(getActivity(),"学习心得",5008);
                 }else if(title=="三会一课"){
                     //三会一课
 //                    WebActivity.startAction(getActivity(),"三会一课",mHomeUrl);

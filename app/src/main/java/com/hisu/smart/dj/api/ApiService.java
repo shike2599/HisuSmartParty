@@ -16,6 +16,7 @@ import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.RankEntity;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
+import com.hisu.smart.dj.entity.StudyListEntity;
 import com.hisu.smart.dj.entity.StudyLogParam;
 import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
@@ -529,5 +530,24 @@ public interface ApiService {
     Observable<NotingResponse> qrcodeToLogin(@Query("stbUserId") Integer stbUserId,
                                             @Query("stbType")Integer stbType,
                                             @Query("userId")Integer userId);
+
+
+    /**
+     *  6.6.党员圈、学习心得信息列表（手机端）
+     * @param partyMemberId    不传则查所有，否则查询当前党员发布内容
+     * @param cateId  分类序号，分类序号与分类编号不能同时为空。
+     * @param cateCode  分类编号，分类序号与分类编号不能同时为空
+     * @param id       活动id（第一页时，可以不传）
+     * @param publishTime    发布时间（第一页时，可以不传），传递时需要与id对应的是同一条数据
+     * @param pageSize     每页条数
+     * @return
+     */
+    @GET("party-app-practice-front/res/readonly/listMemberActionWithPulled")
+    Observable<StudyListEntity> listMemberActionWithPulled(@Query("partyMemberId") Integer partyMemberId,
+                                                           @Query("cateId") Integer cateId,
+                                                           @Query("cateCode") String cateCode,
+                                                           @Query("id") Integer id,
+                                                           @Query("publishTime") String publishTime,
+                                                           @Query("pageSize")Integer pageSize);
 
 }

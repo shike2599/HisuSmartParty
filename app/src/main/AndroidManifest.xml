@@ -51,6 +51,7 @@
     <uses-permission android:name="getui.permission.GetuiService.com.wdliveuc.android.ActiveMeeting7" />
     <!-- 拨号 -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <permission
         android:name="getui.permission.GetuiService.com.wdliveuc.android.ActiveMeeting7"
         android:protectionLevel="normal" />
@@ -134,12 +135,10 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Panel"
             android:windowSoftInputMode="adjustPan" />
-
         <activity android:name=".ui.my.activity.MyNoticeActivity" />
-        <activity android:name=".ui.my.activity.NoticeInfoActivity"></activity>
-
-        <activity android:name=".ui.my.activity.MyCollectActivity"></activity>
-
+        <activity android:name=".ui.my.activity.NoticeInfoActivity" />
+        <activity android:name=".ui.my.activity.MyCollectActivity" />
+        <activity android:name=".ui.study.activity.StudyListActivity"></activity>
     </application>
 
 </manifest>

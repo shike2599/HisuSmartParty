@@ -66,6 +66,7 @@ public class MyNoticeActivity extends BaseActivity<NoticePresenter,NoticeModel> 
         super.onResume();
         if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
             isFirst = true;
+            noticeRecyclerAdapter.getPageBean().setRefresh(true);//每次请求时先刷新数据
             mPresenter.getListNoticeByTimeRequest(userId,partyBranchId,null,null,SIZE);
         }else{
             Toast.makeText(this,"网络异常!",Toast.LENGTH_LONG).show();
@@ -139,6 +140,8 @@ public class MyNoticeActivity extends BaseActivity<NoticePresenter,NoticeModel> 
                     noticeIRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
                 }
             }
+        }else{
+            noticeIRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
         }
     }
 
