@@ -46,6 +46,11 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
         notifyDataSetChanged();
     }
 
+    public  List<StudyPlanEntity> getData(){
+        return dataList;
+    }
+
+
     public void addAll(List<StudyPlanEntity> list){
         dataList.addAll(list) ;
         notifyDataSetChanged();
@@ -64,6 +69,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
         final StudyPlanEntity topicEntity = dataList.get(position);
         holder.tv_title.setText(topicEntity.getName());
         holder.tv_date.setText(topicEntity.getPublishTime());
+        holder.watch_num.setText(topicEntity.getWatchNum()+"次");
         int mediaType = topicEntity.getMediaType();
         if(mediaType == 0){
             holder.thematic_video.setVisibility(View.VISIBLE);
@@ -128,7 +134,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
         private JCVideoPlayerStandard thematic_video;
         private TextView tv_title;
         private TextView tv_date;
-        private TextView tv_watch_num;
+        private TextView watch_num;
         private LinearLayout topic_layout;
         public RankHolder(View itemView) {
             super(itemView);
@@ -136,7 +142,7 @@ public class StudyTopicAdapter extends RecyclerView.Adapter<StudyTopicAdapter.Ra
             thematic_video = itemView.findViewById(R.id.thematic_video);
             tv_title = itemView.findViewById(R.id.thematic_video_title);
             tv_date = itemView.findViewById(R.id.thematic_date);
-            tv_watch_num = itemView.findViewById(R.id.tv_thematic_number);
+            watch_num = itemView.findViewById(R.id.tv_thematic_number);
             topic_layout = itemView.findViewById(R.id.topic_item_LinearLayout);
         }
     }

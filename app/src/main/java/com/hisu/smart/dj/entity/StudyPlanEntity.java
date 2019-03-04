@@ -15,6 +15,15 @@ public class StudyPlanEntity implements Serializable {
     private String url;
     private int mediaType;
     private float totalHours;
+    private int watchNum ;
+
+    public int getWatchNum() {
+        return watchNum;
+    }
+
+    public void setWatchNum(int watchNum) {
+        this.watchNum = watchNum;
+    }
 
     public int getId() {
         return id;

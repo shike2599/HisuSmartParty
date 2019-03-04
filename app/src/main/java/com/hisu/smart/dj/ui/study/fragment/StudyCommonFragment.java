@@ -13,9 +13,12 @@ import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 
+import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.entity.StudyPlanEntity;
+import com.hisu.smart.dj.entity.VisitNumEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonContract;
@@ -24,6 +27,7 @@ import com.hisu.smart.dj.ui.study.presenter.StudyCommonPresenter;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
+import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonutils.LogUtils;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
 import com.youth.banner.Banner;
@@ -55,6 +59,8 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
     StudyTopicAdapter commonAdapter;
     private static int SIZE = 6;
     private int mStartPage = 1;
+    private int resId;
+    private List<StudyPlanEntity> informations;
 
     public StudyCommonFragment() {
 
@@ -86,10 +92,18 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
         common_recycle_view.setAdapter(commonAdapter);
         common_recycle_view.setOnLoadMoreListener(this);
         common_recycle_view.setOnRefreshListener(this);
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
         //数据为空才重新发起请求
         if (commonAdapter.getSize() == 0) {
             mStartPage = 0;
             mPresenter.listCommonContentRequest(null, cateCode, "", mStartPage, SIZE);
+        }else{
+            mPresenter.getResVisitNumRequest(1, resId);
         }
     }
 
@@ -133,18 +147,36 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
 
     @Override
     public void returnlistCommonContent(InformationResponse<StudyPlanEntity> informationResponse) {
-        List<StudyPlanEntity> informations = informationResponse.getDataList();
+        informations = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
-        if (informations != null && informations.size() > 0) {
+        if (informations != null) {
             LogUtils.logd("returnlistCommonContent======" + informations.size());
             mStartPage += 1;
             if (commonAdapter.getPageBean().isRefresh()) {
                 common_recycle_view.setRefreshing(false);
-                commonAdapter.setData(informations);
+                int size = informations.size();
+                String ids = "";
+                for (int i = 0; i < size; i++) {
+                    ids += informations.get(i).getId() + ",";
+                }
+                if (ids.endsWith(",")) {
+                    ids = ids.substring(0, ids.lastIndexOf(","));
+                }
+                mPresenter.getAllResVisitNumRequest("1", 1, ids);
+                //commonAdapter.setData(informations);
             } else {
                 if (informations.size() > 0) {
                     common_recycle_view.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-                    commonAdapter.addAll(informations);
+                    int size = informations.size();
+                    String ids = "";
+                    for (int i = 0; i < size; i++) {
+                        ids += informations.get(i).getId() + ",";
+                    }
+                    if (ids.endsWith(",")) {
+                        ids = ids.substring(0, ids.lastIndexOf(","));
+                    }
+                    mPresenter.getAllResVisitNumRequest("2", 1, ids);
+                    //commonAdapter.addAll(informations);
                 } else {
                     common_recycle_view.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
                 }
@@ -153,6 +185,74 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
             loadingTip.setLoadingTip(LoadingTip.LoadStatus.error);
         }
 
+    }
+
+
+
+    @Override
+    public void returnResVisitNum(VisitNumResponse visitNumResponse) {
+        int num = visitNumResponse.getData();
+        List<StudyPlanEntity> informationList = commonAdapter.getData();
+        if (informationList != null) {
+            for (StudyPlanEntity entity : informationList) {
+                if (entity.getId() == resId) {
+                    entity.setWatchNum(num);
+                }
+            }
+        }
+        commonAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void returnAddResVisitNum(BaseResponse response) {
+        Log.i(TAG,"returnAddResVisitNum================="+response.getResultCode());
+    }
+
+    @Override
+    public void returnAllResVisitNum(BaseResponse<VisitNumEntity> baseResponse, String code) {
+        List<VisitNumEntity> visitNumEntities = baseResponse.getDataList();
+        if (visitNumEntities != null && visitNumEntities.size() > 0) {
+            int size = visitNumEntities.size();
+            if (code != null && code.equals("1")) {
+                if (informations == null) {
+                    return;
+                }
+                int size2 = informations.size();
+                for (int i = 0; i < size; i++) {
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for (int j = 0; j < size2; j++) {
+                        StudyPlanEntity informationEntity = informations.get(j);
+                        if (informationEntity.getId() == visitNumEntity.getId()) {
+                            Log.i(TAG, "returnAllResVisitNum==========resId:" + visitNumEntity.getId() + ",watchNum:" + visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                commonAdapter.setData(informations);
+            } else if (code != null && code.equals("2")) {
+                if (informations == null) {
+                    return;
+                }
+                int size2 = informations.size();
+                for (int i = 0; i < size; i++) {
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for (int j = 0; j < size2; j++) {
+                        StudyPlanEntity informationEntity = informations.get(j);
+                        if (informationEntity.getId() == visitNumEntity.getId()) {
+                            Log.i(TAG, "returnAllResVisitNum==========resId:" + visitNumEntity.getId() + ",watchNum:" + visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                commonAdapter.addAll(informations);
+            }
+        } else {
+            if (code != null && code.equals("1")) {
+                commonAdapter.setData(informations);
+            } else if (code != null && code.equals("2")) {
+                commonAdapter.addAll(informations);
+            }
+        }
     }
 
     @Override
@@ -180,6 +280,8 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
 
     @Override
     public void onTopicClick(int position, StudyPlanEntity data) {
+        resId = data.getId();
+        mPresenter.getAddResVisitNumRequest(1,resId);
         if(data.getMediaType() == 0){
             MediaParamEntity info = new MediaParamEntity();
             info.setUrl(data.getUrl());
