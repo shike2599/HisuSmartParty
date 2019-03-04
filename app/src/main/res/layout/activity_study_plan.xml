@@ -103,7 +103,19 @@
         android:layout_marginTop="16dp"
         android:textSize="14dp"
         />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/show_topic_study_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无学习计划！"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18dp"
+        />
      <RelativeLayout
+         android:id="@+id/topic_RelativeLayout"
          android:layout_marginTop="8dp"
          android:layout_width="match_parent"
          android:layout_height="wrap_content">
@@ -111,7 +123,7 @@
              android:id="@+id/show_study_state_textView"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:text="已学习100%"
+             android:text="已学习0%"
              android:layout_alignParentRight="true"
              android:layout_marginRight="20dp"
              android:layout_centerVertical="true"
@@ -125,7 +137,7 @@
              android:progressDrawable="@drawable/progressbar_bg"
              android:layout_toLeftOf="@+id/show_study_state_textView"
              android:layout_marginRight="15dp"
-             android:progress="50"
+             android:progress="0"
              />
      </RelativeLayout>
 
@@ -158,7 +170,18 @@
         android:layout_marginTop="16dp"
         android:textSize="14dp"
         />
+    <TextView
+        android:id="@+id/show_common_study_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="暂无学习计划！"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18dp"
+        android:visibility="gone"
+        />
     <RelativeLayout
+        android:id="@+id/common_RelativeLayout"
         android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -166,7 +189,7 @@
             android:id="@+id/show_routine_study_state_textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="已学习100%"
+            android:text="已学习0%"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_centerVertical="true"
@@ -178,7 +201,7 @@
             android:layout_height="30dp"
             android:layout_marginLeft="25dp"
             android:progressDrawable="@drawable/progressbar_bg"
-            android:progress="50"
+            android:progress="0"
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/show_routine_study_state_textView"
             />

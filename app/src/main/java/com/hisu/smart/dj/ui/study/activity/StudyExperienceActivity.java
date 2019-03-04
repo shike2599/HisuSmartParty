@@ -168,7 +168,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                          }
                      }else{
                          mediaType = 2;
-                         if(follow_id == 5008){
+                         if(follow_id == 5008 || follow_id == 5007){
                              mPresenter.submitActionContentRequest(user_id,memberId,null,
                                      String.valueOf(follow_id),title,"","",mediaType,content,null,getNowTime(),false);
                          }else{

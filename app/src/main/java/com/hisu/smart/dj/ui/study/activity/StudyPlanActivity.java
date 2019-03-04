@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import butterknife.Bind;
 @RequiresApi(api = Build.VERSION_CODES.N)
 public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlanModel>
         implements View.OnClickListener,StudyPlanContract.View{
+    private final static String TAG = "StudyPlanActivity";
     @Bind(R.id.title_TextView)
     TextView title_text;//标题
     @Bind(R.id.back_imageView)
@@ -62,7 +64,14 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
     TextView show_routine_state; //常规学习进度
     @Bind(R.id.routine_study_progressBar)
     ProgressBar routine_progress; //常规学习进度条
-
+    @Bind(R.id.topic_RelativeLayout)
+    RelativeLayout topic_Layout;
+    @Bind(R.id.common_RelativeLayout)
+    RelativeLayout commom_Layout;
+    @Bind(R.id.show_topic_study_textView)
+    TextView show_Topic_None;
+    @Bind(R.id.show_common_study_textView)
+    TextView show_Common_None;
     private static final Integer MOUTH_TYPE = 2; //月度计划
     private static final Integer QUARTER_TYPE = 1; //季度计划
     private static final Integer YEAR_TYPE = 0; //年度度计划
@@ -234,6 +243,17 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
 
     //设置专题学习需要展示的数据
     private void setExpertData(double expert_totalHours,int expert_planTotalHours){
+        Log.d(TAG,"expert_totalHours==="+expert_totalHours+"----expert_planTotalHours===="+expert_planTotalHours);
+        if(expert_totalHours == 0 || expert_planTotalHours == 0){
+            topic_Layout.setVisibility(View.GONE);
+            show_expert_study.setVisibility(View.GONE);
+            show_Topic_None.setVisibility(View.VISIBLE);
+            return;
+        }else{
+            topic_Layout.setVisibility(View.GONE);
+            show_expert_study.setVisibility(View.GONE);
+            show_Topic_None.setVisibility(View.VISIBLE);
+        }
         show_expert_study.setText("学时计划：已学习"+expert_totalHours
                 +"课时/计划学习"+expert_planTotalHours+"课时");
         expert_progress.setMax(expert_planTotalHours);
@@ -258,8 +278,18 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
         show_expert_state.setText("已学习"+learning_state_str);
     }
 
-    //设置专题学习需要展示的数据
+    //设置常规学习需要展示的数据
     private void setRoutineData(double routine_totalHours,int toutine_planTotalHours){
+        if(routine_totalHours == 0 || toutine_planTotalHours == 0){
+            commom_Layout.setVisibility(View.GONE);
+            show_routine_study.setVisibility(View.GONE);
+            show_Common_None.setVisibility(View.VISIBLE);
+            return;
+        }else{
+            commom_Layout.setVisibility(View.VISIBLE);
+            show_routine_study.setVisibility(View.VISIBLE);
+            show_Common_None.setVisibility(View.GONE);
+        }
         show_routine_study.setText("学时计划：已学习"+routine_totalHours
                 +"课时/计划学习"+toutine_planTotalHours+"课时");
         routine_progress.setMax(toutine_planTotalHours);
@@ -302,7 +332,14 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
             //专题学习Bean
             StudyPlanRespone.DataBean.TopicPlanBean topicPlanBean = studyPlanRespone.getData()
                     .getTopicPlan();
-            if(commPlanBean!=null && topicPlanBean!=null){
+            if(commPlanBean!=null || topicPlanBean!=null){
+                topic_Layout.setVisibility(View.VISIBLE);
+                show_expert_study.setVisibility(View.VISIBLE);
+                show_Topic_None.setVisibility(View.GONE);
+                //常规学习
+                commom_Layout.setVisibility(View.VISIBLE);
+                show_routine_study.setVisibility(View.VISIBLE);
+                show_Common_None.setVisibility(View.GONE);
                 if(timeType == MOUTH_TYPE){ //月度
                     //专题学习
                     expert_totalHours_mouth = topicPlanBean.getTotalHours(); //已经学习进度
@@ -342,8 +379,16 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
 
                 }
             }else{
-                Toast.makeText(StudyPlanActivity.this,
-                        "暂无数据！",Toast.LENGTH_LONG).show();
+//                Toast.makeText(StudyPlanActivity.this,
+//                        "暂无数据！",Toast.LENGTH_LONG).show();
+                //专题学习
+                topic_Layout.setVisibility(View.GONE);
+                show_expert_study.setVisibility(View.GONE);
+                show_Topic_None.setVisibility(View.VISIBLE);
+                //常规学习
+                commom_Layout.setVisibility(View.GONE);
+                show_routine_study.setVisibility(View.GONE);
+                show_Common_None.setVisibility(View.VISIBLE);
             }
         }
     }

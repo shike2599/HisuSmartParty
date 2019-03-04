@@ -72,9 +72,7 @@ public class SystemScript {
      */
     @JavascriptInterface
     public void toUpLoadActivity(int cateCode) {
-//        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+phone));
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        webAc.startActivity(intent);
+        Log.d(TAG,"---toUpLoadActivity---");
         StudyExperienceActivity.startAction(webAc,"党员圈",cateCode);
     }
 
