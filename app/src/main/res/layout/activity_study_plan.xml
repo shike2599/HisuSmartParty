@@ -177,6 +177,7 @@
         android:text="暂无学习计划！"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
         android:textSize="18dp"
         android:visibility="gone"
         />

@@ -30,6 +30,7 @@ import com.jaydenxiao.common.commonutils.ToastUitl;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import butterknife.Bind;
 
@@ -244,43 +245,41 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
     //设置专题学习需要展示的数据
     private void setExpertData(double expert_totalHours,int expert_planTotalHours){
         Log.d(TAG,"expert_totalHours==="+expert_totalHours+"----expert_planTotalHours===="+expert_planTotalHours);
-        if(expert_totalHours == 0 || expert_planTotalHours == 0){
+        if(expert_planTotalHours == 0){
             topic_Layout.setVisibility(View.GONE);
             show_expert_study.setVisibility(View.GONE);
             show_Topic_None.setVisibility(View.VISIBLE);
             return;
         }else{
-            topic_Layout.setVisibility(View.GONE);
-            show_expert_study.setVisibility(View.GONE);
-            show_Topic_None.setVisibility(View.VISIBLE);
+            topic_Layout.setVisibility(View.VISIBLE);
+            show_expert_study.setVisibility(View.VISIBLE);
+            show_Topic_None.setVisibility(View.GONE);
         }
         show_expert_study.setText("学时计划：已学习"+expert_totalHours
                 +"课时/计划学习"+expert_planTotalHours+"课时");
         expert_progress.setMax(expert_planTotalHours);
         expert_progress.setProgress((int)expert_totalHours,true);
-        //计算百分比
-        double learing_state_expert = 0;
-        if(expert_planTotalHours!=0){
-             learing_state_expert = expert_totalHours/expert_planTotalHours;
-        }
+//        //计算百分比
+//        double learing_state_expert = 0;
+//        learing_state_expert = expert_totalHours/expert_planTotalHours;
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMaximumFractionDigits(4);
 
-        String learning_state_str = null;
-        //格式化数字
-        BigDecimal bigDecimal = new BigDecimal(learing_state_expert);
-        learing_state_expert = bigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
-
-        if(learing_state_expert<=1){
-//            learning_state_str = learing_state_expert * 100 + "%";
-            learning_state_str = roundTwoNumber(learing_state_expert * 100);
+        String number_Str = nf.format(expert_totalHours/expert_planTotalHours);
+        float study_number = Float.valueOf(number_Str);
+        if(study_number == 0){
+            number_Str = "0%";
+        }else if(study_number>1){
+            number_Str = "100%";
         }else{
-            learning_state_str = "100%";
+            number_Str = roundTwoNumber(study_number * 100);
         }
-        show_expert_state.setText("已学习"+learning_state_str);
+        show_expert_state.setText("已学习"+number_Str);
     }
 
     //设置常规学习需要展示的数据
     private void setRoutineData(double routine_totalHours,int toutine_planTotalHours){
-        if(routine_totalHours == 0 || toutine_planTotalHours == 0){
+        if(toutine_planTotalHours == 0){
             commom_Layout.setVisibility(View.GONE);
             show_routine_study.setVisibility(View.GONE);
             show_Common_None.setVisibility(View.VISIBLE);
@@ -294,31 +293,35 @@ public class StudyPlanActivity extends BaseActivity<StudyPlanPresenter,StudyPlan
                 +"课时/计划学习"+toutine_planTotalHours+"课时");
         routine_progress.setMax(toutine_planTotalHours);
         routine_progress.setProgress((int)routine_totalHours,true);
-        //计算百分比
-        double learing_state_routine = 0;
-        if(toutine_planTotalHours!=0){
-            learing_state_routine = routine_totalHours/toutine_planTotalHours;
-        }
-        String learning_state_str = null;
-        //格式化数字
-        BigDecimal bigDecimal = new BigDecimal(learing_state_routine);
-        learing_state_routine = bigDecimal.setScale(4,BigDecimal.ROUND_HALF_UP).doubleValue();
-        if(learing_state_routine<=1){
-//            learning_state_str = learing_state_routine*100 + "%";
-            learning_state_str = roundTwoNumber(learing_state_routine * 100);
+
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        nf.setMaximumFractionDigits(4);
+
+        String number_Str = nf.format(routine_totalHours/toutine_planTotalHours);
+        float study_number = Float.valueOf(number_Str);
+        if(study_number == 0){
+            number_Str = "0%";
+        }else if(study_number>1){
+            number_Str = "100%";
         }else{
-            learning_state_str = "100%";
+            number_Str = roundTwoNumber(study_number * 100);
         }
-        show_routine_state.setText("已学习"+learning_state_str);
+        show_routine_state.setText("已学习"+number_Str);
     }
     //保留两位小数
-    private String roundTwoNumber(double number){
+    private String roundTwoNumber(float number){
         String num_str = String.valueOf(number);
         if(num_str.length()>5){
             num_str = num_str.substring(0,5);
-        }else if(num_str.length()==4){
-            num_str = num_str+"0";
+            if(num_str.endsWith("0")){
+                num_str = num_str.substring(0,num_str.length()-1);
+            }
+        }else{
+            if(num_str.endsWith("0")){
+                num_str.substring(0,num_str.length()-1);
+            }
         }
+        Log.d("格式化数据","num_str===="+num_str);
         return num_str+"%";
     }
     //处理服务器返回的数据

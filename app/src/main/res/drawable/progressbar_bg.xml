@@ -4,24 +4,24 @@
     <item android:id="@android:id/background">
         <shape>
             <corners android:radius="0dip" />
-
+            <stroke android:width="2dip" android:color="@color/all_red" />
             <gradient
                 android:angle="0"
-                android:centerColor="@color/transparent"
-                android:endColor="@color/transparent"
-                android:startColor="@color/transparent" />
+                android:centerColor="@color/backColor"
+                android:endColor="@color/backColor"
+                android:startColor="@color/backColor" />
         </shape>
     </item>
     <item android:id="@android:id/progress">
         <clip>
             <shape>
                 <corners android:radius="0dip" />
-
+                <stroke android:width="2dip" android:color="@color/all_red" />
                 <gradient
                     android:angle="0"
-                    android:centerColor="@color/all_red"
-                    android:endColor="@color/all_red"
-                    android:startColor="@color/all_red" />
+                    android:centerColor="@color/all_yellow"
+                    android:endColor="@color/all_yellow"
+                    android:startColor="@color/all_yellow" />
             </shape>
         </clip>
     </item>
