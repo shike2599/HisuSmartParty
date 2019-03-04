@@ -19,6 +19,8 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.entity.StudyPlanEntity;
+import com.hisu.smart.dj.entity.VisitNumEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.study.contract.StudyTopicContract;
@@ -27,6 +29,7 @@ import com.hisu.smart.dj.ui.study.presenter.StudyTopicPresenter;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonutils.LogUtils;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
 import com.youth.banner.Banner;
@@ -62,7 +65,8 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
     StudyTopicAdapter topicAdapter;
     private static int SIZE = 6;
     private int mStartPage = 1;
-
+    private int resId;
+    private List<StudyPlanEntity> topicPlanEntitys;
     private final static String TAG = "StudyTopicActivity";
 
     public static void startAction(Activity activity,boolean isPartyBranch){
@@ -108,15 +112,20 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
         recyclerView.setAdapter(topicAdapter);
         recyclerView.setOnLoadMoreListener(this);
         recyclerView.setOnRefreshListener(this);
-//        if(getIntent().getBooleanExtra(AppConstant.IS_PARTY_BRANCH,false)){
-//            mPresenter.getBranchTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
-//        }else{
-//            mPresenter.getMemberTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
-//        }
-        if(AppConstant.IS_STUDY_BRANCH){
-            mPresenter.getBranchTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(topicAdapter.getSize() == 0){
+            if(AppConstant.IS_STUDY_BRANCH){
+                mPresenter.getBranchTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
+            }else{
+                mPresenter.getMemberTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
+            }
         }else{
-            mPresenter.getMemberTopicDataRequest(AppConfig.getInstance().getInt(AppConstant.USER_ID,0),mStartPage,SIZE);
+            mPresenter.getResVisitNumRequest(2,resId);
         }
     }
 
@@ -149,18 +158,36 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
 
     @Override
     public void returnMemberTopicData(InformationResponse<StudyPlanEntity> informationResponse) {
-        List<StudyPlanEntity> topicPlanEntitys = informationResponse.getDataList();
+        topicPlanEntitys = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
         if (topicPlanEntitys != null) {
-            LogUtils.logd("returnMemberTopicData======"+topicPlanEntitys.size());
-            mStartPage +=1;
+            Log.i(TAG,"returnMemberTopicData======"+topicPlanEntitys.size());
+            mStartPage += 1;
             if (topicAdapter.getPageBean().isRefresh()) {
                 recyclerView.setRefreshing(false);
-                topicAdapter.setData(topicPlanEntitys);
+                int size = topicPlanEntitys.size();
+                String ids = "";
+                for (int i = 0; i < size; i++) {
+                    ids += topicPlanEntitys.get(i).getId() + ",";
+                }
+                if (ids.endsWith(",")) {
+                    ids = ids.substring(0, ids.lastIndexOf(","));
+                }
+                Log.i(TAG,"ids1==================="+ids);
+                mPresenter.getAllResVisitNumRequest("1", 2, ids);
             } else {
                 if (topicPlanEntitys.size() > 0) {
                     recyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-                    topicAdapter.addAll(topicPlanEntitys);
+                    int size = topicPlanEntitys.size();
+                    String ids = "";
+                    for (int i = 0; i < size; i++) {
+                        ids += topicPlanEntitys.get(i).getId() + ",";
+                    }
+                    if (ids.endsWith(",")) {
+                        ids = ids.substring(0, ids.lastIndexOf(","));
+                    }
+                    Log.i(TAG,"ids2==================="+ids);
+                    mPresenter.getAllResVisitNumRequest("2", 2, ids);
                 } else {
                     recyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
                 }
@@ -171,21 +198,107 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
 
     @Override
     public void returnBranchTopicData(InformationResponse<StudyPlanEntity> informationResponse) {
-        List<StudyPlanEntity> topicPlanEntitys = informationResponse.getDataList();
+        topicPlanEntitys = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
         if (topicPlanEntitys != null) {
-            LogUtils.logd("returnBranchTopicData======"+topicPlanEntitys.size());
+            Log.i(TAG,"returnBranchTopicData======"+topicPlanEntitys.size());
             mStartPage +=1;
             if (topicAdapter.getPageBean().isRefresh()) {
                 recyclerView.setRefreshing(false);
-                topicAdapter.setData(topicPlanEntitys);
+                int size = topicPlanEntitys.size();
+                String ids = "";
+                for (int i = 0; i < size; i++) {
+                    ids += topicPlanEntitys.get(i).getId() + ",";
+                }
+                if (ids.endsWith(",")) {
+                    ids = ids.substring(0, ids.lastIndexOf(","));
+                }
+                Log.i(TAG,"ids3============="+ids);
+                mPresenter.getAllResVisitNumRequest("1", 2, ids);
             } else {
                 if (topicPlanEntitys.size() > 0) {
                     recyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-                    topicAdapter.addAll(topicPlanEntitys);
+                    int size = topicPlanEntitys.size();
+                    String ids = "";
+                    for (int i = 0; i < size; i++) {
+                        ids += topicPlanEntitys.get(i).getId() + ",";
+                    }
+                    if (ids.endsWith(",")) {
+                        ids = ids.substring(0, ids.lastIndexOf(","));
+                    }
+                    Log.i(TAG,"ids4============="+ids);
+                    mPresenter.getAllResVisitNumRequest("2", 2, ids);
                 } else {
                     recyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
                 }
+            }
+        }
+    }
+
+
+    @Override
+    public void returnResVisitNum(VisitNumResponse visitNumResponse) {
+        int num = visitNumResponse.getData();
+        List<StudyPlanEntity> informationList = topicAdapter.getData();
+        if (informationList != null) {
+            for (StudyPlanEntity entity : informationList) {
+                if (entity.getId() == resId) {
+                    entity.setWatchNum(num);
+                }
+            }
+        }
+        topicAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void returnAddResVisitNum(BaseResponse response) {
+        Log.i(TAG,"returnAddResVisitNum================="+response.getResultCode());
+    }
+
+    @Override
+    public void returnAllResVisitNum(BaseResponse<VisitNumEntity> baseResponse, String code) {
+        List<VisitNumEntity> visitNumEntities = baseResponse.getDataList();
+        if (visitNumEntities != null) {
+            Log.i(TAG,"returnAllResVisitNum======================="+visitNumEntities.toString());
+            int size = visitNumEntities.size();
+            if (code != null && code.equals("1")) {
+                if (topicPlanEntitys == null) {
+                    return;
+                }
+                int size2 = topicPlanEntitys.size();
+                for (int i = 0; i < size; i++) {
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for (int j = 0; j < size2; j++) {
+                        StudyPlanEntity informationEntity = topicPlanEntitys.get(j);
+                        if (informationEntity.getId() == visitNumEntity.getId()) {
+                            Log.i(TAG, "returnAllResVisitNum==========resId:" + visitNumEntity.getId() + ",watchNum:" + visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                topicAdapter.setData(topicPlanEntitys);
+            } else if (code != null && code.equals("2")) {
+                if (topicPlanEntitys == null) {
+                    return;
+                }
+                int size2 = topicPlanEntitys.size();
+                for (int i = 0; i < size; i++) {
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for (int j = 0; j < size2; j++) {
+                        StudyPlanEntity informationEntity = topicPlanEntitys.get(j);
+                        if (informationEntity.getId() == visitNumEntity.getId()) {
+                            Log.i(TAG, "returnAllResVisitNum==========resId:" + visitNumEntity.getId() + ",watchNum:" + visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                topicAdapter.addAll(topicPlanEntitys);
+            }
+        } else {
+            if (code != null && code.equals("1")) {
+                topicAdapter.setData(topicPlanEntitys);
+            } else if (code != null && code.equals("2")) {
+                topicAdapter.addAll(topicPlanEntitys);
             }
         }
     }
@@ -224,6 +337,9 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
 
     @Override
     public void onTopicClick(int position, StudyPlanEntity data) {
+        resId = data.getId();
+        Log.i(TAG,"onTopicClick=========================="+resId);
+        mPresenter.getAddResVisitNumRequest(2,resId);
         if(data.getMediaType() == 0){
             MediaParamEntity info = new MediaParamEntity();
             info.setUrl(data.getUrl());

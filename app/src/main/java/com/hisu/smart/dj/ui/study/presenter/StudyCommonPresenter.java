@@ -84,12 +84,10 @@ public class StudyCommonPresenter extends StudyCommonContract.Presenter{
                     @Override
                     public void onStart() {
                         super.onStart();
-                        mView.showLoading(code);
                     }
                     @Override
                     protected void _onNext(BaseResponse<VisitNumEntity> baseResponse) {
                         mView.returnAllResVisitNum(baseResponse,code);
-                        mView.stopLoading(code);
                     }
                     @Override
                     protected void _onError(String message) {

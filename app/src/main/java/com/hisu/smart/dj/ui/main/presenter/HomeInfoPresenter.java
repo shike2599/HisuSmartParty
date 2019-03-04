@@ -167,13 +167,11 @@ public class HomeInfoPresenter extends HomeInfoContract.Presenter {
                     @Override
                     public void onStart() {
                         super.onStart();
-                        mView.showLoading(cateCode);
                     }
 
                     @Override
                     protected void _onNext(BaseResponse<VisitNumEntity> baseResponse) {
                               mView.returnAllResVisitNum(baseResponse,cateCode);
-                              mView.stopLoading(cateCode);
                     }
                     @Override
                     protected void _onError(String message) {
