@@ -1,7 +1,6 @@
 package com.hisu.smart.dj.ui.news.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,10 +12,12 @@ import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
-import com.hisu.smart.dj.entity.CateEntity;
+
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.MediaParamEntity;
+import com.hisu.smart.dj.entity.VisitNumEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
@@ -27,6 +28,7 @@ import com.hisu.smart.dj.ui.news.presenter.PartyNewsPresenter;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
+import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonutils.LogUtils;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
 import com.youth.banner.Banner;
@@ -59,6 +61,8 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
     private int mStartPage = 1;
     private final static String party_cateCode = "100511"; //制度文件-》党办
     private boolean isFile;
+    private int resId;
+
     public PartyNewsFragment() {
 
     }
@@ -79,7 +83,7 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
         commonBanner = (Banner) LayoutInflater.from(getActivity()).inflate(R.layout.layout_banner_view, party_news_recycle_view.getHeaderContainer(), false);
         if (getArguments() != null) {
             cateCode = getArguments().getString(AppConstant.COMMON_CATE_CODE);
-            isFile = getArguments().getBoolean("ISFILE",false);
+            isFile = getArguments().getBoolean("ISFILE", false);
         }
         commonAdapter = new NewsRecyclerAdapter(getActivity());
         commonAdapter.setOnItemClickListener(this);
@@ -90,15 +94,23 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
         party_news_recycle_view.setAdapter(commonAdapter);
         party_news_recycle_view.setOnLoadMoreListener(this);
         party_news_recycle_view.setOnRefreshListener(this);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         //数据为空才重新发起请求
         if (commonAdapter.getSize() == 0) {
             mStartPage = 0;
-            if(isFile){
+            if (isFile) {
                 mPresenter.listInformationRequest(null, party_cateCode, "", mStartPage, SIZE);
-            }else{
+            } else {
                 mPresenter.listInformationRequest(null, cateCode, "", mStartPage, SIZE);
 
             }
+        } else {
+            mPresenter.getResVisitNumRequest(0, resId);
         }
     }
 
@@ -140,20 +152,40 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
         }
     }
 
+    private List<InformationEntity> informations;
+
     @Override
     public void returnlistInformation(InformationResponse<InformationEntity> informationResponse) {
-        List<InformationEntity> informations = informationResponse.getDataList();
+        informations = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
-        if (informations != null && informations.size() > 0) {
+        if (informations != null) {
             LogUtils.logd("returnlistCommonContent======" + informations.size());
             mStartPage += 1;
             if (commonAdapter.getPageBean().isRefresh()) {
                 party_news_recycle_view.setRefreshing(false);
-                commonAdapter.setData(informations);
+                int size = informations.size();
+                String ids = "";
+                for (int i = 0; i < size; i++) {
+                    ids += informations.get(i).getId() + ",";
+                }
+                if (ids.endsWith(",")) {
+                    ids = ids.substring(0, ids.lastIndexOf(","));
+                }
+                mPresenter.getAllResVisitNumRequest("1", 0, ids);
+//                commonAdapter.setData(informations);
             } else {
                 if (informations.size() > 0) {
                     party_news_recycle_view.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-                    commonAdapter.addAll(informations);
+                    int size = informations.size();
+                    String ids = "";
+                    for (int i = 0; i < size; i++) {
+                        ids += informations.get(i).getId() + ",";
+                    }
+                    if (ids.endsWith(",")) {
+                        ids = ids.substring(0, ids.lastIndexOf(","));
+                    }
+                    mPresenter.getAllResVisitNumRequest("2", 0, ids);
+//                    commonAdapter.addAll(informations);
                 } else {
                     party_news_recycle_view.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
                 }
@@ -164,11 +196,78 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
 
     }
 
+
+    @Override
+    public void returnResVisitNum(VisitNumResponse visitNumResponse) {
+        int num = visitNumResponse.getData();
+        List<InformationEntity> informationList = commonAdapter.getData();
+        if (informationList != null) {
+            for (InformationEntity entity : informationList) {
+                if (entity.getId() == resId) {
+                    entity.setWatchNum(num);
+                }
+            }
+        }
+        commonAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void returnAddResVisitNum(BaseResponse response) {
+        Log.i(TAG, "returnAddResVisitNum=============================" + response.getResultCode());
+    }
+
+    @Override
+    public void returnAllResVisitNum(BaseResponse<VisitNumEntity> baseResponse, String code) {
+        List<VisitNumEntity> visitNumEntities = baseResponse.getDataList();
+        if (visitNumEntities != null && visitNumEntities.size() > 0) {
+            int size = visitNumEntities.size();
+            if (code != null && code.equals("1")) {
+                if (informations == null) {
+                    return;
+                }
+                int size2 = informations.size();
+                for (int i = 0; i < size; i++) {
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for (int j = 0; j < size2; j++) {
+                        InformationEntity informationEntity = informations.get(j);
+                        if (informationEntity.getId() == visitNumEntity.getId()) {
+                            Log.i(TAG, "returnAllResVisitNum==========resId:" + visitNumEntity.getId() + ",watchNum:" + visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                commonAdapter.setData(informations);
+            } else if (code != null && code.equals("2")) {
+                if (informations == null) {
+                    return;
+                }
+                int size2 = informations.size();
+                for (int i = 0; i < size; i++) {
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for (int j = 0; j < size2; j++) {
+                        InformationEntity informationEntity = informations.get(j);
+                        if (informationEntity.getId() == visitNumEntity.getId()) {
+                            Log.i(TAG, "returnAllResVisitNum==========resId:" + visitNumEntity.getId() + ",watchNum:" + visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                commonAdapter.addAll(informations);
+            }
+        } else {
+            if (code != null && code.equals("1")) {
+                commonAdapter.setData(informations);
+            } else if (code != null && code.equals("2")) {
+                commonAdapter.addAll(informations);
+            }
+        }
+    }
+
     @Override
     public void onLoadMore(View loadMoreView) {
         commonAdapter.getPageBean().setRefresh(false);
         //发起请求
-        Log.d("page","totalpage="+totalPages+",startPage="+mStartPage);
+        Log.d("page", "totalpage=" + totalPages + ",startPage=" + mStartPage);
         if (totalPages > mStartPage) {
             party_news_recycle_view.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
             mPresenter.listInformationRequest(null, cateCode, "", mStartPage, SIZE);
@@ -189,18 +288,20 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
 
     @Override
     public void onNewsClick(int position, InformationEntity data) {
-        if(data.getMediaType() == 0){
+        resId = data.getId();
+        mPresenter.getAddResVisitNumRequest(0, data.getId());
+        if (data.getMediaType() == 0) {
             MediaParamEntity info = new MediaParamEntity();
             info.setUrl(data.getUrl());
             info.setTitle(data.getName());
             info.setResId(data.getId());
             info.setResType(0);
             info.setCover(data.getIcon());
-            info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID,-1));
+            info.setUserId(AppConfig.getInstance().getInt(AppConstant.USER_ID, -1));
             info.setCreateTime(data.getPublishTime());
             MediaPlayerActivity.startAction(getActivity(), info);
-        }else{
-            WebActivity.startAction(getActivity(),data.getId());
+        } else {
+            WebActivity.startAction(getActivity(), data.getId());
         }
 
     }

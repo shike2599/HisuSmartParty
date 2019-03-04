@@ -10,8 +10,10 @@ import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.entity.UserCollectionEntity;
+import com.hisu.smart.dj.entity.VisitNumEntity;
 import com.hisu.smart.dj.ui.main.contract.HomeInfoContract;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
+import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.baserx.RxSchedulers;
 
 import java.text.ParseException;
@@ -117,6 +119,33 @@ public class HomeInfoModel implements HomeInfoContract.Model {
                     }
                 })
                 .compose(RxSchedulers.<InformationResponse<InformationEntity>>io_main());
+    }
+
+    @Override
+    public Observable<BaseResponse> addResVisitNum(Integer resType, Integer resId) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .addResVisitNum(resType,resId)
+                .map(new Func1<BaseResponse, BaseResponse>() {
+                    @Override
+                    public BaseResponse call(BaseResponse baseResponse) {
+                        return baseResponse;
+                    }
+                })
+                .compose(RxSchedulers.<BaseResponse>io_main());
+    }
+
+    @Override
+    public Observable<BaseResponse<VisitNumEntity>> getAllResVisitNum(Integer resType, String resIds) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .getAllResVisitNum(resType,resIds)
+                .map(new Func1<BaseResponse<VisitNumEntity>, BaseResponse<VisitNumEntity>>() {
+                    @Override
+                    public BaseResponse<VisitNumEntity> call(BaseResponse<VisitNumEntity> baseResponse) {
+                        return baseResponse;
+                    }
+                })
+                .compose(RxSchedulers.<BaseResponse<VisitNumEntity>>io_main());
+
     }
 
 

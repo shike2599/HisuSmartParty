@@ -21,6 +21,8 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.MediaParamEntity;
+import com.hisu.smart.dj.entity.VisitNumEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
 import com.hisu.smart.dj.ui.main.model.NewsListModel;
@@ -29,6 +31,7 @@ import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseActivity;
+import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonutils.NetWorkUtils;
 import com.jaydenxiao.common.commonwidget.LoadingTip;
 import com.youth.banner.Banner;
@@ -80,7 +83,9 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     private NewsRecyclerAdapter newsRecyclerAdapter;
     private int totalPages ;
 
-
+    private List<InformationEntity> informations;
+    private int resType = 0;
+    private int resId = 0;
     @Override
     public int getLayoutId() {
         return R.layout.activity_news;
@@ -110,7 +115,12 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         mStartPage = 1;
         Log.d("NewsActivity","-----onResume()----");
         if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
-            showNewsType();//
+            if(newsRecyclerAdapter.getSize() == 0){
+                newsRecyclerAdapter.getPageBean().setRefresh(true);//每次请求时先刷新数据
+                showNewsType();
+            }else{
+                mPresenter.getResVisitNumRequest(resType,resId);
+            }
         }else{
             Toast.makeText(this,"网络异常!",Toast.LENGTH_LONG).show();
         }
@@ -149,23 +159,114 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
 
     @Override
     public void returnNewsListData(InformationResponse informationResponse, String tag) {
-        List<InformationEntity> informations = informationResponse.getDataList();
+        informations = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
         if(informations != null){
             mStartPage +=1;
             if (newsRecyclerAdapter.getPageBean().isRefresh()) {
                 newsIRecyclerView.setRefreshing(false);
-                newsRecyclerAdapter.setData(informations);
+                int size = informations.size();
+                String ids = "";
+                for(int i = 0; i < size; i++){
+                    ids += informations.get(i).getId()+",";
+                }
+                if(ids.endsWith(",")){
+                    ids = ids.substring(0,ids.lastIndexOf(","));
+                }
+                if(tag != null && tag.equals(SANH_Y_K)){
+                    mPresenter.getAllResVisitNumRequest("1",2,ids);
+                }else {
+                    mPresenter.getAllResVisitNumRequest("1",0,ids);
+                }
             } else {
                 if (informations.size() > 0) {
                     newsIRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-                    newsRecyclerAdapter.addAll(informations);
+                    int size = informations.size();
+                    String ids = "";
+                    for(int i = 0; i < size; i++){
+                        ids += informations.get(i).getId()+",";
+                    }
+                    if(ids.endsWith(",")){
+                        ids = ids.substring(0,ids.lastIndexOf(","));
+                    }
+                    if(tag != null && tag.equals(SANH_Y_K)){
+                        mPresenter.getAllResVisitNumRequest("2",2,ids);
+                    }else {
+                        mPresenter.getAllResVisitNumRequest("2",0,ids);
+                    }
                 } else {
                     newsIRecyclerView.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
                 }
             }
         }
     }
+
+    @Override
+    public void returnResVisitNum(VisitNumResponse visitNumResponse) {
+        int num = visitNumResponse.getData();
+        List<InformationEntity> informationList = newsRecyclerAdapter.getData();
+        if(informationList != null){
+            for(InformationEntity entity : informationList){
+                if(entity.getId() == resId){
+                    entity.setWatchNum(num);
+                }
+            }
+        }
+        newsRecyclerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void returnAddResVisitNum(BaseResponse response) {
+        Log.i(TAG,"returnAddResVisitNum===================="+response.getResultCode());
+    }
+
+    @Override
+    public void returnAllResVisitNum(BaseResponse<VisitNumEntity> baseResponse, String tag) {
+        List<VisitNumEntity> visitNumEntities = baseResponse.getDataList();
+        if(visitNumEntities != null && visitNumEntities.size() > 0){
+            int size = visitNumEntities.size();
+            if(tag != null && tag.equals("1")){
+                if(informations == null){
+                    return;
+                }
+                int size2 = informations.size();
+                for(int i = 0; i < size; i++){
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for(int j = 0 ; j < size2; j++){
+                        InformationEntity informationEntity = informations.get(j);
+                        if(informationEntity.getId() == visitNumEntity.getId()){
+                            Log.i(TAG,"returnAllResVisitNum==========resId:"+visitNumEntity.getId()+",watchNum:"+visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                newsRecyclerAdapter.setData(informations);
+            }else if(tag != null && tag.equals("2")){
+                if(informations == null){
+                    return;
+                }
+                int size2 = informations.size();
+                for(int i = 0; i < size; i++){
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for(int j = 0 ; j < size2; j++){
+                        InformationEntity informationEntity = informations.get(j);
+                        if(informationEntity.getId() == visitNumEntity.getId()){
+                            Log.i(TAG,"returnAllResVisitNum==========resId:"+visitNumEntity.getId()+",watchNum:"+visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                newsRecyclerAdapter.addAll(informations);
+            }
+        }else{
+            if(tag != null && tag.equals("1")){
+                newsRecyclerAdapter.setData(informations);
+            }else if(tag != null && tag.equals("2")){
+                newsRecyclerAdapter.addAll(informations);
+            }
+        }
+    }
+
     @Override
     public void showLoading(String tag) {
         if(isShowDiaTip){
@@ -216,8 +317,10 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         Log.d(TAG,"----item----position----"+position);
 //       Toast.makeText(this,"item-id=="+news_id,
 //               Toast.LENGTH_LONG).show();
+        resId = data.getId();
         if(follow_id!=-1){
             jump_tag = "践行活动";
+            mPresenter.getAddResVisitNumRequest(0,data.getId());
             if(data.getMediaType() == 0){
                 MediaParamEntity info = new MediaParamEntity();
                 info.setUrl(data.getUrl());
@@ -233,6 +336,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
             }
         }else if(show_title.equals("三会一课")){
             jump_tag = "专题学习";
+            mPresenter.getAddResVisitNumRequest(2,data.getId());
             if(data.getMediaType() == 0){
                 MediaParamEntity info = new MediaParamEntity();
                 info.setUrl(data.getUrl());
@@ -247,6 +351,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
                 WebActivity.startAction(this, data.getId(), jump_tag);
             }
         }else{
+            mPresenter.getAddResVisitNumRequest(0,data.getId());
             if(data.getMediaType() == 0){
                 MediaParamEntity info = new MediaParamEntity();
                 info.setUrl(data.getUrl());
@@ -292,6 +397,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     //判断显示哪类新闻
     private void showNewsType(){
         if(show_title.equals("三会一课")){
+            resType = 2;
             mPresenter.getTopicListContentRequest(SANH_Y_K,null,mStartPage,SIZE);
         }else if(show_title.equals("支部活动")){
             mPresenter.getNewsListDataRequest(BRANCH_ACTIVITY,null,mStartPage,SIZE);

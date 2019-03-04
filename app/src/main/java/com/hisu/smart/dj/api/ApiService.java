@@ -22,6 +22,8 @@ import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.entity.UserCollectionEntity;
+import com.hisu.smart.dj.entity.VisitNumEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
 import java.util.List;
@@ -549,5 +551,38 @@ public interface ApiService {
                                                            @Query("id") Integer id,
                                                            @Query("publishTime") String publishTime,
                                                            @Query("pageSize")Integer pageSize);
+
+    /**
+     * 10.12.活动浏览次数统计
+     * @param resType 课程类型,0：组织生活学习活动,1：常规学习活动,2：专题学习活动
+     * @param resId  资源ID
+     * @return
+     */
+    @GET("party-data-statistics-front/behavior/write/addResVisitNum")
+    Observable<BaseResponse> addResVisitNum(@Query("resType") Integer resType,
+                                            @Query("resId") Integer resId);
+
+
+    /**
+     * 10.13.查询单个活动浏览次数
+     * @param resType 课程类型,0：组织生活学习活动,1：常规学习活动,2：专题学习活动
+     * @param resId  资源ID
+     * @return
+     */
+    @GET("party-data-statistics-front/behavior/readonly/getResVisitNum")
+    Observable<VisitNumResponse> getResVisitNum(@Query("resType") Integer resType,
+                                                @Query("resId") Integer resId);
+
+
+
+    /**
+     * 10.14.查询多个活动浏览次数
+     * @param resType 课程类型,0：组织生活学习活动,1：常规学习活动,2：专题学习活动
+     * @param resIds  资源ID
+     * @return
+     */
+    @GET("party-data-statistics-front/behavior/readonly/getAllResVisitNum")
+    Observable<BaseResponse<VisitNumEntity>> getAllResVisitNum(@Query("resType") Integer resType,
+                                                               @Query("resIds") String resIds);
 
 }

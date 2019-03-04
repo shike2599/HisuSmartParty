@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ import com.hisu.smart.dj.entity.MediaParamEntity;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 
 import com.hisu.smart.dj.entity.UserCollectionEntity;
+import com.hisu.smart.dj.entity.VisitNumEntity;
 import com.hisu.smart.dj.ui.adapter.HomeReaycleAdapter;
 import com.hisu.smart.dj.ui.adapter.NewsRecyclerAdapter;
 import com.hisu.smart.dj.ui.iactive.activity.IactiveLoginActivity;
@@ -39,6 +41,7 @@ import com.hisu.smart.dj.ui.news.activity.PartyNewsActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.jaydenxiao.common.base.BaseFragment;
+import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonutils.LogUtils;
 
 import com.jaydenxiao.common.commonutils.NetWorkUtils;
@@ -216,29 +219,25 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
        newTip = rootView.findViewById(R.id.loadedTip_new);
        shizhTip = rootView.findViewById(R.id.loadedTip_shizh);
 
-       //有网络则请求数据
-       if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
-           //未读消息获取
-//           mPresenter.getUnReadNoticeNuRequest(user_id,partyMemberId);
-           //获取最新消息
-//           mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,null,1);
-           //请求党建要闻
-           mPresenter.getNewsListDataRequest("1003","",1,2);
-           //请求时政要闻
-           mPresenter.getNewsListDataRequest("1001","",1,2);
-       }else{
-           Toast.makeText(context,"网络异常，请检查网络",Toast.LENGTH_SHORT).show();
-       }
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //未读消息获取
-        mPresenter.getUnReadNoticeNuRequest(user_id,partyMemberId);
-        //获取最新消息
-        mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,null,1);
-
+        //有网络则请求数据
+        if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
+            //未读消息获取
+            mPresenter.getUnReadNoticeNuRequest(user_id,partyMemberId);
+            //获取最新消息
+            mPresenter.getListNoticeByTimeRequest(user_id,partyBranchId,null,null,1);
+            //请求党建要闻
+            mPresenter.getNewsListDataRequest("1003","",1,2);
+            //请求时政要闻
+            mPresenter.getNewsListDataRequest("1001","",1,2);
+        }else{
+            Toast.makeText(context,"网络异常，请检查网络",Toast.LENGTH_SHORT).show();
+        }
     }
 
     //轮播图点击事件
@@ -276,6 +275,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
 
     @Override
     public void onNewsClick(int position, InformationEntity data) {
+        mPresenter.getAddResVisitNumRequest(0,data.getId());
         if(data.getMediaType() == 0){
             MediaParamEntity info = new MediaParamEntity();
             info.setUrl(data.getUrl());
@@ -337,17 +337,87 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         LogUtils.logd("returnNewsListData======================"+informations);
         LogUtils.logd("returnNewsListData======================Tag==="+tag);
         if(informations != null && informations.size() > 0){
-
             if(tag!=null&&tag=="1003"&&tag.equals("1003")){
                 newsList = informations;
-                newsRecyclerAdapter.setData(newsList);
+                //请求查询浏览次数
+                String ids = "";
+                int size = newsList.size();
+                for(int i = 0; i < size; i ++){
+                    ids += newsList.get(i).getId()+",";
+                }
+                if(ids.endsWith(",")){
+                    ids = ids.substring(0,ids.lastIndexOf(","));
+                }
+                mPresenter.getAllResVisitNumRequest("1003",0,ids);
+               // newsRecyclerAdapter.setData(newsList);
             }else if(tag!=null&&tag=="1001"&&tag.equals("1001")){
                 shizhNewsList = informations;
-                shizhRecyclerAdapter.setData(shizhNewsList);
+                //请求查询浏览次数
+                String ids = "";
+                int size = shizhNewsList.size();
+                for(int i = 0; i < size; i ++){
+                    ids += shizhNewsList.get(i).getId()+",";
+                }
+                if(ids.endsWith(",")){
+                    ids = ids.substring(0,ids.lastIndexOf(","));
+                }
+                mPresenter.getAllResVisitNumRequest("1001",0,ids);
+               // shizhRecyclerAdapter.setData(shizhNewsList);
             }
         }
 
+    }
 
+    @Override
+    public void returnAddResVisitNum(BaseResponse response) {
+        Log.i(TAG,"returnAddResVisitNum====================="+response.getResultCode());
+    }
+
+    @Override
+    public void returnAllResVisitNum(BaseResponse<VisitNumEntity> baseResponse, String tag) {
+        List<VisitNumEntity> visitNumEntities = baseResponse.getDataList();
+        if(visitNumEntities != null && visitNumEntities.size() > 0){
+            int size = visitNumEntities.size();
+            if(tag != null && tag.equals("1001")){
+                if(shizhNewsList == null){
+                    return;
+                }
+                int size2 = shizhNewsList.size();
+                for(int i = 0; i < size; i++){
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for(int j = 0 ; j < size2; j++){
+                         InformationEntity informationEntity = shizhNewsList.get(j);
+                         if(informationEntity.getId() == visitNumEntity.getId()){
+                             Log.i(TAG,"returnAllResVisitNum==========resId:"+visitNumEntity.getId()+",watchNum:"+visitNumEntity.getNum());
+                             informationEntity.setWatchNum(visitNumEntity.getNum());
+                         }
+                    }
+                }
+                shizhRecyclerAdapter.setData(shizhNewsList);
+            }else if(tag != null && tag.equals("1003")){
+                if(newsList == null){
+                    return;
+                }
+                int size2 = newsList.size();
+                for(int i = 0; i < size; i++){
+                    VisitNumEntity visitNumEntity = visitNumEntities.get(i);
+                    for(int j = 0 ; j < size2; j++){
+                        InformationEntity informationEntity = newsList.get(j);
+                        if(informationEntity.getId() == visitNumEntity.getId()){
+                            Log.i(TAG,"returnAllResVisitNum==========resId:"+visitNumEntity.getId()+",watchNum:"+visitNumEntity.getNum());
+                            informationEntity.setWatchNum(visitNumEntity.getNum());
+                        }
+                    }
+                }
+                newsRecyclerAdapter.setData(newsList);
+            }
+        }else{
+            if(tag != null && tag.equals("1001")){
+                shizhRecyclerAdapter.setData(shizhNewsList);
+            }else if(tag != null && tag.equals("1003")){
+                newsRecyclerAdapter.setData(newsList);
+            }
+        }
     }
 
     @Override

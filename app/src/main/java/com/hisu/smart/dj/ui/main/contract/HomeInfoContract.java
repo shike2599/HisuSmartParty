@@ -5,9 +5,12 @@ import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
 import com.hisu.smart.dj.entity.UserCollectionEntity;
+import com.hisu.smart.dj.entity.VisitNumEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.jaydenxiao.common.base.BaseModel;
 import com.jaydenxiao.common.base.BasePresenter;
 import com.jaydenxiao.common.base.BaseView;
+import com.jaydenxiao.common.basebean.BaseResponse;
 
 import rx.Observable;
 
@@ -28,6 +31,10 @@ public interface HomeInfoContract {
         Observable <InformationResponse<InformationEntity>> getTopicContentData(String cateCode,String keywords,Integer pageNo,Integer pageSize);
         //践行内容列表
         Observable <InformationResponse<InformationEntity>> getListActionContentData(String cateCode,String keywords,Integer pageNo,Integer pageSize);
+        //活动浏览次数统计
+        Observable<BaseResponse> addResVisitNum(Integer resType, Integer resId);
+        //查询多个活动浏览次数
+        Observable<BaseResponse<VisitNumEntity>> getAllResVisitNum(Integer resType, String resIds);
     }
 
     interface View extends BaseView {
@@ -37,6 +44,11 @@ public interface HomeInfoContract {
         void returnUnReadNoticeNum(UserCollectionEntity userCollectionEntity, String tag);
         //返回获取的新闻
         void returnNewsListData(InformationResponse informationResponse,String tag);
+        //返回活动浏览次数统计数据
+        void returnAddResVisitNum(BaseResponse response);
+        //返回多个活动浏览次数数据
+        void returnAllResVisitNum(BaseResponse<VisitNumEntity> baseResponse,String tag);
+
     }
     abstract static class Presenter extends BasePresenter<View, Model> {
         //发起通知数据请求
@@ -49,6 +61,10 @@ public interface HomeInfoContract {
         public abstract void getTopicListContentRequest(String cateCode,String keywords,Integer pageNo,Integer pageSize);
         //践行内容列表
         public abstract void getListActionContentRequest(String cateCode,String keywords,Integer pageNo,Integer pageSize);
+        //请求活动浏览次数统计数据
+        public abstract void getAddResVisitNumRequest(Integer resType, Integer resId);
+        //请求多个活动浏览次数数据
+        public abstract void getAllResVisitNumRequest(String cateCode,Integer resType,  String resIds);
     }
 
 }

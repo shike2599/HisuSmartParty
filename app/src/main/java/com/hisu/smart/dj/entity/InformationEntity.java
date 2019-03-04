@@ -24,6 +24,15 @@ public class InformationEntity implements Serializable {
     private String name;
     private String url;
     private int mediaType;
+    private int watchNum;
+
+    public int getWatchNum() {
+        return watchNum;
+    }
+
+    public void setWatchNum(int watchNum) {
+        this.watchNum = watchNum;
+    }
 
     public int getId() {
         return id;

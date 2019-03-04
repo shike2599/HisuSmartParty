@@ -3,7 +3,10 @@ package com.hisu.smart.dj.ui.main.presenter;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
+import com.hisu.smart.dj.entity.VisitNumEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.hisu.smart.dj.ui.main.contract.NewsListContract;
+import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.baserx.RxSubscriber;
 
 
@@ -94,6 +97,57 @@ public class NewsListPresenter extends NewsListContract.Presenter {
                 mView.showErrorTip(message,cateCode);
             }
         }));
+    }
+
+    @Override
+    public void getResVisitNumRequest(Integer resType, Integer resId) {
+        mRxManage.add(mModel.getResVisitNum(resType,resId)
+                .subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
+                    @Override
+                    protected void _onNext(VisitNumResponse visitNumResponse) {
+                        mView.returnResVisitNum(visitNumResponse);
+                    }
+                    @Override
+                    protected void _onError(String message) {
+                    }
+                }));
+    }
+
+
+    @Override
+    public void getAddResVisitNumRequest(Integer resType, Integer resId) {
+        mRxManage.add(mModel.addResVisitNum(resType,resId)
+                .subscribe(new RxSubscriber<BaseResponse>(mContext,false) {
+                    @Override
+                    protected void _onNext(BaseResponse baseResponse) {
+                        mView.returnAddResVisitNum(baseResponse);
+                    }
+                    @Override
+                    protected void _onError(String message) {
+                    }
+                }));
+    }
+
+    @Override
+    public void getAllResVisitNumRequest(final String cateCode, Integer resType, String resIds) {
+        mRxManage.add(mModel.getAllResVisitNum(resType,resIds)
+                .subscribe(new RxSubscriber<BaseResponse<VisitNumEntity>>(mContext,false) {
+                    @Override
+                    public void onStart() {
+                        super.onStart();
+                        mView.showLoading(cateCode);
+                    }
+
+                    @Override
+                    protected void _onNext(BaseResponse<VisitNumEntity> baseResponse) {
+                        mView.returnAllResVisitNum(baseResponse,cateCode);
+                        mView.stopLoading(cateCode);
+                    }
+                    @Override
+                    protected void _onError(String message) {
+                        mView.showErrorTip(message,cateCode);
+                    }
+                }));
     }
 
 

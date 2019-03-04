@@ -49,6 +49,11 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
         notifyDataSetChanged();
     }
 
+    public List<InformationEntity> getData(){
+        return mDatas;
+    }
+
+
     public void addAll(List<InformationEntity> list){
         mDatas.addAll(list) ;
         notifyDataSetChanged();
@@ -78,6 +83,7 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     public  void convert(HomeNewsHolder holder, InformationEntity informationEntity){
         holder.newText.setText(informationEntity.getName());
         holder.dateText.setText(informationEntity.getPublishTime());
+        holder.watchText.setText(informationEntity.getWatchNum()+"次");
         String iconStr =  informationEntity.getIcon();
         Log.d("NewsRecyclerAdapter","icon--URL===" + informationEntity.getIcon());
         String urlStr = informationEntity.getUrl();
@@ -148,7 +154,10 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     }
 
     public int getSize(){
-        return mDatas.size();
+        if(mDatas != null){
+            return mDatas.size();
+        }else{
+            return 0;
+        }
     }
-
 }
