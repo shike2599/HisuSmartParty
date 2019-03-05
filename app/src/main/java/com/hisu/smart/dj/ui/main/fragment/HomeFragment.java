@@ -454,6 +454,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
     public void returnUnReadNoticeNum(UserCollectionEntity userCollectionEntity, String tag) {
       if(userCollectionEntity.getResultCode() == 200){
           int data = userCollectionEntity.getData();
+          Log.d("未读消息数量","data===="+data);
           if(data == 0){
               noReadSizeText.setVisibility(View.INVISIBLE);
           }else{

@@ -435,10 +435,10 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
             if(userCollectionEntity.getResultCode() == 200){
                 collectSeri = userCollectionEntity.getData();
                 if(collectSeri != 0){
-                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
-                    news_collection_textView.setText("取消收藏");
-                }else{
                     collection_img.setBackgroundResource(R.mipmap.links_icon);
+                    news_collection_textView.setText("已收藏");
+                }else{
+                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
                     news_collection_textView.setText("收藏");
                 }
             }
@@ -450,8 +450,8 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
                 collectToast.setContext("收藏成功!");
                 collectToast.setIsCollect(true);
                 collectToast.builder().show();
-                collection_img.setBackgroundResource(R.mipmap.pre_likes);
-                news_collection_textView.setText("取消收藏");
+                collection_img.setBackgroundResource(R.mipmap.links_icon);
+                news_collection_textView.setText("已收藏");
             }else if(userCollectionEntity.getResultCode() == 1001){
                 collectToast.setContext("您已收藏该新闻");
                 collectToast.setIsCollect(false);
@@ -468,7 +468,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter,NewsInfoModel>
             collectToast.setContext("您已取消该收藏!");
             collectToast.setIsCollect(true);
             collectToast.builder().show();
-            collection_img.setBackgroundResource(R.mipmap.links_icon);
+            collection_img.setBackgroundResource(R.mipmap.pre_likes);
             news_collection_textView.setText("收藏");
             collectSeri = 0;
         }

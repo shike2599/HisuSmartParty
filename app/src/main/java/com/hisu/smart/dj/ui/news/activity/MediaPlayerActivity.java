@@ -140,8 +140,8 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
         if(collectSeri == -1){
             mPresenter.getUserCollectionDataRequest(videoData.getUserId(),partyMemberId,resType, videoData.getResId());
         }else{
-            collection_img.setBackgroundResource(R.mipmap.pre_likes);
-            collection_textView.setText("取消收藏");
+            collection_img.setBackgroundResource(R.mipmap.links_icon);
+            collection_textView.setText("已收藏");
         }
         player.startPlayLogic();
     }
@@ -274,10 +274,10 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
             if(userCollectionEntity.getResultCode() == 200){
                 collectSeri = userCollectionEntity.getData();
                 if(collectSeri != 0){
-                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
-                    collection_textView.setText("取消收藏");
-                }else{
                     collection_img.setBackgroundResource(R.mipmap.links_icon);
+                    collection_textView.setText("已收藏");
+                }else{
+                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
                     collection_textView.setText("收藏");
                 }
             }
@@ -289,8 +289,8 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
                 collectToast.setContext("收藏成功!");
                 collectToast.setIsCollect(true);
                 collectToast.builder().show();
-                collection_img.setBackgroundResource(R.mipmap.pre_likes);
-                collection_textView.setText("取消收藏");
+                collection_img.setBackgroundResource(R.mipmap.links_icon);
+                collection_textView.setText("已收藏");
             }else if(userCollectionEntity.getResultCode() == 1001){
                 collectToast.setContext("您已收藏该新闻");
                 collectToast.setIsCollect(false);
@@ -307,7 +307,7 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
             collectToast.setContext("您已取消该收藏!");
             collectToast.setIsCollect(true);
             collectToast.builder().show();
-            collection_img.setBackgroundResource(R.mipmap.links_icon);
+            collection_img.setBackgroundResource(R.mipmap.pre_likes);
             collection_textView.setText("收藏");
             collectSeri = 0;
         }
