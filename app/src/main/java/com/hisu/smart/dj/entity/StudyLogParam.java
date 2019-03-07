@@ -10,6 +10,7 @@ public class StudyLogParam  implements Serializable{
     private Integer userId;
     private Integer logId;
     private Integer partyBranchId;
+    private Integer partyMemberId;
     private Integer resType;
     private Integer resId;
     private String  resName;
@@ -18,6 +19,14 @@ public class StudyLogParam  implements Serializable{
     private Float resTotalHours;
     private String pagePath;
     private String remark;
+
+    public Integer getPartyMemberId() {
+        return partyMemberId;
+    }
+
+    public void setPartyMemberId(Integer partyMemberId) {
+        this.partyMemberId = partyMemberId;
+    }
 
     public Integer getUserId() {
         return userId;
@@ -113,6 +122,7 @@ public class StudyLogParam  implements Serializable{
                 "userId=" + userId +
                 ", logId=" + logId +
                 ", partyBranchId=" + partyBranchId +
+                ", partyMemberId=" + partyMemberId +
                 ", resType=" + resType +
                 ", resId=" + resId +
                 ", resName='" + resName + '\'' +

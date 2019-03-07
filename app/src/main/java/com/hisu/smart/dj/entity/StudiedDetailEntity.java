@@ -20,8 +20,17 @@ public class StudiedDetailEntity implements Serializable{
     private int duration;
     private float hours;
     private int partyBranchId;
+    private int partyMemberId;
     private boolean available;
     private float totalHours;
+
+    public int getPartyMemberId() {
+        return partyMemberId;
+    }
+
+    public void setPartyMemberId(int partyMemberId) {
+        this.partyMemberId = partyMemberId;
+    }
 
     public int getId() {
         return id;
@@ -78,6 +87,7 @@ public class StudiedDetailEntity implements Serializable{
                 ", duration=" + duration +
                 ", hours=" + hours +
                 ", partyBranchId=" + partyBranchId +
+                ", partyMemberId=" + partyMemberId +
                 ", available=" + available +
                 ", totalHours=" + totalHours +
                 '}';

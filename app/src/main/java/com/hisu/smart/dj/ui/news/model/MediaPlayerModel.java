@@ -9,6 +9,7 @@ import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
 
 import com.hisu.smart.dj.entity.UserCollectionEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.hisu.smart.dj.ui.news.contract.MediaPlayerContract;
 import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.baserx.RxSchedulers;
@@ -46,31 +47,31 @@ public class MediaPlayerModel implements MediaPlayerContract.Model {
     }
 
     @Override
-    public Observable<BaseResponse> addPartyBranchStudyLogs( Integer userId,
-                                                             Integer logId,
-                                                             Integer partyBranchId,
-                                                             Integer resType,
-                                                             Integer resId,
-                                                             String resName,
-                                                             Long duration,
-                                                             Float studiedHours,
-                                                             Float resTotalHours,
-                                                             String pagePath,
-                                                             String remark){
+    public Observable<VisitNumResponse> addPartyBranchStudyLogs(Integer userId,
+                                                                Integer logId,
+                                                                Integer partyBranchId,
+                                                                Integer resType,
+                                                                Integer resId,
+                                                                String resName,
+                                                                Long duration,
+                                                                Float studiedHours,
+                                                                Float resTotalHours,
+                                                                String pagePath,
+                                                                String remark){
         return Api.getDefault(AppApplication.getAppContext(), AppConstant.HOST_URL)
                 .addPartyBranchStudyLogs(userId,logId,partyBranchId,resType,resId,resName,duration,studiedHours,resTotalHours, pagePath,remark)
-                .map(new Func1<BaseResponse, BaseResponse>() {
+                .map(new Func1<VisitNumResponse, VisitNumResponse>() {
                     @Override
-                    public BaseResponse call(BaseResponse response) {
+                    public VisitNumResponse call(VisitNumResponse response) {
                         return response;
                     }
-                }).compose(RxSchedulers.<BaseResponse>io_main());
+                }).compose(RxSchedulers.<VisitNumResponse>io_main());
     }
 
     @Override
-    public Observable<BaseResponse> addPartyMemberStudyLogs(Integer userId,
+    public Observable<VisitNumResponse> addPartyMemberStudyLogs(Integer userId,
                                                             Integer logId,
-                                                            Integer partyBranchId,
+                                                            Integer partyMemberId,
                                                             Integer resType,
                                                             Integer resId,
                                                             String resName,
@@ -80,13 +81,13 @@ public class MediaPlayerModel implements MediaPlayerContract.Model {
                                                             String pagePath,
                                                             String remark) {
         return Api.getDefault(AppApplication.getAppContext(), AppConstant.HOST_URL)
-                .addPartyMemberStudyLogs(userId,logId,partyBranchId,resType,resId,resName,duration,studiedHours,resTotalHours, pagePath,remark)
-                .map(new Func1<BaseResponse, BaseResponse>() {
+                .addPartyMemberStudyLogs(userId,logId,partyMemberId,resType,resId,resName,duration,studiedHours,resTotalHours, pagePath,remark)
+                .map(new Func1<VisitNumResponse, VisitNumResponse>() {
                     @Override
-                    public BaseResponse call(BaseResponse response) {
+                    public VisitNumResponse call(VisitNumResponse response) {
                         return response;
                     }
-                }).compose(RxSchedulers.<BaseResponse>io_main());
+                }).compose(RxSchedulers.<VisitNumResponse>io_main());
     }
 
     @Override

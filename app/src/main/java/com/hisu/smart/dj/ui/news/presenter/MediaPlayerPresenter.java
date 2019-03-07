@@ -8,8 +8,9 @@ import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
 
 import com.hisu.smart.dj.entity.UserCollectionEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.hisu.smart.dj.ui.news.contract.MediaPlayerContract;
-import com.jaydenxiao.common.basebean.BaseResponse;
+
 import com.jaydenxiao.common.baserx.RxSubscriber;
 
 
@@ -85,9 +86,9 @@ public class MediaPlayerPresenter extends MediaPlayerContract.Presenter {
                                                Float resTotalHours,
                                                String pagePath,
                                                String remark) {
-        mRxManage.add(mModel.addPartyBranchStudyLogs(userId,logId,partyBranchId,resType,resId,resName,duration,studiedHours,resTotalHours, pagePath,remark).subscribe(new RxSubscriber<BaseResponse>(mContext,false) {
+        mRxManage.add(mModel.addPartyBranchStudyLogs(userId,logId,partyBranchId,resType,resId,resName,duration,studiedHours,resTotalHours, pagePath,remark).subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
             @Override
-            protected void _onNext(BaseResponse response) {
+            protected void _onNext(VisitNumResponse response) {
                 mView.returnAddPartyBranchStudyLogs(response);
             }
             @Override
@@ -100,7 +101,7 @@ public class MediaPlayerPresenter extends MediaPlayerContract.Presenter {
     @Override
     public void addPartyMemberStudyLogsRequest(Integer userId,
                                                Integer logId,
-                                               Integer partyBranchId,
+                                               Integer partyMemberId,
                                                Integer resType,
                                                Integer resId,
                                                String resName,
@@ -109,9 +110,9 @@ public class MediaPlayerPresenter extends MediaPlayerContract.Presenter {
                                                Float resTotalHours,
                                                String pagePath,
                                                String remark) {
-        mRxManage.add(mModel.addPartyMemberStudyLogs(userId,logId,partyBranchId,resType,resId,resName,duration,studiedHours,resTotalHours, pagePath,remark).subscribe(new RxSubscriber<BaseResponse>(mContext,false) {
+        mRxManage.add(mModel.addPartyMemberStudyLogs(userId,logId,partyMemberId,resType,resId,resName,duration,studiedHours,resTotalHours, pagePath,remark).subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
             @Override
-            protected void _onNext(BaseResponse response) {
+            protected void _onNext(VisitNumResponse response) {
                 mView.returnAddPartyMemberStudyLogs( response);
             }
             @Override

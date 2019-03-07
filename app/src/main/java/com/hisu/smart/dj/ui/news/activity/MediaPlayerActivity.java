@@ -22,6 +22,7 @@ import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudyLogParam;
 import com.hisu.smart.dj.entity.UserCollectionEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.hisu.smart.dj.ui.news.contract.MediaPlayerContract;
 import com.hisu.smart.dj.ui.news.model.MediaPlayerModel;
 import com.hisu.smart.dj.ui.news.presenter.MediaPlayerPresenter;
@@ -168,8 +169,18 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
             param.setResId(videoData.getResId());
             param.setResType(videoData.getResType());
             if (studiedDetail != null) {
-                param.setLogId(studiedDetail.getId());
-                param.setPartyBranchId(studiedDetail.getPartyBranchId());
+                if(studiedDetail.getId() > 0){
+                    param.setLogId(studiedDetail.getId());
+                }
+                if(isParyBranch){
+                    if(studiedDetail.getPartyBranchId() > 0){
+                        param.setPartyBranchId(studiedDetail.getPartyBranchId());
+                    }
+                }else{
+                    if(studiedDetail.getPartyMemberId() > 0){
+                        param.setPartyMemberId(studiedDetail.getPartyMemberId());
+                    }
+                }
                 Log.i(TAG,"position:"+String.valueOf(position) +",totalTime:"+totalTime);
                 float studiedHours = videoData.getTotalHours()*((float) position/totalTime);
                 NumberFormat nf = NumberFormat.getNumberInstance();
@@ -255,12 +266,12 @@ public class MediaPlayerActivity extends BaseActivity<MediaPlayerPresenter, Medi
     }
 
     @Override
-    public void returnAddPartyBranchStudyLogs(BaseResponse baseResponse) {
+    public void returnAddPartyBranchStudyLogs(VisitNumResponse baseResponse) {
         Log.i(TAG, "returnAddPartyBranchStudyLogs========" + baseResponse.toString());
     }
 
     @Override
-    public void returnAddPartyMemberStudyLogs(BaseResponse baseResponse) {
+    public void returnAddPartyMemberStudyLogs(VisitNumResponse baseResponse) {
         Log.i(TAG, "returnAddPartyMemberStudyLogs========" + baseResponse.toString());
     }
 

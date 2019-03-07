@@ -43,4 +43,14 @@ public class VisitNumResponse  implements Serializable {
     public void setData(Integer data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "resultCode='" + resultCode + '\'' +
+                ", resultDesc='" + resultDesc + '\'' +
+                ", systemTime='" + systemTime + '\'' +
+                ", data=" + data +
+                '}';
+    }
 }

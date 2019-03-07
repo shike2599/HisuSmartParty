@@ -18,25 +18,24 @@ import android.widget.Toast;
 
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.hisu.smart.dj.R;
-import com.hisu.smart.dj.app.AppApplication;
+
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
-import com.hisu.smart.dj.entity.NoticeInfoEntity;
+
 import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.UpLoadFileResponse;
 import com.hisu.smart.dj.ui.adapter.PicSelectorAdapter;
-import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
-import com.hisu.smart.dj.ui.news.activity.NewsActivity;
+
 import com.hisu.smart.dj.ui.study.contract.UpLoadFileContract;
 import com.hisu.smart.dj.ui.study.model.UpLoadFileModel;
 import com.hisu.smart.dj.ui.study.presenter.UpLoadFilePresenter;
 import com.hisu.smart.dj.ui.widget.CommomDialog;
 import com.jaydenxiao.common.base.BaseActivity;
-import com.jaydenxiao.common.basebean.BaseResponse;
+
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
 
 import java.io.File;
-import java.text.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -46,7 +45,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import okhttp3.MediaType;
-import okhttp3.MultipartBody;
+
 import okhttp3.RequestBody;
 
 /**

@@ -14,29 +14,30 @@ import com.hisu.smart.dj.entity.NewsInfoResponse;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.RankEntity;
-import com.hisu.smart.dj.entity.StudiedDetailEntity;
+
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
 import com.hisu.smart.dj.entity.StudyListEntity;
-import com.hisu.smart.dj.entity.StudyLogParam;
+
 import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
-import com.hisu.smart.dj.entity.UnReadSizeEntity;
+
 import com.hisu.smart.dj.entity.UpLoadFileResponse;
+
 import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.entity.VisitNumEntity;
 import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.jaydenxiao.common.basebean.BaseResponse;
 
-import java.util.List;
 import java.util.Map;
 
 import okhttp3.RequestBody;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import rx.Observable;
@@ -480,7 +481,7 @@ public interface ApiService {
      */
     @FormUrlEncoded
    @POST("party-data-statistics-front/studyLog/write/addPartyBranchStudyLogs")
-    Observable<BaseResponse> addPartyBranchStudyLogs(@Field("userId") Integer userId,
+    Observable<VisitNumResponse> addPartyBranchStudyLogs(@Field("userId") Integer userId,
                                                      @Field("logId") Integer logId,
                                                      @Field("partyBranchId") Integer partyBranchId,
                                                      @Field("resType") Integer resType,
@@ -497,7 +498,7 @@ public interface ApiService {
      * 课程学习日志收集（个人学习）
      * @param userId
      * @param logId
-     * @param partyBranchId
+     * @param partyMemberId
      * @param resType
      * @param resId
      * @param resName
@@ -510,9 +511,9 @@ public interface ApiService {
      */
     @FormUrlEncoded
     @POST("party-data-statistics-front/studyLog/write/addPartyMemberStudyLogs")
-    Observable<BaseResponse> addPartyMemberStudyLogs(@Field("userId") Integer userId,
+    Observable<VisitNumResponse> addPartyMemberStudyLogs(@Field("userId") Integer userId,
                                                      @Field("logId") Integer logId,
-                                                     @Field("partyBranchId") Integer partyBranchId,
+                                                     @Field("partyMemberId") Integer partyMemberId,
                                                      @Field("resType") Integer resType,
                                                      @Field("resId") Integer resId,
                                                      @Query("resName") String resName,
@@ -592,5 +593,5 @@ public interface ApiService {
      */
     @Multipart
     @POST("party-user-front/upload/uploadFile")
-    Observable<UpLoadFileResponse> uploadFile(@PartMap Map<String,RequestBody> parmas);
+    Observable<UpLoadFileResponse> uploadFile(@PartMap Map<String, RequestBody> parmas);
 }

@@ -1,12 +1,11 @@
 package com.hisu.smart.dj.ui.news.contract;
 
-import com.hisu.smart.dj.entity.InformationEntity;
-import com.hisu.smart.dj.entity.InformationResponse;
 import com.hisu.smart.dj.entity.NotingResponse;
 import com.hisu.smart.dj.entity.StudiedDetailEntity;
 import com.hisu.smart.dj.entity.StudiedDetailResponse;
-import com.hisu.smart.dj.entity.StudyLogParam;
+
 import com.hisu.smart.dj.entity.UserCollectionEntity;
+import com.hisu.smart.dj.entity.VisitNumResponse;
 import com.jaydenxiao.common.base.BaseModel;
 import com.jaydenxiao.common.base.BasePresenter;
 import com.jaydenxiao.common.base.BaseView;
@@ -23,7 +22,7 @@ public interface MediaPlayerContract {
         Observable<StudiedDetailResponse> getBranchResStudiedDetail(Integer userId, Integer resType, Integer resId);
         Observable<StudiedDetailResponse>getMemberResStudiedDetail(Integer userId,Integer resType,Integer resId);
 
-        Observable<BaseResponse> addPartyBranchStudyLogs( Integer userId,
+        Observable<VisitNumResponse> addPartyBranchStudyLogs( Integer userId,
                                                           Integer logId,
                                                           Integer partyBranchId,
                                                           Integer resType,
@@ -35,9 +34,9 @@ public interface MediaPlayerContract {
                                                           String pagePath,
                                                           String remark);
 
-        Observable<BaseResponse> addPartyMemberStudyLogs( Integer userId,
+        Observable<VisitNumResponse> addPartyMemberStudyLogs( Integer userId,
                                                           Integer logId,
-                                                          Integer partyBranchId,
+                                                          Integer partyMemberId,
                                                           Integer resType,
                                                           Integer resId,
                                                           String resName,
@@ -59,8 +58,8 @@ public interface MediaPlayerContract {
     interface View extends BaseView {
         void returnBranchResStudiedDetail(StudiedDetailEntity studiedDetailEntity);
         void returnMemberResStudiedDetail(StudiedDetailEntity studiedDetailEntity);
-        void returnAddPartyBranchStudyLogs(BaseResponse baseResponse);
-        void returnAddPartyMemberStudyLogs(BaseResponse baseResponse);
+        void returnAddPartyBranchStudyLogs(VisitNumResponse baseResponse);
+        void returnAddPartyMemberStudyLogs(VisitNumResponse baseResponse);
 
         //添加收藏/状态查询
         void returnCollectionData(UserCollectionEntity userCollectionEntity,String tag);
@@ -83,7 +82,7 @@ public interface MediaPlayerContract {
                                                             String remark);
         public abstract void addPartyMemberStudyLogsRequest(Integer userId,
                                                             Integer logId,
-                                                            Integer partyBranchId,
+                                                            Integer partyMemberId,
                                                             Integer resType,
                                                             Integer resId,
                                                             String resName,
