@@ -2,14 +2,12 @@ package com.hisu.smart.dj.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.os.Build;
+
 import android.util.AttributeSet;
-import android.view.View;
+
 import android.widget.TextView;
 
-import com.tencent.smtt.sdk.QbSdk;
+
 import com.tencent.smtt.sdk.WebSettings;
 import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
 import com.tencent.smtt.sdk.WebView;
@@ -17,6 +15,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 
 public class X5WebView extends WebView {
 	TextView title;
+
 	private WebViewClient client = new WebViewClient() {
 		/**
 		 * 防止加载网页时调起系统浏览器
@@ -35,6 +34,12 @@ public class X5WebView extends WebView {
 		// WebStorage webStorage = WebStorage.getInstance();
 		initWebViewSettings();
 		this.getView().setClickable(true);
+	}
+
+	@Override
+	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		int mExpandSpec = MeasureSpec.makeMeasureSpec(Integer.MAX_VALUE >> 2, MeasureSpec.AT_MOST);
+		super.onMeasure(widthMeasureSpec, mExpandSpec);
 	}
 
 	private void initWebViewSettings() {
@@ -57,7 +62,6 @@ public class X5WebView extends WebView {
 		webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
 		// webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
 		webSetting.setCacheMode(WebSettings.LOAD_NO_CACHE);
-
 		// this.getSettingsExtension().setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);//extension
 		// settings 的设计
 	}

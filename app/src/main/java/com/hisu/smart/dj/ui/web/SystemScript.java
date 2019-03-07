@@ -1,23 +1,30 @@
 package com.hisu.smart.dj.ui.web;
 
 import android.app.Activity;
-import android.content.Context;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
+import android.widget.FrameLayout;
 
 import com.hisu.smart.dj.app.AppConfig;
-import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
+import com.hisu.smart.dj.utils.X5WebView;
 
 public class SystemScript {
     String TAG = "SystemScript";
     private Activity webAc;
     AppConfig appConfig;
+    private X5WebView x5;
     public SystemScript(Activity activity){
         appConfig = AppConfig.getInstance();
         webAc = activity;
+    }
+    public SystemScript(Activity activity,X5WebView webView){
+        appConfig = AppConfig.getInstance();
+        webAc = activity;
+        x5 = webView;
     }
     //获取本地存储信息 int
     @JavascriptInterface
@@ -76,6 +83,19 @@ public class SystemScript {
         StudyExperienceActivity.startAction(webAc,"党员圈",cateCode);
     }
 
+
+    @JavascriptInterface
+    public void resize(final float height) {
+        webAc.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+//                Toast.makeText(webAc, height + "", Toast.LENGTH_LONG).show();
+                Log.i(TAG,"resize=================="+height);
+                //此处的 layoutParmas 需要根据父控件类型进行区分，这里为了简单就不这么做了
+                x5.setLayoutParams(new FrameLayout.LayoutParams(webAc.getResources().getDisplayMetrics().widthPixels, (int) (height * webAc.getResources().getDisplayMetrics().density)));
+            }
+        });
+    }
 
 }
 
