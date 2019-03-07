@@ -116,7 +116,11 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         Log.d("NewsActivity","-----onResume()----");
         if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
             if(AppConstant.isUpLoad||newsRecyclerAdapter.getData().size() == 0){
-                newsRecyclerAdapter.getPageBean().setRefresh(true);//每次请求时先刷新数据
+                AppConstant.isUpLoad = false;
+                mStartPage = 1;
+                if(newsRecyclerAdapter.getData().size() >0){
+                    newsRecyclerAdapter.clearData();
+                }
                 showNewsType();
             }else{
                 mPresenter.getResVisitNumRequest(resType,resId);
@@ -162,7 +166,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
         informations = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
         if(informations != null){
-            mStartPage +=1;
+            mStartPage += 1;
             if (newsRecyclerAdapter.getPageBean().isRefresh()) {
                 newsIRecyclerView.setRefreshing(false);
                 int size = informations.size();

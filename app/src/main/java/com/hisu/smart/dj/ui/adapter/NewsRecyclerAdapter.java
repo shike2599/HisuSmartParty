@@ -43,11 +43,20 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
     }
 
     public void setData(List<InformationEntity> list){
-        mDatas.clear();
-        mDatas.addAll(list) ;
-        Log.d("NewsRecyclerAdapter","mDatas.size()===="+mDatas.size());
-        notifyDataSetChanged();
+        if(mDatas != null){
+            mDatas.clear();
+            mDatas.addAll(list) ;
+            Log.d("NewsRecyclerAdapter","mDatas.size()===="+mDatas.size());
+            notifyDataSetChanged();
+        }
     }
+
+    public void clearData(){
+        if(mDatas != null){
+            mDatas.clear();
+        }
+    }
+
 
     public List<InformationEntity> getData(){
         return mDatas;
@@ -55,8 +64,10 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
 
 
     public void addAll(List<InformationEntity> list){
-        mDatas.addAll(list) ;
-        notifyDataSetChanged();
+        if(mDatas != null){
+            mDatas.addAll(list) ;
+            notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -116,7 +127,10 @@ public class NewsRecyclerAdapter extends RecyclerView.Adapter<NewsRecyclerAdapte
 
     @Override
     public int getItemCount() {
-        return mDatas.size();
+        if(mDatas != null){
+            return mDatas.size();
+        }
+        return 0;
     }
 
     class HomeNewsHolder extends RecyclerView.ViewHolder{
