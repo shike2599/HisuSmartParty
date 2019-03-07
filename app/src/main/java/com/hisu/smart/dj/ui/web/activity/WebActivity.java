@@ -1,5 +1,6 @@
 package com.hisu.smart.dj.ui.web.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 
@@ -74,7 +75,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
     @Bind(R.id.title_LinearLayout)
     LinearLayout title_layout;
 
-    private X5WebView x5WebView;
+    private static X5WebView x5WebView;
     private String title_str;
     private String webUrl;
     private Integer newsID;
@@ -511,7 +512,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
         if(imagesList!=null&&imagesList.size()>0){
             for(int i=0;i < imagesList.size(); i++){
                 Log.d(TAG,"imagePaths==="+i+"===="+imagesList.get(i));
-                sb.append("<img style=\"width:100%;padding:5%;\" src=\""
+                sb.append("<img style=\"width:100%;margin:0 auto;\" src=\""
                         +AppConstant.HOST_URL+"/"+imagesList.get(i)+"\"/>");
             }
         }
@@ -527,5 +528,10 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
                 "img{padding:0px;max-width:100%; width:auto; height:auto;}</style>" +
                 "</head>";
         return "<html>" + head + "<body>" + sb.toString() + "</body></html>";
+    }
+    //刷新党员圈页面
+    @SuppressLint("SetJavaScriptEnabled")
+    public static void refreshWebPage(){
+        x5WebView.loadUrl("javascript:circleList()");
     }
 }

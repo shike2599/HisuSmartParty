@@ -29,6 +29,7 @@ import com.hisu.smart.dj.ui.adapter.PicSelectorAdapter;
 import com.hisu.smart.dj.ui.study.contract.UpLoadFileContract;
 import com.hisu.smart.dj.ui.study.model.UpLoadFileModel;
 import com.hisu.smart.dj.ui.study.presenter.UpLoadFilePresenter;
+import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.CommomDialog;
 import com.jaydenxiao.common.base.BaseActivity;
 
@@ -92,6 +93,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     public void initPresenter() {
       title = getIntent().getStringExtra(AppConstant.UPLOAD_TITLE);
       follow_id = getIntent().getIntExtra(AppConstant.FOLLOW_ID,-1);
+      Log.d(TAG,"follow_id==="+follow_id);
       if(follow_id == -1){
           follow_id = 5008; //学习心得
       }
@@ -107,6 +109,10 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                          dialog.dismiss();
                          AppConstant.isUpLoad = true;
                          StudyExperienceActivity.this.finish();
+                         if(title.endsWith("党员圈")){
+                             WebActivity.refreshWebPage();
+                         }
+
                      }else{
                          dialog.dismiss();
                      }

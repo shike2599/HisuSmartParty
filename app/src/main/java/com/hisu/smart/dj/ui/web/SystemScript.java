@@ -9,6 +9,7 @@ import android.webkit.JavascriptInterface;
 import android.widget.FrameLayout;
 
 import com.hisu.smart.dj.app.AppConfig;
+import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.utils.X5WebView;
 
@@ -36,6 +37,12 @@ public class SystemScript {
         return obj;
     }
 
+    //存储支部ID int
+    @JavascriptInterface
+    public void setPartyBranchId(int partyBranchId) {
+        Log.d(TAG,"---setPartyBranchId--id==="+partyBranchId);
+        AppConfig.getInstance().setInt(AppConstant.MEMBER_PARTYBRANCH_ID,partyBranchId);
+    }
     //获取本地存储信息 String
     @JavascriptInterface
     public String getUserInfoStr(String key) {
@@ -79,7 +86,7 @@ public class SystemScript {
      */
     @JavascriptInterface
     public void toUpLoadActivity(int cateCode) {
-        Log.d(TAG,"---toUpLoadActivity---");
+        Log.d(TAG,"---toUpLoadActivity---cateCode==="+cateCode);
         StudyExperienceActivity.startAction(webAc,"党员圈",cateCode);
     }
 

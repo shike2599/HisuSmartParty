@@ -66,15 +66,10 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         NewsRecyclerAdapter.OnNewsItemClickListener{
     private String TAG = "HomeFragment";
 
-    private static String party_news = AppConstant.BASE_URL_LOAD+"news/newsList.html"; //党建资讯
-    private static String partyMembersCircle = AppConstant.BASE_URL_LOAD+"partyMembersCircle.html"; //党员圈
+    private static String partyMembersCircle = AppConstant.BASE_URL_LOAD+"partyMembersCircle-1.html"; //党员圈
     private static String payCost = AppConstant.BASE_URL_LOAD+"partyBuild/payCost.html"; //党费缴纳
-    private static String newsMore = AppConstant.BASE_URL_LOAD+"news/newsMore.html"; //更多党建新闻
     private static String studyExamination = AppConstant.BASE_URL_LOAD+"study/studyExamination.html"; //在线考试
     private static String partyBuild_relation = AppConstant.BASE_URL_LOAD+"partyBuild/relation.html";
-
-    private static String mymessage = AppConstant.BASE_URL_LOAD+"mycenter/"+"mymessage.html";
-
     private Banner homeBanner;
     private List<Integer> homeBannerImages;
     private RecyclerView mRecyclerView; //首页子栏目RecyclerView
