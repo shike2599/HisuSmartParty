@@ -100,6 +100,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     }
 
     private void initData() {
+        mStartPage = 1;
         show_title = this.getIntent().getStringExtra(AppConstant.SHOW_TITLE);
         follow_id = this.getIntent().getIntExtra(AppConstant.FOLLOW_ID,-1);
         Log.d(TAG,"---show_title----"+show_title);
@@ -112,10 +113,9 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
     @Override
     protected void onResume() {
         super.onResume();
-        mStartPage = 1;
         Log.d("NewsActivity","-----onResume()----");
         if(NetWorkUtils.isNetConnected(AppApplication.getAppContext())){
-            if(newsRecyclerAdapter.getSize() == 0){
+            if(AppConstant.isUpLoad||newsRecyclerAdapter.getData().size() == 0){
                 newsRecyclerAdapter.getPageBean().setRefresh(true);//每次请求时先刷新数据
                 showNewsType();
             }else{
@@ -318,6 +318,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
 //       Toast.makeText(this,"item-id=="+news_id,
 //               Toast.LENGTH_LONG).show();
         resId = data.getId();
+        AppConstant.isUpLoad = false;
         if(follow_id!=-1){
             jump_tag = "践行活动";
             mPresenter.getAddResVisitNumRequest(0,data.getId());

@@ -5,6 +5,7 @@ import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.CateEntity;
 import com.hisu.smart.dj.entity.NotingResponse;
+import com.hisu.smart.dj.entity.UpLoadFileResponse;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonMainContract;
 import com.hisu.smart.dj.ui.study.contract.UpLoadFileContract;
 import com.jaydenxiao.common.basebean.BaseResponse;
@@ -39,5 +40,18 @@ public class UpLoadFileModel implements UpLoadFileContract.Model {
                     }
                 })
                 .compose(RxSchedulers.<NotingResponse>io_main());
+    }
+
+    @Override
+    public Observable<UpLoadFileResponse> uploadFile(Map<String, RequestBody> parmas) {
+        return Api.getDefault(AppApplication.getAppContext(),AppConstant.HOST_URL)
+                .uploadFile(parmas)
+                .map(new Func1<UpLoadFileResponse, UpLoadFileResponse>() {
+                    @Override
+                    public UpLoadFileResponse call(UpLoadFileResponse upLoadFileResponse) {
+                        return upLoadFileResponse;
+                    }
+                })
+                .compose(RxSchedulers.<UpLoadFileResponse>io_main());
     }
 }

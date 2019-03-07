@@ -23,8 +23,10 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.NoticeInfoEntity;
 import com.hisu.smart.dj.entity.NotingResponse;
+import com.hisu.smart.dj.entity.UpLoadFileResponse;
 import com.hisu.smart.dj.ui.adapter.PicSelectorAdapter;
 import com.hisu.smart.dj.ui.adapter.StudyTopicAdapter;
+import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.study.contract.UpLoadFileContract;
 import com.hisu.smart.dj.ui.study.model.UpLoadFileModel;
 import com.hisu.smart.dj.ui.study.presenter.UpLoadFilePresenter;
@@ -44,6 +46,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -51,6 +54,7 @@ import okhttp3.RequestBody;
  */
 public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,UpLoadFileModel> implements
         View.OnClickListener,UpLoadFileContract.View{
+    private String TAG = "StudyExperienceActivity";
     @Bind(R.id.back_imageView)
     ImageView back_img;
     @Bind(R.id.title_TextView)
@@ -78,6 +82,8 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     private CommomDialog commomDialog;
     private int follow_id;
     private boolean isUploadSuccess;
+    private String content;
+    private String upTitle;
     @Override
     public int getLayoutId() {
         return R.layout.activity_study_experience;
@@ -100,6 +106,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                  if(isUploadSuccess){
                      if(confirm){
                          dialog.dismiss();
+                         AppConstant.isUpLoad = true;
                          StudyExperienceActivity.this.finish();
                      }else{
                          dialog.dismiss();
@@ -144,37 +151,36 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                  StudyExperienceActivity.this.finish();
                  break;
              case R.id.add_img_ImageView:
-                 isUploadSuccess = false;
-                 commomDialog.isShowCancelBtn(false);
-                 commomDialog.setTitle("提示");
-                 commomDialog.setContent("暂未开通图片上传！敬请期待！");
-                 commomDialog.show();
-//                 ImageSelector.builder()
-//                         .useCamera(true) // 设置是否使用拍照
-//                         .setSingle(false)  //设置是否单选
-//                         .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
-//                         .start(StudyExperienceActivity.this, REQUEST_CODE); // 打开相册
+//                 isUploadSuccess = false;
+//                 commomDialog.isShowCancelBtn(false);
+//                 commomDialog.setTitle("提示");
+//                 commomDialog.setContent("暂未开通图片上传！敬请期待！");
+//                 commomDialog.show();
+                 ImageSelector.builder()
+                         .useCamera(true) // 设置是否使用拍照
+                         .setSingle(false)  //设置是否单选
+                         .setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
+                         .start(StudyExperienceActivity.this, REQUEST_CODE); // 打开相册
                  break;
              case R.id.start_upload_relativeLayout:
-                 String title = title_edit.getText().toString();
-                 String content = content_edit.getText().toString();
+                 upTitle = title_edit.getText().toString();
+                 content = content_edit.getText().toString();
                  if(!TextUtils.isEmpty(title)&&!TextUtils.isEmpty(content)){
                      if(images!=null&&images.size()>0){
                          mediaType = 1;
                          bodyMap = new HashMap<>();
                          for(int i = 0; i < images.size();i++){
                              File file = new File(images.get(i));
-                             bodyMap.put("imgPaths",RequestBody.create(MediaType.parse("image/jpeg"),file));
+                             bodyMap.put("file"+i+"\"; filename=\""+file.getName(),
+                                     RequestBody.create(MediaType.parse("image/*"),file));
                          }
+                         LoadingDialog.showDialogForLoading(StudyExperienceActivity.this,"正在上传",false);
+                         mPresenter.upLoadFileRequest(bodyMap);
                      }else{
                          mediaType = 2;
-                         if(follow_id == 5008 || follow_id == 5007){
-                             mPresenter.submitActionContentRequest(user_id,memberId,null,
-                                     String.valueOf(follow_id),title,"","",mediaType,content,null,getNowTime(),false);
-                         }else{
-                             mPresenter.submitActionContentRequest(user_id,memberId,follow_id,
-                                     null,title,"","",mediaType,content,null,getNowTime(),false);
-                         }
+                         //上传纯文字信息
+                         LoadingDialog.showDialogForLoading(StudyExperienceActivity.this,"正在上传",false);
+                         startUpLoad(null);
                      }
 
                  }else{
@@ -197,9 +203,10 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
         }
 
     }
-
+    //上传所有内容
     @Override
     public void returnSubmitResponse(NotingResponse notingResponse) {
+        LoadingDialog.cancelDialogForLoading();
         if(notingResponse.getResultCode() == 200){
             isUploadSuccess = true;
             commomDialog.isShowCancelBtn(true);
@@ -207,6 +214,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
             commomDialog.setContent("上传成功！");
             commomDialog.setNegativeButton("返回");
         }else{
+            LoadingDialog.cancelDialogForLoading();
             commomDialog.isShowCancelBtn(false);
             commomDialog.setTitle("提示");
             commomDialog.setContent("上传失败请重试！！！");
@@ -214,15 +222,43 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
         }
         commomDialog.show();
     }
+    //图片上传返回
+    @Override
+    public void returnUpLoadFile(UpLoadFileResponse upLoadFileResponse) {
+          int responseCode = upLoadFileResponse.getResultCode();
+          List<UpLoadFileResponse.FileListBean> fileBeas = upLoadFileResponse.getDataList();
+          Log.d(TAG,"----fileBeas--==size=="+fileBeas.size());
+          if(responseCode == 200 && fileBeas!=null && fileBeas.size()>0){
+              isUploadSuccess = true;
+              StringBuilder imgPathsSb = new StringBuilder();
+              for(UpLoadFileResponse.FileListBean fileListBean : fileBeas){
+                  imgPathsSb.append(fileListBean.getPath());
+                  imgPathsSb.append(",");
+              }
+              String imagePath = imgPathsSb.toString();
+              imagePath = imagePath.substring(0,imagePath.length()-1);
+              Log.d(TAG,"imagePath======"+imagePath);
+              //开始上传
+              startUpLoad(imagePath);
+          }else{
+              LoadingDialog.cancelDialogForLoading();
+              commomDialog.isShowCancelBtn(false);
+              commomDialog.setTitle("提示");
+              commomDialog.setContent("上传失败请重试！！！");
+              commomDialog.setNegativeButton("返回");
+              commomDialog.show();
+          }
+
+    }
 
     @Override
     public void showLoading(String tag) {
-        LoadingDialog.showDialogForLoading(StudyExperienceActivity.this,tag,false);
+//        LoadingDialog.showDialogForLoading(StudyExperienceActivity.this,tag,false);
     }
 
     @Override
     public void stopLoading(String tag) {
-       LoadingDialog.cancelDialogForLoading();
+//       LoadingDialog.cancelDialogForLoading();
     }
 
     @Override
@@ -240,5 +276,19 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
         String dateString = formatter.format(currentTime);
         Log.d("Time",dateString);
         return dateString;
+    }
+
+    /**
+     * 开始上传内容
+     * @param imagePaths
+     */
+    private void startUpLoad(String imagePaths){
+        if(follow_id == 5008 || follow_id == 5007){
+            mPresenter.submitActionContentRequest(user_id,memberId,null,
+                    String.valueOf(follow_id),upTitle,"",imagePaths,mediaType,content,null,getNowTime(),false);
+        }else{
+            mPresenter.submitActionContentRequest(user_id,memberId,follow_id,
+                    null,upTitle,"",imagePaths,mediaType,content,null,getNowTime(),false);
+        }
     }
 }

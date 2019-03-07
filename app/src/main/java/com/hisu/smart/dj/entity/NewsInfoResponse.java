@@ -88,7 +88,7 @@ public class NewsInfoResponse implements Serializable {
         private String name;
         private String url;
         private int mediaType;
-        private List<?> images;
+        private List<String> images;
 
         public int getId() {
             return id;
@@ -146,11 +146,11 @@ public class NewsInfoResponse implements Serializable {
             this.mediaType = mediaType;
         }
 
-        public List<?> getImages() {
+        public List<String> getImages() {
             return images;
         }
 
-        public void setImages(List<?> images) {
+        public void setImages(List<String> images) {
             this.images = images;
         }
     }

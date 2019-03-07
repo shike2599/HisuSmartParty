@@ -21,6 +21,7 @@ import com.hisu.smart.dj.entity.StudyLogParam;
 import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 import com.hisu.smart.dj.entity.UnReadSizeEntity;
+import com.hisu.smart.dj.entity.UpLoadFileResponse;
 import com.hisu.smart.dj.entity.UserCollectionEntity;
 import com.hisu.smart.dj.entity.VisitNumEntity;
 import com.hisu.smart.dj.entity.VisitNumResponse;
@@ -584,5 +585,12 @@ public interface ApiService {
     @GET("party-data-statistics-front/behavior/readonly/getAllResVisitNum")
     Observable<BaseResponse<VisitNumEntity>> getAllResVisitNum(@Query("resType") Integer resType,
                                                                @Query("resIds") String resIds);
-
+    /**
+     * 2.3.文件上传通用接口
+     * @param parmas
+     * @return
+     */
+    @Multipart
+    @POST("party-user-front/upload/uploadFile")
+    Observable<UpLoadFileResponse> uploadFile(@PartMap Map<String,RequestBody> parmas);
 }

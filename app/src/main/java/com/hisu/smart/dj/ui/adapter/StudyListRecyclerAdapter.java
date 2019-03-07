@@ -86,7 +86,7 @@ public class StudyListRecyclerAdapter extends RecyclerView.Adapter<StudyListRecy
         holder.dateText.setText(studyBean.getPublishTime());
         String iconStr = "";
         if(studyBean.getImages()!=null&&studyBean.getImages().size()>0){
-             iconStr =  (String)studyBean.getImages().get(0);//拿到第一个图片路径
+             iconStr =  AppConstant.HOST_URL+"/"+studyBean.getImages().get(0);//拿到第一个图片路径
         }
         String urlStr = studyBean.getUrl();
         int mediaType = studyBean.getMediaType();

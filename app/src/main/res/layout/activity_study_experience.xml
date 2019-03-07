@@ -78,6 +78,7 @@
        </RelativeLayout>
 
        <android.support.v7.widget.RecyclerView
+           android:background="@color/background_color_gory"
            android:id="@+id/selector_img_RecyclerView"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"

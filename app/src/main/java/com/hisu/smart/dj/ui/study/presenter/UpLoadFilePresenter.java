@@ -3,6 +3,7 @@ package com.hisu.smart.dj.ui.study.presenter;
 import com.hisu.smart.dj.R;
 import com.hisu.smart.dj.entity.CateEntity;
 import com.hisu.smart.dj.entity.NotingResponse;
+import com.hisu.smart.dj.entity.UpLoadFileResponse;
 import com.hisu.smart.dj.ui.study.contract.StudyCommonMainContract;
 import com.hisu.smart.dj.ui.study.contract.UpLoadFileContract;
 import com.jaydenxiao.common.basebean.BaseResponse;
@@ -39,6 +40,29 @@ public class UpLoadFilePresenter extends UpLoadFileContract.Presenter{
             @Override
             protected void _onNext(NotingResponse notingResponse) {
                 mView.returnSubmitResponse(notingResponse);
+                mView.stopLoading("");
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip(message,"");
+            }
+        }));
+    }
+
+    @Override
+    public void upLoadFileRequest(Map<String, RequestBody> parmas) {
+        mRxManage.add(mModel.uploadFile(parmas).subscribe(new RxSubscriber<UpLoadFileResponse>(mContext,false) {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                mView.showLoading(mContext.getString(R.string.loading));
+            }
+
+            @Override
+            protected void _onNext(UpLoadFileResponse upLoadFileResponse) {
+                mView.returnUpLoadFile(upLoadFileResponse);
                 mView.stopLoading("");
             }
 

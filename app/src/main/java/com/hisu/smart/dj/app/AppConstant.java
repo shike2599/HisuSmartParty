@@ -47,6 +47,7 @@ public class AppConstant {
 
     public static final String VIDEO = "video";
     public static final String COLLECT_SERI = "collectSeri";
+    public static Boolean isUpLoad = false;
 
 
 //    public static  boolean  isExitLogin = false;

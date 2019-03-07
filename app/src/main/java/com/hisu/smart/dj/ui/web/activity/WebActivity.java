@@ -46,6 +46,7 @@ import com.tencent.smtt.sdk.WebViewClient;
 import com.tencent.smtt.utils.TbsLog;
 
 
+import java.util.List;
 
 import butterknife.Bind;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
@@ -126,42 +127,41 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
 
         initWebView();
 //        setCookie(null);
-        back_img.setOnClickListener(this);
-        news_collection_textView.setOnClickListener(this);
+       back_img.setOnClickListener(this);
+       news_collection_textView.setOnClickListener(this);
 
-        if (newsID != -1) {
-            title_textView.setVisibility(View.INVISIBLE);
-            LoadingDialog.showDialogForLoading(this, "请稍候！", false);
-            if (jump_tag != null) {
-                if (jump_tag.equals("践行活动")) {
-                    mPresenter.getFollowInfoDataRequest(newsID);
-                } else if (jump_tag.equals("专题学习")) {
-                    mPresenter.getTopicInfoDataRequest(newsID);
-                } else if (jump_tag.equals("常规学习")) {
-                    mPresenter.getCommonInfoDataRequest(newsID);
-                }
-            } else {
-                mPresenter.getNewsInfoDataRequest(newsID);
-            }
-            //查询是否收藏
-            mPresenter.getUserCollectionDataRequest(user_id, partyMemberId, resType, newsID);
-        } else {
-            show_news_layout.setVisibility(View.GONE);
-            title_textView.setText(title_str);
-            startLoad(false, webUrl);
-        }
+       if(newsID != -1){
+           title_textView.setVisibility(View.INVISIBLE);
+           LoadingDialog.showDialogForLoading(this,"请稍候！",false);
+           if(jump_tag != null){
+               if(jump_tag.equals("践行活动")){
+                   mPresenter.getFollowInfoDataRequest(newsID);
+               }else if(jump_tag.equals("专题学习")){
+                   mPresenter.getTopicInfoDataRequest(newsID);
+               }else if(jump_tag.equals("常规学习")){
+                   mPresenter.getCommonInfoDataRequest(newsID);
+               }
+           }else{
+               mPresenter.getNewsInfoDataRequest(newsID);
+           }
+           //查询是否收藏
+           mPresenter.getUserCollectionDataRequest(user_id,partyMemberId,resType,newsID);
+       }else{
+           show_news_layout.setVisibility(View.GONE);
+           title_textView.setText(title_str);
+           startLoad(false,webUrl,null);
+       }
     }
 
     private void initWebView() {
         mViewParent.setVisibility(View.VISIBLE);
         mViewParent.addView(x5WebView, new FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
-                FrameLayout.LayoutParams.MATCH_PARENT));
+                FrameLayout.LayoutParams.WRAP_CONTENT));
 
         x5WebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                //file:///android_asset/smart_dj_weixin/partyBuild/targetOrganazition.html 目标
                 return false;
             }
 
@@ -177,7 +177,9 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
 //                    changGoForwardButton(view);
                 /* mWebView.showLog("test Log"); */
                 String targeturl = AppConstant.BASE_URL_LOAD + "partyBuild/targetOrganazition.html";
-                if (targeturl.equals(url)) {
+                Log.d(TAG,"----onPageFinished----");
+                Log.d(TAG,"--onPageFinished--url----"+url);
+                if(targeturl.equals(url)){
                     title_layout.setVisibility(View.GONE);
                 } else {
                     title_layout.setVisibility(View.VISIBLE);
@@ -186,7 +188,6 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
         });
 
         x5WebView.setWebChromeClient(new WebChromeClient() {
-
             @Override
             public boolean onJsConfirm(WebView arg0, String arg1, String arg2,
                                        JsResult arg3) {
@@ -305,6 +306,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
 //         webSetting.setPageCacheCapacity(IX5WebSettings.DEFAULT_CACHE_CAPACITY);
 //        webSetting.setPluginState(WebSettings.PluginState.ON_DEMAND);
         webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
+//         webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
 //         webSetting.setPreFectch(true);
 //        long time = System.currentTimeMillis();
 //        if (webUrl == null) {
@@ -330,24 +332,12 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
             //收藏
             case R.id.collection_TextView:
                 if (collectSeri != 0) {
-                    //已经收藏，取消收藏
-//                    collectToast.setContext("已取消收藏!");
-//                    collectToast.setIsCollect(true);
-//                    collectToast.builder().show();
-//                    collection_img.setBackgroundResource(R.mipmap.links_icon);
-//                    news_collection_textView.setText("收藏");
                     mPresenter.cancelCollectionRequest(collectSeri);
                     Log.d("isCollectionTAG", "===已经收藏，取消收藏==");
                 } else {
                     //未收藏准备收藏
                     Log.d("isCollectionTAG", "===未收藏准备收藏==");
                     mPresenter.addCollectionDataRequest(user_id, partyMemberId, resType, newsID);
-//                    collectToast.setContext("收藏成功!");
-//                    collectToast.setIsCollect(true);
-//                    collectToast.builder().show();
-//                    collection_img.setBackgroundResource(R.mipmap.pre_likes);
-//                    news_collection_textView.setText("取消收藏");
-//                    isNeedSign = true;
                 }
                 break;
         }
@@ -427,7 +417,8 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
             show_news_title.setText(title);
             isNeedSign = dataBean.isIsNeedSign();
             String webData = dataBean.getContent();
-            startLoad(true, webData);
+            List<String> imageList = dataBean.getImages();
+            startLoad(true,webData,imageList);
         }
     }
 
@@ -499,113 +490,42 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
-    private void startLoad(boolean isNews, String webUrl) {
-        if (isNews) {
-            String webhtml = getHtmlData(webUrl);
-//            x5WebView.loadData(webhtml,"text/html;charset=utf-8","utf-8");
+
+    private void startLoad(boolean isNews,String webUrl,List<String> images){
+        if(isNews){
+            String webhtml = getHtmlData(webUrl,images);
             x5WebView.loadData(webhtml, "text/html; charset=UTF-8", null);
             x5WebView.loadUrl("javascript:System.resize(document.body.getBoundingClientRect().height)");
-        } else {
+        }else{
             x5WebView.loadUrl(webUrl);
         }
-
     }
 
-    private String getHtmlData(String bodyHTML) {
+
+    private String getHtmlData(String bodyHTML,List<String> imagesList) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("<p style=\"font-size:14px;line-height:25px;text-indent:28px\">");
+        sb.append(bodyHTML);
+        sb.append("</p><br/>");
+        Log.d(TAG,"bodyHTML==="+sb.toString());
+        if(imagesList!=null&&imagesList.size()>0){
+            for(int i=0;i < imagesList.size(); i++){
+                Log.d(TAG,"imagePaths==="+i+"===="+imagesList.get(i));
+                sb.append("<img style=\"width:100%;padding:5%;\" src=\""
+                        +AppConstant.HOST_URL+"/"+imagesList.get(i)+"\"/>");
+            }
+        }
         String head = "<head>" +
-                "<meta charset=\"utf-8\" > " +
-                "<style>html{padding:15px;} body{background-color: #f2f1ef;" +
+                "<meta name=\"viewport\" content=\"width=100%, initial-scale=1.0, user-scalable=no,height=auto\"> " +
+                "<style>html{padding:15px;} body{background-color: #f2f1ef;"+
                 "padding: 0.7rem;" +
                 "font-size: 14px;" +
                 " margin-top: 0;" +
                 " margin-bottom: 10px;" +
                 " font-family:'微软雅黑';" +
-                " color: #666666}" +
+                " color: #666666}"+
                 "img{padding:0px;max-width:100%; width:auto; height:auto;}</style>" +
                 "</head>";
-        return "<html>" + head + "<body>" + bodyHTML + "</body></html>";
+        return "<html>" + head + "<body>" + sb.toString() + "</body></html>";
     }
-
-
-//    //cookie保存用户信息
-//    void setCookie(List<CookieEntity> list) {
-//        StringBuilder sb = new StringBuilder();
-//        AppConfig appConfig = AppConfig.getInstance();
-//        sb.append("phone="+ appConfig.getString(AppConstant.MEMBER_PHONE,"")+";");
-//        sb.append("isPartyMember="+ appConfig.getBoolean(AppConstant.IS_PARTY_MEMBER,false)+";");
-//        sb.append("isPartyBranch="+ appConfig.getBoolean(AppConstant.IS_PARTY_BRANCH,false)+";");
-//        sb.append("nickname="+ appConfig.getString(AppConstant.NICK_NAME,"")+";");
-//        sb.append("userId="+ appConfig.getInt(AppConstant.USER_ID,-1)+";");
-//        sb.append("isPartyCommittee="+ appConfig.getBoolean(AppConstant.IS_PARTY_COMMITTEE,false)+";");
-//        sb.append("userName="+ appConfig.getString(AppConstant.USER_NAME,"")+";");
-//
-//        sb.append("id="+ appConfig.getInt(AppConstant.MEMBER_ID,-1)+";");
-//        sb.append("name="+ appConfig.getString(AppConstant.MEMBER_NAME,"")+";");
-//        sb.append("code="+ appConfig.getString(AppConstant.MEMBER_CODE,"")+";");
-//        sb.append("idCard="+ appConfig.getString(AppConstant.MEMBER_IDCARD,"")+";");
-//        sb.append("sex="+ appConfig.getInt(AppConstant.MEMBER_SEX,-1)+";");
-//        sb.append("partyBranchId="+ appConfig.getInt(AppConstant.MEMBER_PARTYBRANCH_ID,-1)+";");
-//        sb.append("status="+ appConfig.getInt(AppConstant.MEMBER_STATUS,-1)+";");
-//        sb.append("integral="+ appConfig.getInt(AppConstant.MEMBER_INTEGRAL,-1)+";");
-//        if(list!=null&&list.size()>0){
-//            for(int i = 0;i < list.size(); i++){
-//                CookieEntity cookieEntity = list.get(i);
-//                sb.append(cookieEntity.getCookieKey()+"="+cookieEntity.getCookieValue()+";");
-//            }
-//        }
-//        String stringCookie = (sb.deleteCharAt(sb.length()-1)).toString();
-//        Log.d("WebActivity","stringCookie----"+stringCookie);
-//
-//        CookieSyncManager.createInstance(AppApplication.getAppContext());
-//        CookieManager cookieManager = CookieManager.getInstance();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            cookieManager.removeSessionCookies(null);
-//        } else {
-//            cookieManager.removeSessionCookie();
-//        }
-//        cookieManager.setAcceptCookie(true);
-////        cookieManager.setCookie(webUrl, stringCookie);
-//        if (!TextUtils.isEmpty(stringCookie)) {
-//            String[] cookieArray = stringCookie.split(";");// 多个Cookie是使用分号分隔的
-//            for (int i = 0; i < cookieArray.length; i++) {
-//                Log.i("cookie", cookieArray[i]);
-//                cookieManager.setCookie(webUrl, cookieArray[i]);// 设置 Cookie
-////                cookieManager.setCookie(getDomain(webUrl), cookieArray[i]);// 设置 Cookie
-//            }
-//        }
-////        cookieManager.setCookie(getDomain(webUrl), "Domain="+getDomain(webUrl));
-////        cookieManager.setCookie(getDomain(webUrl), "Path=/");
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            cookieManager.flush();
-//        } else {
-//            CookieSyncManager.getInstance().sync();
-//        }
-//
-//        String newCookie = cookieManager.getCookie(webUrl);
-//        if(newCookie != null){
-//            Log.d("cookie", "getCookie===="+newCookie);
-//        }else{
-//            Log.d("cookie", "getCookie===null");
-//        }
-//    }
-
-//    /**
-//     * 获取URL的域名
-//     */
-//    private String getDomain(String url){
-////        url = url.replace("http://", "").replace("https://", "");
-////        if (url.contains("/")) {
-////            url = url.substring(0, url.indexOf('/'));
-////        }
-////        return url;
-//
-//        url = url.replace("file:///android_asset/smart_dj_weixin/", "").replace("https://", "");
-//        if (url.contains("html")) {
-//            url = url.substring(0, url.indexOf("html"));
-//        }
-//        Log.i("cookie", "url--------"+url);
-//        return url;
-//    }
-
 }
