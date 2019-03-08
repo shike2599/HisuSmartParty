@@ -512,7 +512,7 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
         if(imagesList!=null&&imagesList.size()>0){
             for(int i=0;i < imagesList.size(); i++){
                 Log.d(TAG,"imagePaths==="+i+"===="+imagesList.get(i));
-                sb.append("<img style=\"width:100%;margin:0 auto;\" src=\""
+                sb.append("<img style=\"width:100%;margin:20 auto;\" src=\""
                         +AppConstant.HOST_URL+"/"+imagesList.get(i)+"\"/>");
             }
         }
