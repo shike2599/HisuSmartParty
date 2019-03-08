@@ -118,9 +118,7 @@ public class NewsActivity extends BaseActivity<NewsListPresenter,NewsListModel>
             if(AppConstant.isUpLoad||newsRecyclerAdapter.getData().size() == 0){
                 AppConstant.isUpLoad = false;
                 mStartPage = 1;
-                if(newsRecyclerAdapter.getData().size() >0){
-                    newsRecyclerAdapter.clearData();
-                }
+                newsRecyclerAdapter.getPageBean().setRefresh(true);
                 showNewsType();
             }else{
                 mPresenter.getResVisitNumRequest(resType,resId);
