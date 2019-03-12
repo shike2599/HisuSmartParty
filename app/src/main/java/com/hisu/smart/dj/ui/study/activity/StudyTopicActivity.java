@@ -147,7 +147,7 @@ public class StudyTopicActivity extends BaseActivity<StudyTopicPresenter,StudyTo
     public void showErrorTip(String msg, String tag) {
         if( topicAdapter.getPageBean().isRefresh()) {
             if(topicAdapter.getSize()<=0) {
-                loadingTip.setLoadingTip(LoadingTip.LoadStatus.empty);
+                loadingTip.setLoadingTip(LoadingTip.LoadStatus.error);
                 loadingTip.setTips(msg);
             }
             recyclerView.setRefreshing(false);
