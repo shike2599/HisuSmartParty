@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+    <!--ios是否运行创建快捷启动方式-->
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <!--ios顶部通知栏的样式 黑色-->
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <!--遇到数字不让转成电话号码格式-->
+    <meta content="telephone=no" name="format-detection">
+    <!--浏览器图标-->
+    <!--<link type="image/x-icon" rel="shortcut icon" href="images/favicon.ico">-->
+    <link rel="stylesheet" href="../assets/mui/css/mui.css">
+    <link rel="stylesheet" href="../assets/fontAwesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/news.css">
+    <title>资讯详情</title>
+</head>
+<body style="background-color: #f2f1ef">
+<div class="studyCon">
+    <div class="studyTit"></div>
+    <div class="tit">
+        <p class="pubTime"></p>
+        <p class="addCollect"><span><img src="../images/detail/likes-2.png" alt=""></span>&nbsp; <span class="collectStatus"></span></p>
+    </div>
+    <div class="newsCon">
+
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-1.12.0.min.js"></script>
+<script type="text/javascript" src="../js/fastclick.js"></script>
+<script type="text/javascript" src="../js/swiper-3.4.2.jquery.min.js"></script>
+<script type="text/javascript" src="../js/data.js"></script>
+<!--<script type="text/javascript" src="../js/jquery.js"></script>-->
+<script type="text/javascript" src="../js/common.js"></script>
+<script>
+    $(function(){
+        var collectId;
+        var userId = System.getUserInfoInt('user_id');
+        var partyMemberId = System.getUserInfoInt('member_id');
+        
+        $.get(gloablePath+"/party-app-education-front/res/readonly/getInformation",{id:sessionStorage.getItem("newsDetailId")},function(data){
+            if(data.resultCode == 200){
+            	var cont = data.data;
+            	var mediaType = cont.mediaType;
+                $(".studyTit").html(cont.name);
+                var pubTime = cont.publishTime.split(' ')[0];
+                $(".pubTime").html(pubTime);
+                $(".addCollect").attr("name",cont.id);
+                if(mediaType==0){
+                	var ulr = cont.url;
+                	var vodCon = '<video width="320" height="240" controls><source src="'+ulr+'" type="video/mp4"></video>';
+                	$(".newsCon").html(vodCon);
+                }else if(mediaType==1){
+                	$(".newsCon").html(data.data.content);
+                }else if(mediaType==2){
+                	$(".newsCon").html(data.data.content);
+                }
+            }
+        })
+        //收藏状态查询
+        
+        $.get(gloablePath+"/party-app-education-front/res/readonly/getUserCollection?&requestUser=hotel&requestPassword=123456",{userId:userId,partyMemberId:partyMemberId,resType:sessionStorage.getItem("resType"),resId:sessionStorage.getItem("newsDetailId")},function(data){
+            if(data.data > 0){
+                collectId =data.data;
+                $(".addCollect img").attr("src","../images/detail/likes-1.png");
+                $(".collectStatus").html("已收藏");
+            }else if(data.data == 0){
+                $(".addCollect img").attr("src","../images/detail/likes-2.png");
+                $(".collectStatus").html("收藏");
+            }
+        });
+
+
+        $(".addCollect img").on("click",function(){
+            var imgSrc = $(this).attr("src");
+            var imgSrcValue = imgSrc.substr(-5,1);
+            if(imgSrcValue == 2){
+                $.get(gloablePath+"/party-app-education-front/res/write/addCollection?&requestUser=hotel&requestPassword=123456",{userId:userId,partyMemberId:partyMemberId,resType:sessionStorage.getItem("resType"),resId:sessionStorage.getItem("newsDetailId")},function(data){
+                    console.log(data);
+                    collectId =data.data;
+                    $(".addCollect img").attr("src","../images/detail/likes-1.png");
+                    $(".collectStatus").html("已收藏");
+                })
+            }else if(imgSrcValue == 1){
+                cancleCollect(collectId);
+            }
+        });
+
+        // 取消收藏
+        function cancleCollect(collectId) {
+            $.get(gloablePath+"/party-app-education-front/res/write/cancelCollection?&requestUser=hotel&requestPassword=123456",{id:collectId},function(data){
+                $(".addCollect img").attr("src","../images/detail/likes-2.png");
+                $(".collectStatus").html("收藏");
+            })
+        }
+    })
+</script>
+</html>
