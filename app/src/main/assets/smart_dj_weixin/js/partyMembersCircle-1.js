@@ -4,11 +4,11 @@ function thumInf_showHide(obj){
 }
 //thumTyp 点赞状态0 为已点赞 1为未点赞
 function thumUpfun(obj){
-    //alert('测试一下');
     var resId = $(obj).attr('data-bh');
     var thumType = $(obj).attr('data-thumType');
     if(thumType==0){//调用取消点赞接口
         var thumNocan =  $(obj).attr('data-cirIds');
+        console.log(thumNocan);
         var url= gloablePath + '/party-app-practice-front/res/write/cancelTheThumbsUp?requestUser=hotel&requestPassword=123456';
         $.get(url,{id:thumNocan}, function(data) {
             if (data.resultCode && data.resultCode == 200) {
@@ -32,15 +32,14 @@ function thumUpfun(obj){
         });
     }else if(thumType==1){//调用点赞接口
         var url= gloablePath + '/party-app-practice-front/res/write/giveTheThumbsUp?requestUser=hotel&requestPassword=123456';
-        var userId = System.getUserInfoInt('user_id');
-        var partyMemberId = System.getUserInfoInt('member_id');
-        $.get(url,{resId:resId,userId:userId,partyMemberId:partyMemberId}, function(data) {
+        $.get(url,{resId:resId,userId:getCookie('userId'),partyMemberId:getCookie('partyMemberId')}, function(data) {
+            console.log(data);
             if (data.resultCode && data.resultCode == 200) {
                 var thumNo = data.data;
-                var name = System.getUserInfoStr('nick_name');
+                var name = getCookie('nickname');
                 $(obj).attr('data-thumType',0);  
                 $(obj).html('取消');
-                var html='<a href="#" class="reply-who" data-thumNo='+thumNo+'>'+name+'</a>';
+                var html='<a href="#" class="reply-who" data-thumNo='+thumNo+'>'+decodeURI(name)+'</a>';
                 $(obj).parents('div.circle_button').siblings('div.reply-like').show();
                 $(obj).parents('div.circle_button').siblings('div.reply-like').append(html);
                 $(obj).parent('div.starShow').hide();
@@ -52,6 +51,7 @@ function thumUpfun(obj){
 }
 //展示全文
 function show(obj){
+    //console.log($(obj).html()=='全文'?true: false)
     if($(obj).html()=='全文'){
         $(obj).html('收起');
         $(obj).parents().prev('.hiddenAll').css('display','block');
@@ -59,37 +59,46 @@ function show(obj){
         $(obj).html('全文');
         $(obj).parents().prev('.hiddenAll').css('display','none');
     }
-
 }
+//上拉加载，下拉刷新
+
+
+
+
+
+
+
 var circleNoId;//点赞序号
 var xuhList = [];
-var partyBranchId = System.getUserInfoInt('member_partyBranchId')
 /*信息列表*/
-function circleList(){
+var pageSize = 5;
+function circleList(a,b,c){
 	var url= gloablePath + '/party-app-practice-front/res/readonly/listMemberActionWithPulled?requestUser=hotel&requestPassword=123456';
     $.get(url,{cateCode: 5007}, function(data) {
+        console.log(data);
     	var cont = data.dataList;
+    	var images = cont.images;
     	var len = cont.length;
     	var html ='';
-        console.log(data);
         if(len==0){
     		$(".mui-table-view").append('<p style="text-align: center;margin-top: 100px">暂无数据......</p>');    
     	}else{
+            console.log(cont[len-1].publishTime,cont[len-1].id);
             for(var i=0;i<len;i++){
+
                 var headPor=cont[i].partyMemberPhoto;
                 var infNo_id = cont[i].id;//党员圈信息序号
                 var name = cont[i].name;//标题
+                var dat = name.substring(0,80);
+                var p = name.substring(80,801);
                 var mediaType = cont[i].mediaType;//类型
                 var url = cont[i].url;//视频地址
                 var images = cont[i].images;//内容图片组
-                var dat = name.substring(0,80);
-                var p = name.substring(80,801);
                 var publishTime = cont[i].publishTime//发布时间
-                var partyMemberId = cont[i].partyMemberId;//发布党员id
-                console.log(parseInt(partyMemberId));
+                var partyMemberIds = cont[i].partyMemberId;//发布党员id
                 var partyMemberName = cont[i].partyMemberName;//发布党员名称
                 xuhList[i] =  infNo_id;
-                //lisThumbUp(infNo_id);//点赞记录查询 
+                //lisThumbUp(infNo_id);//点赞记录查询
                 html +='<li class="mui-table-view-cell" name="'+infNo_id+'">';
                 html +='<div class="content">';
                 html +='<div class="circle_title">';
@@ -107,22 +116,21 @@ function circleList(){
                 html +='<div class="circle_info">';
                 html +='<p class="one">'+dat+'</p>';
                 if(name.length>80){
-                    html +='<p class="hiddenAll">'+p+'</p><p class="look"><span class="activedTheme lookAll" style="display: block" onclick="show(this)">全文</span><span class="activedTheme hideAll">收起</span></p>';
+                    html +='<p class="hiddenAll">'+p+'</p><p class="look"><span class="activedTheme lookAll"  onclick="show(this)">全文</span><span class="activedTheme hideAll">收起</span></p>';
                 }
-                html += '<div class="picture">';
                 if(images!=''){
+                    html += '<div class="picture">';
                     $.each(images,function(i,val){
                         html += '<img src="'+gloablePath+'/'+images[i]+'">'
                     })
+                    html +='</div>'
                 }
-                html +='</div>'
-                html +='</div></div></div>';
+                html +='</div></div></div>'
                 html +='<div class="circle_button">';
                 html +='<img class="ellipsis" name="'+infNo_id+'" src="images/quer/quer-more.png" onclick="thumInf_showHide(this)">';
-                html +='<div class="starShow"><span class="thumUp thumUp_1" data-bh='+infNo_id+' = onclick="thumUpfun(this)"></span>';
+                html +='<div class="starShow"><span class="thumUp thumUp_1" data-bh='+infNo_id+'  = onclick="thumUpfun(this)"></span>';
                 html +='<span class="commentNes" onclick="commFun(this,'+infNo_id+')">评论</span></div>';
-                partyBranch = System.getUserInfoInt('member_id')
-                if(partyMemberId== partyBranch){
+                if(partyMemberIds==getCookie('partyMemberId')){
                     html +='<div class="del" onclick="delComment(this)" name="'+infNo_id+'">删除</div>';
                 }
                 html +='</div>';
@@ -131,7 +139,6 @@ function circleList(){
             }
             $('#circleCon').html(html);
             var lencir = xuhList.length;
-            console.log(xuhList);
             for(var i=0;i<lencir;i++){
                 var cirCs = xuhList[i];
                 lisThumbUp(cirCs);
@@ -141,29 +148,33 @@ function circleList(){
         }     
     })
 }
+
 function lisThumbUp(a){//加载点赞
     var url= gloablePath + '/party-app-practice-front/res/readonly/listTheThumbsUp?requestUser=hotel&requestPassword=123456';
     $.get(url,{resId: a,}, function(data) {
         var conts = data.dataList;
+        //console.log(conts);
         var len = conts.length;
         var lenList = $('#circleCon li').length;
+        //console.log(lenList)
         var html='';
         for(var i=0;i<lenList;i++){
             var cirDi = $('#circleCon li').eq(i).find('.reply-like').attr('data-circXh');
+
             if(len>0 && a== cirDi){
                 $('#circleCon li').eq(i).find('.reply-like').addClass('cirshow');
+
                 for(var j=0;j<len;j++){
                     var cirId = conts[j].id;
-                    var pName = conts[j].partyMemberName;
+                    var pName = conts[j].partyMemberName ;
                     //pName += '，'
-                    html+='<a href="javascript:;" class="reply-who" data-cirId ='+cirId+'>'+pName+'</a>';
+                    html+='<a href="javascript:;" class="reply-who" data-cirId ='+cirId+'>'+ pName+'</a>';
                     $('#circleCon li').eq(i).find('.thumUp_1').attr('data-cirIds',cirId);
                 }
                 $('#circleCon li').eq(i).find('.reply-like').append(html);
-                // var htmll =   $('.reply-like').eq(i).find('a:last-child').html()
-                // html1 = htmll.substr(0,2);
-                //
-                // $('.reply-like').eq(i).find('a:last-child').html(html1);
+                 // var htmll =   $('.reply-like').eq(i).find('a:last-child').html()
+                 // html1 = htmll.substr(0,2);
+                 // $('.reply-like').eq(i).find('a:last-child').html(html1);
             }
         }
     })
@@ -194,10 +205,7 @@ function cirCommentList(a){//加载评论
 }
 function cirStatus(a){//点赞状态
     var url= gloablePath + '/party-app-practice-front/res/readonly/getUserThumbsUp?requestUser=hotel&requestPassword=123456';
-    var userId = System.getUserInfoInt('user_id');
-    var partyMemberId = System.getUserInfoInt('member_id');
-
-    $.get(url,{resId: a,userId:userId,partyMemberId:partyMemberId}, function(data) {
+    $.get(url,{resId: a,userId:getCookie('userId'),partyMemberId:getCookie('partyMemberId')}, function(data) {
         var contSt = data.data;
         var lenList = $('#circleCon li').length;
         for(var i=0;i<lenList;i++){
@@ -214,16 +222,18 @@ function cirStatus(a){//点赞状态
 }
 function commFun(obj,b){
     var height = $(window).height();
+    //height = 30;
+    console.log(height);
+    commitFormShow();
+    //activeCommitBtn();
     $(obj).parent('.starShow').hide();
-    $('.tbj').show();
-    $('.tbj').height(height);
     $('#divTop').css('left',0);
     $('.commit-button').attr('data-liNo',b);
 }
-$('.tbj').on('tap', function () {
-    $('.tbj').hide();
-    $('#divTop').css('left','-600px');
-})
+// $('.tbj').on('click', function () {
+//     $('.tbj').hide();
+//     $('#divTop').css('left','-600px');
+// })
 $('.commit-input').on('keyup',function(e){
     // 激活评论按钮
     activeCommitBtn();
@@ -240,8 +250,7 @@ function getTs(time){
         timeStr = Date.parse(_date)
     return timeStr
 }
-function handlePublishTimeDesc(post_modified){//时间加载
-    // 拿到当前时间戳和发布时的时间戳，然后得出时间戳差
+function handlePublishTimeDesc(post_modified){//时间加载// 拿到当前时间戳和发布时的时间戳，然后得出时间戳差
     var curTime = new Date();
     var postTime = new Date(post_modified);                  //部分浏览器不兼容此转换建议所以对此进行补充（指定调用自己定义的函数进行生成发布时间的时间戳）
     //var timeDiff = curTime.getTime() - postTime.getTime();
@@ -284,6 +293,9 @@ function handlePublishTimeDesc(post_modified){//时间加载
         }
     }
 }
+function commitFormShow(){
+    $('.commit-form').addClass('commit-form-show');
+}
 function activeCommitBtn(){
     $('.commit-button').css({
         'background-color': '#59BB3B',
@@ -291,7 +303,8 @@ function activeCommitBtn(){
     $('.commit-button').attr('disabled', false);
 }
 /*禁用评论按钮（设置样式，同时设置disabed属性*/
-function diabaledCommitBtn() {
+function diabaledCommitBtn()
+{
     $('.commit-button').css({
         'background-color': '#ccc',
         'color': 'whitesmoke'
@@ -303,26 +316,26 @@ function comSend(obj){
     var resId = $(obj).attr('data-lino');
     var comment = $('.commit-input').val();
     var html='';
-    var userId = System.getUserInfoInt('user_id');
-    var partyMemberId = System.getUserInfoInt('member_id');
-    var name = System.getUserInfoStr('nick_name');
     $.ajax({
         type: 'post',
         url:gloablePath+'/party-app-practice-front/res/write/giveTheComment?&&requestUser=hotel&requestPassword=123456',
         dataType: 'json',
-        data: {resId: resId,userId: userId,partyMemberId: partyMemberId,comment:comment},
+        data: {resId: resId,userId: getCookie('userId'),partyMemberId: getCookie('partyMemberId'),comment:comment},
         success: function(data){
+            console.log(data);
+            var name = getCookie('nickname');
             html +='<div class="comment-item" onclick="delcomLi(this)" name="'+data.data+'">';
-            html +='<a class="reply-who" href="javascript:;">'+name+'</a>：';
+            html +='<a class="reply-who" href="javascript:;">'+decodeURI(name)+'</a>：';
             html +=comment;
             html +='</div>';
             var lenList = $('#circleCon li').length;
             for(var i=0;i<lenList;i++){
                 var dataXh = $('#circleCon li').eq(i).attr('name');
+                console.log(resId,dataXh);
                 if(resId==dataXh){
+                    $('#circleCon li').eq(i).find('.plIdCon').addClass('cirshow');
                     $('#circleCon li').eq(i).find('.plIdCon').append(html);
                     $('.commit-input').val('');
-                    //activeCommitBtn();
                     diabaledCommitBtn();
                     $('.tbj').hide();
                     $('#divTop').css('left','-600px');
@@ -331,14 +344,7 @@ function comSend(obj){
         }
     })
 }
-// function delComment(obj){
-//     $('.pop').show();
-//     var height = $(window).height();
-//     $('.tbjs').show();
-//     $('.tbjs').height(height);
-//     $('.yes').attr('data-delNo',$(obj).attr('name'));
-// }
-
+//此处删除是本人发布的文章才可以删除；
 function delComment(obj){
     //$('.pop').show();
     var height = $(window).height();
@@ -346,8 +352,6 @@ function delComment(obj){
     var Id = $(obj).attr('name');
     //console.log(Id);
     $('.delPassage').css('display','block');
-    var userId = System.getUserInfoInt('user_id');
-    var partyMemberId = System.getUserInfoInt('member_id');
     $('.delPassage  .yes').click(function(){
         $.ajax({
             type: 'get',
@@ -355,8 +359,8 @@ function delComment(obj){
             dataType: 'json',
             data: {
                 resId: Id,
-                userId: userId ,
-                partyMemberId: partyMemberId
+                userId: getCookie('userId'),
+                partyMemberId: getCookie('partyMemberId')
             },
             success: function(data){
                 console.log(data);
@@ -380,34 +384,36 @@ function delComment(obj){
     })
 
     $('.tbjs').height(height);
-    // $('.yes').attr('data-delNo',$(obj).attr('name'));
+   // $('.yes').attr('data-delNo',$(obj).attr('name'));
 }
 // function delBtn(obj,b){//0删除，1不删除
-//     var Id = $(obj).attr('data-delno');
-//     var userId = System.getUserInfoInt('user_id');
-//     var partyMemberId = System.getUserInfoInt('member_id');
+//    var Id = $(obj).attr('data-delno');
+//     console.log(Id);
 //     if(b==0){
-//         $.ajax({
-//             type: 'get',
-//             url: gloablePath+'/party-app-practice-front/res/write/deleteMyAction?&&requestUser=hotel&requestPassword=123456',
-//             dataType: 'json',
-//             data: {
-//                 resId: Id,
-//                 userId: userId,
-//                 partyMemberId: partyMemberId
-//             },
-//             success: function(data){
-//                 if(data.resultCode==200){
-//                    var lenList = $('#circleCon li').length;
-//                    for(var i=0;i<lenList;i++){
-//                         var lisNo =  $('#circleCon li').eq(i).attr('name');
-//                         if(lisNo==Id){
-//                             $('#circleCon li').eq(i).remove();
-//                         }
-//                    }
-//                 }
-//             }
-//         });
+//         // $.ajax({
+//         //     type: 'get',
+//         //     url: gloablePath+'/party-app-practice-front/res/write/deleteMyAction?&&requestUser=hotel&requestPassword=123456',
+//         //     dataType: 'json',
+//         //     data: {
+//         //         resId: Id,
+//         //         userId: getCookie('userId'),
+//         //         partyMemberId: getCookie('partyMemberId')
+//         //     },
+//         //     success: function(data){
+//         //         console.log(data);
+//         //         if(data.resultCode==200){
+//         //            var lenList = $('#circleCon li').length;
+//         //            for(var i=0;i<lenList;i++){
+//         //                  $('')
+//         //                 var lisNo =  $('#circleCon li').eq(i).attr('name');
+//         //                 console.log(lisNo);
+//         //                 if(lisNo==Id){
+//         //                     $('#circleCon li').eq(i).remove();
+//         //                 }
+//         //            }
+//         //         }
+//         //     }
+//         // });
 //         $('.pop').hide();
 //         $('.tbjs').hide();
 //         $('.yes').attr('data-delNo','');
@@ -421,7 +427,7 @@ function delComment(obj){
 function delcomLi(obj){
     var Id = $(obj).attr('name')
     $('.pop').css('display','block');
-    $('.pop .sub .yes').on('tap',function(){
+    $('.pop .sub .yes').on('click',function(){
         $.ajax({
             type: 'get',
             url: gloablePath+'/party-app-practice-front/res/write/deleteTheComment?&&requestUser=hotel&requestPassword=123456',
@@ -433,15 +439,17 @@ function delcomLi(obj){
             }
         })
     })
-    $('.pop .no').on('tap',function(){
+    $('.pop .no').on('click',function(){
         $('.pop').css('display','none');
     })
 }
+
 //发布党员圈
 $('.cameraP').click(function(){
-    System.toUpLoadActivity(5007);
-    //window.webkit.messageHandlers.toUpLoadActivity.postMessage(7);
+    window.webkit.messageHandlers.toUpLoadActivity.postMessage(5007);
+    //System.toUpLoadActivity(7);
 })
 //头像获取
-var user_photo = System.getUserInfoStr('user_photo');
+var user_photo = getCookie('user_photo');
 $('.namePicture').find('img:nth-child(1)').attr('src',user_photo);
+

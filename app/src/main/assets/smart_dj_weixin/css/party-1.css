@@ -52,6 +52,7 @@
 }
 .mui-content{
     margin-top: 20px;
+    background-color: #fff;
 }
 .circleIcon{
     width: 100%;
@@ -304,7 +305,7 @@
     height: 50px;
 }
 .commit-form{
-    position:fixed;
+    position: absolute;
     bottom: 0;
     left: -600px;
     display: flex;
@@ -441,11 +442,15 @@
     display: block;
 }
 .tbj,.tbjs{
-    position: fixed;
     width: 100%;
     top:0;
     left:0;
     z-index:1;
     background:rgba(0,0,0,0);
     display:none;
+}
+
+
+.downwarp-content{
+    background-color: #fff;
 }
