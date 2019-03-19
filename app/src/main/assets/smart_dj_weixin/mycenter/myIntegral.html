@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+	    <!--ios是否运行创建快捷启动方式-->
+	    <meta content="yes" name="apple-mobile-web-app-capable">
+	    <!--ios顶部通知栏的样式 黑色-->
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <!--遇到数字不让转成电话号码格式-->
+	    <meta content="telephone=no" name="format-detection">
+	    <!--浏览器图标-->
+	    <link rel="stylesheet" href="../assets/mui/css/mui.css">
+	    <link rel="stylesheet" href="../css/common.css">
+	    <link rel="stylesheet" href="../css/mycenter.css">
+	    <title>我的积分</title>
+	    <style>
+	    	.integ_hist_title,.interDetailed td {
+			    color: #000;
+			}
+	    </style>
+	</head>
+	<body style="background:#f1ccca;">
+		<div class="integ_main">
+			<ul class="integ_main_ul" style="background:rgba(255,255,255,0);">
+				<li class="integ_tip">您当前累计积分为</li>
+				<li class="integ_no">39225</li>
+				<li class="integ_rank">排行第<span class="integ_rank_no">36988</span>名</li>
+			</ul>
+			<p class="integ_hist_title">获得积分历史记录</p>
+			<table border="0" cellpadding="0" cellspacing="0" class="interDetailed">
+				<tr>
+					<td class="tdTitle">积分明细</td>
+					<td class="tdTitle">获得积分</td>
+				</tr>
+				<tr>
+					<td>学习课程</td>
+					<td>1002</td>
+				</tr>
+				<tr>
+					<td>志愿者活动</td>
+					<td>360</td>
+				</tr>
+				<tr>
+					<td>参加党内活动</td>
+					<td>896</td>
+				</tr>
+				<tr>
+					<td>党章学习</td>
+					<td>462</td>
+				</tr>
+			</table>
+		</div>
+		<script src="../js/jquery.js"></script>
+		<script src="../assets/mui/js/mui.js"></script>
+		<script src="../js/common.js"></script>
+		<script src="../js/login.js"></script>
+		<script>
+			$(function(){
+				integral();
+			})
+		</script>
+	</body>
+</html>

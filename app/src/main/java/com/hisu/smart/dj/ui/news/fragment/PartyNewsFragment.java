@@ -102,7 +102,7 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
         super.onResume();
         //数据为空才重新发起请求
         if (commonAdapter.getSize() == 0) {
-            mStartPage = 0;
+            mStartPage = 1;
             if (isFile) {
                 mPresenter.listInformationRequest(null, party_cateCode, "", mStartPage, SIZE);
             } else {
@@ -268,7 +268,7 @@ public class PartyNewsFragment extends BaseFragment<PartyNewsPresenter, PartyNew
         commonAdapter.getPageBean().setRefresh(false);
         //发起请求
         Log.d("page", "totalpage=" + totalPages + ",startPage=" + mStartPage);
-        if (totalPages > mStartPage) {
+        if (totalPages >= mStartPage) {
             party_news_recycle_view.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
             mPresenter.listInformationRequest(null, cateCode, "", mStartPage, SIZE);
         } else {

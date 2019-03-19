@@ -1,0 +1,103 @@
+.relation{
+    background-color: #f2f1ef;
+    /*padding: 3%;*/
+}
+/*2019年  组织关系界面样式编写*/
+.person{
+    position:relative;
+    width:100%;
+    overflow: hidden;
+    padding:2% 3% 4% 3%;
+    background-color: #fff;
+}
+.person .perMess{
+    float:left;
+    width:70%;
+}
+.person .perMess h3{
+    font-size: 1.3rem;
+    line-height: 2rem;
+}
+.person .perMess .partyTime ,.partyAge{
+    font-size: .8rem;
+    color:#666;
+    margin:5px 0;
+}
+.person .perMess .partyAdress{
+    font-size: .8rem;
+    display: flex;
+}
+.person .perMess .partyAdress i{
+    flex: 1;
+    display: inline-block;
+    font-size: .8rem;
+    color: #666;
+}
+.person .perMess .partyAdress span{
+    display: inline-block;
+    flex: 4;
+    color: #666;
+    font-size: .8rem;
+}
+.person .perImg{
+    text-align: center;
+    float:right;
+    width:30%;
+    margin-top: .3rem;
+}
+.person .perImg img{
+    width:85%;
+}
+.connect{
+    width:100%;
+    background-color: #fff;
+    padding: 5%;
+    text-align: center;
+    margin: 0 auto;
+    /*position: relative;*/
+}
+.connect button{
+    width:10rem;
+    height:40px;
+    background-color: #d52e2b;
+    color:#fff;
+    font-size: 1rem;
+    margin:0 auto;
+    border-radius: 20px;
+}
+.party{
+    position: relative;
+}
+.party_tit{
+    border-bottom: solid 1px #e3e2e1;
+}
+.party_tit h3{
+    color:#666;
+    position: relative;
+    padding-left: 1.2rem;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 2.5rem;
+    float: left;
+    margin: 0;
+}
+.party_tit h3 i, .currentNew_tit h3 i {
+    background: #d82c23;
+    position: absolute;
+    left: .9rem;
+    top: .7rem;
+    width: .2rem;
+    height: 1.1rem;
+    margin-right: 1rem;
+}
+
+.party .list{
+    padding: 3%;
+    border-bottom: solid 1px #e3e2e1;
+}
+.party .list p{
+    margin: 0;
+    line-height: 1.5rem;
+    color: #333;
+    font-size: .8rem;
+}

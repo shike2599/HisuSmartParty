@@ -100,7 +100,7 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
         super.onResume();
         //数据为空才重新发起请求
         if (commonAdapter.getSize() == 0) {
-            mStartPage = 0;
+            mStartPage = 1;
             mPresenter.listCommonContentRequest(null, cateCode, "", mStartPage, SIZE);
         }else{
             mPresenter.getResVisitNumRequest(1, resId);
@@ -150,7 +150,7 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
         informations = informationResponse.getDataList();
         totalPages = informationResponse.getTotalPage();
         if (informations != null) {
-            LogUtils.logd("returnlistCommonContent======" + informations.size());
+            Log.i(TAG,"returnlistCommonContent======" + informations.size());
             mStartPage += 1;
             if (commonAdapter.getPageBean().isRefresh()) {
                 common_recycle_view.setRefreshing(false);
@@ -259,8 +259,8 @@ public class StudyCommonFragment extends BaseFragment<StudyCommonPresenter, Stud
     public void onLoadMore(View loadMoreView) {
         commonAdapter.getPageBean().setRefresh(false);
         //发起请求
-        Log.d("page","totalpage="+totalPages+",startPage="+mStartPage);
-        if (totalPages > mStartPage) {
+        Log.d(TAG,"totalpage="+totalPages+",startPage="+mStartPage);
+        if (totalPages >= mStartPage) {
             common_recycle_view.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
             mPresenter.listCommonContentRequest(null, cateCode, "", mStartPage, SIZE);
         } else {

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0"/>
+    <!--ios是否运行创建快捷启动方式-->
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <!--ios顶部通知栏的样式 黑色-->
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <!--遇到数字不让转成电话号码格式-->
+    <meta content="telephone=no" name="format-detection">
+    <!--浏览器图标-->
+    <link rel="stylesheet" href="../assets/mui/css/mui.css">
+    <link rel="stylesheet" href="../assets/fontAwesome/css/font-awesome.css">
+    <link rel="stylesheet" href="../css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/mycenter.css">
+    <title>个人信息</title>
+</head>
+<body>
+<div class="mui-content">
+    <ul class="mui-table-view">
+    <li class="mui-table-view-cell" onclick="editBtn(this,0)">昵称<span class="information nicknameCon"></span><input type="text" class="nicknameInput" /></li>
+    <li class="mui-table-view-cell">姓名<span class="information">张三</span></li>
+    <li class="mui-table-view-cell">性别<span class="information">男</span></li>
+    <li class="mui-table-view-cell">身份证号<span class="information">61011119870081965</span></li>
+    <li class="mui-table-view-cell" onclick="editBtn(this,1)">联系电话<span class="information modPhoneCon">13245678901</span><input type="text" class="modPhoneInput" /></li>
+    <li class="mui-table-view-cell">学历<span class="information">本科</span></li>
+    <li class="mui-table-view-cell">入党日期<span class="information">2012年3月21日</span></li>
+    <li class="mui-table-view-cell">转正日期<span class="information">2013年6月21日</span></li>
+    <li class="mui-table-view-cell">党龄<span class="information">7年</span></li>
+    </ul>         
+</div>     
+          
+	<script src="../js/jquery.js"></script>
+	<script src="../assets/mui/js/mui.js"></script>
+	<script src="../js/common.js"></script>
+	<script src="../js/login.js"></script>
+	<script>
+		$(function(){
+			personalInf();
+		});
+	</script>
+</body>
+</html>
