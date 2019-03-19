@@ -2,12 +2,16 @@ package com.hisu.smart.dj.ui.web;
 
 import android.app.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.widget.FrameLayout;
 
+import com.hisu.smart.dj.app.AppApplication;
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
@@ -99,9 +103,23 @@ public class SystemScript {
 //                Toast.makeText(webAc, height + "", Toast.LENGTH_LONG).show();
                 Log.i(TAG,"resize=================="+height);
                 //此处的 layoutParmas 需要根据父控件类型进行区分，这里为了简单就不这么做了
-                x5.setLayoutParams(new FrameLayout.LayoutParams(webAc.getResources().getDisplayMetrics().widthPixels, (int) (height * webAc.getResources().getDisplayMetrics().density)));
+                x5.setLayoutParams(new FrameLayout.LayoutParams(webAc.getResources().getDisplayMetrics().widthPixels,
+                        (int) (height * webAc.getResources().getDisplayMetrics().density)));
             }
         });
+    }
+
+    /**
+     * 获取屏幕高度
+     * @param
+     */
+    @JavascriptInterface
+    public int getPhoneHeight() {
+        WindowManager wm = (WindowManager)AppApplication.getAppContext()
+                .getSystemService(Context.WINDOW_SERVICE);
+        int height = wm.getDefaultDisplay().getHeight();
+        Log.d(TAG,"getPhoneHeight()======="+height);
+        return height;
     }
 
 }
