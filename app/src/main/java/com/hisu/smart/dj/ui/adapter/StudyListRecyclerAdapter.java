@@ -108,7 +108,8 @@ public class StudyListRecyclerAdapter extends RecyclerView.Adapter<StudyListRecy
             holder.video.setVisibility(View.GONE);
             holder.newImage.setVisibility(View.VISIBLE);
             if(iconStr==""||iconStr==null||iconStr == AppConstant.HOST_URL){
-                ImageLoaderUtils.display(mContext,holder.newImage,R.mipmap.news_cover_icon);
+//                ImageLoaderUtils.display(mContext,holder.newImage,R.mipmap.news_cover_icon);
+                holder.newImage.setVisibility(View.GONE);
             }else{
                 ImageLoaderUtils.display(mContext,holder.newImage,iconStr);
             }

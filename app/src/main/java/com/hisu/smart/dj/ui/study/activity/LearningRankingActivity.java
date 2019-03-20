@@ -68,8 +68,8 @@ public class LearningRankingActivity extends BaseActivity
     TextView common_table_text;
 
     private final static int TOTAL_TYPE = 0; //总学时
-    private final static int TOPIC_TYPE = 1; //专题
-    private final static int COMM_TYPE = 2; //常规
+    private final static int COMM_TYPE = 1; //常规
+    private final static int TOPIC_TYPE = 2; //专题
 
     private final static int limit_Num = 6; //去数据的个数
 

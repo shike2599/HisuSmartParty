@@ -152,7 +152,7 @@
     /*display: none;*/
 }
 /*.circle_content .circle_info .lookAll{*/
-    /*!*display: none;*!*/
+/*!*display: none;*!*/
 /*}*/
 .circle_content .circle_info .hideAll{
     display: none;
@@ -229,7 +229,7 @@
     display: none;
 }
 /*.circle_button .starShow .starInfo,.circle_button .starShow .cancelInfo{*/
-    /*display: none;*/
+/*display: none;*/
 /*}*/
 .circle_button .starShow .commentInfo{
     width: 50%;
@@ -305,9 +305,6 @@
     height: 50px;
 }
 .commit-form{
-    position: absolute;
-    bottom: 0;
-    left: -600px;
     display: flex;
     overflow: hidden;
     height: 50px;
@@ -315,13 +312,16 @@
     background-color: rgb(230, 230, 230);
     width: 100%;
     z-index: 2;
+    display: none;
 
 }
 .commit-form-show{
     height:50px;
+    display: block;
 }
 .commit-form .commit-button{
-    width: 60px;
+    /*flex: 1;*/
+    width: 15%;
     line-height: 200%;
     color:#ccc;
     background-color:whitesmoke;
@@ -331,7 +331,8 @@
     overflow: hidden;
 }
 .commit-form .commit-input{
-    flex-grow: 1;
+    /*flex: 3;*/
+    width: 75%;
     border: 1px solid rgb(225, 225, 225);
     margin: 5px 5px 5px 10px;
     padding: 8px;
