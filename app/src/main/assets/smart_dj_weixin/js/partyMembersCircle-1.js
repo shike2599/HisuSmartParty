@@ -2,6 +2,9 @@ function thumInf_showHide(obj){
     $(obj).siblings('.starShow').toggle();
     $(obj).parents('li').siblings('li').find('.starShow').hide();
 }
+var userId = System.getUserInfoInt('user_id');
+var partyMemberId = System.getUserInfoInt('member_id');
+var name = System.getUserInfoStr('nick_name');
 //thumTyp 点赞状态0 为已点赞 1为未点赞
 function thumUpfun(obj){
     //alert('测试一下');
@@ -33,12 +36,12 @@ function thumUpfun(obj){
         });
     }else if(thumType==1){//调用点赞接口
         var url= gloablePath + '/party-app-practice-front/res/write/giveTheThumbsUp?requestUser=hotel&requestPassword=123456';
-        var userId = System.getUserInfoInt('user_id');
-        var partyMemberId = System.getUserInfoInt('member_id');
+        // var userId = System.getUserInfoInt('user_id');
+        // var partyMemberId = System.getUserInfoInt('member_id');
         $.get(url,{resId:resId,userId:userId,partyMemberId:partyMemberId}, function(data) {
             if (data.resultCode && data.resultCode == 200) {
                 var thumNo = data.data;
-                var name = System.getUserInfoStr('nick_name');
+
                 $(obj).attr('data-thumType',0);
                 $(obj).html('取消');
                 var html='<a href="#" class="reply-who" data-thumNo='+thumNo+'>'+name+'</a>';
@@ -65,6 +68,7 @@ function show(obj){
 var circleNoId;//点赞序号
 var xuhList = [];
 var partyBranchId = System.getUserInfoInt('member_partyBranchId')
+partyBranch = System.getUserInfoInt('member_id')
 /*信息列表*/
 
 function circleList(){
@@ -81,6 +85,7 @@ function circleList(){
                 var headPor=cont[i].partyMemberPhoto;
                 var infNo_id = cont[i].id;//党员圈信息序号
                 var name = cont[i].name;//标题
+
                 var mediaType = cont[i].mediaType;//类型
                 var url = cont[i].url;//视频地址
                 var images = cont[i].images;//内容图片组
@@ -123,15 +128,15 @@ function circleList(){
                 html +='<img class="ellipsis" name="'+infNo_id+'" src="images/quer/quer-more.png" onclick="thumInf_showHide(this)">';
                 html +='<div class="starShow"><span class="thumUp thumUp_1" data-bh='+infNo_id+' = onclick="thumUpfun(this)"></span>';
                 html +='<span class="commentNes" onclick="commFun(this,'+infNo_id+')">评论</span></div>';
-                partyBranch = System.getUserInfoInt('member_id')
-                if(partyMemberId== partyBranch){
+
+                if(partyMemberId== partyMemberId){
                     html +='<div class="del" onclick="delComment(this)" name="'+infNo_id+'">删除</div>';
                 }
                 html +='</div>';
                 html +='<div class="reply-like reply-zone-1" data-circXh='+infNo_id+'><img src="images/quer/star.png">';
                 html +='</div><div class="reply-comment reply-zone plIdCon" data-plXh='+infNo_id+'></div> '
                 html+='<form action="#"  name="\'+infNo_id+\'" class="commit-form" id="divTop"><input type="text" placeholder="评论" class="commit-input"><button type="submit" class="commit-button" disabled onclick="comSend(this)">发送</button></form>'
-                 html+=' <div class="pop"><p>您确定要删除么?</p ><span class="yes">是</span><span class="no">否</span></div> </div><!--删除文章--><div class="delPassage"><p>您确定要删除么?</p ><div class="sub"><span class="yes">是</span><span class="no">否</span></div></div></li>;'
+                 html+=' <div class="pop"><p>您确定要删除么?</p ><span class="yes">是</span><span class="no">否</span></div> </div><!--删除文章--><div class="delPassage"><p>您确定要删除么?</p ><div class="sub"><span class="yes">是</span><span class="no">否</span></div></div></li>'
             }
             $('#circleCon').html(html);
             var lencir = xuhList.length;
@@ -198,8 +203,7 @@ function cirCommentList(a){//加载评论
 }
 function cirStatus(a){//点赞状态
     var url= gloablePath + '/party-app-practice-front/res/readonly/getUserThumbsUp?requestUser=hotel&requestPassword=123456';
-    var userId = System.getUserInfoInt('user_id');
-    var partyMemberId = System.getUserInfoInt('member_id');
+
 
     $.get(url,{resId: a,userId:userId,partyMemberId:partyMemberId}, function(data) {
         var contSt = data.data;
@@ -330,9 +334,9 @@ function comSend(obj){
     var resId = $(obj).attr('data-lino');
     var comment = $(obj).prev().val();
     var html='';
-    var userId = System.getUserInfoInt('user_id');
-    var partyMemberId = System.getUserInfoInt('member_id');
-    var name = System.getUserInfoStr('nick_name');
+    // var userId = System.getUserInfoInt('user_id');
+    // var partyMemberId = System.getUserInfoInt('member_id');
+    // var name = System.getUserInfoStr('nick_name');
     $.ajax({
         type: 'post',
         url:gloablePath+'/party-app-practice-front/res/write/giveTheComment?&&requestUser=hotel&requestPassword=123456',
@@ -367,14 +371,14 @@ function comSend(obj){
 
 function delComment(obj){
     //$('.pop').show();
-    var height = document.body.clientHeight;
-    console.log(height);
+    //var height = document.body.clientHeight;
+    //console.log(height);
     // $('.tbjs').show();
-    var Id = $(obj).attr('name');
+
     //console.log(Id);
     //$('.delPassage').css('display','block');
-    var userId = System.getUserInfoInt('user_id');
-    var partyMemberId = System.getUserInfoInt('member_id');
+    // var userId = System.getUserInfoInt('user_id');
+    // var partyMemberId = System.getUserInfoInt('member_id');
     $(obj).parent().parent('.mui-table-view-cell').find('.delPassage').css('display','block');
 
     //$('.delPassage').css('display','block');
@@ -406,6 +410,14 @@ function delComment(obj){
             }
         });
     })
+    var Id = $(obj).attr('name');
+    var height =  $('.circle_container').height();
+    console.log(height);
+    var height2 = $(obj).parent().parent('.mui-table-view-cell').height();
+    console.log(height2);
+    var height3 = height - height2;
+    console.log(height3);
+    $('.circle_container').height(height3);
     $(obj).parent().parent('.mui-table-view-cell').find('.delPassage').find('.no').click(function(){
         $(obj).parent().parent('.mui-table-view-cell').find('.delPassage').css('display','none')
     })

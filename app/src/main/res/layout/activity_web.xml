@@ -13,6 +13,7 @@
         <!--android:scrollbars="horizontal"-->
         <!--&gt;</demo.hisu.com.utils.X5WebView>-->
     <ScrollView
+        android:id="@+id/web_ScrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout

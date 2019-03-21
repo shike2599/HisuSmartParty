@@ -6,12 +6,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.donkingliang.imageselector.R;
 import com.donkingliang.imageselector.entry.Image;
+import com.donkingliang.imageselector.utils.ImageSelector;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,7 +71,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
             holder.ivGif.setVisibility(image.isGif() ? View.VISIBLE : View.GONE);
 
             //点击选中/取消选中图片
-            holder.ivSelectIcon.setOnClickListener(new View.OnClickListener() {
+            holder.iv_Image_Layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mSelectImages.contains(image)) {
@@ -81,7 +83,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
                         clearImageSelect();
                         selectImage(image);
                         setItemSelect(holder, true);
-                    } else if (mMaxCount <= 0 || mSelectImages.size() < mMaxCount) {
+                    } else if (mMaxCount <= 0 ||
+                            (mSelectImages.size()+ ImageSelector.selectedImgNum) < mMaxCount) {
                         //如果不限制图片的选中数量，或者图片的选中数量
                         // 还没有达到最大限制，就直接选中当前图片。
                         selectImage(image);
@@ -245,7 +248,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-
+        RelativeLayout iv_Image_Layout;
         ImageView ivImage;
         ImageView ivSelectIcon;
         ImageView ivMasking;
@@ -254,6 +257,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
         public ViewHolder(View itemView) {
             super(itemView);
+            iv_Image_Layout = itemView.findViewById(R.id.iv_select_RelativeLayout);
             ivImage = itemView.findViewById(R.id.iv_image);
             ivSelectIcon = itemView.findViewById(R.id.iv_select);
             ivMasking = itemView.findViewById(R.id.iv_masking);

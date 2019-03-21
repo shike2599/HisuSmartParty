@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.donkingliang.imageselector.ImageSelectorActivity;
+import com.donkingliang.imageselector.adapter.ImageAdapter;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.hisu.smart.dj.R;
 
@@ -53,7 +55,7 @@ import okhttp3.RequestBody;
  * 学习心得页面（可能会复用）
  */
 public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,UpLoadFileModel> implements
-        View.OnClickListener,UpLoadFileContract.View{
+        View.OnClickListener,UpLoadFileContract.View,PicSelectorAdapter.OnImgItemClickListener{
     private String TAG = "StudyExperienceActivity";
     @Bind(R.id.back_imageView)
     ImageView back_img;
@@ -91,6 +93,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
 
     @Override
     public void initPresenter() {
+      images = new ArrayList<>();
       title = getIntent().getStringExtra(AppConstant.UPLOAD_TITLE);
       follow_id = getIntent().getIntExtra(AppConstant.FOLLOW_ID,-1);
       Log.d(TAG,"follow_id==="+follow_id);
@@ -134,6 +137,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
         show_title.setText(title);
         show_selector_img.setLayoutManager(new GridLayoutManager(this, 3));
         picSelectorAdapter = new PicSelectorAdapter(this);
+        picSelectorAdapter.setOnItemClickListener(this);
         show_selector_img.setAdapter(picSelectorAdapter);
     }
 
@@ -161,6 +165,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
 //                 commomDialog.setTitle("提示");
 //                 commomDialog.setContent("暂未开通图片上传！敬请期待！");
 //                 commomDialog.show();
+                 ImageSelector.selectedImgNum = images.size();
                  ImageSelector.builder()
                          .useCamera(true) // 设置是否使用拍照
                          .setSingle(false)  //设置是否单选
@@ -203,7 +208,8 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
     protected void onActivityResult(int requestCode, int resultCode,Intent intent) {
 
         if (requestCode == REQUEST_CODE && intent != null) {
-            images = intent.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
+            List<String> selectedImages = intent.getStringArrayListExtra(ImageSelector.SELECT_RESULT);
+            images.addAll(selectedImages);
             picSelectorAdapter.refresh(images);
         }
 
@@ -295,5 +301,11 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
             mPresenter.submitActionContentRequest(user_id,memberId,follow_id,
                     null,upTitle,"",imagePaths,mediaType,content,null,getNowTime(),false);
         }
+    }
+
+    @Override
+    public void onImgItemClick(int position) {
+        images.remove(position);
+        picSelectorAdapter.refresh(images);
     }
 }

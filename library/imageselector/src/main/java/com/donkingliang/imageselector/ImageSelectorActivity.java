@@ -89,7 +89,6 @@ public class ImageSelectorActivity extends AppCompatActivity {
             hideTime();
         }
     };
-
     //用于接收从外面传进来的已选择的图片列表。当用户原来已经有选择过图片，现在重新打开选择器，允许用
     // 户把先前选过的图片传进来，并把这些图片默认为选中状态。
     private ArrayList<String> mSelectedImages;
@@ -133,7 +132,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
         initImageList();
         checkPermissionAndLoadImages();
         hideFolderList();
-        setSelectImageCount(0);
+        setSelectImageCount(ImageSelector.selectedImgNum);
     }
 
     /**
@@ -240,7 +239,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
         mAdapter.setOnImageSelectListener(new ImageAdapter.OnImageSelectListener() {
             @Override
             public void OnImageSelect(Image image, boolean isSelect, int selectCount) {
-                setSelectImageCount(selectCount);
+                setSelectImageCount(ImageSelector.selectedImgNum+selectCount);
             }
         });
         mAdapter.setOnItemClickListener(new ImageAdapter.OnItemClickListener() {
@@ -302,7 +301,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
         }
     }
 
-    private void setSelectImageCount(int count) {
+    public void setSelectImageCount(int count) {
         if (count == 0) {
             btnConfirm.setEnabled(false);
             btnPreview.setEnabled(false);
@@ -456,7 +455,7 @@ public class ImageSelectorActivity extends AppCompatActivity {
             } else {
                 //否则，就刷新当前页面。
                 mAdapter.notifyDataSetChanged();
-                setSelectImageCount(mAdapter.getSelectImages().size());
+                setSelectImageCount(mAdapter.getSelectImages().size()+ImageSelector.selectedImgNum);
             }
         } else if (requestCode == CAMERA_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {

@@ -11,6 +11,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="#010101"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="5dp"
         android:scaleType="centerCrop" />
-
+    <ImageView
+        android:layout_gravity="right"
+        android:id="@+id/unSelected_ImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/delete_img_icon"
+        />
 </FrameLayout>

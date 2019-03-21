@@ -32,6 +32,8 @@ public class ImageSelector {
 
     public static final int RESULT_CODE = 0x00000012;
 
+    public static  int selectedImgNum = 0;
+
     public static ImageSelectorBuilder builder() {
         return new ImageSelectorBuilder();
     }

@@ -17,7 +17,7 @@ public class PicSelectorAdapter extends RecyclerView.Adapter<PicSelectorAdapter.
     private Context mContext;
     private ArrayList<String> mImages;
     private LayoutInflater mInflater;
-
+    private OnImgItemClickListener imgItemClickListener;
     public PicSelectorAdapter(Context context) {
         mContext = context;
         this.mInflater = LayoutInflater.from(mContext);
@@ -37,6 +37,15 @@ public class PicSelectorAdapter extends RecyclerView.Adapter<PicSelectorAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final String image = mImages.get(position);
         Glide.with(mContext).load(new File(image)).into(holder.ivImage);
+        //设置点击事件
+        if(imgItemClickListener!=null){
+            holder.del_select_img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    imgItemClickListener.onImgItemClick(position);
+                }
+            });
+        }
     }
 
     @Override
@@ -50,12 +59,20 @@ public class PicSelectorAdapter extends RecyclerView.Adapter<PicSelectorAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-
+        ImageView del_select_img;
         ImageView ivImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
             ivImage = itemView.findViewById(R.id.iv_image);
+            del_select_img = itemView.findViewById(R.id.unSelected_ImageView);
         }
+    }
+
+    public interface  OnImgItemClickListener{
+        void onImgItemClick(int position);
+    }
+    public void setOnItemClickListener(OnImgItemClickListener onItemClickListener){
+        this.imgItemClickListener = onItemClickListener;
     }
 }

@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,7 +75,8 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
     TextView news_collection_textView;
     @Bind(R.id.title_LinearLayout)
     LinearLayout title_layout;
-
+    @Bind(R.id.web_ScrollView)
+    ScrollView web_ScrollView;
     private static X5WebView x5WebView;
     private String title_str;
     private String webUrl;
@@ -498,7 +500,9 @@ public class WebActivity extends BaseActivity<NewInfoPresenter, NewsInfoModel>
             x5WebView.loadData(webhtml, "text/html; charset=UTF-8", null);
             x5WebView.loadUrl("javascript:System.resize(document.body.getBoundingClientRect().height)");
         }else{
+            web_ScrollView.setFillViewport(true);
             x5WebView.loadUrl(webUrl);
+//            x5WebView.loadUrl("javascript:System.resize(document.body.getBoundingClientRect().height)");
         }
     }
 

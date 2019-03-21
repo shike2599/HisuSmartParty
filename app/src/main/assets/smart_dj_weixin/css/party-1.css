@@ -153,7 +153,7 @@
     /*display: none;*/
 }
 /*.circle_content .circle_info .lookAll{*/
-/*!*display: none;*!*/
+    /*!*display: none;*!*/
 /*}*/
 .circle_content .circle_info .hideAll{
     display: none;
@@ -230,7 +230,7 @@
     display: none;
 }
 /*.circle_button .starShow .starInfo,.circle_button .starShow .cancelInfo{*/
-/*display: none;*/
+    /*display: none;*/
 /*}*/
 .circle_button .starShow .commentInfo{
     width: 50%;
@@ -452,8 +452,6 @@
     background:rgba(0,0,0,0);
     display:none;
 }
-
-
 .downwarp-content{
     background-color: #fff;
 }
