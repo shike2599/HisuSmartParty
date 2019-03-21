@@ -66,6 +66,7 @@ var circleNoId;//点赞序号
 var xuhList = [];
 var partyBranchId = System.getUserInfoInt('member_partyBranchId')
 /*信息列表*/
+
 function circleList(){
     var url= gloablePath + '/party-app-practice-front/res/readonly/listMemberActionWithPulled?requestUser=hotel&requestPassword=123456';
     $.get(url,{cateCode: 5007}, function(data) {
@@ -129,7 +130,8 @@ function circleList(){
                 html +='</div>';
                 html +='<div class="reply-like reply-zone-1" data-circXh='+infNo_id+'><img src="images/quer/star.png">';
                 html +='</div><div class="reply-comment reply-zone plIdCon" data-plXh='+infNo_id+'></div> '
-                html+='<form action="#"  name="\'+infNo_id+\'" class="commit-form" id="divTop"><input type="text" placeholder="评论" class="commit-input"><button type="submit" class="commit-button" disabled onclick="comSend(this)">发送</button></form></li>';
+                html+='<form action="#"  name="\'+infNo_id+\'" class="commit-form" id="divTop"><input type="text" placeholder="评论" class="commit-input"><button type="submit" class="commit-button" disabled onclick="comSend(this)">发送</button></form>'
+                 html+=' <div class="pop"><p>您确定要删除么?</p ><span class="yes">是</span><span class="no">否</span></div> </div><!--删除文章--><div class="delPassage"><p>您确定要删除么?</p ><div class="sub"><span class="yes">是</span><span class="no">否</span></div></div></li>;'
             }
             $('#circleCon').html(html);
             var lencir = xuhList.length;
@@ -365,14 +367,19 @@ function comSend(obj){
 
 function delComment(obj){
     //$('.pop').show();
-    var height = $(window).height();
-    $('.tbjs').show();
+    var height = document.body.clientHeight;
+    console.log(height);
+    // $('.tbjs').show();
     var Id = $(obj).attr('name');
     //console.log(Id);
-    $('.delPassage').css('display','block');
+    //$('.delPassage').css('display','block');
     var userId = System.getUserInfoInt('user_id');
     var partyMemberId = System.getUserInfoInt('member_id');
-    $('.delPassage  .yes').click(function(){
+    $(obj).parent().parent('.mui-table-view-cell').find('.delPassage').css('display','block');
+
+    //$('.delPassage').css('display','block');
+    $(obj).parent().parent('.mui-table-view-cell').find('.delPassage').find('.yes').click(function(){
+
         $.ajax({
             type: 'get',
             url: gloablePath+'/party-app-practice-front/res/write/deleteMyAction?&&requestUser=hotel&requestPassword=123456',
@@ -392,15 +399,15 @@ function delComment(obj){
                         //console.log(lisNo);
                         if(lisNo==Id){
                             $('#circleCon li').eq(i).remove();
-                            $('.delPassage').css('display','none')
+                            $(obj).parent().parent('.mui-table-view-cell').find('.delPassage').css('display','none')
                         }
                     }
                 }
             }
         });
     })
-    $('.delPassage .no').click(function(){
-        $('.delPassage').css('display','none')
+    $(obj).parent().parent('.mui-table-view-cell').find('.delPassage').find('.no').click(function(){
+        $(obj).parent().parent('.mui-table-view-cell').find('.delPassage').css('display','none')
     })
 
     $('.tbjs').height(height);
@@ -444,8 +451,8 @@ function delComment(obj){
 //评论删除
 function delcomLi(obj){
     var Id = $(obj).attr('name')
-    $('.pop').css('display','block');
-    $('.pop .sub .yes').on('tap',function(){
+    $(obj).parent().parent('.mui-table-view-cell').find('.pop').css('display','block');
+    $(obj).parent().parent('.mui-table-view-cell').find('.pop').find('.yes').on('click',function(){
         $.ajax({
             type: 'get',
             url: gloablePath+'/party-app-practice-front/res/write/deleteTheComment?&&requestUser=hotel&requestPassword=123456',
@@ -457,8 +464,8 @@ function delcomLi(obj){
             }
         })
     })
-    $('.pop .no').on('tap',function(){
-        $('.pop').css('display','none');
+    $(obj).parent().parent('.mui-table-view-cell').find('.pop').find('.no').on('click',function(){
+        $(obj).parent().parent('.mui-table-view-cell').find('.pop').css('display','none');
     })
 }
 //发布党员圈

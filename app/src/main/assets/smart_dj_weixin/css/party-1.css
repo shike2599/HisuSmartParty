@@ -31,6 +31,7 @@
 .mui-table-view-chevron .mui-table-view-cell {
     padding-right: 0;
     padding-bottom:3%;
+    position: relative;
 }
 .mui-table-view-cell{
     padding: 0;
@@ -352,9 +353,10 @@
 .pop, .delPassage{
     width: 70%;
     height: 100px;
-    position:fixed;
+    position: absolute;
     top: 50%;
     right: 0;
+    transform: translate(0,-50%);
     z-index: 1000;
     margin: 0 15%;
     text-align: center;
