@@ -3,8 +3,9 @@ package com.hisu.smart.dj.ui.study.activity;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.DialogTitle;
+
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -14,10 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.donkingliang.imageselector.ImageSelectorActivity;
-import com.donkingliang.imageselector.adapter.ImageAdapter;
 import com.donkingliang.imageselector.utils.ImageSelector;
 import com.hisu.smart.dj.R;
 
@@ -31,8 +29,9 @@ import com.hisu.smart.dj.ui.adapter.PicSelectorAdapter;
 import com.hisu.smart.dj.ui.study.contract.UpLoadFileContract;
 import com.hisu.smart.dj.ui.study.model.UpLoadFileModel;
 import com.hisu.smart.dj.ui.study.presenter.UpLoadFilePresenter;
-import com.hisu.smart.dj.ui.web.activity.WebActivity;
+
 import com.hisu.smart.dj.ui.widget.CommomDialog;
+import com.hisu.smart.dj.ui.zone.activity.CircleZoneActivity;
 import com.jaydenxiao.common.base.BaseActivity;
 
 import com.jaydenxiao.common.commonwidget.LoadingDialog;
@@ -113,7 +112,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                          AppConstant.isUpLoad = true;
                          StudyExperienceActivity.this.finish();
                          if(title.endsWith("党员圈")){
-                             WebActivity.refreshWebPage();
+                             CircleZoneActivity.startAction(getApplicationContext());
                          }
 
                      }else{
@@ -147,7 +146,13 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
         activity.startActivity(intent);
     }
 
-    public static void startAction(Activity activity,String title,int follow_id){
+//    public static void startAction(Activity activity,String title,int follow_id){
+//        Intent intent = new Intent(activity, StudyExperienceActivity.class);
+//        intent.putExtra(AppConstant.UPLOAD_TITLE,title);
+//        intent.putExtra(AppConstant.FOLLOW_ID,follow_id);
+//        activity.startActivity(intent);
+//    }
+    public static void startAction(Context activity, String title, int follow_id){
         Intent intent = new Intent(activity, StudyExperienceActivity.class);
         intent.putExtra(AppConstant.UPLOAD_TITLE,title);
         intent.putExtra(AppConstant.FOLLOW_ID,follow_id);

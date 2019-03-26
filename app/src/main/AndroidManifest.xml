@@ -139,6 +139,8 @@
         <activity android:name=".ui.my.activity.NoticeInfoActivity" />
         <activity android:name=".ui.my.activity.MyCollectActivity" />
         <activity android:name=".ui.study.activity.StudyListActivity"></activity>
+        <activity android:name=".ui.zone.activity.CircleZoneActivity"/>
+        <activity android:name=".ui.zone.activity.CirclePublishActivity"/>
     </application>
     <supports-screens
         android:smallScreens="true"

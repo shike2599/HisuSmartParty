@@ -40,6 +40,7 @@ import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.news.activity.PartyNewsActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
+import com.hisu.smart.dj.ui.zone.activity.CircleZoneActivity;
 import com.jaydenxiao.common.base.BaseFragment;
 import com.jaydenxiao.common.basebean.BaseResponse;
 import com.jaydenxiao.common.commonutils.LogUtils;
@@ -257,7 +258,8 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         }else if(position == 5){
             WebActivity.startAction(getActivity(),"党费缴纳",payCost);
         }else if(position == 6){
-            WebActivity.startAction(getActivity(),"党员圈",partyMembersCircle);
+//            WebActivity.startAction(getActivity(),"党员圈",partyMembersCircle);
+            CircleZoneActivity.startAction(getActivity());
         }else if(position == 7){
             NewsActivity.startAction(getActivity(),"时代先锋");
         }else if(position == 8){

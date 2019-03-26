@@ -162,4 +162,11 @@
     <color name="join_anyone_box_border">#DFDFDF</color>
     <color name="join_anyone_box_title">#8B8B8B</color>
     <color name="company_info">#969696</color>
+
+    <color name="zone_textcolor_bg">#DDDDDD</color>
+    <color name="circle_name_selector_color">#cccccc</color>
+    <color name="container_background">#EBEBEB</color>
+    <color name="primary_text_white">#deffffff</color>
+    <!--87%white-->
+    <color name="progress_bar_unfinished">#D4D4D4</color>
 </resources>

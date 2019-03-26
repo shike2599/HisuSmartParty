@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rl_header"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:id="@+id/img_bg"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_zone_head"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/img_avater"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="center"
+            android:src="@mipmap/icon_zone_user"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/img_publish"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@mipmap/icon_zone_publish"
+            android:layout_toLeftOf="@+id/img_avater"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="@dimen/buttom_height_20"/>
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/img_avater"
+            android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/img_avater"
+            android:ellipsize="end"
+            android:paddingRight="8dp"
+            android:singleLine="true"
+            android:text="世锋日上"
+            android:textColor="@color/white"
+            android:textSize="@dimen/font_normal2"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+
+    </RelativeLayout>
+
+    <include
+        layout="@layout/item_circle_not_read_news"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_header"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

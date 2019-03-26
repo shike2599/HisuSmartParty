@@ -92,7 +92,7 @@ public class StudyListEntity implements Serializable {
         private int id;
         private String partyMemberName;
         private String name;
-        private List<?> images;
+        private List<String> images;
 
         public String getUrl() {
             return url;
@@ -175,11 +175,11 @@ public class StudyListEntity implements Serializable {
             this.name = name;
         }
 
-        public List<?> getImages() {
+        public List<String> getImages() {
             return images;
         }
 
-        public void setImages(List<?> images) {
+        public void setImages(List<String> images) {
             this.images = images;
         }
     }

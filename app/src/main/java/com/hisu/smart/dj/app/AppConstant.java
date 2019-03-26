@@ -49,7 +49,7 @@ public class AppConstant {
     public static final String COLLECT_SERI = "collectSeri";
     public static Boolean isUpLoad = false;
 
-
+    public static String ZONE_PUBLISH_ADD = "ZONE_PUBLISH_ADD";//发布说说
 //    public static  boolean  isExitLogin = false;
 
 }

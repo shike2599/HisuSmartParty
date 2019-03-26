@@ -1,9 +1,8 @@
 package com.hisu.smart.dj.api;
 
-import android.content.Intent;
-
 import com.hisu.smart.dj.entity.CateEntity;
 import com.hisu.smart.dj.entity.CollectEntity;
+import com.hisu.smart.dj.entity.CommentEntity;
 import com.hisu.smart.dj.entity.FollowActionListBean;
 import com.hisu.smart.dj.entity.InformationEntity;
 import com.hisu.smart.dj.entity.InformationResponse;
@@ -21,6 +20,7 @@ import com.hisu.smart.dj.entity.StudyListEntity;
 import com.hisu.smart.dj.entity.StudyPlanEntity;
 import com.hisu.smart.dj.entity.StudyPlanRespone;
 
+import com.hisu.smart.dj.entity.ThumbsUpEntity;
 import com.hisu.smart.dj.entity.UpLoadFileResponse;
 
 import com.hisu.smart.dj.entity.UserCollectionEntity;
@@ -555,6 +555,87 @@ public interface ApiService {
                                                            @Query("pageSize")Integer pageSize);
 
     /**
+     *6.11.党员圈|学习心得点赞状态查询（手机端）
+     * @param resId    党员圈|学习心得内容序号
+     * @param userId   用户序号
+     * @param partyMemberId  党员序号
+     * @return
+     */
+    @GET("party-app-practice-front/res/readonly/listTheThumbsUp")
+    Observable<BaseResponse<ThumbsUpEntity>> listTheThumbsUp(@Query("resId") Integer resId,
+                                                             @Query("userId") Integer userId,
+                                                             @Query("partyMemberId") Integer partyMemberId);
+
+    /**
+     * 6.13.党员圈评论记录查询（手机端）
+     * @param resId    党员圈|学习心得内容序号
+     * @param userId   用户序号
+     * @param partyMemberId  党员序号
+     * @return
+     */
+    @GET("party-app-practice-front/res/readonly/listTheComment")
+    Observable<BaseResponse<CommentEntity>> listTheComment(@Query("resId") Integer resId,
+                                                           @Query("userId") Integer userId,
+                                                           @Query("partyMemberId") Integer partyMemberId);
+
+    /**
+     *6.15.党员圈|学习心得评论（手机端）
+     * @param resId    党员圈|学习心得内容序号
+     * @param userId   用户序号
+     * @param partyMemberId  党员序号
+     * @param comment   评论内容
+     * @return
+     */
+    @GET("party-app-practice-front/res/write/giveTheComment")
+    Observable<VisitNumResponse>  giveTheComment(@Query("resId") Integer resId,
+                                                 @Query("userId") Integer userId,
+                                                 @Query("partyMemberId") Integer partyMemberId,
+                                                 @Query("comment") String comment);
+
+    /**
+     *6.15.党员圈|学习心得评论（手机端）
+     * @param id   评论id
+     * @return
+     */
+    @GET("party-app-practice-front/res/write/deleteTheComment")
+    Observable<VisitNumResponse>  deleteTheComment(@Query("id") Integer id);
+
+
+
+    /**
+     *6.7.党员圈|学习心得删除（手机端）
+     * @param resId    党员圈|学习心得内容序号
+     * @param userId   用户序号
+     * @param partyMemberId  党员序号
+     * @return
+     */
+    @GET("party-app-practice-front/res/write/deleteMyAction")
+    Observable<VisitNumResponse> deleteMyAction(@Query("resId") Integer resId,
+                                                @Query("userId") Integer userId,
+                                                @Query("partyMemberId") Integer partyMemberId);
+
+
+    /**
+     *6.10.党员圈|学习心得点赞（手机端）
+     * @param resId    党员圈|学习心得内容序号
+     * @param userId   用户序号
+     * @param partyMemberId  党员序号
+     * @return
+     */
+    @GET("party-app-practice-front/res/write/giveTheThumbsUp")
+    Observable<VisitNumResponse> giveTheThumbsUp(@Query("resId") Integer resId,
+                                                @Query("userId") Integer userId,
+                                                @Query("partyMemberId") Integer partyMemberId);
+
+    /**
+     * 6.12.党员圈|学习心得取消点赞（手机端）
+     * @param id
+     * @return
+     */
+    @GET("party-app-practice-front/res/write/cancelTheThumbsUp")
+    Observable<VisitNumResponse> cancelTheThumbsUp(@Query("id") Integer id);
+
+    /**
      * 10.12.活动浏览次数统计
      * @param resType 课程类型,0：组织生活学习活动,1：常规学习活动,2：专题学习活动
      * @param resId  资源ID
@@ -594,4 +675,6 @@ public interface ApiService {
     @Multipart
     @POST("party-user-front/upload/uploadFile")
     Observable<UpLoadFileResponse> uploadFile(@PartMap Map<String, RequestBody> parmas);
+
+
 }

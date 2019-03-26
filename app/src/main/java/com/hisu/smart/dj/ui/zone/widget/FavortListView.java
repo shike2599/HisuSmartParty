@@ -1,0 +1,44 @@
+package com.hisu.smart.dj.ui.zone.widget;
+
+import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
+import android.util.AttributeSet;
+import android.widget.TextView;
+
+
+import com.hisu.smart.dj.ui.zone.adapter.FavortListAdapter;
+import com.hisu.smart.dj.ui.zone.spannable.ISpanClick;
+
+
+/**
+ * des:点赞列表
+ * Created by xsf
+ * on 2016.07.11:11
+ */
+public class FavortListView extends AppCompatTextView {
+    private ISpanClick mSpanClickListener;
+
+    public void setSpanClickListener(ISpanClick listener){
+        mSpanClickListener = listener;
+    }
+    public ISpanClick getSpanClickListener(){
+        return  mSpanClickListener;
+    }
+
+    public FavortListView(Context context) {
+        super(context);
+    }
+
+    public FavortListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public FavortListView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    public void setAdapter(FavortListAdapter adapter){
+        adapter.bindListView(this);
+    }
+
+}
