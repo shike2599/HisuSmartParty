@@ -627,6 +627,7 @@ public interface ApiService {
                                                 @Query("userId") Integer userId,
                                                 @Query("partyMemberId") Integer partyMemberId);
 
+
     /**
      * 6.12.党员圈|学习心得取消点赞（手机端）
      * @param id

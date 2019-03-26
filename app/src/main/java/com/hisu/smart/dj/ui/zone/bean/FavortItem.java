@@ -67,7 +67,8 @@ public class FavortItem implements Parcelable {
 
 	public FavortItem() {
 	}
-	public FavortItem(String publishId, String userId,String userNickname) {
+	public FavortItem(String id,String publishId, String userId,String userNickname) {
+		this.id = id;
 		this.publishId=publishId;
 		this.userId=userId;
 		this.userNickname=userNickname;
@@ -106,4 +107,15 @@ public class FavortItem implements Parcelable {
 			return new FavortItem[size];
 		}
 	};
+
+	@Override
+	public String toString() {
+		return "FavortItem{" +
+				"createTime='" + createTime + '\'' +
+				", id='" + id + '\'' +
+				", publishId='" + publishId + '\'' +
+				", userId='" + userId + '\'' +
+				", userNickname='" + userNickname + '\'' +
+				'}';
+	}
 }

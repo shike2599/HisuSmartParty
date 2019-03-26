@@ -192,15 +192,14 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
 //        tvAddressOrDistance.setText("广州 <7KM");
         contentTv.setVisibility(TextUtils.isEmpty(circleItem.getContent()) ? View.GONE : View.VISIBLE);
         //是否显示删除图标
-        final int userId = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
-        deleteBtn.setVisibility(Integer.parseInt(circleItem.getUserId()+"") == userId?View.VISIBLE:View.GONE);
+        final int memberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
+        deleteBtn.setVisibility(Integer.parseInt(circleItem.getUserId()+"") == memberId?View.VISIBLE:View.GONE);
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //删除
                 if (mPresenter != null) {
-
-                    int memberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
+                    int userId = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
                     mPresenter.deleteCircle(circleItem.getId(),userId,memberId, position);
                 }
             }
@@ -327,11 +326,13 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 //判断是否已点赞
-                String curUserFavortId = circleItem.getCurUserFavortId();
-                if (!TextUtils.isEmpty(curUserFavortId)) {
-                    favort(circleItem.getCurFavortId(), Integer.parseInt(circleItem.getUserId()), position, "取消", view);
+                FavortItem item = circleItem.getCurUserFavortItem();
+                if(item !=null)
+                    Log.i("FavortItem",item.toString());
+                if (item != null && item.getId() != null) {
+                    favort(Integer.parseInt(item.getId()), AppConfig.getInstance().getInt(AppConstant.USER_ID,-1), position, "取消", view);
                 } else {
-                    favort(circleItem.getId(), Integer.parseInt(circleItem.getUserId()), position, "赞", view);
+                    favort(circleItem.getId(), AppConfig.getInstance().getInt(AppConstant.USER_ID,-1), position, "赞", view);
                 }
             }
         });

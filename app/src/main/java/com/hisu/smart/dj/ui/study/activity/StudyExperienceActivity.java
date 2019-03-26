@@ -112,7 +112,7 @@ public class StudyExperienceActivity extends BaseActivity<UpLoadFilePresenter,Up
                          AppConstant.isUpLoad = true;
                          StudyExperienceActivity.this.finish();
                          if(title.endsWith("党员圈")){
-                             CircleZoneActivity.startAction(getApplicationContext());
+                           finish();
                          }
 
                      }else{

@@ -3,6 +3,7 @@ package com.hisu.smart.dj.ui.zone.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
@@ -217,34 +218,20 @@ public class CircleItem implements Parcelable {
     public CircleItem() {
     }
 
-    public String getCurUserFavortId() {
-        String userId = "";
+    public FavortItem getCurUserFavortItem() {
+        FavortItem favortItem = null;
         String myId = AppConfig.getInstance().getInt(AppConstant.USER_ID, -1) + "";
         if (goodjobs != null && !TextUtils.isEmpty(myId) && goodjobs.size() > 0) {
             for (FavortItem item : goodjobs) {
                 if (myId.equals(item.getUserId())) {
-                    userId = item.getUserId();
-                    return userId;
+                    return item;
                 }
             }
         }
-        return userId;
+        return favortItem;
     }
 
 
-    public int getCurFavortId() {
-        int id = 0;
-        String myId = AppConfig.getInstance().getInt(AppConstant.USER_ID, -1) + "";
-        if (goodjobs != null && !TextUtils.isEmpty(myId) && goodjobs.size() > 0) {
-            for (FavortItem item : goodjobs) {
-                if (myId.equals(item.getUserId())) {
-                    id = Integer.parseInt(item.getId());
-                    return id;
-                }
-            }
-        }
-        return id;
-    }
 
 
     /**

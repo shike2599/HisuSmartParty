@@ -175,7 +175,7 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
 
         int userId = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
         int memberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
-        Log.i("addComment","resId:"+config.getPublishId()+",userId:"+userId+",memberId:"+memberId+",name:"+config.getName());
+        Log.i("addComment","resId:"+config.getPublishId()+",userId:"+userId+",memberId:"+memberId+",name:"+config.getName()+"config:"+config.getCirclePosition());
         mRxManage.add(mModel.addComment(Integer.parseInt(config.getPublishId()),userId,memberId ,content).subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
             @Override
             protected void _onNext(VisitNumResponse visitNumResponse) {
@@ -304,7 +304,7 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
                     //mGoodView.setTextInfo("点赞成功", ContextCompat.getColor(mContext, R.color.main_color), 12);
                     mGoodView.setImage(R.mipmap.dianzan);
                     mGoodView.show(view);
-                    FavortItem item = new FavortItem(visitNumResponse.getData()+"", AppConfig.getInstance().getInt(AppConstant.USER_ID,-1)+"", AppConfig.getInstance().getString(AppConstant.NICK_NAME,""));
+                    FavortItem item = new FavortItem(visitNumResponse.getData()+"",visitNumResponse.getData()+"", AppConfig.getInstance().getInt(AppConstant.USER_ID,-1)+"", AppConfig.getInstance().getString(AppConstant.NICK_NAME,""));
                     mView.update2AddFavorite(circlePosition, item);
                 }
             }

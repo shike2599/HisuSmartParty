@@ -292,6 +292,7 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
                         List<FavortItem> goodjobs = new ArrayList<>();
                         for (ThumbsUpEntity entity : thumbsUpEntityList) {
                             FavortItem item = new FavortItem();
+                            Log.i(TAG,"returnTheThumbsUpData::::::"+entity.toString());
                             item.setId(entity.getId() + "");
                             item.setUserId(entity.getUserId() + "");
                             item.setPublishId(entity.getId() + "");
@@ -339,10 +340,10 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
 
     @Override
     public void setListData(List<CircleItem> circleItems) {
-        circleItemList = circleItems;
-        int size = circleItemList.size();
+        int size = circleItems.size();
         Log.i(TAG, "setListData=================" + size);
         if (size > 0) {
+            circleItemList = circleItems;
             cid = circleItemList.get(size - 1).getId();
             publishTime = circleItemList.get(size - 1).getCreateTime();
             for (CircleItem circleItem : circleItemList) {
@@ -397,12 +398,11 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
     @Override
     public void update2AddComment(int circlePosition, CommentItem addItem) {
         if (addItem != null) {
-            Log.i(TAG,"update2AddComment===================="+circlePosition);
-            circleItemList.get(circlePosition).getReplys().add(addItem);
+            mAdapter.get(circlePosition).getReplys().add(addItem);
             mAdapter.notifyDataSetChanged();
         }
         //清空评论文本
-//        circleEt.setText("");
+        circleEt.setText("");
     }
 
     @Override
