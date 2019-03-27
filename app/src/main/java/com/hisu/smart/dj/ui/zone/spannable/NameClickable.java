@@ -32,7 +32,7 @@ public class NameClickable extends ClickableSpan implements View.OnClickListener
         super.updateDrawState(ds);
 
         int colorValue = AppApplication.getAppResources().getColor(
-                R.color.main_color);
+                R.color.zone_color);
         ds.setColor(colorValue);
         ds.setUnderlineText(false);
         ds.clearShadowLayer();

@@ -87,4 +87,6 @@
     <color name="all_red">#d52e2b</color>
     <color name="all_yellow">#ffc000</color>
 
+
+    <color name="zone_color">#4f6793</color>
 </resources>

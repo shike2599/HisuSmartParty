@@ -19,7 +19,7 @@
             android:src="@mipmap/icon_zone_head"
             android:visibility="visible" />
 
-        <ImageView
+        <com.hisu.smart.dj.ui.zone.widget.XCRoundRectImageView
             android:id="@+id/img_avater"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -38,7 +38,7 @@
             android:src="@mipmap/icon_zone_publish"
             android:layout_toLeftOf="@+id/img_avater"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="18dp"
             android:layout_marginRight="@dimen/buttom_height_20"/>
 
         <TextView

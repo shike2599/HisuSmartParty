@@ -97,8 +97,8 @@ public class FavortListAdapter {
     private SpannableString setImageSpan(){
         String text = "  ";
         SpannableString imgSpanText = new SpannableString(text);
-        imgSpanText.setSpan(new ImageSpan(AppApplication.getAppContext(), R.mipmap.dianzansmal, DynamicDrawableSpan.ALIGN_BASELINE),
-                0 , 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ImageSpan imageSpan = new ImageSpan(AppApplication.getAppContext(), R.mipmap.dianzansmal, DynamicDrawableSpan.ALIGN_BASELINE);
+        imgSpanText.setSpan(imageSpan, 0 , 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return imgSpanText;
     }
 }

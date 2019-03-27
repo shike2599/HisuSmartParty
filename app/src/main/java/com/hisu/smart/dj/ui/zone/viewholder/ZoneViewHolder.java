@@ -32,7 +32,6 @@ import com.hisu.smart.dj.utils.ZoneUtils;
 
 import com.jaydenxiao.common.commonutils.ImageLoaderUtils;
 
-import com.jaydenxiao.common.commonutils.ToastUitl;
 import com.jaydenxiao.common.imagePager.BigImagePagerActivity;
 
 import java.util.List;
@@ -249,9 +248,15 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                 favortListAdapter.notifyDataSetChanged();
                 favortListTv.setVisibility(View.VISIBLE);
                 //favortBtn.setText(String.valueOf(favortDatas.size()));
+                FavortItem item = circleItem.getCurUserFavortItem();
+                if (item != null && item.getId() != null) {
+                    favortBtn.setText("取消");
+                }else {
+                    favortBtn.setText("赞");
+                }
             } else {
                 favortListTv.setVisibility(View.GONE);
-//                favortBtn.setText("");
+                favortBtn.setText("赞");
             }
             //处理评论列表
             if (hasComment) {
@@ -294,7 +299,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                 commentAdapter.notifyDataSetChanged();
                 commentList.setVisibility(View.VISIBLE);
             } else {
-                snsBtn.setText("");
+//                snsBtn.setText("");
                 commentList.setVisibility(View.GONE);
             }
         } else {
@@ -327,11 +332,11 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 //判断是否已点赞
                 FavortItem item = circleItem.getCurUserFavortItem();
-                if(item !=null)
-                    Log.i("FavortItem",item.toString());
                 if (item != null && item.getId() != null) {
+                    favortBtn.setText("赞");
                     favort(Integer.parseInt(item.getId()), AppConfig.getInstance().getInt(AppConstant.USER_ID,-1), position, "取消", view);
                 } else {
+                    favortBtn.setText("取消");
                     favort(circleItem.getId(), AppConfig.getInstance().getInt(AppConstant.USER_ID,-1), position, "赞", view);
                 }
             }

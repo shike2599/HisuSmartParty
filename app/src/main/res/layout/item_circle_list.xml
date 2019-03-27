@@ -14,10 +14,10 @@
         android:layout_margin="10dp"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.hisu.smart.dj.ui.zone.widget.XCRoundRectImageView
             android:id="@+id/headIv"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginRight="8dp"
             android:scaleType="fitXY"/>
 
@@ -133,26 +133,30 @@
                 android:layout_weight="1" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="3dp"
                 android:src="@mipmap/dianzan"/>
             <TextView
                 android:id="@+id/favortBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
                 android:textColor="@color/gray"
                 android:text="赞" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="4dp"
                 android:src="@mipmap/pjia"/>
 
             <TextView
                 android:id="@+id/commentBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
                 android:textColor="@color/gray"
                 android:text="评论" />
 
