@@ -27,7 +27,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="3dp"
             android:layout_marginRight="10dp"
-            android:scaleType="center"
+            android:scaleType="fitXY"
             android:src="@mipmap/icon_zone_user"
             android:visibility="visible" />
 

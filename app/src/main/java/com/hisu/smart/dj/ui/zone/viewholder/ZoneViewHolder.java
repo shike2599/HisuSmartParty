@@ -182,7 +182,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
             digCommentBody.setVisibility(View.GONE);
         }
         //头像
-        ImageLoaderUtils.displayRound(mContext, headIv,circleItem.getIcon());
+        ImageLoaderUtils.display(mContext, headIv,circleItem.getIcon());
         nameTv.setText(circleItem.getNickName());
 
         timeTv.setText(ZoneUtils.handlePublishTimeDesc(circleItem.getCreateTime()));
@@ -241,8 +241,8 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                 favortListTv.setSpanClickListener(new ISpanClick() {
                     @Override
                     public void onClick(int position) {
-                        String userId = favortDatas.get(position).getUserId();
-                        ToastUitl.showShort(userId);
+//                        String userId = favortDatas.get(position).getUserId();
+////                        ToastUitl.showShort(userId);
                     }
                 });
                 favortListAdapter.setDatas(favortDatas);
@@ -251,7 +251,7 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                 //favortBtn.setText(String.valueOf(favortDatas.size()));
             } else {
                 favortListTv.setVisibility(View.GONE);
-                favortBtn.setText("");
+//                favortBtn.setText("");
             }
             //处理评论列表
             if (hasComment) {
@@ -300,8 +300,8 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
         } else {
             favortListTv.setVisibility(View.GONE);
             commentList.setVisibility(View.GONE);
-            favortBtn.setText("");
-            snsBtn.setText("");
+//            favortBtn.setText("");
+//            snsBtn.setText("");
         }
         digLine.setVisibility(hasFavort && hasComment ? View.VISIBLE : View.GONE);
         //评论
@@ -336,14 +336,14 @@ public class ZoneViewHolder extends RecyclerView.ViewHolder {
                 }
             }
         });
-        //头像点击
-        headIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //跳到个人朋友圈
-                ToastUitl.showShort("头像点击了"+position);
-            }
-        });
+//        //头像点击
+//        headIv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //跳到个人朋友圈
+//                ToastUitl.showShort("头像点击了"+position);
+//            }
+//        });
         urlTipTv.setVisibility(View.GONE);
 
     }

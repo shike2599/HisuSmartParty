@@ -19,7 +19,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginRight="8dp"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitXY"/>
 
         <TextView
             android:id="@+id/nameTv"
@@ -132,31 +132,37 @@
                 android:layout_height="1dip"
                 android:layout_weight="1" />
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/dianzan"/>
             <TextView
                 android:id="@+id/favortBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="18dp"
-                android:drawableLeft="@mipmap/dianzan"
-                android:drawablePadding="2dp"
-                android:textColor="?attr/dayNightTwoTextColor"
-                android:gravity="center" />
+                android:textColor="@color/gray"
+                android:text="赞" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/pjia"/>
 
             <TextView
                 android:id="@+id/commentBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableLeft="@mipmap/pjia"
-                android:drawablePadding="2dp"
-                android:textColor="?attr/dayNightTwoTextColor"
-                android:gravity="center" />
+                android:textColor="@color/gray"
+                android:text="评论" />
+
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/digCommentBody"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E5E9EB"
+            android:background="#F2F2F2"
             android:minHeight="10dip"
             android:orientation="vertical"
             android:paddingBottom="8dip"

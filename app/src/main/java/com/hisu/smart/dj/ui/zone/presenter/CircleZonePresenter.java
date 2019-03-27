@@ -1,5 +1,6 @@
 package com.hisu.smart.dj.ui.zone.presenter;
 
+import android.app.Dialog;
 import android.util.Log;
 import android.view.View;
 
@@ -13,6 +14,7 @@ import com.hisu.smart.dj.entity.Result;
 import com.hisu.smart.dj.entity.StudyListEntity;
 import com.hisu.smart.dj.entity.ThumbsUpEntity;
 import com.hisu.smart.dj.entity.VisitNumResponse;
+import com.hisu.smart.dj.ui.widget.CommomDialog;
 import com.hisu.smart.dj.ui.zone.bean.CircleItem;
 import com.hisu.smart.dj.ui.zone.bean.CommentConfig;
 import com.hisu.smart.dj.ui.zone.bean.CommentItem;
@@ -41,7 +43,6 @@ import rx.functions.Action1;
 public class CircleZonePresenter extends CircleZoneContract.Presenter {
 
     private static final String TAG = "CircleZonePresenter";
-
 
 
     //点赞效果
@@ -97,6 +98,7 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
                 super.onStart();
                 mView.showLoading("");
             }
+
             @Override
             protected void _onNext(StudyListEntity studyListEntity) {
                 List<StudyListEntity.DataListBean> dataList = studyListEntity.getDataList();
@@ -107,7 +109,7 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
                         final CircleItem circleItem = new CircleItem();
                         circleItem.setId(bean.getId());
                         circleItem.setAppointUserid(bean.getPartyMemberId());
-                        circleItem.setUserId(bean.getPartyMemberId()+"");
+                        circleItem.setUserId(bean.getPartyMemberId() + "");
                         circleItem.setAppointUserNickname(bean.getPartyMemberName());
                         circleItem.setContent(bean.getName());
                         circleItem.setIcon(outServer + "/" + bean.getPartyMemberPhoto());
@@ -144,8 +146,9 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
         mRxManage.add(mModel.listTheThumbsUp(resId, userId, partyMemberId).subscribe(new RxSubscriber<BaseResponse<ThumbsUpEntity>>(mContext, false) {
             @Override
             protected void _onNext(BaseResponse<ThumbsUpEntity> response) {
-                mView.returnTheThumbsUpData(resId,response.getDataList());
+                mView.returnTheThumbsUpData(resId, response.getDataList());
             }
+
             @Override
             protected void _onError(String message) {
 
@@ -158,8 +161,9 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
         mRxManage.add(mModel.listTheComment(resId, userId, partyMemberId).subscribe(new RxSubscriber<BaseResponse<CommentEntity>>(mContext, false) {
             @Override
             protected void _onNext(BaseResponse<CommentEntity> response) {
-                mView.returnTheCommentData(resId,response.getDataList());
+                mView.returnTheCommentData(resId, response.getDataList());
             }
+
             @Override
             protected void _onError(String message) {
 
@@ -173,14 +177,14 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
             return;
         }
 
-        int userId = AppConfig.getInstance().getInt(AppConstant.USER_ID,-1);
-        int memberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID,-1);
-        Log.i("addComment","resId:"+config.getPublishId()+",userId:"+userId+",memberId:"+memberId+",name:"+config.getName()+"config:"+config.getCirclePosition());
-        mRxManage.add(mModel.addComment(Integer.parseInt(config.getPublishId()),userId,memberId ,content).subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
+        int userId = AppConfig.getInstance().getInt(AppConstant.USER_ID, -1);
+        int memberId = AppConfig.getInstance().getInt(AppConstant.MEMBER_ID, -1);
+        Log.i("addComment", "resId:" + config.getPublishId() + ",userId:" + userId + ",memberId:" + memberId + ",name:" + config.getName() + "config:" + config.getCirclePosition());
+        mRxManage.add(mModel.addComment(Integer.parseInt(config.getPublishId()), userId, memberId, content).subscribe(new RxSubscriber<VisitNumResponse>(mContext, false) {
             @Override
             protected void _onNext(VisitNumResponse visitNumResponse) {
                 int id = visitNumResponse.getData();
-                mView.update2AddComment(config.circlePosition, new CommentItem(id+"",config.getName(),config.getPublishUserId(), content, config.getPublishId(), config.getPublishUserId(), config.getName()));
+                mView.update2AddComment(config.circlePosition, new CommentItem(id + "", config.getName(), config.getPublishUserId(), content, config.getPublishId(), config.getPublishUserId(), config.getName()));
             }
 
             @Override
@@ -192,11 +196,12 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
 
     @Override
     public void deleteComment(final int circlePosition, final int commentId, final int commentPosition) {
-        mRxManage.add(mModel.deleteComment(commentId).subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
+        mRxManage.add(mModel.deleteComment(commentId).subscribe(new RxSubscriber<VisitNumResponse>(mContext, false) {
             @Override
             protected void _onNext(VisitNumResponse visitNumResponse) {
-                    mView.update2DeleteComment(circlePosition, commentId+"", commentPosition);
+                mView.update2DeleteComment(circlePosition, commentId + "", commentPosition);
             }
+
             @Override
             protected void _onError(String message) {
             }
@@ -209,55 +214,39 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
      *
      * @param circleId
      */
-    MDAlertDialog mdAlertDialog;
+    CommomDialog commomDialog;
 
     @Override
     public void deleteCircle(final Integer resId, final Integer userId, final Integer partyMemberId, final int position) {
-        mdAlertDialog = new MDAlertDialog.Builder(mContext)
-                .setHeight(0.25f)  //屏幕高度*0.3
-                .setWidth(0.7f)  //屏幕宽度*0.7
-                .setTitleVisible(true)
-                .setTitleText("温馨提示")
-                .setTitleTextColor(R.color.black_light)
-                .setContentText("确定删除该条说说吗？")
-                .setContentTextColor(R.color.black_light)
-                .setLeftButtonText("不删除")
-                .setLeftButtonTextColor(R.color.black_light)
-                .setRightButtonText("删除")
-                .setRightButtonTextColor(R.color.gray)
-                .setTitleTextSize(16)
-                .setContentTextSize(14)
-                .setButtonTextSize(14)
-                .setOnclickListener(new DialogOnClickListener() {
-                    @Override
-                    public void clickLeftButton(View view) {
-                        mdAlertDialog.dismiss();
-                    }
-                    @Override
-                    public void clickRightButton(View view) {
-                        mdAlertDialog.dismiss();
-                        mView.startProgressDialog();
-                        mRxManage.add(mModel.deleteCircle(resId,userId,partyMemberId).subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
-                            @Override
-                            public void onCompleted() {
-                                mView.stopProgressDialog();
-                            }
+        commomDialog = new CommomDialog(mContext, R.style.dialog, "", new CommomDialog.OnCloseListener() {
+            @Override
+            public void onClick(Dialog dialog, boolean confirm) {
+                if (confirm) {
+                    mRxManage.add(mModel.deleteCircle(resId, userId, partyMemberId).subscribe(new RxSubscriber<VisitNumResponse>(mContext, false) {
+                        @Override
+                        public void onCompleted() {
+                            commomDialog.dismiss();
+                        }
 
-                            @Override
-                            protected void _onNext(VisitNumResponse visitNumResponse) {
-                                mView.update2DeleteCircle("", position);
-                            }
+                        @Override
+                        protected void _onNext(VisitNumResponse visitNumResponse) {
+                            mView.update2DeleteCircle("", position);
+                        }
 
-                            @Override
-                            protected void _onError(String message) {
-                                mView.startProgressDialog();
-                                ToastUitl.showToastWithImg(mContext.getString(R.string.net_error), R.drawable.ic_wrong);
-                            }
-                        }));
-                    }
-                })
-                .build();
-        mdAlertDialog.show();
+                        @Override
+                        protected void _onError(String message) {
+                        }
+                    }));
+                }else{
+                    commomDialog.dismiss();
+                }
+            }
+        });
+        commomDialog.setTitle("提示");
+        commomDialog.setContent("确定删除该条说说吗？");
+        commomDialog.isShowCancelBtn(true);
+        commomDialog.setNegativeButton("取消");
+        commomDialog.show();
     }
 
 
@@ -272,9 +261,6 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
     }
 
 
-
-
-
     /**
      * 点赞
      *
@@ -283,11 +269,9 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
 
     @Override
     public void addFavort(Integer resId, Integer userId, Integer partyMemberId, final int circlePosition, final View view) {
-        mView.startProgressDialog();
-        mRxManage.add(mModel.addFavort(resId,userId,partyMemberId).subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
+        mRxManage.add(mModel.addFavort(resId, userId, partyMemberId).subscribe(new RxSubscriber<VisitNumResponse>(mContext, false) {
             @Override
             public void onCompleted() {
-                mView.stopProgressDialog();
             }
 
             @Override
@@ -298,20 +282,19 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
             @Override
             protected void _onNext(VisitNumResponse visitNumResponse) {
                 if (visitNumResponse != null) {
-                    if (mGoodView == null) {
-                        mGoodView = new GoodView(mContext);
-                    }
-                    //mGoodView.setTextInfo("点赞成功", ContextCompat.getColor(mContext, R.color.main_color), 12);
-                    mGoodView.setImage(R.mipmap.dianzan);
-                    mGoodView.show(view);
-                    FavortItem item = new FavortItem(visitNumResponse.getData()+"",visitNumResponse.getData()+"", AppConfig.getInstance().getInt(AppConstant.USER_ID,-1)+"", AppConfig.getInstance().getString(AppConstant.NICK_NAME,""));
+//                    if (mGoodView == null) {
+//                        mGoodView = new GoodView(mContext);
+//                    }
+//                    //mGoodView.setTextInfo("点赞成功", ContextCompat.getColor(mContext, R.color.main_color), 12);
+//                    mGoodView.setImage(R.mipmap.dianzan);
+//                    mGoodView.show(view);
+                    FavortItem item = new FavortItem(visitNumResponse.getData() + "", visitNumResponse.getData() + "", AppConfig.getInstance().getInt(AppConstant.USER_ID, -1) + "", AppConfig.getInstance().getString(AppConstant.NICK_NAME, ""));
                     mView.update2AddFavorite(circlePosition, item);
                 }
             }
 
             @Override
             protected void _onError(String message) {
-
             }
 
         }));
@@ -325,18 +308,14 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
      */
     @Override
     public void deleteFavort(final Integer id, final int circlePosition) {
-        mView.startProgressDialog();
-        mRxManage.add(mModel.deleteFavort(id).subscribe(new RxSubscriber<VisitNumResponse>(mContext,false) {
+        mRxManage.add(mModel.deleteFavort(id).subscribe(new RxSubscriber<VisitNumResponse>(mContext, false) {
             @Override
             public void onCompleted() {
-                mView.stopProgressDialog();
             }
-
-
             @Override
             protected void _onNext(VisitNumResponse visitNumResponse) {
                 if (visitNumResponse != null) {
-                    mView.update2DeleteFavort(circlePosition, AppConfig.getInstance().getInt(AppConstant.USER_ID,-1)+"");
+                    mView.update2DeleteFavort(circlePosition, AppConfig.getInstance().getInt(AppConstant.USER_ID, -1) + "");
                 }
             }
 
@@ -346,7 +325,6 @@ public class CircleZonePresenter extends CircleZoneContract.Presenter {
             }
         }));
     }
-
 
 
 }

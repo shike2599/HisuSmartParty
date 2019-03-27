@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hisu.smart.dj.R;
-import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 
 
 public class CommomDialog extends Dialog implements View.OnClickListener{
