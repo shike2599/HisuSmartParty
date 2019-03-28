@@ -18,6 +18,7 @@ import com.hisu.smart.dj.ui.my.activity.MyNoticeActivity;
 import com.hisu.smart.dj.ui.my.activity.MyCollectActivity;
 
 import com.hisu.smart.dj.ui.my.activity.SettingActivity;
+import com.hisu.smart.dj.ui.web.activity.AllWebActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.ProfileEdit;
 import com.jaydenxiao.common.base.BaseFragment;
@@ -142,11 +143,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 break;
             //我的积分
             case R.id.pe_score:
-                WebActivity.startAction(getActivity(),"我的积分",myIntegral);
+                AllWebActivity.startAction(getActivity(),"我的积分",myIntegral);
                 break;
             //我的审批
             case R.id.pe_approval:
-                WebActivity.startAction(getActivity(),"我的审批",myApproval);
+                AllWebActivity.startAction(getActivity(),"我的审批",myApproval);
                 break;
             //我的收藏
             case R.id.pe_collect:

@@ -25,6 +25,7 @@ import com.hisu.smart.dj.ui.study.activity.StudyListActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyPlanActivity;
 import com.hisu.smart.dj.ui.study.activity.LearningRankingActivity;
 import com.hisu.smart.dj.ui.study.activity.StudyTopicActivity;
+import com.hisu.smart.dj.ui.web.activity.AllWebActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.hisu.smart.dj.ui.widget.MyGridView;
@@ -163,7 +164,7 @@ public class StudyFragment extends BaseFragment implements View.OnClickListener{
                     IactiveLoginActivity.startAction(getActivity(),1);
                 }else if(title=="在线考试"){
                     //在线考试
-                    WebActivity.startAction(getActivity(),"在线考试",online_exam );
+                    AllWebActivity.startAction(getActivity(),"在线考试",online_exam );
                 }
             }
         });

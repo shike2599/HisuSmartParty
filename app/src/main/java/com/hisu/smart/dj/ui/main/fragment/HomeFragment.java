@@ -38,6 +38,7 @@ import com.hisu.smart.dj.ui.my.activity.MyNoticeActivity;
 import com.hisu.smart.dj.ui.news.activity.MediaPlayerActivity;
 import com.hisu.smart.dj.ui.news.activity.NewsActivity;
 import com.hisu.smart.dj.ui.news.activity.PartyNewsActivity;
+import com.hisu.smart.dj.ui.web.activity.AllWebActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.hisu.smart.dj.ui.zone.activity.CircleZoneActivity;
@@ -252,11 +253,11 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         }else if(position == 2){
             NewsActivity.startAction(getActivity(),"三会一课");
         }else if(position == 3){
-            WebActivity.startAction(getActivity(),"在线考试",studyExamination);
+            AllWebActivity.startAction(getActivity(),"在线考试",studyExamination);
         }else if(position == 4){
             NewsActivity.startAction(getActivity(),"基层动态");
         }else if(position == 5){
-            WebActivity.startAction(getActivity(),"党费缴纳",payCost);
+            AllWebActivity.startAction(getActivity(),"党费缴纳",payCost);
         }else if(position == 6){
 //            WebActivity.startAction(getActivity(),"党员圈",partyMembersCircle);
             CircleZoneActivity.startAction(getActivity());
@@ -265,7 +266,7 @@ public class HomeFragment extends BaseFragment<HomeInfoPresenter, HomeInfoModel>
         }else if(position == 8){
            NewsActivity.startAction(getActivity(),"支部活动");
         }else if(position == 9){
-            WebActivity.startAction(getActivity(),"组织关系",partyBuild_relation);
+            AllWebActivity.startAction(getActivity(),"组织关系",partyBuild_relation);
         }
     }
 

@@ -12,6 +12,7 @@ import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.entity.GridViewItemEntity;
 import com.hisu.smart.dj.ui.adapter.GridViewAdapter;
 import com.hisu.smart.dj.ui.news.activity.NewsActivity;
+import com.hisu.smart.dj.ui.web.activity.AllWebActivity;
 import com.hisu.smart.dj.ui.web.activity.WebActivity;
 import com.hisu.smart.dj.ui.widget.BannerWidget;
 import com.hisu.smart.dj.ui.widget.MyGridView;
@@ -114,21 +115,21 @@ public class PartyBuildFragment extends BaseFragment {
                 TextView title_TextView =  view.findViewById(R.id.item_title);
                 String title = title_TextView.getText().toString();
                 if(title=="党委简介"){
-                    WebActivity.startAction(getActivity(),"党委简介",partyBuild_partyCommitContro);
+                    AllWebActivity.startAction(getActivity(),"党委简介",partyBuild_partyCommitContro);
                 }else if(title=="组织关系"){
-                    WebActivity.startAction(getActivity(),"组织关系",partyBuild_relation);
+                    AllWebActivity.startAction(getActivity(),"组织关系",partyBuild_relation);
                 }else if(title=="支部简介"){
-                    WebActivity.startAction(getActivity(),"支部简介",partyBuild_partyBranChIntro);
+                    AllWebActivity.startAction(getActivity(),"支部简介",partyBuild_partyBranChIntro);
                 }else if(title=="党费缴纳"){
-                    WebActivity.startAction(getActivity(),"党费缴纳",partyBuild_payCost);
+                    AllWebActivity.startAction(getActivity(),"党费缴纳",partyBuild_payCost);
                 }else if(title=="党务公开"){
                     NewsActivity.startAction(getActivity(),"党务公开");
                 }else if(title=="党组架构"){
-                    WebActivity.startAction(getActivity(),"党组架构",partyBuild_partyStructure);
+                    AllWebActivity.startAction(getActivity(),"党组架构",partyBuild_partyStructure);
                 }else if(title=="支部活动"){
                     NewsActivity.startAction(getActivity(),"支部活动");
                 }else if(title=="党建大数据"){
-                    WebActivity.startAction(getActivity(),"党建大数据",partyBuild_bigData);
+                    AllWebActivity.startAction(getActivity(),"党建大数据",partyBuild_bigData);
                 }
             }
         });

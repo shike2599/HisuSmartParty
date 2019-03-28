@@ -16,17 +16,18 @@ import com.hisu.smart.dj.app.AppConfig;
 import com.hisu.smart.dj.app.AppConstant;
 import com.hisu.smart.dj.ui.study.activity.StudyExperienceActivity;
 import com.hisu.smart.dj.utils.X5WebView;
+import com.tencent.smtt.sdk.WebView;
 
 public class SystemScript {
     String TAG = "SystemScript";
     private Activity webAc;
     AppConfig appConfig;
-    private X5WebView x5;
+    private WebView x5;
     public SystemScript(Activity activity){
         appConfig = AppConfig.getInstance();
         webAc = activity;
     }
-    public SystemScript(Activity activity,X5WebView webView){
+    public SystemScript(Activity activity,WebView webView){
         appConfig = AppConfig.getInstance();
         webAc = activity;
         x5 = webView;
