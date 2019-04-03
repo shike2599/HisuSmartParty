@@ -91,7 +91,7 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
     private Integer userId;
     private Integer partyMemberId;
 
-    private List<CircleItem> circleItemList = new ArrayList<>();
+    private List<CircleItem> circleItemList = new ArrayList<>();;
 
     private String TAG = "CircleZoneActivity";
 
@@ -189,7 +189,10 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i(TAG,"onResume==========================================================");
         //首次加载数据
+        circleItemList.clear();
+        mAdapter.getPageBean().setRefresh(true);
         mPresenter.getListData(null, null, "5007", null, null, pageSize);
     }
 
@@ -517,6 +520,7 @@ public class CircleZoneActivity extends BaseActivity<CircleZonePresenter, ZoneMo
             if (mAdapter.getPageBean().isRefresh()) {
                 irc.setRefreshing(false);
             }
+            loadedTip.setLoadingTip(LoadingTip.LoadStatus.finish);
             irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
         }
     }
